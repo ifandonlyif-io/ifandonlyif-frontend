@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Exo 2', Roboto, ui-sans-serif, system-ui, -apple-system,
+      BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, 'Noto Sans',
+      sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+      'Noto Color Emoji';
+  }
+}
+
+@layer utilities {
+  .text-shadow-button-3 {
+    text-shadow: 0px 0px 2px #46ffe6;
+  }
+}
