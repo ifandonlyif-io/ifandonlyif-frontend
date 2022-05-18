@@ -13,6 +13,12 @@
 
 @layer utilities {
   .text-shadow-button-3 {
-    text-shadow: 0px 0px 2px #46ffe6;
+    text-shadow: 0px 0px 2px #46FFE6;
+  }
+  .clip-path-corner {
+    clip-path: path('M5 5L51 5L40.0625 12L12 12L12 35L5 42L5 5Z');
+  }
+  .clip-path-rhombus {
+    clip-path: path('M5 15L14 5V15L5 25V15Z');
   }
 }
