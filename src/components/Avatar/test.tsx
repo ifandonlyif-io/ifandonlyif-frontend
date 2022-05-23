@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 
-import Avatar from '.'
+import { Avatar } from '.'
 
 describe('<Avatar />', () => {
   const props = {
@@ -55,7 +55,7 @@ describe('<Avatar />', () => {
   })
 
   it('should render the empty Avatar', () => {
-    const { container } = render(<Avatar />)
+    const { container } = render(<Avatar src="" />)
 
     expect(screen.getByTestId('empty-avatar')).toBeInTheDocument()
 
