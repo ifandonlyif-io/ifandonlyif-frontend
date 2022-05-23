@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --iff-cube-size: 148.8px; /* 48px * 3.1 */
+  }
+
   html {
     font-family: 'Exo 2', Roboto, ui-sans-serif, system-ui, -apple-system,
       BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, 'Noto Sans',
@@ -48,6 +52,9 @@
   .text-shadow-subtitle-3 {
     text-shadow: 0px 1.2px 0.86px rgba(0, 0, 0, 0.25), 0px 0.6px 10px #46FFE6;
   }
+  .text-shadow-iff-cube {
+    text-shadow: 0 0 10px #468ff6, 0 0 5px #AC53CF, 0 0 5px #28D7BF, 0 0 5px #4579FF;
+  }
   .clip-path-corner {
     clip-path: path('M5 5L51 5L40.0625 12L12 12L12 35L5 42L5 5Z');
   }
@@ -83,5 +90,9 @@
   }
   .subtitle-3 {
     @apply font-bold text-[6px] leading-normal;
+  }
+
+  .iff-cube-face {
+    @apply absolute inset-y-0 m-auto h-[33.33333333%] w-full bg-black [backface-visibility:hidden] uppercase;
   }
 }

@@ -21,6 +21,16 @@ module.exports = {
         'neon-cyan': '0px 0px 5px #46FFE6',
         'neon-purple': '0px 0px 5px #A585FF',
       },
+      keyframes: {
+        datspintho: {
+          '60%': { transform: 'rotateY(405deg) rotateX(-360deg)' },
+          '61%': { transform: 'rotateY(405deg) rotateX(-360deg)' },
+          '100%': { transform: 'rotateY(405deg) rotateX(-360deg)' },
+        },
+      },
+      animation: {
+        datspintho: 'datspintho 10s 0s ease-in-out infinite',
+      },
     },
   },
   plugins: [],

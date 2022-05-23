@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 
-import { IFFLogo as Logo } from './index'
+import { IFFCube as Cube, IFFLogo as Logo } from './index'
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -8,7 +8,6 @@ export default {
   component: Logo,
 } as ComponentMeta<typeof Logo>
 
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const TemplateIFFLogo: ComponentStory<typeof Logo> = () => <Logo />
+export const IFFLogo: ComponentStory<typeof Logo> = () => <Logo />
 
-export const IFFLogo = TemplateIFFLogo.bind({})
+export const IFFCube: ComponentStory<typeof Cube> = () => <Cube />
