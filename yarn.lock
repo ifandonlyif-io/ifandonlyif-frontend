@@ -7757,7 +7757,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clsx@npm:^1.0.4":
+"clsx@npm:^1.0.4, clsx@npm:^1.1.0":
   version: 1.1.1
   resolution: "clsx@npm:1.1.1"
   checksum: ff052650329773b9b245177305fc4c4dc3129f7b2be84af4f58dc5defa99538c61d4207be7419405a5f8f3d92007c954f4daba5a7b74e563d5de71c28c830063
@@ -11526,6 +11526,7 @@ __metadata:
     prettier: 2.6.2
     react: ^18.1.0
     react-dom: ^18.1.0
+    react-tabs: ^5.1.0
     tailwindcss: ^3.0.24
     typescript: ^4.6.4
     vite: ^2.9.9
@@ -15376,7 +15377,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.0.0, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
+"prop-types@npm:^15.0.0, prop-types@npm:^15.5.0, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -15767,6 +15768,18 @@ __metadata:
   peerDependencies:
     react: ">= 0.14.0"
   checksum: c082b48f30f8ba8d0c55ed1d761910630860077c7ff5793c4c912adcb5760df06436ed0ad62be0de28113aac9ad2af55eccd995f8eee98df53382e4ced2072fb
+  languageName: node
+  linkType: hard
+
+"react-tabs@npm:^5.1.0":
+  version: 5.1.0
+  resolution: "react-tabs@npm:5.1.0"
+  dependencies:
+    clsx: ^1.1.0
+    prop-types: ^15.5.0
+  peerDependencies:
+    react: ^18.0.0
+  checksum: e1d62a226d9b0b974af475533a2fed3d9105730631004d758d7bdd5da763987425d8bcee2c621f74417f9b1bd80fb6b90ff2310a1f256b16bbbf4c22ad1fd2f0
   languageName: node
   linkType: hard
 
