@@ -99,36 +99,37 @@
   .iff-cube-face {
     @apply absolute inset-y-0 m-auto h-[33.33333333%] w-full bg-black [backface-visibility:hidden] uppercase;
   }
+}
 
-  /* react-tabs */
-  .react-tabs {
-    @apply [-webkit-tap-highlight-color:transparent] bg-white;
-  }
-  .react-tabs__tab-list {
-    @apply flex flex-row m-0 p-0;
-  }
-  .react-tabs__tab {
-    @apply
-      flex flex-row items-center justify-center box-border cursor-pointer list-none focus:outline-none
-      w-[170px] h-[50px] mx-[15px] border-b-[3px] border-solid border-transparent bg-transparent
-      text-center font-bold text-base text-[#333333] leading-none [letter-spacing:0.05em] uppercase
-    ;
-  }
-  .react-tabs__tab--selected {
-    @apply [text-shadow:1px_-1px_14px_#46FFE6] border-iff-cyan;
-  }
-  .react-tabs__tab--disabled {
-    @apply text-[#4F4F4F] cursor-default;
-  }
-  .react-tabs__tab--warned:after {
-    @apply content-['_'] inline-block w-1.5 h-1.5 ml-[6px] -mt-2.5 rounded-full bg-[#FF906D];
-  }
-  /* .react-tabs__tab:focus {} */
-  /* .react-tabs__tab:focus:after {} */
-  .react-tabs__tab-panel {
-    @apply hidden;
-  }
-  .react-tabs__tab-panel--selected {
-    @apply block;
-  }
+/* 3rd part components classes layer */
+/* react-tabs */
+.react-tabs {
+  @apply [-webkit-tap-highlight-color:transparent] bg-white;
+}
+.react-tabs__tab-list {
+  @apply flex flex-row m-0 p-0;
+}
+.react-tabs__tab {
+  @apply
+    flex flex-row items-center justify-center box-border cursor-pointer list-none focus:outline-none
+    w-[170px] h-[50px] mx-[15px] border-b-[3px] border-solid border-transparent bg-transparent
+    text-center font-bold text-base text-[#333333] leading-none [letter-spacing:0.05em] uppercase
+  ;
+}
+.react-tabs__tab--selected {
+  @apply [text-shadow:1px_-1px_14px_#46FFE6] border-iff-cyan;
+}
+.react-tabs__tab--disabled {
+  @apply text-[#4F4F4F] cursor-default;
+}
+.react-tabs__tab--warned:after {
+  @apply content-['_'] inline-block w-1.5 h-1.5 ml-[6px] -mt-2.5 rounded-full bg-[#FF906D];
+}
+/* .react-tabs__tab:focus {} */
+/* .react-tabs__tab:focus:after {} */
+.react-tabs__tab-panel {
+  @apply hidden;
+}
+.react-tabs__tab-panel--selected {
+  @apply block;
 }

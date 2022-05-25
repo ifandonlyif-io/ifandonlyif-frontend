@@ -14,10 +14,7 @@ export default {
   component: Tabs,
 } as ComponentMeta<typeof Tabs>
 
-/**
- * @TODO: current has a bug https://github.com/tailwindlabs/tailwindcss/issues/8424
- */
-export const Default: ComponentStory<typeof RTabs> = () => (
+export const Original: ComponentStory<typeof RTabs> = () => (
   <RTabs>
     <RTabList>
       <RTab>Title 1</RTab>
@@ -30,6 +27,21 @@ export const Default: ComponentStory<typeof RTabs> = () => (
       <h2>Any content 2</h2>
     </RTabPanel>
   </RTabs>
+)
+
+export const Wrapped: ComponentStory<typeof Tabs> = () => (
+  <Tabs>
+    <TabList>
+      <Tab>Title 1</Tab>
+      <Tab warned>Title 2</Tab>
+    </TabList>
+    <TabPanel>
+      <h2>Any content 1</h2>
+    </TabPanel>
+    <TabPanel>
+      <h2>Any content 2</h2>
+    </TabPanel>
+  </Tabs>
 )
 
 export const Controlled: ComponentStory<typeof Tabs> = () => {

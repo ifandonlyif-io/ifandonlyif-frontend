@@ -28,13 +28,11 @@ const Tab: ReactTabsFunctionComponent<TabProps> = ({
 )
 Tab.tabsRole = 'Tab'
 
-type TabPanelProps = RTabPanelProps & {
-  selected?: boolean
-}
+type TabPanelProps = RTabPanelProps
 const TabPanel: ReactTabsFunctionComponent<TabPanelProps> = ({
   children,
   className,
-  selected = false,
+  selected,
   ...props
 }) => (
   <RTabPanel
