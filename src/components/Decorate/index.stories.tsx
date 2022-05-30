@@ -1,6 +1,12 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 
-import { NeonBorder, NeonCorner, NeonLine, NeonRhombus } from './index'
+import {
+  NeonBorder,
+  NeonCorner,
+  NeonLine,
+  NeonRhombus,
+  NeonUnderline,
+} from './index'
 
 export default {
   title: 'Components/Decorate',
@@ -36,3 +42,7 @@ NeonBorderPurple.args = {
   flip: false,
   color: 'purple',
 }
+
+export const NeonUnderlineCyan: ComponentStory<typeof NeonUnderline> = () => (
+  <NeonUnderline />
+)

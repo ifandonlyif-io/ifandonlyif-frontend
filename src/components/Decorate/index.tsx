@@ -70,7 +70,6 @@ export function NeonLine({ className, color = 'cyan' }: NeonComponent) {
 type NeonBorder = NeonComponent & {
   flip?: boolean
 }
-
 export function NeonBorder({
   className,
   color = 'cyan',
@@ -91,6 +90,26 @@ export function NeonBorder({
       <NeonRhombus className="mb-[6px]" color={color} />
       <NeonLine className="ml-[5px]" color={color} />
       <NeonCorner className="-scale-x-100 rotate-180" color={color} />
+    </div>
+  )
+}
+
+type NeonUnderline = NeonComponent
+export function NeonUnderline({ className, color = 'cyan' }: NeonUnderline) {
+  return (
+    <div
+      className={classNames(
+        'flex flex-row flex-nowrap justify-center items-center h-[30px]',
+        className
+      )}
+    >
+      <NeonLine className="rotate-90" color={color} />
+      <div className="flex flex-row flex-nowrap justify-center items-center ml-44">
+        <NeonRhombus className="rotate-90" color={color} />
+        <NeonRhombus className="rotate-90" color={color} />
+        <NeonRhombus className="rotate-90" color={color} />
+        <NeonRhombus className="rotate-90" color={color} />
+      </div>
     </div>
   )
 }
