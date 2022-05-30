@@ -5224,6 +5224,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/luxon@npm:^2.3.2":
+  version: 2.3.2
+  resolution: "@types/luxon@npm:2.3.2"
+  checksum: b9fe79118681f4bb9f2e37696a7df992a82683ba4448e7ad1af8cc241443ffc64ef08fdeaad749de9e6259b42b0d4b6540d7e880bca39bb504e0f3863d503c98
+  languageName: node
+  linkType: hard
+
 "@types/mdast@npm:^3.0.0":
   version: 3.0.10
   resolution: "@types/mdast@npm:3.0.10"
@@ -11498,6 +11505,7 @@ __metadata:
     "@testing-library/jest-dom": ^5.16.4
     "@testing-library/react": ^13.2.0
     "@types/jest": ^27.5.1
+    "@types/luxon": ^2.3.2
     "@types/node": ^17.0.34
     "@types/react": ^18.0.9
     "@types/react-dom": ^18.0.4
@@ -11522,6 +11530,7 @@ __metadata:
     jest: ^28.1.0
     jest-environment-jsdom: ^28.1.0
     lint-staged: ^12.4.1
+    luxon: ^2.4.0
     postcss: ^8.4.14
     prettier: 2.6.2
     react: ^18.1.0
@@ -13448,6 +13457,13 @@ __metadata:
   version: 7.9.0
   resolution: "lru-cache@npm:7.9.0"
   checksum: c91a293a103d11ea4f07de4122ba4f73d8203d0de51852fb612b1764296aebf623a3e11dddef1b3aefdc8d71af97d52b222dad5459dcb967713bbab9a19fed7d
+  languageName: node
+  linkType: hard
+
+"luxon@npm:^2.4.0":
+  version: 2.4.0
+  resolution: "luxon@npm:2.4.0"
+  checksum: 6071028d65cc3d3bdab5e6a3995dd97411c92bb3b3163a02deb7b7014318ad3a6fd750ae77131c42141b717c14aef8880d3130f265281d500ef2365f7265b3f3
   languageName: node
   linkType: hard
 
