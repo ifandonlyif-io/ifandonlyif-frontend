@@ -3,7 +3,7 @@ import { classNames } from 'utils'
 
 type Size = 'small' | 'medium' | 'large'
 
-type Button = {
+export type ButtonProps = {
   className?: string
   primary?: boolean
   outline?: boolean
@@ -25,7 +25,7 @@ export function Button({
   size = 'medium',
   children,
   ...props
-}: Button) {
+}: ButtonProps) {
   return (
     <button
       className={classNames(

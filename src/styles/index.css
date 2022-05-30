@@ -104,7 +104,8 @@
 /* 3rd part components classes layer */
 /* react-tabs */
 .react-tabs {
-  @apply [-webkit-tap-highlight-color:transparent] bg-white;
+  @apply bg-white;
+  -webkit-tap-highlight-color: transparent;
 }
 .react-tabs__tab-list {
   @apply flex flex-row m-0 p-0;
@@ -113,11 +114,13 @@
   @apply
     flex flex-row items-center justify-center box-border cursor-pointer list-none focus:outline-none
     w-[170px] h-[50px] mx-[15px] border-b-[3px] border-solid border-transparent bg-transparent
-    text-center font-bold text-base text-[#333333] leading-none [letter-spacing:0.05em] uppercase
+    text-center font-bold text-base text-[#333333] leading-none uppercase
   ;
+  letter-spacing: 0.05em;
 }
 .react-tabs__tab--selected {
-  @apply [text-shadow:1px_-1px_14px_#46FFE6] border-iff-cyan;
+  @apply border-iff-cyan;
+  text-shadow: 1px -1px 14px #46FFE6;
 }
 .react-tabs__tab--disabled {
   @apply text-[#4F4F4F] cursor-default;
@@ -131,5 +134,18 @@
   @apply hidden;
 }
 .react-tabs__tab-panel--selected {
+  @apply block;
+}
+.react-tabs__tab-switchers {
+  @apply max-w-[640px] bg-transparent;
+  -webkit-tap-highlight-color: transparent;
+}
+.react-tabs__tab-switcher-list {
+  @apply flex flex-row items-center w-full h-11 rounded border-2 border-iff-cyan shadow-iff-button bg-transparent;
+}
+.react-tabs__tab-switcher {
+  @apply flex justify-center items-center w-full max-w-[320px] h-11 rounded font-bold text-base leading-5 text-center cursor-pointer;
+}
+.react-tabs__tab-switcher--selected {
   @apply block;
 }

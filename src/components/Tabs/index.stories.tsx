@@ -7,7 +7,7 @@ import {
   Tabs as RTabs,
 } from 'react-tabs'
 
-import { Tab, TabList, TabPanel, Tabs } from './index'
+import { Tab, TabList, TabPanel, Tabs, TabSwitchers } from './index'
 
 export default {
   title: 'Components/Tabs',
@@ -62,3 +62,16 @@ export const Controlled: ComponentStory<typeof Tabs> = () => {
     </Tabs>
   )
 }
+
+export const TabSwitch: ComponentStory<typeof TabSwitchers> = () => (
+  <TabSwitchers
+    switcherText={{ left: 'NFTs HOLDER CHECK', right: 'FAKE SITES CHECK' }}
+  >
+    <TabPanel>
+      <h2 className="bg-white">Any content 1</h2>
+    </TabPanel>
+    <TabPanel>
+      <h2 className="bg-white">Any content 2</h2>
+    </TabPanel>
+  </TabSwitchers>
+)
