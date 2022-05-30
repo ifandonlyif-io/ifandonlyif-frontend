@@ -1,10 +1,10 @@
 import React from 'react'
+import { BaseComponent } from 'types'
 import { classNames } from 'utils'
 
 type Size = 'small' | 'medium' | 'large'
 
-export type ButtonProps = {
-  className?: string
+export type ButtonProps = BaseComponent & {
   primary?: boolean
   outline?: boolean
   size?: Size
@@ -38,6 +38,40 @@ export function Button({
         className
       )}
       type="button"
+      {...props}
+    >
+      {children}
+    </button>
+  )
+}
+
+type NFTButtonProps = Omit<ButtonProps, 'primary' | 'size'> & {
+  size?: Exclude<Size, 'large'>
+}
+
+const nftSizes: Record<Exclude<Size, 'large'>, string> = {
+  small: 'w-[70px]',
+  medium: 'w-full',
+}
+
+export function NFTButton({
+  children,
+  className,
+  outline,
+  size = 'medium',
+  ...props
+}: NFTButtonProps) {
+  return (
+    <button
+      className={classNames(
+        'flex flex-row justify-center items-center py-1 rounded border-[1px] border-solid',
+        'text-sm font-bold text-center uppercase',
+        outline
+          ? 'bg-transparent border-iff-cyan text-[#14D6D6]'
+          : 'bg-[#182948] bg-gradient-nft-button border-[#28425D] text-iff-cyan',
+        nftSizes[size],
+        className
+      )}
       {...props}
     >
       {children}
