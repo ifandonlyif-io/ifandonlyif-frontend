@@ -74,7 +74,7 @@ export function NFTFrame({
           {expired ? (
             <NFTButton
               outline
-              className="text-[#FF906D] border-[#FFC8A0]"
+              className="!text-[#FF906D] !border-[#FFC8A0]"
               onClick={onHideClick}
             >
               Hide

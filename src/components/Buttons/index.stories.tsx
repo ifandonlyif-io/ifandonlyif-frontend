@@ -55,21 +55,21 @@ NFTOutline.args = {
 export const NFTHide = NFTTemplate.bind({})
 NFTHide.args = {
   children: 'Hide',
-  className: 'text-[#FF906D] border-[#FFC8A0]',
+  className: '!text-[#FF906D] !border-[#FFC8A0]',
   outline: true,
 }
 
 export const NFTSmall = NFTTemplate.bind({})
 NFTSmall.args = {
   children: 'Memo',
-  className: 'text-[#CBB9FF]',
+  className: '!text-[#CBB9FF]',
   size: 'small',
 }
 
 export const NFTSmallOutline = NFTTemplate.bind({})
 NFTSmallOutline.args = {
   children: 'View',
-  className: 'text-[#A585FF] border-[#A585FF]',
+  className: '!text-[#A585FF] !border-[#A585FF]',
   outline: true,
   size: 'small',
 }

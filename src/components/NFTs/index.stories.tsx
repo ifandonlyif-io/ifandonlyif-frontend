@@ -42,14 +42,14 @@ TwoButtons.args = {
       <NFTButton
         outline
         size="small"
-        className="text-[#A585FF] border-[#A585FF]"
+        className="!text-[#A585FF] !border-[#A585FF]"
         onClick={() => window.alert('Click!')}
       >
         View
       </NFTButton>
       <NFTButton
         size="small"
-        className="text-[#CBB9FF]"
+        className="!text-[#CBB9FF]"
         onClick={() => window.alert('Click!')}
       >
         Memo
