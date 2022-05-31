@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react'
-import { NFTButton } from 'components/Button'
+import { NFTButton } from 'components/Buttons'
 import { Fragment } from 'react'
 
 import { NFTFrame } from '.'
