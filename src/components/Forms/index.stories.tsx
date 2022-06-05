@@ -1,12 +1,12 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react'
+import { ComponentStory } from '@storybook/react'
 import React from 'react'
 
 import { Input, SelectMenuOption, SelectMenus, Textarea } from './index'
+import { Radio, RadioGroup } from './radio'
 
 export default {
   title: 'Components/Forms',
-  component: SelectMenus,
-} as ComponentMeta<typeof SelectMenus>
+}
 
 const defaultSelectOptions: SelectMenuOption[] = [
   { label: 'Apple', value: 'apple' },
@@ -15,21 +15,27 @@ const defaultSelectOptions: SelectMenuOption[] = [
   { label: 'Microsoft', value: 'microsoft' },
 ]
 
-export const SelectMenusComponent: ComponentStory<typeof SelectMenus> = () => (
+export const SelectMenusComponent: ComponentStory<typeof SelectMenus> = (
+  args
+) => (
   <div className="w-80">
-    <SelectMenus
-      placeholder="Please select"
-      options={defaultSelectOptions}
-      onOptionChange={(option) => window.alert(option.value)}
-    />
+    <SelectMenus {...args} />
   </div>
 )
+SelectMenusComponent.args = {
+  placeholder: 'Please select',
+  options: defaultSelectOptions,
+  onOptionChange: (option) => window.alert(option.value),
+}
 
-export const InputComponent: ComponentStory<typeof Input> = () => (
+export const InputComponent: ComponentStory<typeof Input> = (args) => (
   <div className="w-80">
-    <Input placeholder="#" />
+    <Input {...args} />
   </div>
 )
+InputComponent.args = {
+  placeholder: '#',
+}
 
 export const TextareaComponent: ComponentStory<typeof Textarea> = () => {
   const [value, setValue] = React.useState('')
@@ -51,4 +57,27 @@ export const TextareaComponent: ComponentStory<typeof Textarea> = () => {
       />
     </div>
   )
+}
+
+export const RadioComponent: ComponentStory<typeof Radio> = (args) => (
+  <Radio {...args}>Email</Radio>
+)
+RadioComponent.args = {
+  id: 'radio-email',
+  name: 'contact',
+  value: 'email',
+  checked: false,
+}
+
+export const RadioGroupComponent: ComponentStory<typeof RadioGroup> = (
+  args
+) => (
+  <RadioGroup {...args}>
+    <Radio value="email">Email</Radio>
+    <Radio value="phone">Phone</Radio>
+    <Radio value="fax">Fax</Radio>
+  </RadioGroup>
+)
+RadioGroupComponent.args = {
+  name: 'contact',
 }

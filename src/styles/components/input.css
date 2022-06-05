@@ -1,0 +1,5 @@
+@layer components {
+  .input-checkbox {
+    @apply box-border flex-row justify-center items-center w-[18px] h-[18px] mr-2 rounded-sm border-[1px] border-iff-cyan border-solid;
+  }
+}
