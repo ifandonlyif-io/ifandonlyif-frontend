@@ -1,155 +1,15 @@
+@import './components/index';
+@import './utilities/index';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --iff-cube-size: 148.8px; /* 48px * 3.1 */
-  }
-
   html {
     font-family: 'Exo 2', Roboto, ui-sans-serif, system-ui, -apple-system,
       BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, 'Noto Sans',
       sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
       'Noto Color Emoji';
   }
-}
-
-@layer utilities {
-  .text-shadow-button-3 {
-    text-shadow: 0px 0px 2px #46ffe6;
-  }
-  .text-shadow-heading-1 {
-    text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.25), 0px 2px 35px #46ffe6; /* Neon Cyan Heading 1 66px */
-  }
-  .text-shadow-heading-2 {
-    text-shadow: 0px 0px 8px rgba(14, 255, 241, 0.95); /* Neon Cyan Heading 2 56px */
-  }
-  .text-shadow-heading-2-purple {
-    text-shadow: 0px -6px 18px #bda6ff, 0px 2px 4px rgba(0, 0, 0, 0.25); /* Neon Purple Heading 2 56px */
-  }
-  .text-shadow-heading-3 {
-    text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.25), 0px 2px 35px #46ffe6; /* Neon Cyan Heading 3 40px */
-  }
-  .text-shadow-heading-4 {
-    text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25), 0px 0px 6px #46ffe6; /* Neon Cyan Heading 4 30px */
-  }
-  .text-shadow-heading-4-purple {
-    text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25), 0px 0px 10px #fb46ff; /* Neon Purple Heading 4 30px */
-  }
-  .text-shadow-heading-5 {
-    text-shadow: 0px 1px 8px rgba(49, 82, 255, 0.8),
-      0px 4px 4px rgba(0, 0, 0, 0.25); /* Neon Cyan Heading 5 24px */
-  }
-  .text-shadow-heading-6 {
-    text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.25), 0px 2px 35px #46ffe6; /* Neon Cyan Heading 6 20px */
-  }
-  .text-shadow-subtitle-1 {
-    text-shadow: 0px 1.2px 0.86px rgba(0, 0, 0, 0.25), 0px 0.6px 10px #46ffe6;
-  }
-  .text-shadow-subtitle-2 {
-    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
-  }
-  .text-shadow-subtitle-3 {
-    text-shadow: 0px 1.2px 0.86px rgba(0, 0, 0, 0.25), 0px 0.6px 10px #46ffe6;
-  }
-  .text-shadow-iff-cube {
-    text-shadow: 0 0 10px #468ff6, 0 0 5px #ac53cf, 0 0 5px #28d7bf,
-      0 0 5px #4579ff;
-  }
-
-  .clip-path-corner {
-    clip-path: path('M5 5L51 5L40.0625 12L12 12L12 35L5 42L5 5Z');
-  }
-  .clip-path-rhombus {
-    clip-path: path('M5 15L14 5V15L5 25V15Z');
-  }
-
-  .bg-gradient-nft-button {
-    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
-  }
-}
-
-@layer components {
-  .heading-1 {
-    @apply font-bold text-[66px] leading-normal;
-  }
-  .heading-2 {
-    @apply font-bold text-[56px] leading-normal;
-  }
-  .heading-3 {
-    @apply font-bold text-[40px] leading-normal;
-  }
-  .heading-4 {
-    @apply font-bold text-[30px] leading-normal;
-  }
-  .heading-5 {
-    @apply font-bold text-[24px] leading-normal;
-  }
-  .heading-6 {
-    @apply font-bold text-[20px] leading-normal;
-  }
-
-  .subtitle-1 {
-    @apply font-bold text-[18px] leading-normal;
-  }
-  .subtitle-2 {
-    @apply font-bold text-[14px] leading-normal;
-  }
-  .subtitle-3 {
-    @apply font-bold text-[6px] leading-normal;
-  }
-
-  .iff-cube-face {
-    @apply absolute inset-y-0 m-auto h-[33.33333333%] w-full bg-black [backface-visibility:hidden] uppercase;
-  }
-}
-
-/* 3rd part components classes layer */
-/* react-tabs */
-.react-tabs {
-  @apply bg-white;
-  -webkit-tap-highlight-color: transparent;
-}
-.react-tabs__tab-list {
-  @apply flex flex-row m-0 p-0;
-}
-.react-tabs__tab {
-  @apply
-    flex flex-row items-center justify-center box-border cursor-pointer list-none focus:outline-none
-    w-[170px] h-[50px] mx-[15px] border-b-[3px] border-solid border-transparent bg-transparent
-    text-center font-bold text-base text-[#333333] leading-none uppercase
-  ;
-  letter-spacing: 0.05em;
-}
-.react-tabs__tab--selected {
-  @apply border-iff-cyan;
-  text-shadow: 1px -1px 14px #46FFE6;
-}
-.react-tabs__tab--disabled {
-  @apply text-[#4F4F4F] cursor-default;
-}
-.react-tabs__tab--warned:after {
-  @apply content-['_'] inline-block w-1.5 h-1.5 ml-[6px] -mt-2.5 rounded-full bg-[#FF906D];
-}
-/* .react-tabs__tab:focus {} */
-/* .react-tabs__tab:focus:after {} */
-.react-tabs__tab-panel {
-  @apply hidden;
-}
-.react-tabs__tab-panel--selected {
-  @apply block;
-}
-.react-tabs__tab-switchers {
-  @apply max-w-[640px] bg-transparent;
-  -webkit-tap-highlight-color: transparent;
-}
-.react-tabs__tab-switcher-list {
-  @apply flex flex-row items-center w-full h-11 rounded border-2 border-iff-cyan shadow-iff-button bg-transparent;
-}
-.react-tabs__tab-switcher {
-  @apply flex justify-center items-center w-full max-w-[320px] h-11 rounded font-bold text-base leading-5 text-center cursor-pointer;
-}
-.react-tabs__tab-switcher--selected {
-  @apply block;
 }

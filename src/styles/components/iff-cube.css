@@ -1,0 +1,11 @@
+@layer base {
+  :root {
+    --iff-cube-size: 148.8px; /* 48px * 3.1 */
+  }
+}
+
+@layer components {
+  .iff-cube-face {
+    @apply absolute inset-y-0 m-auto h-[33.33333333%] w-full bg-black [backface-visibility:hidden] uppercase;
+  }
+}

@@ -1,0 +1,27 @@
+@layer components {
+  .heading {
+    &-1 {
+      @apply font-bold text-[66px] leading-normal;
+    }
+
+    &-2 {
+      @apply font-bold text-[56px] leading-normal;
+    }
+
+    &-3 {
+      @apply font-bold text-[40px] leading-normal;
+    }
+
+    &-4 {
+      @apply font-bold text-[30px] leading-normal;
+    }
+
+    &-5 {
+      @apply font-bold text-[24px] leading-normal;
+    }
+
+    &-6 {
+      @apply font-bold text-[20px] leading-normal;
+    }
+  }
+}

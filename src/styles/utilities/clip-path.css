@@ -1,0 +1,11 @@
+@layer utilities {
+  .clip-path {
+    &-corner {
+      clip-path: path('M5 5L51 5L40.0625 12L12 12L12 35L5 42L5 5Z');
+    }
+
+    &-rhombus {
+      clip-path: path('M5 15L14 5V15L5 25V15Z');
+    }
+  }
+}

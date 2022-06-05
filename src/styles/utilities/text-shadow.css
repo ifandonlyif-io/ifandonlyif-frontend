@@ -1,0 +1,61 @@
+@layer utilities {
+  .text-shadow-button {
+    &-3 {
+      text-shadow: 0px 0px 2px #46ffe6;
+    }
+  }
+
+  .text-shadow-heading {
+    &-1 {
+      text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.25), 0px 2px 35px #46ffe6; /* Neon Cyan Heading 1 66px */
+    }
+
+    &-2 {
+      text-shadow: 0px 0px 8px rgba(14, 255, 241, 0.95); /* Neon Cyan Heading 2 56px */
+
+      &-purple {
+        text-shadow: 0px -6px 18px #bda6ff, 0px 2px 4px rgba(0, 0, 0, 0.25); /* Neon Purple Heading 2 56px */
+      }
+    }
+
+    &-3 {
+      text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.25), 0px 2px 35px #46ffe6; /* Neon Cyan Heading 3 40px */
+    }
+
+    &-4 {
+      text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25), 0px 0px 6px #46ffe6; /* Neon Cyan Heading 4 30px */
+
+      &-purple {
+        text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25), 0px 0px 10px #fb46ff; /* Neon Purple Heading 4 30px */
+      }
+    }
+
+    &-5 {
+      text-shadow: 0px 1px 8px rgba(49, 82, 255, 0.8),
+        0px 4px 4px rgba(0, 0, 0, 0.25); /* Neon Cyan Heading 5 24px */
+    }
+
+    &-6 {
+      text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.25), 0px 2px 35px #46ffe6; /* Neon Cyan Heading 6 20px */
+    }
+  }
+
+  .text-shadow-subtitle {
+    &-1 {
+      text-shadow: 0px 1.2px 0.86px rgba(0, 0, 0, 0.25), 0px 0.6px 10px #46ffe6;
+    }
+
+    &-2 {
+      text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    &-3 {
+      text-shadow: 0px 1.2px 0.86px rgba(0, 0, 0, 0.25), 0px 0.6px 10px #46ffe6;
+    }
+  }
+
+  .text-shadow-iff-cube {
+    text-shadow: 0 0 10px #468ff6, 0 0 5px #ac53cf, 0 0 5px #28d7bf,
+      0 0 5px #4579ff;
+  }
+}

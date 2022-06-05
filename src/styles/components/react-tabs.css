@@ -1,0 +1,59 @@
+/* react-tabs */
+.react-tabs {
+  @apply bg-white;
+  -webkit-tap-highlight-color: transparent;
+
+  &__tab-list {
+    @apply flex flex-row m-0 p-0;
+  }
+
+  &__tab {
+    @apply
+      flex flex-row items-center justify-center box-border cursor-pointer list-none focus:outline-none
+      w-[170px] h-[50px] mx-[15px] border-b-[3px] border-solid border-transparent bg-transparent
+      text-center font-bold text-base text-[#333333] leading-none uppercase
+    ;
+    letter-spacing: 0.05em;
+
+    &--selected {
+      @apply border-iff-cyan;
+      text-shadow: 1px -1px 14px #46FFE6;
+    }
+
+    &--disabled {
+      @apply text-[#4F4F4F] cursor-default;
+    }
+
+    &--warned:after {
+      @apply content-['_'] inline-block w-1.5 h-1.5 ml-[6px] -mt-2.5 rounded-full bg-[#FF906D];
+    }
+
+    /* &:focus {} */
+    /* &:focus:after {} */
+  }
+
+  &__tab-panel {
+    @apply hidden;
+
+    &--selected {
+      @apply block;
+    }
+  }
+
+  &__tab-switchers {
+    @apply max-w-[640px] bg-transparent;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  &__tab-switcher-list {
+    @apply flex flex-row items-center w-full h-11 rounded border-2 border-iff-cyan shadow-iff-button bg-transparent;
+  }
+
+  &__tab-switcher {
+    @apply flex justify-center items-center w-full max-w-[320px] h-11 rounded font-bold text-base leading-5 text-center cursor-pointer;
+
+    &--selected {
+      @apply block;
+    }
+  }
+}

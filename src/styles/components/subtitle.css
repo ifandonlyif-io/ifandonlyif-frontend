@@ -1,0 +1,15 @@
+@layer components {
+  .subtitle {
+    &-1 {
+      @apply font-bold text-[18px] leading-normal;
+    }
+
+    &-2 {
+      @apply font-bold text-[14px] leading-normal;
+    }
+
+    &-3 {
+      @apply font-bold text-[6px] leading-normal;
+    }
+  }
+}
