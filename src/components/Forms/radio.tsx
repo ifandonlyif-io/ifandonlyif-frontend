@@ -57,7 +57,7 @@ export function RadioGroup({ className, children, name }: RadioGroupProps) {
   return (
     <div className={classNames('flex flex-row gap-10', className)}>
       {React.Children.map(children, (child, index) => {
-        if (React.isValidElement(child)) {
+        if (React.isValidElement<HTMLInputElement>(child)) {
           return React.cloneElement(child, {
             ...child.props,
             name,
