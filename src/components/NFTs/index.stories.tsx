@@ -3,6 +3,7 @@ import { NFTButton } from 'components/Buttons'
 import { Fragment } from 'react'
 
 import { NFTFrame } from '.'
+import { HolderRecord, NFTCard } from './nftCard'
 
 export default {
   title: 'Components/NFTs',
@@ -56,4 +57,40 @@ TwoButtons.args = {
       </NFTButton>
     </Fragment>
   ),
+}
+
+export const NFTCardComponent: ComponentStory<typeof NFTCard> = (args) => (
+  <NFTCard {...args} />
+)
+const holderRecords: HolderRecord[] = [
+  {
+    unixEpoch: 1657864800,
+    message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+  },
+  {
+    unixEpoch: 1657864800,
+    message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+  },
+  {
+    unixEpoch: 1657864800,
+    message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+  },
+  {
+    unixEpoch: 1657864800,
+    message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+  },
+  {
+    unixEpoch: 1657864800,
+    message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+  },
+]
+NFTCardComponent.args = {
+  name: 'BORED APE YACHT CLUB',
+  nftId: 797,
+  nftType: 'ERC-721',
+  imageUri: 'https://avatars.githubusercontent.com/u/11311364',
+  kycEpoch: 1657864800,
+  holderRecords,
+  flipBack: false,
+  validity: true,
 }

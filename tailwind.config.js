@@ -20,6 +20,7 @@ module.exports = {
         'iff-button-2':
           '0px 4px 4px rgba(0, 0, 0, 0.25), 0px -1px 6px rgba(137, 255, 241, 0.75), inset 0px 0px 7px #0038FF',
         'avatar-medium': '0px 1px 4px rgba(0, 0, 0, 0.25)',
+        'iff-nft-card': '19px 19px 20px 5px rgba(0, 0, 0, 0.5)',
       },
       dropShadow: {
         'neon-cyan': '0px 0px 5px #46FFE6',

@@ -1,0 +1,8 @@
+@layer utilities {
+  .text-line-2 {
+    @apply text-ellipsis overflow-hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+}

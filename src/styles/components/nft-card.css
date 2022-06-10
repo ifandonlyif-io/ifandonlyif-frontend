@@ -1,0 +1,20 @@
+@layer components {
+  .iff-nft-card-scene {
+    @apply w-80 h-[400px] [perspective:600px];
+  }
+  .iff-nft-card {
+    @apply w-full h-full relative [transition:transform_1s] [transform-style:preserve-3d];
+  }
+  .iff-nft-card__face {
+    @apply
+      flex flex-col absolute box-border w-full h-full
+      [backface-visibility:hidden] bg-white shadow-iff-nft-card
+      border-[3px] border-solid border-[#DADADA] rounded-[10px]
+    ;
+  }
+  .iff-nft-card__face--front {
+  }
+  .iff-nft-card__face--back {
+    @apply [transform:rotateY(180deg)];
+  }
+}
