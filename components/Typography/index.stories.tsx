@@ -1,7 +1,11 @@
+import { ComponentMeta } from '@storybook/react'
+
+const DivElement = () => <div />
+
 export default {
   title: 'Components/Typography',
-  component: <div></div>,
-}
+  component: DivElement,
+} as ComponentMeta<typeof DivElement>
 
 export const Heading1 = () => (
   <h1 className="text-white heading-1 text-shadow-heading-1">

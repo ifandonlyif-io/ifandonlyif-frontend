@@ -1,12 +1,15 @@
-import { ComponentStory } from '@storybook/react'
+import { ComponentMeta, ComponentStory } from '@storybook/react'
 import React from 'react'
 
 import { Input, SelectMenuOption, SelectMenus, Textarea } from './index'
 import { Radio, RadioGroup } from './radio'
 
+const DivElement = () => <div />
+
 export default {
   title: 'Components/Forms',
-}
+  component: DivElement,
+} as ComponentMeta<typeof DivElement>
 
 const defaultSelectOptions: SelectMenuOption[] = [
   { label: 'Apple', value: 'apple' },

@@ -1,10 +1,9 @@
 import { render, screen } from '@testing-library/react'
+import Index from 'pages/index'
 
-import App from './App'
-
-describe('<App />', () => {
-  it('should render the App', () => {
-    const { container } = render(<App />)
+describe('<Index />', () => {
+  it('should render the Index', () => {
+    const { container } = render(<Index />)
 
     expect(
       screen.getByRole('heading', {

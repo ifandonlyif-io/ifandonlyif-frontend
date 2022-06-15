@@ -1,6 +1,6 @@
 import { Avatar } from 'components/Avatar'
 
-function App() {
+function Index() {
   return (
     <div className="bg-white">
       <div className="py-16 px-4 mx-auto max-w-screen-xl sm:py-24 sm:px-6 lg:px-8">
@@ -24,4 +24,4 @@ function App() {
   )
 }
 
-export default App
+export default Index

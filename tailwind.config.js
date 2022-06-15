@@ -2,10 +2,11 @@
   Explore configuration options docs https://tailwindcss.com/docs/configuration#configuration-options
   Or check the default configuration https://unpkg.com/browse/tailwindcss@latest/stubs/defaultConfig.stub.js
 */
-
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './src/**/*.{js,ts,jsx,tsx}',
+    './pages/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}',
     './node_modules/react-tabs/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
