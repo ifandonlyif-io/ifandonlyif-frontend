@@ -42,7 +42,7 @@ export function NFTFrame({
         <p
           className={classNames(
             'flex absolute bottom-0 flex-row justify-center items-center',
-            'w-full py-[6px] text-white group-hover:text-[#FAFF00] bg-[rgba(0,0,0,0.5)]',
+            'w-full py-[6px] text-white group-hover:text-[#FAFF00] bg-black/50',
             'text-xs font-bold',
             expired && 'group-hover:text-white'
           )}

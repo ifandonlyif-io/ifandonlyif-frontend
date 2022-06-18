@@ -45,7 +45,7 @@ export function SelectMenus({
     <div
       className={classNames(
         'relative flex flex-row items-center box-border cursor-pointer',
-        'bg-[rgba(70,255,230,0.1)] border-[1px] border-solid border-iff-cyan',
+        'bg-iff-cyan/10 border-[1px] border-solid border-iff-cyan',
         className
       )}
       onClick={handleToggleOptions}

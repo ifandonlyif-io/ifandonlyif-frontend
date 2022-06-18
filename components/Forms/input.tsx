@@ -13,7 +13,7 @@ export function Input({ className, ...props }: InputProps) {
     <input
       className={classNames(
         'flex flex-row items-center box-border',
-        'bg-[rgba(70,255,230,0.1)] border-[1px] border-solid border-iff-cyan',
+        'bg-iff-cyan/10 border-[1px] border-solid border-iff-cyan',
         'w-full h-11 px-4 font-medium text-base text-iff-cyan',
         'placeholder:text-base placeholder:text-iff-cyan hover:outline-none focus:outline-none',
         className
