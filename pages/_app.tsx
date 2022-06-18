@@ -1,17 +1,26 @@
 import '../styles/index.css'
 
+import { DefaultLayout as Layout } from 'components/Layouts'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { Fragment } from 'react'
+import { NextPageWithLayout } from 'types'
 
-function NextApp({ Component, pageProps }: AppProps) {
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout
+}
+
+function NextApp({ Component, pageProps }: AppPropsWithLayout) {
+  // Use the layout defined at the page level, if available
+  const getLayout = Component.getLayout ?? ((page) => <Layout>{page}</Layout>)
+
   return (
     <Fragment>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>IF AND ONLY IF - ifandonlyif.io</title>
       </Head>
-      <Component {...pageProps} />
+      {getLayout(<Component {...pageProps} />)}
     </Fragment>
   )
 }
