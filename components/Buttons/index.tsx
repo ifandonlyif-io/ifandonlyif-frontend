@@ -7,6 +7,7 @@ type Size = 'small' | 'medium' | 'large'
 export type ButtonProps = BaseComponent & {
   primary?: boolean
   outline?: boolean
+  shadow?: boolean
   size?: Size
   children: React.ReactNode
   onClick?: () => void
@@ -22,6 +23,7 @@ export function Button({
   className,
   primary = false,
   outline = false,
+  shadow = true,
   size = 'medium',
   children,
   ...props
@@ -29,12 +31,13 @@ export function Button({
   return (
     <button
       className={classNames(
-        'flex justify-center items-center rounded w-full',
+        'flex justify-center items-center rounded w-full box-border',
+        sizes[size],
         primary
           ? 'bg-iff-purple border-iff-purple shadow-iff-button-2'
           : 'bg-iff-cyan border-iff-cyan shadow-iff-button',
-        outline && 'bg-transparent',
-        sizes[size],
+        outline && 'border-[1px] bg-transparent',
+        !shadow && 'shadow-none',
         className
       )}
       type="button"
