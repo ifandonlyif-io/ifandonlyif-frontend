@@ -1,4 +1,8 @@
 @layer utilities {
+  .text-shadow-none {
+    text-shadow: none;
+  }
+
   .text-shadow-button {
     &-3 {
       text-shadow: 0px 0px 2px #46ffe6;
