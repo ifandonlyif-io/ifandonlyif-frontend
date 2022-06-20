@@ -12,7 +12,7 @@ export function DefaultLayout({ children }: LayoutProps) {
   return (
     <Fragment>
       <Navbar />
-      <main>{children}</main>
+      <main className="iff-layout">{children}</main>
       <Footer />
     </Fragment>
   )
@@ -22,7 +22,7 @@ export function OverviewLayout({ children }: LayoutProps) {
   return (
     <Fragment>
       <Navbar />
-      <main>
+      <main className="iff-layout">
         <h1 className="pt-11 text-center text-white heading-4 text-shadow-heading-4">
           THE BEST WAY TO DO 2FA ON WEB3 ERA
         </h1>
