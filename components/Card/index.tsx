@@ -14,9 +14,9 @@ export function Card({
   return (
     <div className="box-border">
       {title && (
-        <p className="m-0 mb-[10px] text-base font-bold text-[#4F4F4F]">
+        <h4 className="m-0 mb-[10px] text-base font-bold text-[#4F4F4F]">
           {title}
-        </p>
+        </h4>
       )}
       <div
         className={classNames(
