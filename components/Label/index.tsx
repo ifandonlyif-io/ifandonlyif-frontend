@@ -14,7 +14,7 @@ type LabelProps = BaseComponent &
 
 const sizes: Record<Size, string> = {
   medium: 'rounded-[46px] px-4 py-[6px] text-[10px]',
-  large: 'rounded-[20px] px-7 py-[10px] text-sm',
+  large: 'rounded-[20px] px-8 py-[10px] text-sm',
 }
 
 export function Label({
@@ -25,7 +25,7 @@ export function Label({
   return (
     <label
       className={classNames(
-        'flex flex-row flex-nowrap text-[#4F4F4F] font-bold justify-center items-center',
+        'flex flex-row flex-nowrap text-iff-text font-bold justify-center items-center',
         sizes[size],
         className
       )}

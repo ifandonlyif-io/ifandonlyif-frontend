@@ -10,7 +10,7 @@ export function TabTitle(props: React.PropsWithChildren<TabTitleProps>) {
   return (
     <div
       className={classNames(
-        'flex flex-row flex-nowrap items-end text-[#4F4F4F] text-[32px] font-bold leading-[44px]',
+        'flex flex-row flex-nowrap items-end text-iff-text text-[32px] font-bold leading-[44px]',
         className
       )}
     >
@@ -42,7 +42,7 @@ export function SectionTitle(
   return (
     <div
       className={classNames(
-        'flex flex-row flex-nowrap items-center text-[#4F4F4F] font-bold',
+        'flex flex-row flex-nowrap items-center text-iff-text font-bold',
         sectionTitleSizes[size],
         className
       )}

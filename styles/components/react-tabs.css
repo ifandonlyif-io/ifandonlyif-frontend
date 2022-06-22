@@ -21,7 +21,7 @@
     }
 
     &--disabled {
-      @apply text-[#4F4F4F] cursor-default;
+      @apply text-iff-text cursor-default;
     }
 
     &--warned:after {

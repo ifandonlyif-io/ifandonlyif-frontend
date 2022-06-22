@@ -14,6 +14,7 @@ module.exports = {
       colors: {
         'iff-cyan': '#46FFE6',
         'iff-purple': '#5A0DFF',
+        'iff-text': '#4F4F4F',
       },
       boxShadow: {
         'iff-button':
