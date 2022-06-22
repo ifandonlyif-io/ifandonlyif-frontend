@@ -6,6 +6,7 @@ import {
   EmailIcon,
   EthereumIcon,
   MetamaskIcon,
+  MoreVerticalIcon,
   SvgIcons,
   TwitterIcon,
   WarnMarkIcon,
@@ -25,5 +26,6 @@ export const Showcase = () => (
     <TwitterIcon htmlColor="#4F4F4F" />
     <MetamaskIcon />
     <EthereumIcon />
+    <MoreVerticalIcon stroke="#4F4F4F" />
   </div>
 )
