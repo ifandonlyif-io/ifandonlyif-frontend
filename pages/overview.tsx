@@ -43,7 +43,7 @@ const Overview: NextPageWithLayout = () => {
   }, [router.asPath])
 
   return (
-    <div className="px-[30px] mt-16 bg-white rounded-b-[10px] shadow-iff-overview">
+    <div className="px-[30px] my-16 bg-white rounded-b-[10px] shadow-iff-overview">
       <Tabs selectedIndex={tabIndex} onSelect={handleTabSelect}>
         <TabList>
           {tabs.map((tab) => (
