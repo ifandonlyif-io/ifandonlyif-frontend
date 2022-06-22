@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { Avatar } from 'components/Avatar'
 import { CheckMarkIcon, CrossMarkIcon } from 'components/Icons'
 import { DateTime } from 'luxon'
