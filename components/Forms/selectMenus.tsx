@@ -67,7 +67,7 @@ export function SelectMenus(props: SelectMenusProps) {
     <div
       className={classNames(
         'relative flex flex-row items-center box-border cursor-pointer',
-        'bg-iff-cyan/10 border-[1px] border-solid border-iff-cyan',
+        'bg-iff-cyan/10 border-[1px] border-solid border-iff-cyan text-iff-cyan',
         className
       )}
       onClick={handleToggleOptions}
@@ -75,7 +75,7 @@ export function SelectMenus(props: SelectMenusProps) {
       <div
         className={classNames(
           'flex flex-row justify-between items-center gap-2',
-          'w-full h-11 px-4 font-medium text-base text-iff-cyan'
+          'w-full h-11 px-4 font-medium text-base'
         )}
       >
         {selectedOption?.label || placeholder}

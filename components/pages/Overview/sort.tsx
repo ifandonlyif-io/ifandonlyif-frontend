@@ -22,7 +22,7 @@ export function SortByTimezone(props: SortByTimezoneProps) {
     >
       <div className="mr-4 text-base font-bold text-iff-text">Sort by</div>
       <SelectMenus
-        className="min-w-[218px]"
+        className="min-w-[218px] !text-iff-text"
         placeholder="Please select"
         options={defaultOptions}
         defaultValue={defaultOptions[0]}
