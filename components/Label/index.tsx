@@ -14,7 +14,7 @@ type LabelProps = BaseComponent &
 
 const sizes: Record<Size, string> = {
   medium: 'rounded-[46px] px-4 py-[6px] text-[10px]',
-  large: 'rounded-[20px] px-8 py-[10px] text-sm',
+  large: 'rounded-[20px] px-8 py-2 text-sm',
 }
 
 export function Label({

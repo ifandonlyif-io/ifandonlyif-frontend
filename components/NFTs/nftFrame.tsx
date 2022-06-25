@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { NFTButton } from 'components/Buttons'
 import { DateTime } from 'luxon'
 import React from 'react'
