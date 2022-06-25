@@ -15,16 +15,38 @@ type SelectMenusProps = BaseComponent & {
   onOptionChange: (option: SelectMenuOption) => void
 }
 
-export function SelectMenus({
-  className,
-  options,
-  placeholder,
-  onOptionChange,
-}: SelectMenusProps) {
+type SelectOptionProps = SelectMenuOption & {
+  onOptionClick: (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    option: SelectMenuOption
+  ) => void
+}
+
+function SelectOption(props: SelectOptionProps) {
+  const { onOptionClick, ...option } = props
+  return (
+    <div
+      className={classNames(
+        'flex flex-row items-center box-border cursor-pointer',
+        'w-full h-11 px-4 font-medium text-base text-[#333333]',
+        'bg-[#61eddc] hover:bg-iff-cyan border-[1px] border-solid',
+        'border-transparent border-b-[#333333] last:border-b-transparent'
+      )}
+      key={`select-option-${option.value}`}
+      onClick={(event) => onOptionClick(event, option)}
+    >
+      {option.label}
+    </div>
+  )
+}
+
+export function SelectMenus(props: SelectMenusProps) {
+  const { className, defaultValue, options, placeholder, onOptionChange } =
+    props
   const [optionsOpen, setOptionsOpen] = React.useState(false)
   const [selectedOption, setSelectedOption] = React.useState<
     SelectMenuOption | undefined
-  >()
+  >(defaultValue)
   const handleToggleOptions = React.useCallback(() => {
     setOptionsOpen((open) => !open)
   }, [])
@@ -52,7 +74,7 @@ export function SelectMenus({
     >
       <div
         className={classNames(
-          'flex flex-row justify-between items-center',
+          'flex flex-row justify-between items-center gap-2',
           'w-full h-11 px-4 font-medium text-base text-iff-cyan'
         )}
       >
@@ -66,17 +88,11 @@ export function SelectMenus({
         )}
       >
         {options.map((option) => (
-          <div
-            className={classNames(
-              'flex flex-row items-center box-border cursor-pointer',
-              'w-full h-11 px-4 font-medium text-base text-[#333333]',
-              'bg-[#61eddc] hover:bg-iff-cyan border-[1px] border-solid border-transparent border-b-[#333333]'
-            )}
-            key={`select-option-${option.value}`}
-            onClick={(event) => handleOptionClick(event, option)}
-          >
-            {option.label}
-          </div>
+          <SelectOption
+            key={option.value}
+            onOptionClick={handleOptionClick}
+            {...option}
+          />
         ))}
       </div>
     </div>
