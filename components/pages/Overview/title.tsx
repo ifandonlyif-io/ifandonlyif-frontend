@@ -3,6 +3,8 @@ import React from 'react'
 import { BaseComponent } from 'types'
 import { classNames } from 'utils'
 
+import { SortByTimezone, SortByTimezoneProps } from './sort'
+
 type TabTitleProps = BaseComponent
 
 export function TabTitle(props: React.PropsWithChildren<TabTitleProps>) {
@@ -49,6 +51,29 @@ export function SectionTitle(
     >
       <h3>{children}</h3>
       {count && <p>&nbsp;({count})</p>}
+    </div>
+  )
+}
+
+type SectionTitleWithSortTimezoneProps = SortByTimezoneProps & {
+  title?: string
+}
+
+export function SectionTitleWithSortTimezone(
+  props: SectionTitleWithSortTimezoneProps
+) {
+  const { className, title, ...sortProps } = props
+  return (
+    <div
+      className={classNames(
+        'flex flex-row flex-nowrap justify-between items-center',
+        className
+      )}
+    >
+      <SectionTitle className="flex-1 uppercase" size="medium">
+        {title}
+      </SectionTitle>
+      <SortByTimezone {...sortProps} />
     </div>
   )
 }
