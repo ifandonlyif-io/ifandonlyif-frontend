@@ -14,3 +14,9 @@ export declare type NextPageWithLayout<
   P = Record<string, unknown>,
   IP = P
 > = NextPage<P, IP> & PerPageLayout
+
+export declare type NFTItem = {
+  name: string
+  unixEpoch: number
+  imageUri: string
+}
