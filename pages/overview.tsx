@@ -1,15 +1,22 @@
+import { getDemoNftList } from 'backend'
 import { OverviewLayout } from 'components/Layouts'
 import {
   PanelIFFNFT,
   PanelKYCRecord,
   PanelMintIt,
+  PanelMintItProps,
   PanelOverview,
   PanelPreMint,
 } from 'components/pages/Overview'
 import { Tab, TabList, TabPanel, Tabs } from 'components/Tabs'
+import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { NextPageWithLayout } from 'types'
+
+type OverviewProps = {
+  mintIt: PanelMintItProps
+}
 
 type TabData = {
   label: string
@@ -24,7 +31,8 @@ const tabs: TabData[] = [
   { label: 'KYC RECORD', href: '#kyc-record' },
 ]
 
-const Overview: NextPageWithLayout = () => {
+const Overview: NextPageWithLayout<OverviewProps> = (props: OverviewProps) => {
+  const { mintIt } = props
   const router = useRouter()
   const [tabIndex, setTabIndex] = React.useState(0)
   const handleTabSelect = React.useCallback(
@@ -54,7 +62,7 @@ const Overview: NextPageWithLayout = () => {
           <PanelOverview />
         </TabPanel>
         <TabPanel>
-          <PanelMintIt />
+          <PanelMintIt {...mintIt} />
         </TabPanel>
         <TabPanel>
           <PanelPreMint />
@@ -72,6 +80,13 @@ const Overview: NextPageWithLayout = () => {
 
 Overview.getLayout = (page) => {
   return <OverviewLayout>{page}</OverviewLayout>
+}
+
+export const getServerSideProps: GetServerSideProps<
+  OverviewProps
+> = async () => {
+  const mintIt = await getDemoNftList()
+  return { props: { mintIt } }
 }
 
 export default Overview

@@ -1,9 +1,11 @@
 import { FilterGroup, FilterItem } from './filter'
-import { MintItMyNFT } from './mintItMyNFT'
-import { MintItWhitelist } from './mintItWhitelist'
+import { MintItMyNFT, MintItMyNFTProps } from './mintItMyNFT'
+import { MintItWhitelist, MintItWhitelistProps } from './mintItWhitelist'
 import { TabTitle } from './title'
 
-export function PanelMintIt() {
+export type PanelMintItProps = MintItWhitelistProps & MintItMyNFTProps
+
+export function PanelMintIt(props: PanelMintItProps) {
   return (
     <div className="py-[50px] px-5">
       <TabTitle className="mb-4">All You Can Mint</TabTitle>
@@ -19,8 +21,8 @@ export function PanelMintIt() {
         </FilterItem>
       </FilterGroup>
       <div className="flex flex-col gap-28">
-        <MintItWhitelist />
-        <MintItMyNFT />
+        <MintItWhitelist {...props} />
+        <MintItMyNFT {...props} />
       </div>
     </div>
   )
