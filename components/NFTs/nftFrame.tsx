@@ -10,22 +10,21 @@ type NFTFrameProps = BaseComponent & {
   unixEpoch: number
   imageUri: string
   expired?: boolean
+  hideTime?: boolean
   onHideClick?: () => void
 }
 
-export function NFTFrame({
-  children,
-  className,
-  name,
-  imageUri,
-  unixEpoch,
-  expired,
-  onHideClick,
-}: React.PropsWithChildren<NFTFrameProps>) {
+export function NFTFrame(props: React.PropsWithChildren<NFTFrameProps>) {
+  let { expired } = props
+  const { children, className, onHideClick } = props
+  const { name, imageUri, unixEpoch, hideTime = false } = props
   const dateTime = DateTime.fromSeconds(unixEpoch)
   const dateTimeStr = dateTime.toFormat("yyyy,L,dd ha 'UTC'Z")
   const nowEpoch = DateTime.now().toSeconds()
-  if (!expired) expired = nowEpoch > dateTime.toSeconds()
+  if (typeof expired === 'undefined') {
+    expired = nowEpoch > dateTime.toSeconds()
+    if (hideTime) expired = false
+  }
 
   return (
     <div className={classNames('flex flex-col group w-[150px]', className)}>
@@ -40,16 +39,18 @@ export function NFTFrame({
           src={imageUri}
           alt="NFT Image"
         />
-        <p
-          className={classNames(
-            'flex absolute bottom-0 flex-row justify-center items-center',
-            'w-full py-[6px] text-white group-hover:text-[#FAFF00] bg-black/50',
-            'text-xs font-bold',
-            expired && 'group-hover:text-white'
-          )}
-        >
-          {dateTimeStr}
-        </p>
+        {!hideTime && (
+          <p
+            className={classNames(
+              'flex absolute bottom-0 flex-row justify-center items-center',
+              'w-full py-[6px] text-white group-hover:text-[#FAFF00] bg-black/50',
+              'text-xs font-bold',
+              expired && 'group-hover:text-white'
+            )}
+          >
+            {dateTimeStr}
+          </p>
+        )}
         {expired && (
           <div
             className={classNames(
