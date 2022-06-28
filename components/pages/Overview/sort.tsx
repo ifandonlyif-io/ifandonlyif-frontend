@@ -1,4 +1,5 @@
 import { SelectMenuOption, SelectMenus } from 'components/Forms'
+import { DefaultTimezone, TimezoneOptions } from 'data'
 import React from 'react'
 import { BaseComponent } from 'types'
 import { classNames } from 'utils'
@@ -7,9 +8,8 @@ export type SortByTimezoneProps = BaseComponent & {
   onOptionChange: (option: SelectMenuOption) => void
 }
 
-const defaultOptions: SelectMenuOption[] = [
-  { label: 'UTC+8 Taiwan', value: 'UTC+8' },
-]
+const timezoneOptions: SelectMenuOption[] = TimezoneOptions
+const defaultOptuon: SelectMenuOption = DefaultTimezone
 
 export function SortByTimezone(props: SortByTimezoneProps) {
   const { className, onOptionChange } = props
@@ -24,8 +24,8 @@ export function SortByTimezone(props: SortByTimezoneProps) {
       <SelectMenus
         className="min-w-[218px] !text-iff-text"
         placeholder="Please select"
-        options={defaultOptions}
-        defaultValue={defaultOptions[0]}
+        options={timezoneOptions}
+        defaultValue={defaultOptuon}
         onOptionChange={onOptionChange}
       />
     </label>
