@@ -1,14 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 import { NFTButton } from 'components/Buttons'
-import { DateTime } from 'luxon'
 import React from 'react'
 import { BaseComponent } from 'types'
-import { classNames } from 'utils'
+import { classNames, formatDatetime, isHistorical } from 'utils'
 
 type NFTFrameProps = BaseComponent & {
   name: string
   unixEpoch: number
   imageUri: string
+  zone?: string
   expired?: boolean
   hideTime?: boolean
   onHideClick?: () => void
@@ -17,12 +17,10 @@ type NFTFrameProps = BaseComponent & {
 export function NFTFrame(props: React.PropsWithChildren<NFTFrameProps>) {
   let { expired } = props
   const { children, className, onHideClick } = props
-  const { name, imageUri, unixEpoch, hideTime = false } = props
-  const dateTime = DateTime.fromSeconds(unixEpoch)
-  const dateTimeStr = dateTime.toFormat("yyyy,L,dd ha 'UTC'Z")
-  const nowEpoch = DateTime.now().toSeconds()
+  const { name, imageUri, unixEpoch, zone, hideTime = false } = props
+  const dateTimeStr = formatDatetime(unixEpoch, "yyyy,L,dd ha 'UTC'Z", zone)
   if (typeof expired === 'undefined') {
-    expired = nowEpoch > dateTime.toSeconds()
+    expired = isHistorical(unixEpoch)
     if (hideTime) expired = false
   }
 

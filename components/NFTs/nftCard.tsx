@@ -1,10 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import { Avatar } from 'components/Avatar'
 import { CheckMarkIcon, CrossMarkIcon } from 'components/Icons'
-import { DateTime } from 'luxon'
 import React from 'react'
 import { BaseComponent } from 'types'
-import { classNames } from 'utils'
+import { classNames, formatDatetime } from 'utils'
 
 export type HolderRecord = {
   unixEpoch: number
@@ -25,7 +24,7 @@ type NFTCardProps = BaseComponent & {
 type HolderRecordProps = BaseComponent & HolderRecord
 
 function dateString(unixEpoch: number): string {
-  return DateTime.fromSeconds(unixEpoch).toFormat('yyyy/L/dd')
+  return formatDatetime(unixEpoch, 'yyyy/L/dd')
 }
 
 function TextRow({
