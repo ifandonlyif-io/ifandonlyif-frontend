@@ -1,0 +1,35 @@
+import type { SelectMenuOption } from 'components/Forms'
+
+export const TimezoneOptions: SelectMenuOption[] = [
+  { label: 'UTC London', value: 'UTC' },
+  { label: 'UTC+1 Berlin', value: 'UTC+1' },
+  { label: 'UTC+2 Cairo/Kyiv', value: 'UTC+2' },
+  { label: 'UTC+3 Moscow', value: 'UTC+3' },
+  { label: 'UTC+3:30 Tehran', value: 'UTC+3:30' },
+  { label: 'UTC+4 Dubai', value: 'UTC+4' },
+  { label: 'UTC+5 Karachi', value: 'UTC+5' },
+  { label: 'UTC+5:30 New Delhi', value: 'UTC+5:30' },
+  { label: 'UTC+6 Dhaka', value: 'UTC+6' },
+  { label: 'UTC+7 Bangkok/Jakarta', value: 'UTC+7' },
+  { label: 'UTC+8 Shanghai/Taipei', value: 'UTC+8' },
+  { label: 'UTC+9 Tokyo', value: 'UTC+9' },
+  { label: 'UTC+10 Sydney', value: 'UTC+10' },
+  { label: 'UTC+11 Magadan', value: 'UTC+11' },
+  { label: 'UTC+12 Wellington', value: 'UTC+12' },
+  { label: "UTC+13 Nuku'alofa", value: 'UTC+13' },
+  { label: 'UTC+14 Kiritimati', value: 'UTC+14' },
+  { label: 'UTC-1 Azores Island', value: 'UTC-1' },
+  { label: 'UTC-2 King Edward Point', value: 'UTC-2' },
+  { label: 'UTC-3 Brasilia', value: 'UTC-3' },
+  { label: 'UTC-4 New York', value: 'UTC-4' },
+  { label: 'UTC-5 Toronto', value: 'UTC-5' },
+  { label: 'UTC-6 Mexico City', value: 'UTC-6' },
+  { label: 'UTC-7 Los Angeles', value: 'UTC-7' },
+  { label: 'UTC-8 Vancouver', value: 'UTC-8' },
+  { label: 'UTC-9 Anchorage', value: 'UTC-9' },
+  { label: 'UTC-10 Honolulu', value: 'UTC-10' },
+  { label: 'UTC-11 Midway Atoll', value: 'UTC-11' },
+  { label: 'UTC-12 Baker Island', value: 'UTC-12' },
+]
+
+export const DefaultTimezone: SelectMenuOption = TimezoneOptions[0]
