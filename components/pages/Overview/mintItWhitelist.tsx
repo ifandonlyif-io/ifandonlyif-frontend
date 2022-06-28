@@ -1,4 +1,7 @@
+import { SelectMenuOption } from 'components/Forms'
 import { NFTFrame } from 'components/NFTs'
+import { DefaultTimezone } from 'data'
+import React from 'react'
 import type { NFTItem } from 'types'
 
 import { SectionTitle, SectionTitleWithSortTimezone } from './title'
@@ -23,16 +26,18 @@ function WhitelistContainer(props: WhitelistContainerProps) {
 
 type WhitelistProps = {
   nftList: NFTItem[]
+  zone: string
 }
 
 function MyWhitelist(props: WhitelistProps) {
-  const { nftList } = props
+  const { nftList, zone } = props
   return (
     <WhitelistContainer name="MY WHITELIST" count={nftList.length}>
       {nftList.map((nft, index) => (
         <NFTFrame
           className="mr-[30px] mb-[30px]"
           key={`${nft.name}-${index}`}
+          zone={zone}
           {...nft}
         />
       ))}
@@ -41,13 +46,14 @@ function MyWhitelist(props: WhitelistProps) {
 }
 
 function PreSaleWhitelist(props: WhitelistProps) {
-  const { nftList } = props
+  const { nftList, zone } = props
   return (
     <WhitelistContainer name="PRE-SALE WHITELIST" count={nftList.length}>
       {nftList.map((nft, index) => (
         <NFTFrame
           className="mr-[30px] mb-[30px]"
           key={`${nft.name}-${index}`}
+          zone={zone}
           {...nft}
         />
       ))}
@@ -62,16 +68,22 @@ export type MintItWhitelistProps = {
 
 export function MintItWhitelist(props: MintItWhitelistProps) {
   const { myWhitelist, preSaleWhitelist } = props
+  const [timezone, setTimezone] =
+    React.useState<SelectMenuOption>(DefaultTimezone)
+  const handleTimezoneChange = React.useCallback(
+    (option: SelectMenuOption) => setTimezone(option),
+    []
+  )
   return (
     <section className="flex flex-col">
       <SectionTitleWithSortTimezone
         className="mb-5"
         title="WHITELIST"
-        onOptionChange={() => void 0}
+        onOptionChange={handleTimezoneChange}
       />
       <div className="flex flex-col gap-16">
-        <MyWhitelist nftList={myWhitelist} />
-        <PreSaleWhitelist nftList={preSaleWhitelist} />
+        <MyWhitelist nftList={myWhitelist} zone={timezone.value} />
+        <PreSaleWhitelist nftList={preSaleWhitelist} zone={timezone.value} />
       </div>
     </section>
   )
