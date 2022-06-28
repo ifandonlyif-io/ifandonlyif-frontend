@@ -87,13 +87,15 @@ export function SelectMenus(props: SelectMenusProps) {
           optionsOpen ? 'flex' : 'hidden'
         )}
       >
-        {options.map((option) => (
-          <SelectOption
-            key={option.value}
-            onOptionClick={handleOptionClick}
-            {...option}
-          />
-        ))}
+        <div className="overflow-y-scroll w-full h-64">
+          {options.map((option) => (
+            <SelectOption
+              key={option.value}
+              onOptionClick={handleOptionClick}
+              {...option}
+            />
+          ))}
+        </div>
       </div>
     </div>
   )
