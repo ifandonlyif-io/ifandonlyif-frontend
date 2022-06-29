@@ -19,10 +19,9 @@ export function MintItMyNFT(props: MintItMyNFTProps) {
       >
         MY NFT
       </SectionTitle>
-      <div className="flex flex-row">
+      <div className="flex flex-row flex-wrap gap-[30px]">
         {myNFT.map((nft, index) => (
           <NFTFrame
-            className="mr-[30px] mb-[30px]"
             key={`${nft.name}-${index}`}
             expired={false}
             hideTime={true}

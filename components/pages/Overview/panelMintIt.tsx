@@ -44,7 +44,7 @@ export function PanelMintIt(props: PanelMintItProps) {
           </FilterItem>
         ))}
       </FilterGroup>
-      <div className="flex flex-col gap-28">
+      <div className="flex flex-col gap-28 mb-[30px]">
         <MintItWhitelist
           className={classNames(isShowWhitelist ? 'flex' : 'hidden')}
           {...props}

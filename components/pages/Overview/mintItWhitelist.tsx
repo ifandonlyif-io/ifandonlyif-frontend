@@ -20,7 +20,7 @@ function WhitelistContainer(props: WhitelistContainerProps) {
       <SectionTitle className="mb-[10px] uppercase" size="small" count={count}>
         {name}
       </SectionTitle>
-      <div className="flex flex-row">{children}</div>
+      <div className="flex flex-row flex-wrap gap-[30px]">{children}</div>
     </div>
   )
 }
@@ -35,12 +35,7 @@ function MyWhitelist(props: WhitelistProps) {
   return (
     <WhitelistContainer name="MY WHITELIST" count={nftList.length}>
       {nftList.map((nft, index) => (
-        <NFTFrame
-          className="mr-[30px] mb-[30px]"
-          key={`${nft.name}-${index}`}
-          zone={zone}
-          {...nft}
-        />
+        <NFTFrame key={`${nft.name}-${index}`} zone={zone} {...nft} />
       ))}
     </WhitelistContainer>
   )
@@ -51,12 +46,7 @@ function PreSaleWhitelist(props: WhitelistProps) {
   return (
     <WhitelistContainer name="PRE-SALE WHITELIST" count={nftList.length}>
       {nftList.map((nft, index) => (
-        <NFTFrame
-          className="mr-[30px] mb-[30px]"
-          key={`${nft.name}-${index}`}
-          zone={zone}
-          {...nft}
-        />
+        <NFTFrame key={`${nft.name}-${index}`} zone={zone} {...nft} />
       ))}
     </WhitelistContainer>
   )
