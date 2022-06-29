@@ -15,6 +15,10 @@
     ;
     letter-spacing: 0.05em;
 
+    &:focus, &:hover {
+      text-shadow: 1px -1px 14px #46FFE6;
+    }
+
     &--selected {
       @apply border-iff-cyan;
       text-shadow: 1px -1px 14px #46FFE6;
@@ -27,9 +31,6 @@
     &--warned:after {
       @apply content-['_'] inline-block w-1.5 h-1.5 ml-[6px] -mt-2.5 rounded-full bg-[#FF906D];
     }
-
-    /* &:focus {} */
-    /* &:focus:after {} */
   }
 
   &__tab-panel {
