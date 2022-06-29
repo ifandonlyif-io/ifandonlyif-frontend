@@ -42,17 +42,35 @@ export function FilterItem(props: FilterItemProps) {
 type FilterGroupProps = BaseComponent & {
   children: React.ReactNode
   name: string
+  defaultValue?: string
+  onFilterChange: (value: string) => void
 }
 
-export function FilterGroup({ className, children, name }: FilterGroupProps) {
+export function FilterGroup(props: FilterGroupProps) {
+  const { className, children, name, defaultValue, onFilterChange } = props
+  const [filterValue, setFilterValue] = React.useState(defaultValue)
+  const handleFilterItemChange = React.useCallback<
+    React.ChangeEventHandler<HTMLInputElement>
+  >(
+    (event) => {
+      const { value } = event.target
+      setFilterValue(value)
+      onFilterChange(value)
+    },
+    [onFilterChange]
+  )
   return (
     <div className={classNames('flex flex-row gap-3', className)}>
       {React.Children.map(children, (child, index) => {
-        if (React.isValidElement<HTMLInputElement>(child)) {
+        if (React.isValidElement<InputRadioProps>(child)) {
+          const { props } = child
+          const checked = filterValue === props.value
           return React.cloneElement(child, {
-            ...child.props,
+            ...props,
             name,
+            checked,
             id: `filter-${name}-${index}`,
+            onChange: handleFilterItemChange,
           })
         }
         return null
