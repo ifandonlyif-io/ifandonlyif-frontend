@@ -68,7 +68,7 @@ export function MintItWhitelist(props: MintItWhitelistProps) {
   return (
     <section className={classNames('flex flex-col', className)}>
       <SectionTitleWithSortTimezone
-        className="mb-5"
+        className="z-10 mb-5"
         title="WHITELIST"
         onOptionChange={handleTimezoneChange}
       />
