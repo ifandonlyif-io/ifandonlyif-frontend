@@ -2,7 +2,8 @@ import { SelectMenuOption } from 'components/Forms'
 import { NFTFrame } from 'components/NFTs'
 import { DefaultTimezone } from 'data'
 import React from 'react'
-import type { NFTItem } from 'types'
+import type { BaseComponent, NFTItem } from 'types'
+import { classNames } from 'utils'
 
 import { SectionTitle, SectionTitleWithSortTimezone } from './title'
 
@@ -61,13 +62,13 @@ function PreSaleWhitelist(props: WhitelistProps) {
   )
 }
 
-export type MintItWhitelistProps = {
+export type MintItWhitelistProps = BaseComponent & {
   myWhitelist: NFTItem[]
   preSaleWhitelist: NFTItem[]
 }
 
 export function MintItWhitelist(props: MintItWhitelistProps) {
-  const { myWhitelist, preSaleWhitelist } = props
+  const { myWhitelist, preSaleWhitelist, className } = props
   const [timezone, setTimezone] =
     React.useState<SelectMenuOption>(DefaultTimezone)
   const handleTimezoneChange = React.useCallback(
@@ -75,7 +76,7 @@ export function MintItWhitelist(props: MintItWhitelistProps) {
     []
   )
   return (
-    <section className="flex flex-col">
+    <section className={classNames('flex flex-col', className)}>
       <SectionTitleWithSortTimezone
         className="mb-5"
         title="WHITELIST"

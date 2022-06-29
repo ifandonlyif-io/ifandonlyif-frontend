@@ -1,16 +1,17 @@
 import { NFTFrame } from 'components/NFTs'
-import type { NFTItem } from 'types'
+import type { BaseComponent, NFTItem } from 'types'
+import { classNames } from 'utils'
 
 import { SectionTitle } from './title'
 
-export type MintItMyNFTProps = {
+export type MintItMyNFTProps = BaseComponent & {
   myNFT: NFTItem[]
 }
 
 export function MintItMyNFT(props: MintItMyNFTProps) {
-  const { myNFT } = props
+  const { myNFT, className } = props
   return (
-    <section className="flex flex-col">
+    <section className={classNames('flex flex-col', className)}>
       <SectionTitle
         className="mb-8 uppercase"
         size="medium"
