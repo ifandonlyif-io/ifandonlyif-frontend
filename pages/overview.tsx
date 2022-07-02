@@ -7,6 +7,7 @@ import {
   PanelMintItProps,
   PanelOverview,
   PanelPreMint,
+  SectionTitleWithSortTimezoneProvider,
 } from 'components/pages/Overview'
 import { Tab, TabList, TabPanel, Tabs } from 'components/Tabs'
 import { GetServerSideProps } from 'next'
@@ -52,28 +53,30 @@ const Overview: NextPageWithLayout<OverviewProps> = (props: OverviewProps) => {
 
   return (
     <div className="px-[30px] my-16 bg-white rounded-b-[10px] shadow-iff-overview md:px-[24px]">
-      <Tabs selectedIndex={tabIndex} onSelect={handleTabSelect}>
-        <TabList>
-          {tabs.map((tab) => (
-            <Tab key={tab.href}>{tab.label}</Tab>
-          ))}
-        </TabList>
-        <TabPanel>
-          <PanelOverview />
-        </TabPanel>
-        <TabPanel>
-          <PanelMintIt {...mintIt} />
-        </TabPanel>
-        <TabPanel>
-          <PanelPreMint />
-        </TabPanel>
-        <TabPanel>
-          <PanelIFFNFT />
-        </TabPanel>
-        <TabPanel>
-          <PanelKYCRecord />
-        </TabPanel>
-      </Tabs>
+      <SectionTitleWithSortTimezoneProvider>
+        <Tabs selectedIndex={tabIndex} onSelect={handleTabSelect}>
+          <TabList>
+            {tabs.map((tab) => (
+              <Tab key={tab.href}>{tab.label}</Tab>
+            ))}
+          </TabList>
+          <TabPanel>
+            <PanelOverview />
+          </TabPanel>
+          <TabPanel>
+            <PanelMintIt {...mintIt} />
+          </TabPanel>
+          <TabPanel>
+            <PanelPreMint {...mintIt} />
+          </TabPanel>
+          <TabPanel>
+            <PanelIFFNFT />
+          </TabPanel>
+          <TabPanel>
+            <PanelKYCRecord />
+          </TabPanel>
+        </Tabs>
+      </SectionTitleWithSortTimezoneProvider>
     </div>
   )
 }

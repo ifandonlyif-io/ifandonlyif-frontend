@@ -1,9 +1,12 @@
 import { NeonRhombus } from 'components/Decorate'
+import { SelectMenuOption, SortByTimezone } from 'components/Forms'
+import { SortByTimezoneContext } from 'context'
+import { DefaultTimezone } from 'data'
 import React from 'react'
 import { BaseComponent } from 'types'
 import { classNames } from 'utils'
 
-import { SortByTimezone, SortByTimezoneProps } from './sort'
+const defaultOptuon: SelectMenuOption = DefaultTimezone
 
 type TabTitleProps = BaseComponent
 
@@ -55,14 +58,37 @@ export function SectionTitle(
   )
 }
 
-type SectionTitleWithSortTimezoneProps = SortByTimezoneProps & {
+type SectionTitleWithSortTimezoneProviderProps = {
+  children: React.ReactNode
+}
+
+export function SectionTitleWithSortTimezoneProvider(
+  props: SectionTitleWithSortTimezoneProviderProps
+) {
+  const { children } = props
+  const [timezone, setTimezone] =
+    React.useState<SelectMenuOption>(defaultOptuon)
+  const handleTimezoneChange = React.useCallback(
+    (option: SelectMenuOption) => setTimezone(option),
+    []
+  )
+  return (
+    <SortByTimezoneContext.Provider
+      value={{ zone: timezone, onTimezoneChange: handleTimezoneChange }}
+    >
+      {children}
+    </SortByTimezoneContext.Provider>
+  )
+}
+
+type SectionTitleWithSortTimezoneProps = BaseComponent & {
   title?: string
 }
 
 export function SectionTitleWithSortTimezone(
   props: SectionTitleWithSortTimezoneProps
 ) {
-  const { className, title, ...sortProps } = props
+  const { className, title } = props
   return (
     <div
       className={classNames(
@@ -73,7 +99,14 @@ export function SectionTitleWithSortTimezone(
       <SectionTitle className="flex-1 uppercase" size="medium">
         {title}
       </SectionTitle>
-      <SortByTimezone {...sortProps} />
+      <SortByTimezoneContext.Consumer>
+        {({ onTimezoneChange }) => (
+          <SortByTimezone
+            defaultValue={defaultOptuon}
+            onOptionChange={onTimezoneChange}
+          />
+        )}
+      </SortByTimezoneContext.Consumer>
     </div>
   )
 }

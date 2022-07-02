@@ -1,18 +1,18 @@
 import { SelectMenuOption, SelectMenus } from 'components/Forms'
-import { DefaultTimezone, TimezoneOptions } from 'data'
+import { TimezoneOptions } from 'data'
 import React from 'react'
 import { BaseComponent } from 'types'
 import { classNames } from 'utils'
 
 export type SortByTimezoneProps = BaseComponent & {
+  defaultValue?: SelectMenuOption
   onOptionChange: (option: SelectMenuOption) => void
 }
 
 const timezoneOptions: SelectMenuOption[] = TimezoneOptions
-const defaultOptuon: SelectMenuOption = DefaultTimezone
 
 export function SortByTimezone(props: SortByTimezoneProps) {
-  const { className, onOptionChange } = props
+  const { className, defaultValue, onOptionChange } = props
   return (
     <label
       className={classNames(
@@ -25,7 +25,7 @@ export function SortByTimezone(props: SortByTimezoneProps) {
         className="min-w-[218px] !text-iff-text"
         placeholder="Please select"
         options={timezoneOptions}
-        defaultValue={defaultOptuon}
+        defaultValue={defaultValue}
         onOptionChange={onOptionChange}
       />
     </label>
