@@ -1,7 +1,7 @@
+import { FilterGroup, FilterItem } from 'components/Forms'
 import React from 'react'
 import { classNames } from 'utils'
 
-import { FilterGroup, FilterItem } from './filter'
 import { MintItMyNFT, MintItMyNFTProps } from './mintItMyNFT'
 import { MintItWhitelist, MintItWhitelistProps } from './mintItWhitelist'
 import { TabTitle } from './title'
