@@ -2,11 +2,13 @@ import { getDemoNftList } from 'backend'
 import { OverviewLayout } from 'components/Layouts'
 import {
   PanelIFFNFT,
+  PanelIFFNFTProps,
   PanelKYCRecord,
   PanelMintIt,
   PanelMintItProps,
   PanelOverview,
   PanelPreMint,
+  PanelPreMintProps,
   SectionTitleWithSortTimezoneProvider,
 } from 'components/pages/Overview'
 import { Tab, TabList, TabPanel, Tabs } from 'components/Tabs'
@@ -17,6 +19,8 @@ import { NextPageWithLayout } from 'types'
 
 type OverviewProps = {
   mintIt: PanelMintItProps
+  preMint: PanelPreMintProps
+  iffNFT: PanelIFFNFTProps
 }
 
 type TabData = {
@@ -33,7 +37,7 @@ const tabs: TabData[] = [
 ]
 
 const Overview: NextPageWithLayout<OverviewProps> = (props: OverviewProps) => {
-  const { mintIt } = props
+  const { mintIt, preMint, iffNFT } = props
   const router = useRouter()
   const [tabIndex, setTabIndex] = React.useState(0)
   const handleTabSelect = React.useCallback(
@@ -67,10 +71,10 @@ const Overview: NextPageWithLayout<OverviewProps> = (props: OverviewProps) => {
             <PanelMintIt {...mintIt} />
           </TabPanel>
           <TabPanel>
-            <PanelPreMint {...mintIt} />
+            <PanelPreMint {...preMint} />
           </TabPanel>
           <TabPanel>
-            <PanelIFFNFT />
+            <PanelIFFNFT {...iffNFT} />
           </TabPanel>
           <TabPanel>
             <PanelKYCRecord />
@@ -89,7 +93,9 @@ export const getServerSideProps: GetServerSideProps<
   OverviewProps
 > = async () => {
   const mintIt = await getDemoNftList()
-  return { props: { mintIt } }
+  const preMint: PanelPreMintProps = { preMintWhitelist: mintIt.myWhitelist }
+  const iffNFT: PanelIFFNFTProps = { myIFFNFT: mintIt.myNFT }
+  return { props: { mintIt, preMint, iffNFT } }
 }
 
 export default Overview

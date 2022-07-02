@@ -1,9 +1,10 @@
-import { SelectMenuOption } from 'components/Forms'
+import { NFTButton } from 'components/Buttons'
+import { ExternalLinkIcon } from 'components/Icons'
 import { NFTFrame } from 'components/NFTs'
-import { DefaultTimezone } from 'data'
+import { useSortByTimezone } from 'hooks'
 import React from 'react'
 import type { BaseComponent, NFTItem } from 'types'
-import { classNames } from 'utils'
+import { classNames, filteredNFTItems } from 'utils'
 
 import { SectionTitle, SectionTitleWithSortTimezone } from './title'
 
@@ -32,9 +33,15 @@ type WhitelistProps = {
 
 function MyWhitelist(props: WhitelistProps) {
   const { nftList, zone } = props
+  const { availableNFTs, expiredNFTs } = filteredNFTItems(nftList)
   return (
     <WhitelistContainer name="MY WHITELIST" count={nftList.length}>
-      {nftList.map((nft, index) => (
+      {availableNFTs.map((nft, index) => (
+        <NFTFrame key={`${nft.name}-${index}`} zone={zone} {...nft}>
+          <NFTButton>PRE-MINT</NFTButton>
+        </NFTFrame>
+      ))}
+      {expiredNFTs.map((nft, index) => (
         <NFTFrame key={`${nft.name}-${index}`} zone={zone} {...nft} />
       ))}
     </WhitelistContainer>
@@ -43,9 +50,18 @@ function MyWhitelist(props: WhitelistProps) {
 
 function PreSaleWhitelist(props: WhitelistProps) {
   const { nftList, zone } = props
+  const { availableNFTs, expiredNFTs } = filteredNFTItems(nftList)
   return (
     <WhitelistContainer name="PRE-SALE WHITELIST" count={nftList.length}>
-      {nftList.map((nft, index) => (
+      {availableNFTs.map((nft, index) => (
+        <NFTFrame key={`${nft.name}-${index}`} zone={zone} {...nft}>
+          <NFTButton outline>
+            VIEW&nbsp;
+            <ExternalLinkIcon fontSize={16} />
+          </NFTButton>
+        </NFTFrame>
+      ))}
+      {expiredNFTs.map((nft, index) => (
         <NFTFrame key={`${nft.name}-${index}`} zone={zone} {...nft} />
       ))}
     </WhitelistContainer>
@@ -59,19 +75,10 @@ export type MintItWhitelistProps = BaseComponent & {
 
 export function MintItWhitelist(props: MintItWhitelistProps) {
   const { myWhitelist, preSaleWhitelist, className } = props
-  const [timezone, setTimezone] =
-    React.useState<SelectMenuOption>(DefaultTimezone)
-  const handleTimezoneChange = React.useCallback(
-    (option: SelectMenuOption) => setTimezone(option),
-    []
-  )
+  const timezone = useSortByTimezone()
   return (
     <section className={classNames('flex flex-col', className)}>
-      <SectionTitleWithSortTimezone
-        className="z-10 mb-5"
-        title="WHITELIST"
-        onOptionChange={handleTimezoneChange}
-      />
+      <SectionTitleWithSortTimezone className="mb-5" title="WHITELIST" />
       <div className="flex flex-col gap-16">
         <MyWhitelist nftList={myWhitelist} zone={timezone.value} />
         <PreSaleWhitelist nftList={preSaleWhitelist} zone={timezone.value} />
