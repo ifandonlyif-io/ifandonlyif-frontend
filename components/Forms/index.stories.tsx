@@ -1,8 +1,12 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import React from 'react'
 
-import { Input, SelectMenuOption, SelectMenus, Textarea } from './index'
+import { FilterGroup, FilterItem } from './filter'
+import { Input } from './input'
 import { Radio, RadioGroup } from './radio'
+import { SelectMenuOption, SelectMenus } from './selectMenus'
+import { SortByTimezone } from './sortByTimezone'
+import { Textarea } from './textarea'
 
 const DivElement = () => <div />
 
@@ -83,4 +87,30 @@ export const RadioGroupComponent: ComponentStory<typeof RadioGroup> = (
 )
 RadioGroupComponent.args = {
   name: 'contact',
+}
+
+export const FilterGroupComponent: ComponentStory<typeof FilterGroup> = (
+  args
+) => (
+  <FilterGroup {...args}>
+    <FilterItem value="all" count={15}>
+      ALL
+    </FilterItem>
+    <FilterItem value="whitelist" count={11}>
+      WHITELIST
+    </FilterItem>
+    <FilterItem value="nft" count={4}>
+      NFT
+    </FilterItem>
+  </FilterGroup>
+)
+FilterGroupComponent.args = {
+  name: 'nftType',
+}
+
+export const SortByTimezoneComponent: ComponentStory<typeof SortByTimezone> = (
+  args
+) => <SortByTimezone {...args} />
+SortByTimezoneComponent.args = {
+  onOptionChange: () => void 0,
 }

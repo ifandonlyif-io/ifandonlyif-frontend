@@ -1,7 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 
-import { FilterGroup, FilterItem } from './filter'
-import { SortByTimezone } from './sort'
 import { SectionTitle, SectionTitleWithSortTimezone, TabTitle } from './title'
 
 export default {
@@ -25,32 +23,6 @@ SectionTitleComponent.args = {
   size: 'small',
 }
 
-export const FilterGroupComponent: ComponentStory<typeof FilterGroup> = (
-  args
-) => (
-  <FilterGroup {...args}>
-    <FilterItem value="all" count={15}>
-      ALL
-    </FilterItem>
-    <FilterItem value="whitelist" count={11}>
-      WHITELIST
-    </FilterItem>
-    <FilterItem value="nft" count={4}>
-      NFT
-    </FilterItem>
-  </FilterGroup>
-)
-FilterGroupComponent.args = {
-  name: 'nftType',
-}
-
-export const SortByTimezoneComponent: ComponentStory<typeof SortByTimezone> = (
-  args
-) => <SortByTimezone {...args} />
-SortByTimezoneComponent.args = {
-  onOptionChange: () => void 0,
-}
-
 export const SectionTitleWithSortTimezoneComponent: ComponentStory<
   typeof SectionTitleWithSortTimezone
 > = (args) => (
@@ -60,5 +32,4 @@ export const SectionTitleWithSortTimezoneComponent: ComponentStory<
 )
 SectionTitleWithSortTimezoneComponent.args = {
   title: 'WHITELIST',
-  onOptionChange: () => void 0,
 }
