@@ -5,12 +5,13 @@ import {
   CrossMarkIcon,
   EmailIcon,
   EthereumIcon,
+  ExternalLinkIcon,
   MetamaskIcon,
   MoreVerticalIcon,
-  SvgIcons,
   TwitterIcon,
   WarnMarkIcon,
-} from './index'
+} from './icon'
+import { SvgIcons } from './svgIcon'
 
 export default {
   title: 'Components/Icons',
@@ -27,5 +28,6 @@ export const Showcase = () => (
     <MetamaskIcon />
     <EthereumIcon />
     <MoreVerticalIcon stroke="#4F4F4F" />
+    <ExternalLinkIcon htmlColor="#4F4F4F" />
   </div>
 )
