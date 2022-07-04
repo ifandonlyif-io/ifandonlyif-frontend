@@ -10,7 +10,7 @@ export type ButtonProps = BaseComponent & {
   shadow?: boolean
   size?: Size
   children: React.ReactNode
-  onClick?: () => void
+  onClick?: React.MouseEventHandler<HTMLButtonElement>
 }
 
 const sizes: Record<Size, string> = {
