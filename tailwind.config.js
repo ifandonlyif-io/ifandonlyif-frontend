@@ -25,6 +25,7 @@ module.exports = {
         'iff-nft-card': '19px 19px 20px 5px rgba(0, 0, 0, 0.5)',
         'iff-base': '0px 0px 8px rgba(0, 0, 0, 0.25)',
         'iff-overview': '0px 4px 18px rgba(0, 0, 0, 0.14)',
+        'iff-modal': '0px 10px 6px rgba(0, 0, 0, 0.25)',
       },
       dropShadow: {
         'neon-cyan': '0px 0px 5px #46FFE6',
