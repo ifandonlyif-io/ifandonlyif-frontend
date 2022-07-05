@@ -10,7 +10,7 @@ export type HolderRecord = {
   message: string
 }
 
-type NFTCardProps = BaseComponent & {
+export type NFTCardProps = BaseComponent & {
   name: string
   nftId: number
   nftType: string
