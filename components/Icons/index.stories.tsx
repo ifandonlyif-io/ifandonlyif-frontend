@@ -8,6 +8,7 @@ import {
   ExternalLinkIcon,
   MetamaskIcon,
   MoreVerticalIcon,
+  Rotate360Icon,
   TwitterIcon,
   WarnMarkIcon,
 } from './icon'
@@ -29,5 +30,6 @@ export const Showcase = () => (
     <EthereumIcon />
     <MoreVerticalIcon stroke="#4F4F4F" />
     <ExternalLinkIcon htmlColor="#4F4F4F" />
+    <Rotate360Icon htmlColor="#4F4F4F" />
   </div>
 )

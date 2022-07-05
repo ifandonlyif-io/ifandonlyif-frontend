@@ -195,3 +195,11 @@ export function ExternalLinkIcon(props: SvgIconProps) {
     </SvgIcons>
   )
 }
+
+export function Rotate360Icon(props: SvgIconProps) {
+  return (
+    <SvgIcons viewBox="0 0 24 25" fill="currentColor" {...props}>
+      <path d="M12 7.229C6.5 7.229 2 9.48553 2 12.3575C2 14.614 4.9 16.5628 9 17.2808V20.5631L13 16.4603L9 12.3575V15.1269C5.8 14.5114 4 13.178 4 12.3575C4 11.2292 7 9.2804 12 9.2804C17 9.2804 20 11.2292 20 12.3575C20 13.0755 18.5 14.3063 16 14.9217V17.0757C19.5 16.2551 22 14.5114 22 12.3575C22 9.48553 17.5 7.229 12 7.229Z" />
+    </SvgIcons>
+  )
+}
