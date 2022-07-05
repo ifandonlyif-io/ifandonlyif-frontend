@@ -1,0 +1,11 @@
+@layer components {
+  .iff-glass {
+    &-cyan {
+      @apply bg-[#1B7895]/10 backdrop-blur-[30px];
+    }
+
+    &-purple {
+      @apply bg-[#632DFF]/20 backdrop-blur-[20px];
+    }
+  }
+}
