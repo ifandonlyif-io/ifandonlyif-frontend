@@ -87,8 +87,8 @@ export function NeonBorder({
       <NeonRhombus className="mb-[-11px]" color={color} />
       <NeonRhombus className="mb-[-11px]" color={color} />
       <NeonRhombus className="mb-[-11px]" color={color} />
-      <NeonRhombus className="mb-[6px]" color={color} />
-      <NeonLine className="ml-[5px]" color={color} />
+      <NeonRhombus className="mb-[7px]" color={color} />
+      <NeonLine className="mb-3 ml-[5px] h-[380px]" color={color} />
       <NeonCorner className="-scale-x-100 rotate-180" color={color} />
     </div>
   )
