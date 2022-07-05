@@ -1,5 +1,5 @@
 @layer components {
   .iff-layout {
-    @apply mx-4 md:mx-8 lg:mx-auto max-w-full lg:max-w-[788px] xl:max-w-[1044px] 2xl:max-w-[1300px];
+    @apply mx-4 md:mx-16 lg:mx-auto max-w-full lg:max-w-[960px] xl:max-w-[1160px];
   }
 }
