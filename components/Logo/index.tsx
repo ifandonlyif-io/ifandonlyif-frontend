@@ -1,3 +1,4 @@
+import { BaseComponent } from 'types'
 import { classNames } from 'utils'
 
 export function IFFLogo() {
@@ -10,13 +11,15 @@ export function IFFLogo() {
   )
 }
 
-export function IFFCube() {
+export function IFFCube(props: BaseComponent) {
+  const { className } = props
   return (
     <div
       className={classNames(
         'iff-cube',
         'relative text-5xl text-justify text-shadow-iff-cube text-iff-cyan font-bold w-full h-full mt-[var(--iff-cube-size)]',
-        '[perspective:calc(var(--iff-cube-size)*2)]'
+        '[perspective:calc(var(--iff-cube-size)*2)]',
+        className
       )}
     >
       <div
