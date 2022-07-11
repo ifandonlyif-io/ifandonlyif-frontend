@@ -1,0 +1,5 @@
+@layer components {
+  .site-data:not(:last-of-type) .gap-line {
+    @apply inline-block;
+  }
+}
