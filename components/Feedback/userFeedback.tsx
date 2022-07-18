@@ -22,9 +22,9 @@ export function UserFeedback({
         alt="User feedback avatar"
         className="mr-6"
       />
-      <div className="flex flex-col max-w-full text-base leading-5 text-white md:max-w-[340px]">
+      <div className="flex max-w-full flex-col text-base leading-5 text-white md:max-w-[340px]">
         <p className="m-0 mb-2 font-bold">{children}</p>
-        <span className="italic font-normal text-right">- {username}</span>
+        <span className="text-right font-normal italic">- {username}</span>
       </div>
     </div>
   )

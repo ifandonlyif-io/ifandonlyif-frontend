@@ -9,7 +9,7 @@ type UserPanelProps = BaseComponent
 export function UserPanel({ className }: UserPanelProps) {
   return (
     <div className={classNames('box-border', className)}>
-      <Button outline className="gap-2 w-[172px]" shadow={false} size="small">
+      <Button outline className="w-[172px] gap-2" shadow={false} size="small">
         Connect Metamask
         <MetamaskIcon />
       </Button>

@@ -33,7 +33,7 @@ export function NFTFrame(props: React.PropsWithChildren<NFTFrameProps>) {
         )}
       >
         <img
-          className="object-cover w-full h-full"
+          className="h-full w-full object-cover"
           src={imageUri}
           alt="NFT Image"
         />
@@ -74,13 +74,13 @@ export function NFTFrame(props: React.PropsWithChildren<NFTFrameProps>) {
           {expired ? (
             <NFTButton
               outline
-              className="!text-[#FF906D] !border-[#FFC8A0]"
+              className="!border-[#FFC8A0] !text-[#FF906D]"
               onClick={onHideClick}
             >
               Hide
             </NFTButton>
           ) : (
-            <div className="flex flex-row justify-between items-center">
+            <div className="flex flex-row items-center justify-between">
               {children}
             </div>
           )}

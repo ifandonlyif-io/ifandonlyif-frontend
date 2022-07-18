@@ -10,21 +10,21 @@ export default {
 } as ComponentMeta<typeof Navbar>
 
 export const NavbarComponent: ComponentStory<typeof Navbar> = () => (
-  <div className="p-4 bg-sky-700">
+  <div className="bg-sky-700 p-4">
     <Navbar />
   </div>
 )
 
 export const FooterComponent: ComponentStory<typeof Footer> = () => (
-  <div className="p-4 bg-sky-700">
+  <div className="bg-sky-700 p-4">
     <Footer />
   </div>
 )
 
 export const Default: ComponentStory<typeof DefaultLayout> = () => (
-  <div className="p-4 bg-sky-700">
+  <div className="bg-sky-700 p-4">
     <DefaultLayout>
-      <div className="flex justify-center items-center py-20 text-white">
+      <div className="flex items-center justify-center py-20 text-white">
         Content
       </div>
     </DefaultLayout>
@@ -32,9 +32,9 @@ export const Default: ComponentStory<typeof DefaultLayout> = () => (
 )
 
 export const Overview: ComponentStory<typeof OverviewLayout> = () => (
-  <div className="p-4 bg-sky-700">
+  <div className="bg-sky-700 p-4">
     <OverviewLayout>
-      <div className="flex justify-center items-center py-20 text-white">
+      <div className="flex items-center justify-center py-20 text-white">
         Content
       </div>
     </OverviewLayout>

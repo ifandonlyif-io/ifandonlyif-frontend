@@ -36,7 +36,7 @@ Small.args = {
 }
 
 const NFTTemplate: ComponentStory<typeof NFTButton> = (args) => (
-  <div className="p-5 w-40 bg-white">
+  <div className="w-40 bg-white p-5">
     <NFTButton {...args} onClick={() => window.alert('Click!')} />
   </div>
 )

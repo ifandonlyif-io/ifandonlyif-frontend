@@ -8,7 +8,7 @@ export default {
 } as ComponentMeta<typeof Card>
 
 export const CardComponent: ComponentStory<typeof Card> = (args) => (
-  <div className="p-10 bg-white">
+  <div className="bg-white p-10">
     <Card {...args} />
   </div>
 )

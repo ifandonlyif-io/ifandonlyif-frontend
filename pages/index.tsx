@@ -7,7 +7,7 @@ import {
 
 function Index() {
   return (
-    <div className="flex flex-col mt-20 mb-24">
+    <div className="mt-20 mb-24 flex flex-col">
       <SectionHeader />
       <SectionSiteData />
       <SectionNFTCheck />

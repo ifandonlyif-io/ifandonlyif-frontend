@@ -65,9 +65,9 @@ function SiteCheckPanel() {
 
 export function SectionNFTCheck() {
   return (
-    <section className="flex flex-row flex-nowrap items-center mb-24">
+    <section className="mb-24 flex flex-row flex-nowrap items-center">
       <NeonBorder color="cyan" />
-      <div className="flex-1 py-20 -mx-8 shadow-iff-base iff-glass-cyan">
+      <div className="iff-glass-cyan -mx-8 flex-1 py-20 shadow-iff-base">
         <TabSwitchers
           className="mx-auto"
           switcherText={{

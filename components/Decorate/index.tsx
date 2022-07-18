@@ -89,7 +89,7 @@ export function NeonBorder({
       <NeonRhombus className="mb-[-11px]" color={color} />
       <NeonRhombus className="mb-[7px]" color={color} />
       <NeonLine className="mb-3 ml-[5px] h-[380px]" color={color} />
-      <NeonCorner className="-scale-x-100 rotate-180" color={color} />
+      <NeonCorner className="rotate-180 -scale-x-100" color={color} />
     </div>
   )
 }
@@ -104,7 +104,7 @@ export function NeonUnderline({ className, color = 'cyan' }: NeonUnderline) {
       )}
     >
       <NeonLine className="rotate-90" color={color} />
-      <div className="flex flex-row flex-nowrap justify-center items-center ml-44">
+      <div className="ml-44 flex flex-row flex-nowrap items-center justify-center">
         <NeonRhombus className="rotate-90" color={color} />
         <NeonRhombus className="rotate-90" color={color} />
         <NeonRhombus className="rotate-90" color={color} />

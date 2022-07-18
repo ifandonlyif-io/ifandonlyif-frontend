@@ -17,7 +17,7 @@ export function PanelPreMint(props: PanelPreMintProps) {
   const timezone = useSortByTimezone()
   const { availableNFTs, expiredNFTs } = filteredNFTItems(preMintWhitelist)
   return (
-    <div className="py-[50px] px-5 min-h-[640px]">
+    <div className="min-h-[640px] py-[50px] px-5">
       <TabTitle className="mb-4">Pre-mint NFT</TabTitle>
       <SectionTitleWithSortTimezone className="mb-4" />
       <section className="flex flex-col">

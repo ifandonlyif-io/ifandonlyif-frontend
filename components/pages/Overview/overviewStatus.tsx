@@ -25,7 +25,7 @@ function StatusWithView(props: StatusWithViewProps) {
   return (
     <div className="flex flex-col font-bold">
       <div className="flex flex-row items-center">
-        <p className="mr-6 text-base text-iff-text whitespace-nowrap">
+        <p className="mr-6 whitespace-nowrap text-base text-iff-text">
           {title}
         </p>
         <Label className={labelClass} size="large">
@@ -42,7 +42,7 @@ function StatusWithView(props: StatusWithViewProps) {
 function StatusInfo({ title, value }: StatusProps) {
   return (
     <div className="flex flex-col font-bold text-iff-text">
-      <p className="mr-6 text-base whitespace-nowrap">{title}</p>
+      <p className="mr-6 whitespace-nowrap text-base">{title}</p>
       <p className="text-[32px]">{value}</p>
     </div>
   )
@@ -61,7 +61,7 @@ export function OverviewStatus({ className }: OverviewStatusProps) {
   return (
     <section
       className={classNames(
-        'grid grid-cols-2 gap-14 justify-between',
+        'flex flex-col xl:grid xl:grid-cols-2 gap-14 justify-between',
         className
       )}
     >

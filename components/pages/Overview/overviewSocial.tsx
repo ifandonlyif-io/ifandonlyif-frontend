@@ -17,7 +17,7 @@ function SocialInfo(props: SocialInfoProps) {
   return (
     <div className="flex flex-row items-center">
       <TwitterIcon htmlColor="#4F4F4F" />
-      <div className="flex flex-row flex-1 gap-[10px] items-center ml-3">
+      <div className="ml-3 flex flex-1 flex-row items-center gap-[10px]">
         <p className="mr-3 text-base font-bold text-iff-text">{username}</p>
         {verified && (
           <Label className="bg-[#FFC481]" size="medium">

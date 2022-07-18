@@ -10,7 +10,7 @@ export default {
 const Template: ComponentStory<typeof Label> = (args) => <Label {...args} />
 
 export const Showcase = () => (
-  <div className="flex flex-row gap-4 items-center">
+  <div className="flex flex-row items-center gap-4">
     <Label className="bg-iff-cyan" size="large">
       VIEW
     </Label>

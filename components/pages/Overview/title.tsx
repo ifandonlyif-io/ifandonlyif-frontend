@@ -20,7 +20,7 @@ export function TabTitle(props: React.PropsWithChildren<TabTitleProps>) {
       )}
     >
       <h2 className="mr-2">{children}</h2>
-      <div className="flex flex-row flex-nowrap justify-center items-center">
+      <div className="flex flex-row flex-nowrap items-center justify-center">
         <NeonRhombus className="rotate-90" color="cyan" />
         <NeonRhombus className="rotate-90" color="cyan" />
         <NeonRhombus className="rotate-90" color="cyan" />

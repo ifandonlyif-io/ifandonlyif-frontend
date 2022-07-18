@@ -11,7 +11,7 @@ export default {
 } as ComponentMeta<typeof NFTFrame>
 
 const Template: ComponentStory<typeof NFTFrame> = (args) => (
-  <div className="p-5 bg-white">
+  <div className="bg-white p-5">
     <NFTFrame {...args} onHideClick={() => window.alert('Hide!')} />
   </div>
 )
@@ -43,7 +43,7 @@ TwoButtons.args = {
       <NFTButton
         outline
         size="small"
-        className="!text-[#A585FF] !border-[#A585FF]"
+        className="!border-[#A585FF] !text-[#A585FF]"
         onClick={() => window.alert('Click!')}
       >
         View

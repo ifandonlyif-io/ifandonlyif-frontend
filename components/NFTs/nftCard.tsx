@@ -51,7 +51,7 @@ function NFTCardFront(props: NFTCardProps) {
   const { name, nftId, nftType, imageUri } = props
   return (
     <div className="iff-nft-card__face iff-nft-card__face--front">
-      <div className="flex flex-col flex-1 px-5 bg-[#F5F5F5] rounded-t-[10px]">
+      <div className="flex flex-1 flex-col rounded-t-[10px] bg-[#F5F5F5] px-5">
         <TextRow className="pt-3 text-sm font-semibold uppercase">
           <Text>{name}</Text>
           <Text>#{nftId}</Text>
@@ -67,7 +67,7 @@ function NFTCardFront(props: NFTCardProps) {
       </div>
       <div className="p-5">
         <img
-          className="object-cover w-[280px] h-[280px] rounded-[10px]"
+          className="h-[280px] w-[280px] rounded-[10px] object-cover"
           src={imageUri}
           alt="NFT Image"
         />
@@ -133,13 +133,13 @@ function NFTCardBack(props: NFTCardProps) {
         )}
       >
         <Avatar size="medium" src={imageUri} />
-        <div className="flex flex-col justify-end items-end text-xs text-right uppercase">
+        <div className="flex flex-col items-end justify-end text-right text-xs uppercase">
           <Text className="font-semibold">{name}</Text>
           <Text className="font-semibold">#{nftId}</Text>
           <Text className="font-normal">{nftType}</Text>
         </div>
       </TextRow>
-      <div className="flex flex-col flex-1 py-4 px-5 text-black">
+      <div className="flex flex-1 flex-col py-4 px-5 text-black">
         <TextRow className="text-sm">
           <Text className="font-normal">KYC Date</Text>
           <Text className="font-semibold">{date}</Text>
@@ -148,9 +148,9 @@ function NFTCardBack(props: NFTCardProps) {
           <Text className="font-normal">Same holder as KYC wallet address</Text>
           <NFTValidity validity={validity} />
         </TextRow>
-        <div className="mt-4 w-full h-[1px] bg-iff-cyan" />
+        <div className="mt-4 h-[1px] w-full bg-iff-cyan" />
         <Text className="mt-3 text-sm font-normal">Holder History</Text>
-        <div className="flex overflow-y-scroll flex-col mt-3 ml-2 h-[140px] min-h-0">
+        <div className="mt-3 ml-2 flex h-[140px] min-h-0 flex-col overflow-y-scroll">
           {holderRecords.map((recoed, index) => (
             <HolderRecord
               unixEpoch={recoed.unixEpoch}

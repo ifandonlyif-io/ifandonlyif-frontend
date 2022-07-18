@@ -15,18 +15,18 @@ function SiteData(props: SiteDataProps) {
   return (
     <div className={classNames('block site-data', className)}>
       <div className="flex flex-row flex-nowrap">
-        <div className="flex flex-col gap-[6px] px-[34px] w-full text-center">
-          <h3 className="text-white heading-6 text-shadow-heading-6">
+        <div className="flex w-full flex-col gap-[6px] px-[34px] text-center">
+          <h3 className="heading-6 text-shadow-heading-6 text-white">
             {title}
           </h3>
           <p
-            className="text-white heading-1 text-shadow-heading-1"
+            className="heading-1 text-shadow-heading-1 text-white"
             ref={countUpRef}
           >
             {value}
           </p>
         </div>
-        <div className="hidden self-end mb-5 w-[2px] h-[54px] bg-iff-cyan gap-line" />
+        <div className="gap-line mb-5 hidden h-[54px] w-[2px] self-end bg-iff-cyan" />
       </div>
     </div>
   )
@@ -34,7 +34,7 @@ function SiteData(props: SiteDataProps) {
 
 export function SectionSiteData() {
   return (
-    <section className="grid grid-cols-3 items-center pt-12 pb-9 mb-16 w-full bg-black/50 rounded-[10px]">
+    <section className="mb-16 grid w-full grid-cols-3 items-center rounded-[10px] bg-black/50 pt-12 pb-9">
       <SiteData title="KYC HOLDER" value={1356} />
       <SiteData title="WHITELIST" value={1432566} />
       <SiteData title="IFFNFT" value={5645243} />

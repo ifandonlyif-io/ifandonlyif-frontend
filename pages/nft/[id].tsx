@@ -45,10 +45,10 @@ const NFTView: NextPage = () => {
   return (
     <div className="flex flex-row flex-nowrap items-center pt-24 pb-14">
       <NeonBorder color="cyan" />
-      <div className="flex-1 -mx-9 shadow-iff-base iff-glass-cyan">
+      <div className="iff-glass-cyan -mx-9 flex-1 shadow-iff-base">
         <div className="flex flex-row flex-nowrap justify-between py-7 px-20">
           <div className="flex flex-col">
-            <h1 className="mb-16 text-white heading-2 text-shadow-heading-1">
+            <h1 className="heading-2 text-shadow-heading-1 mb-16 text-white">
               CHECK NFT HOLDER
             </h1>
             <div className="mb-6 text-xl font-bold text-white">
@@ -57,7 +57,7 @@ const NFTView: NextPage = () => {
             </div>
             <Button className="!w-[116px]">BACK</Button>
           </div>
-          <div className="flex flex-col p-6 rounded-[10px] backdrop-blur-[54px] bg-[#00183C]/50">
+          <div className="flex flex-col rounded-[10px] bg-[#00183C]/50 p-6 backdrop-blur-[54px]">
             <NFTCard {...demoNFTCard} flipBack={flip} />
             <button
               className={classNames(

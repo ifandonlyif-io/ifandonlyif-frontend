@@ -20,7 +20,7 @@ export function Footer({ className }: FooterProps) {
       >
         Effortless Abcdefg
       </p>
-      <p className="text-[18px] font-bold leading-normal text-center text-white md:text-[22px]">
+      <p className="text-center text-[18px] font-bold leading-normal text-white md:text-[22px]">
         Do the things you do, but better!
       </p>
     </footer>

@@ -37,10 +37,10 @@ export function Radio({
        * Use two checkbox element to show different state
        * because of Tailwind css `peer` use general sibling combinator
        */}
-      <div className="hidden peer-checked:flex bg-iff-cyan input-checkbox">
+      <div className="input-checkbox hidden bg-iff-cyan peer-checked:flex">
         <CheckIcon htmlColor="#46FFE6" fontSize={14} />
       </div>
-      <div className="flex peer-checked:hidden bg-transparent input-checkbox" />
+      <div className="input-checkbox flex bg-transparent peer-checked:hidden" />
       <span className="text-sm font-bold text-[#14D6D6] peer-checked:text-black">
         {children}
       </span>

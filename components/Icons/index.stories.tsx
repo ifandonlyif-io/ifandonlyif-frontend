@@ -20,7 +20,7 @@ export default {
 } as ComponentMeta<typeof SvgIcons>
 
 export const Showcase = () => (
-  <div className="flex flex-row gap-2 items-center p-4 bg-white">
+  <div className="flex flex-row items-center gap-2 bg-white p-4">
     <CheckMarkIcon htmlColor="#5A0DFF" />
     <CrossMarkIcon htmlColor="#FF0000" />
     <WarnMarkIcon htmlColor="#FF7269" />

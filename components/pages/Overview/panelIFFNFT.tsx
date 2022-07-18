@@ -82,16 +82,16 @@ function MemoModal(props: MemoModalProps) {
   return (
     <Modal isOpen={isOpen} onModalClose={onModalClose}>
       <div className="flex flex-col px-20 pt-7 pb-9">
-        <h2 className="mb-8 text-2xl font-bold text-center text-iff-text">
+        <h2 className="mb-8 text-center text-2xl font-bold text-iff-text">
           Memo on IFFNFT
         </h2>
-        <form className="flex flex-col min-w-[390px]" action="#">
+        <form className="flex min-w-[390px] flex-col" action="#">
           <MemoModalTitle className="mb-4" title="Write a memo" />
           <RadioGroup className="mb-3" name="memo">
             <Radio value="yes">Yes</Radio>
             <Radio value="no">No</Radio>
           </RadioGroup>
-          <Textarea className="[resize:none] mb-8 w-full h-[88px]" />
+          <Textarea className="mb-8 h-[88px] w-full [resize:none]" />
 
           <MemoModalTitle className="mb-4" title="Add KYC info" />
           <RadioGroup className="mb-3" name="info">
@@ -110,9 +110,9 @@ function MemoModal(props: MemoModalProps) {
             <Radio value="no">No</Radio>
           </RadioGroup>
 
-          <div className="grid grid-cols-2 gap-[10px] mt-16">
+          <div className="mt-16 grid grid-cols-2 gap-[10px]">
             <Button
-              className="!bg-white border-[2px]"
+              className="border-[2px] !bg-white"
               size="medium"
               shadow={false}
               onClick={handleCancelClick}
@@ -141,9 +141,9 @@ type NFTButtonsProps = {
 function NFTButtons(props: NFTButtonsProps) {
   const { onMemoClick } = props
   return (
-    <div className="flex flex-row flex-nowrap flex-1 justify-between items-center">
+    <div className="flex flex-1 flex-row flex-nowrap items-center justify-between">
       <NFTButton
-        className="!text-[#A585FF] !border-[#A585FF]"
+        className="!border-[#A585FF] !text-[#A585FF]"
         size="small"
         outline
       >
@@ -169,7 +169,7 @@ export function PanelIFFNFT(props: PanelIFFNFTProps) {
   const handleModalClose = React.useCallback(() => setIsOpen(false), [])
 
   return (
-    <div className="py-[50px] px-5 min-h-[640px]">
+    <div className="min-h-[640px] py-[50px] px-5">
       <TabTitle className="mb-4">MY IFFNFT</TabTitle>
       <SectionTitleWithSortTimezone className="mb-4" />
       <section className="flex flex-col">

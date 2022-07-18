@@ -42,7 +42,7 @@ export function PanelKYCRecord() {
       <Card>
         <div className="flex flex-row items-center p-8">
           <Avatar variant="text" size="medium" src="S" />
-          <div className="flex flex-col flex-1 gap-[10px] ml-12">
+          <div className="ml-12 flex flex-1 flex-col gap-[10px]">
             <RecordData name="Date">2022/5/1</RecordData>
             <RecordData name="Holder">BEN5566</RecordData>
           </div>
