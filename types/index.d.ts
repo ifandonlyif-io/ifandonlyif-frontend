@@ -6,6 +6,8 @@ export declare type BaseComponent<T = unknown> = Pick<
   'className'
 >
 
+export declare type ReactProvider = { children: React.ReactNode }
+
 export declare type PerPageLayout = {
   getLayout(page: React.ReactElement): React.ReactNode
 }

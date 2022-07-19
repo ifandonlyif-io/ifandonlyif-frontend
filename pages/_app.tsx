@@ -1,6 +1,7 @@
 import '../styles/index.css'
 
 import { DefaultLayout as Layout } from 'components/Layouts'
+import { AppProviders } from 'components/Providers'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { Fragment } from 'react'
@@ -20,7 +21,7 @@ function NextApp({ Component, pageProps }: AppPropsWithLayout) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>IF AND ONLY IF - ifandonlyif.io</title>
       </Head>
-      {getLayout(<Component {...pageProps} />)}
+      <AppProviders>{getLayout(<Component {...pageProps} />)}</AppProviders>
     </Fragment>
   )
 }
