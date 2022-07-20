@@ -10,6 +10,7 @@ import {
   MoreVerticalIcon,
   Rotate360Icon,
   TwitterIcon,
+  WalletConnectIcon,
   WarnMarkIcon,
 } from './icon'
 import { SvgIcons } from './svgIcon'
@@ -27,6 +28,7 @@ export const Showcase = () => (
     <EmailIcon htmlColor="#4F4F4F" />
     <TwitterIcon htmlColor="#4F4F4F" />
     <MetamaskIcon />
+    <WalletConnectIcon />
     <EthereumIcon />
     <MoreVerticalIcon stroke="#4F4F4F" />
     <ExternalLinkIcon htmlColor="#4F4F4F" />

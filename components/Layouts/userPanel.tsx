@@ -2,7 +2,7 @@ import type { Web3Provider } from '@ethersproject/providers'
 import { useWeb3React, Web3ContextType } from '@web3-react/core'
 import { Connector } from '@web3-react/types'
 import { Button, ButtonProps } from 'components/Buttons'
-import { MetamaskIcon } from 'components/Icons'
+import { MetamaskIcon, WalletConnectIcon } from 'components/Icons'
 import {
   ConnectionType,
   injectedConnection,
@@ -76,7 +76,7 @@ function WalletConnectOption(props: ConnectorOptionProps) {
   return (
     <ConnectionOption
       id="wallet-connect"
-      icon={<MetamaskIcon />}
+      icon={<WalletConnectIcon />}
       active={isActive}
       onOptionClick={handleOptionClick}
     >

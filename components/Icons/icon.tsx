@@ -156,6 +156,27 @@ export function MetamaskIcon(props: SvgIconProps) {
   )
 }
 
+export function WalletConnectIcon(props: SvgIconProps) {
+  return (
+    <SvgIcons viewBox="0 0 512 512" fill="none" {...props}>
+      <defs>
+        <radialGradient cx="0%" cy="50%" fx="0%" fy="50%" r="100%" id="A">
+          <stop stopColor="#5d9df6" offset="0%" />
+          <stop stopColor="#006fff" offset="100%" />
+        </radialGradient>
+      </defs>
+      <g fillRule="evenodd">
+        <rect fill="url(#A)" width="512" height="512" rx="256" />
+        <path
+          d="M169.21 184.531c47.933-46.93 125.648-46.93 173.581 0l5.769 5.648a5.92 5.92 0 0 1 0 8.498l-19.734 19.321c-1.198 1.173-3.141 1.173-4.34 0l-7.939-7.773c-33.439-32.74-87.655-32.74-121.094 0l-8.502 8.324c-1.198 1.173-3.141 1.173-4.34 0l-19.734-19.321a5.92 5.92 0 0 1 0-8.498l6.332-6.199zm214.392 39.958l17.563 17.196a5.92 5.92 0 0 1 0 8.497l-79.194 77.539c-2.397 2.347-6.282 2.347-8.679 0l-56.207-55.032a1.56 1.56 0 0 0-2.17 0l-56.206 55.031c-2.397 2.347-6.282 2.347-8.679 0l-79.196-77.54a5.92 5.92 0 0 1 0-8.498l17.563-17.196c2.397-2.347 6.282-2.347 8.679 0l56.208 55.032a1.56 1.56 0 0 0 2.17 0l56.205-55.032c2.397-2.347 6.282-2.347 8.679 0l56.208 55.032a1.56 1.56 0 0 0 2.17 0l56.207-55.031c2.397-2.347 6.282-2.347 8.679 0z"
+          fill="#fff"
+          fillRule="nonzero"
+        />
+      </g>
+    </SvgIcons>
+  )
+}
+
 export function EthereumIcon(props: SvgIconProps) {
   return (
     <SvgIcons viewBox="0 0 1920 1920" fill="none" {...props}>
