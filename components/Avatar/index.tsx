@@ -13,6 +13,7 @@ type AvatarProps = BaseComponent & {
   size?: Size
   color?: CSS.Property.BorderColor
   variant?: Variant
+  onClick?: () => void
 }
 
 const sizes: Record<Size, string> = {
@@ -27,11 +28,10 @@ const shadow: Record<Size, string> = {
   large: 'shadow-avatar-large drop-shadow-avatar-large',
 }
 
-function EmptyAvatar({
-  size = 'medium',
-  alt = 'avatar',
-  className,
-}: Pick<AvatarProps, 'size' | 'alt' | 'className'>) {
+type EmptyAvatarProps = Pick<AvatarProps, 'size' | 'alt' | 'className'>
+
+function EmptyAvatar(props: EmptyAvatarProps) {
+  const { className, size = 'medium', alt = 'avatar' } = props
   return (
     <span
       data-testid="empty-avatar"
@@ -53,36 +53,42 @@ function EmptyAvatar({
   )
 }
 
-function ImageAvatar({
-  size = 'medium',
-  color = '#FFFFFF',
-  alt = 'avatar',
-  className,
-  ...props
-}: AvatarProps) {
+function ImageAvatar(props: AvatarProps) {
+  const {
+    className,
+    size = 'medium',
+    color = '#FFFFFF',
+    alt = 'avatar',
+    onClick,
+    ...others
+  } = props
   return (
     <img
       className={classNames(
         'inline-block box-border rounded-full border-solid',
         sizes[size],
         shadow[size],
+        onClick && 'cursor-pointer',
         className
       )}
       style={{ borderColor: color }}
       alt={alt}
-      {...props}
+      onClick={onClick}
+      {...others}
     />
   )
 }
 
-function TextAvatar({
-  size = 'medium',
-  color = '#FFFFFF',
-  alt = 'avatar',
-  src,
-  className,
-  ...props
-}: AvatarProps) {
+function TextAvatar(props: AvatarProps) {
+  const {
+    className,
+    src,
+    size = 'medium',
+    color = '#FFFFFF',
+    alt = 'avatar',
+    onClick,
+    ...others
+  } = props
   return (
     <div
       className={classNames(
@@ -90,10 +96,12 @@ function TextAvatar({
         'bg-iff-cyan font-bold text-3xl leading-10 text-black uppercase',
         sizes[size],
         shadow[size],
+        onClick && 'cursor-pointer',
         className
       )}
       style={{ borderColor: color }}
-      {...props}
+      onClick={onClick}
+      {...others}
       aria-label={alt}
     >
       {src.charAt(0)}
