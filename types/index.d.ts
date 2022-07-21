@@ -22,3 +22,9 @@ export declare type NFTItem = {
   unixEpoch: number
   imageUri: string
 }
+
+export declare type FeedbackItem = {
+  avatar: string
+  username: string
+  content: string
+}

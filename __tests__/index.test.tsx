@@ -3,7 +3,7 @@ import Index from 'pages/index'
 
 describe('<Index />', () => {
   it('should render the Index', () => {
-    const { container } = render(<Index />)
+    const { container } = render(<Index feedbacks={[]} />)
 
     expect(
       screen.getByRole('heading', {

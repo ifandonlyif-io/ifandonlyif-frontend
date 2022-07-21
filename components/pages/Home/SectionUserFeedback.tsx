@@ -1,6 +1,11 @@
 import { NeonBorder } from 'components/Decorate'
+import { FeedbackItem } from 'types'
 
-export function SectionUserFeedback() {
+export declare type SectionUserFeedbackProps = {
+  feedbacks: FeedbackItem[]
+}
+
+export function SectionUserFeedback(props: SectionUserFeedbackProps) {
   return (
     <section className="flex flex-row flex-nowrap items-center">
       <NeonBorder color="purple" />
