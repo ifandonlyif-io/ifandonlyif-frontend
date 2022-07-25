@@ -1,0 +1,5 @@
+.feedback-carousel {
+  &-container {
+    @apply mb-8;
+  }
+}

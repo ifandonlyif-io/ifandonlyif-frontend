@@ -14,7 +14,7 @@ export function UserFeedback({
   children,
 }: React.PropsWithChildren<UserFeedback>) {
   return (
-    <div className={classNames('flex flex-row', className)}>
+    <div className={classNames('flex flex-row p-4', className)}>
       <Avatar
         size="large"
         color="#BED0FF"
