@@ -1,7 +1,8 @@
 import Carousel from 'better-react-carousel'
 import { NeonBorder } from 'components/Decorate'
 import { UserFeedback } from 'components/Feedback'
-import { FeedbackItem } from 'types'
+import { SvgIconProps, SvgIcons } from 'components/Icons'
+import { BaseComponent, FeedbackItem } from 'types'
 import { classNames } from 'utils'
 
 type CarouselDotProps = { isActive: boolean }
@@ -19,6 +20,108 @@ function CarouselDot(props: CarouselDotProps) {
   )
 }
 
+function ChevronLeftIcon(props: BaseComponent & SvgIconProps) {
+  return (
+    <SvgIcons viewBox="0 0 37 47" fill="none" fontSize={30} {...props}>
+      <g filter="url(#filter0_ddi_2_669)">
+        <path
+          d="M8.44133 23.5003L13.0586 18.883L23.9414 8L28.5587 12.617L17.6759 23.5003L28.5587 34.383L23.9417 39L13.0589 28.1173L8.44192 23.5003H8.44133Z"
+          fill="#B3F1FF"
+        />
+      </g>
+      <defs>
+        <filter
+          id="filter0_ddi_2_669"
+          x="0.441326"
+          y="0"
+          width="36.1173"
+          height="47"
+          filterUnits="userSpaceOnUse"
+          colorInterpolationFilters="sRGB"
+        >
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
+          <feColorMatrix
+            in="SourceAlpha"
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+            result="hardAlpha"
+          />
+          <feOffset />
+          <feGaussianBlur stdDeviation="4" />
+          <feComposite in2="hardAlpha" operator="out" />
+          <feColorMatrix
+            type="matrix"
+            values="0 0 0 0 0.183333 0 0 0 0 1 0 0 0 0 0.853 0 0 0 1 0"
+          />
+          <feBlend
+            mode="normal"
+            in2="BackgroundImageFix"
+            result="effect1_dropShadow_2_669"
+          />
+          <feColorMatrix
+            in="SourceAlpha"
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+            result="hardAlpha"
+          />
+          <feOffset dy="4" />
+          <feGaussianBlur stdDeviation="2" />
+          <feComposite in2="hardAlpha" operator="out" />
+          <feColorMatrix
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+          />
+          <feBlend
+            mode="normal"
+            in2="effect1_dropShadow_2_669"
+            result="effect2_dropShadow_2_669"
+          />
+          <feBlend
+            mode="normal"
+            in="SourceGraphic"
+            in2="effect2_dropShadow_2_669"
+            result="shape"
+          />
+          <feColorMatrix
+            in="SourceAlpha"
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+            result="hardAlpha"
+          />
+          <feOffset dy="2" />
+          <feGaussianBlur stdDeviation="0.5" />
+          <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+          <feColorMatrix
+            type="matrix"
+            values="0 0 0 0 0.454167 0 0 0 0 0.869 0 0 0 0 1 0 0 0 1 0"
+          />
+          <feBlend
+            mode="normal"
+            in2="shape"
+            result="effect3_innerShadow_2_669"
+          />
+        </filter>
+      </defs>
+    </SvgIcons>
+  )
+}
+
+function ArrowLeft() {
+  return (
+    <div className="absolute top-1/2 -translate-y-2/4 md:hidden">
+      <ChevronLeftIcon />
+    </div>
+  )
+}
+
+function ArrowRight() {
+  return (
+    <div className="absolute top-1/2 right-0 -translate-y-2/4 rotate-180 md:hidden">
+      <ChevronLeftIcon />
+    </div>
+  )
+}
+
 export declare type SectionUserFeedbackProps = {
   feedbacks: FeedbackItem[]
 }
@@ -26,10 +129,10 @@ export declare type SectionUserFeedbackProps = {
 export function SectionUserFeedback(props: SectionUserFeedbackProps) {
   const { feedbacks } = props
   return (
-    <section className="flex flex-row flex-nowrap items-center">
-      <NeonBorder color="purple" />
-      <div className="iff-glass-cyan -mx-8 flex-1 px-28 pt-12 pb-8 shadow-iff-base">
-        <h2 className="heading-2 text-shadow-heading-2-purple mb-10 text-center text-white">
+    <section className="block flex-row flex-nowrap items-center md:flex">
+      <NeonBorder className="hidden md:flex" color="purple" />
+      <div className="iff-glass-cyan px-8 pt-10 pb-7 shadow-iff-base md:-mx-8 md:flex-1 md:px-28 md:pt-12">
+        <h2 className="heading-4 md:heading-2 text-shadow-heading-4-purple md:text-shadow-heading-2-purple mb-6 text-center text-white md:mb-10">
           USER FEEDBACK
         </h2>
         <Carousel
@@ -39,9 +142,12 @@ export function SectionUserFeedback(props: SectionUserFeedbackProps) {
           dot={CarouselDot}
           containerClassName="feedback-carousel-container"
           autoplay={5000}
+          responsiveLayout={[{ breakpoint: 1279, cols: 1, rows: 1, gap: 1 }]}
+          mobileBreakpoint={0}
+          arrowLeft={ArrowLeft}
+          arrowRight={ArrowRight}
           loop
           showDots
-          hideArrow
         >
           {feedbacks.map((fd, index) => (
             <Carousel.Item key={`${fd.username}-${index}`}>
@@ -52,7 +158,7 @@ export function SectionUserFeedback(props: SectionUserFeedbackProps) {
           ))}
         </Carousel>
       </div>
-      <NeonBorder color="purple" flip />
+      <NeonBorder className="hidden md:flex" color="purple" flip />
     </section>
   )
 }

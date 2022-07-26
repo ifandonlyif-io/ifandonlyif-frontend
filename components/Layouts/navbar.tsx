@@ -11,11 +11,11 @@ export function Navbar({ className }: NavbarProps) {
   return (
     <nav
       className={classNames(
-        'flex flex-row justify-between items-center px-8 h-[88px] bg-black/20 shadow-iff-base backdrop-blur-2xl',
+        'flex flex-row justify-between items-center px-[22px] md:px-8 h-[88px] bg-black/20 shadow-iff-base backdrop-blur-2xl',
         className
       )}
     >
-      <IFFLogo />
+      <IFFLogo className="w-16 md:w-[106px]" />
       <UserPanel />
     </nav>
   )

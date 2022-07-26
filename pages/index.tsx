@@ -12,7 +12,7 @@ type IndexProps = SectionUserFeedbackProps
 
 const Index: NextPage<IndexProps> = (props: IndexProps) => {
   return (
-    <div className="mt-20 mb-24 flex flex-col">
+    <div className="mt-7 mb-20 flex flex-col md:mb-24 md:mt-20">
       <SectionHeader />
       <SectionSiteData />
       <SectionNFTCheck />

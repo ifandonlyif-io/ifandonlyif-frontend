@@ -23,7 +23,7 @@ function CheckPanel(props: React.PropsWithChildren<BaseComponent>) {
   return (
     <div
       className={classNames(
-        'bg-[#00183C]/50 backdrop-blur-[54px] rounded-[10px] px-32 py-12 min-h-[324px]',
+        'bg-[#00183C]/50 backdrop-blur-[54px] rounded-b-[10px] px-5 md:px-32 py-10 md:py-12 min-h-[294px] md:min-h-[324px] mx-0.5',
         className
       )}
     >
@@ -65,11 +65,11 @@ function SiteCheckPanel() {
 
 export function SectionNFTCheck() {
   return (
-    <section className="mb-24 flex flex-row flex-nowrap items-center">
-      <NeonBorder color="cyan" />
-      <div className="iff-glass-cyan -mx-8 flex-1 py-20 shadow-iff-base">
+    <section className="mb-16 block flex-row flex-nowrap items-center md:mb-24 md:flex">
+      <NeonBorder className="hidden md:flex" color="cyan" />
+      <div className="iff-glass-cyan py-7 shadow-iff-base md:-mx-8 md:flex-1 md:py-20">
         <TabSwitchers
-          className="mx-auto"
+          className="mx-4 md:mx-auto"
           switcherText={{
             left: 'NFTs HOLDER CHECK',
             right: 'FAKE SITES CHECK',
@@ -83,7 +83,7 @@ export function SectionNFTCheck() {
           </TabPanel>
         </TabSwitchers>
       </div>
-      <NeonBorder color="cyan" flip />
+      <NeonBorder className="hidden md:flex" color="cyan" flip />
     </section>
   )
 }

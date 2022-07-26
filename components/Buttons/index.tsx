@@ -16,7 +16,8 @@ export type ButtonProps = BaseComponent & {
 const sizes: Record<Size, string> = {
   small: 'h-9 border-1 text-sm font-medium text-[#00FFB2] text-shadow-button-3',
   medium: 'h-11 border-2 text-xl font-bold text-[#333333]',
-  large: 'h-[50px] border-2 text-xl font-bold text-iff-cyan',
+  large:
+    'h-11 md:h-[50px] border-2 text-base md:text-xl font-bold text-iff-cyan',
 }
 
 export function Button({
