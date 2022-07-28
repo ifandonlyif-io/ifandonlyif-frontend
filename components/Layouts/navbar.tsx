@@ -1,4 +1,5 @@
 import { IFFLogo } from 'components/Logo'
+import Link from 'next/link'
 import React from 'react'
 import { BaseComponent } from 'types'
 import { classNames } from 'utils'
@@ -15,7 +16,11 @@ export function Navbar({ className }: NavbarProps) {
         className
       )}
     >
-      <IFFLogo className="w-16 md:w-[106px]" />
+      <Link href="/">
+        <a title="Home" aria-label="Home">
+          <IFFLogo className="w-16 md:w-[106px]" />
+        </a>
+      </Link>
       <UserPanel />
     </nav>
   )
