@@ -65,7 +65,7 @@ function NFTCardFront(props: NFTCardProps) {
           <Text className="font-normal">{nftType}</Text>
         </TextRow>
       </div>
-      <div className="p-5">
+      <div className="flex flex-col items-center p-5">
         <img
           className="h-[280px] w-[280px] rounded-[10px] object-cover"
           src={imageUri}

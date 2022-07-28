@@ -1,6 +1,6 @@
 @layer components {
   .iff-nft-card-scene {
-    @apply w-80 h-[400px] [perspective:600px];
+    @apply w-full md:w-80 h-[400px] [perspective:600px];
   }
   .iff-nft-card {
     @apply w-full h-full relative [transition:transform_1s] [transform-style:preserve-3d];
