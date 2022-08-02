@@ -92,7 +92,7 @@ export function SectionTitleWithSortTimezone(
   return (
     <div
       className={classNames(
-        'flex flex-row flex-nowrap justify-between items-center',
+        'flex flex-col md:flex-row flex-nowrap md:justify-between md:items-center',
         className
       )}
     >
@@ -102,6 +102,7 @@ export function SectionTitleWithSortTimezone(
       <SortByTimezoneContext.Consumer>
         {({ onTimezoneChange }) => (
           <SortByTimezone
+            className="self-end md:self-center"
             defaultValue={defaultOptuon}
             onOptionChange={onTimezoneChange}
           />

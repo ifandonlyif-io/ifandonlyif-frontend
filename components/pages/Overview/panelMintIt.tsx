@@ -30,7 +30,7 @@ export function PanelMintIt(props: PanelMintItProps) {
   const isShowWhitelist = isShowAll || mintFilter === 'whitelist'
   const isShowMy = isShowAll || mintFilter === 'nft'
   return (
-    <div className="py-[50px] px-5">
+    <div className="py-6 px-4 md:py-[50px] md:px-5">
       <TabTitle className="mb-4">All You Can Mint</TabTitle>
       <FilterGroup
         className="mb-7"
@@ -44,7 +44,7 @@ export function PanelMintIt(props: PanelMintItProps) {
           </FilterItem>
         ))}
       </FilterGroup>
-      <div className="mb-[30px] flex flex-col gap-28">
+      <div className="mb-4 flex flex-col gap-10 md:mb-8 md:gap-28">
         <MintItWhitelist
           className={classNames(isShowWhitelist ? 'flex' : 'hidden')}
           {...props}

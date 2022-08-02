@@ -169,11 +169,11 @@ export function PanelIFFNFT(props: PanelIFFNFTProps) {
   const handleModalClose = React.useCallback(() => setIsOpen(false), [])
 
   return (
-    <div className="min-h-[640px] py-[50px] px-5">
+    <div className="min-h-[640px] py-6 px-4 md:py-[50px] md:px-5">
       <TabTitle className="mb-4">MY IFFNFT</TabTitle>
       <SectionTitleWithSortTimezone className="mb-4" />
-      <section className="flex flex-col">
-        <div className="flex flex-row flex-wrap gap-[30px]">
+      <section className="mb-4 flex flex-col md:mb-8">
+        <div className="grid grid-cols-2 gap-[30px] md:flex md:flex-row md:flex-wrap">
           {sortedNFTs.map((nft, index) => (
             <NFTFrame
               key={`${nft.name}-${index}`}

@@ -25,10 +25,15 @@ export function NFTFrame(props: React.PropsWithChildren<NFTFrameProps>) {
   }
 
   return (
-    <div className={classNames('flex flex-col group w-[150px]', className)}>
+    <div
+      className={classNames(
+        'flex flex-col group w-full md:w-[150px]',
+        className
+      )}
+    >
       <div
         className={classNames(
-          'flex flex-col relative mb-[6px] w-[150px] h-[150px]',
+          'flex flex-col relative mb-[6px] w-full md:w-[150px]',
           expired && 'opacity-50'
         )}
       >

@@ -21,7 +21,9 @@ function WhitelistContainer(props: WhitelistContainerProps) {
       <SectionTitle className="mb-[10px] uppercase" size="small" count={count}>
         {name}
       </SectionTitle>
-      <div className="flex flex-row flex-wrap gap-[30px]">{children}</div>
+      <div className="grid grid-cols-2 gap-[30px] md:flex md:flex-row md:flex-wrap">
+        {children}
+      </div>
     </div>
   )
 }
@@ -79,7 +81,7 @@ export function MintItWhitelist(props: MintItWhitelistProps) {
   return (
     <section className={classNames('flex flex-col', className)}>
       <SectionTitleWithSortTimezone className="mb-5" title="WHITELIST" />
-      <div className="flex flex-col gap-16">
+      <div className="flex flex-col gap-8 md:gap-16">
         <MyWhitelist nftList={myWhitelist} zone={timezone.value} />
         <PreSaleWhitelist nftList={preSaleWhitelist} zone={timezone.value} />
       </div>

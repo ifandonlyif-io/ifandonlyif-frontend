@@ -25,7 +25,7 @@ function SocialInfo(props: SocialInfoProps) {
           </Label>
         )}
       </div>
-      <button className="mr-8" title="More">
+      <button className="ml-4 md:ml-0 md:mr-8" title="More">
         <MoreVerticalIcon stroke="#4F4F4F" />
       </button>
     </div>
@@ -36,7 +36,7 @@ export function OverviewSocial({ className }: OverviewSocialProps) {
   return (
     <section className={classNames('w-full', className)}>
       <Card title="SOCIAL CONNECT">
-        <div className="flex flex-col gap-10 py-10 px-7">
+        <div className="flex flex-col gap-4 p-4 md:gap-10 md:py-10 md:px-7">
           <SocialInfo username="collect_name_01" verified />
         </div>
       </Card>

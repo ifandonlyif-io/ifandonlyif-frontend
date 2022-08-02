@@ -25,14 +25,20 @@ function StatusWithView(props: StatusWithViewProps) {
   return (
     <div className="flex flex-col font-bold">
       <div className="flex flex-row items-center">
-        <p className="mr-6 whitespace-nowrap text-base text-iff-text">
+        <p className="mr-2 whitespace-nowrap text-base text-iff-text md:mr-6">
           {title}
         </p>
-        <Label className={labelClass} size="large">
+        <Label
+          className={classNames('hidden md:flex', labelClass)}
+          size="large"
+        >
+          VIEW
+        </Label>
+        <Label className={classNames('md:hidden', labelClass)} size="medium">
           VIEW
         </Label>
       </div>
-      <p className={classNames('text-[64px]', valueClass)}>
+      <p className={classNames('text-[48px] md:text-[64px]', valueClass)}>
         {String(value).padStart(2, '0')}
       </p>
     </div>
@@ -52,7 +58,9 @@ function StatusCard(props: React.PropsWithChildren<StatusCardProps>) {
   const { children, title } = props
   return (
     <Card title={title}>
-      <div className="flex flex-col gap-6 py-7 px-9">{children}</div>
+      <div className="flex flex-col p-4 md:gap-6 md:py-7 md:px-9">
+        {children}
+      </div>
     </Card>
   )
 }
@@ -61,12 +69,12 @@ export function OverviewStatus({ className }: OverviewStatusProps) {
   return (
     <section
       className={classNames(
-        'flex flex-col xl:grid xl:grid-cols-2 gap-14 justify-between',
+        'flex flex-col xl:grid xl:grid-cols-2 gap-6 md:gap-14 justify-between',
         className
       )}
     >
       <StatusCard title="WHITELIST STATUS">
-        <div className="grid grid-cols-2 gap-12">
+        <div className="grid grid-cols-2 md:gap-12">
           <StatusWithView
             title="Expire Soon"
             value={1}

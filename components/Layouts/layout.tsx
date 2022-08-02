@@ -23,10 +23,10 @@ export function OverviewLayout({ children }: LayoutProps) {
     <Fragment>
       <Navbar />
       <main className="iff-layout">
-        <h1 className="heading-4 text-shadow-heading-4 pt-11 text-center text-white">
+        <h1 className="heading-4 text-shadow-heading-4 px-4 pt-11 text-center text-white">
           THE BEST WAY TO DO 2FA ON WEB3 ERA
         </h1>
-        <div className="flex w-full flex-row justify-center">
+        <div className="hidden w-full flex-row justify-center md:flex">
           <NeonUnderline className="ml-[180px]" />
         </div>
         {children}

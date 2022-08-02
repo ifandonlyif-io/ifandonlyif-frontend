@@ -17,21 +17,28 @@ function EmailInfo(props: EmailInfoProps) {
   const { email, notification } = props
   return (
     <div className="flex flex-row items-center">
-      <EmailIcon htmlColor="#4F4F4F" />
-      <div className="ml-3 flex flex-1 flex-row items-center gap-[10px]">
-        <p className="mr-3 text-base font-bold text-iff-text">{email}</p>
-        {props.default && (
-          <Label className="bg-[#BED0FF]" size="medium">
-            Default
-          </Label>
-        )}
-        {notification && (
-          <Label className="bg-[#FFC481]" size="medium">
-            Notification
-          </Label>
-        )}
+      <div className="flex flex-1 flex-col gap-[10px] md:flex-row">
+        <div className="flex flex-row flex-nowrap items-center gap-[10px]">
+          <EmailIcon htmlColor="#4F4F4F" />
+          <p className="mr-3 text-base font-bold text-iff-text">{email}</p>
+        </div>
+        <div className="flex flex-row flex-nowrap items-center gap-[10px] self-end md:self-center">
+          {props.default && (
+            <Label className="bg-[#BED0FF]" size="medium">
+              Default
+            </Label>
+          )}
+          {notification && (
+            <Label className="bg-[#FFC481]" size="medium">
+              Notification
+            </Label>
+          )}
+        </div>
       </div>
-      <button className="mr-8" title="More">
+      <button
+        className="ml-4 self-start md:mr-8 md:ml-0 md:self-center"
+        title="More"
+      >
         <MoreVerticalIcon stroke="#4F4F4F" />
       </button>
     </div>
@@ -42,7 +49,7 @@ export function OverviewEmail({ className }: OverviewEmailProps) {
   return (
     <section className={classNames('w-full', className)}>
       <Card title="EMAIL ADDRESS">
-        <div className="flex flex-col gap-10 py-10 px-7">
+        <div className="flex flex-col gap-4 p-4 md:gap-10 md:py-10 md:px-7">
           <EmailInfo email="collect_name_01@gmail.com" default notification />
           <EmailInfo email="collect_name_02@gmail.com" />
         </div>

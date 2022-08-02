@@ -4,14 +4,14 @@
   -webkit-tap-highlight-color: transparent;
 
   &__tab-list {
-    @apply flex flex-row m-0 p-0;
+    @apply flex flex-row m-0 px-4 md:p-0 overflow-x-auto;
   }
 
   &__tab {
     @apply
       flex flex-row items-center justify-center box-border cursor-pointer list-none focus:outline-none
-      w-[170px] h-[50px] mx-[15px] border-b-[3px] border-solid border-transparent bg-transparent
-      text-center font-bold text-base text-[#333333] leading-none uppercase
+      w-[90px] md:w-[170px] h-[50px] mx-2 md:mx-4 border-b-[3px] border-solid border-transparent bg-transparent
+      text-center font-bold text-base text-[#333333] leading-none uppercase shrink-0
     ;
     letter-spacing: 0.05em;
 

@@ -17,14 +17,14 @@ export function PanelPreMint(props: PanelPreMintProps) {
   const timezone = useSortByTimezone()
   const { availableNFTs, expiredNFTs } = filteredNFTItems(preMintWhitelist)
   return (
-    <div className="min-h-[640px] py-[50px] px-5">
+    <div className="min-h-[640px] py-6 px-4 md:py-[50px] md:px-5">
       <TabTitle className="mb-4">Pre-mint NFT</TabTitle>
       <SectionTitleWithSortTimezone className="mb-4" />
-      <section className="flex flex-col">
+      <section className="mb-4 flex flex-col md:mb-8">
         <SectionTitle className="mb-[10px] uppercase" size="small" count={5}>
           MY WHITELIST
         </SectionTitle>
-        <div className="flex flex-row flex-wrap gap-[30px]">
+        <div className="grid grid-cols-2 gap-[30px] md:flex md:flex-row md:flex-wrap">
           {availableNFTs.map((nft, index) => (
             <NFTFrame
               key={`${nft.name}-${index}`}

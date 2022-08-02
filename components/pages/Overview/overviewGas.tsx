@@ -9,7 +9,7 @@ export function OverviewGas({ className }: OverviewGasProps) {
   return (
     <section className={classNames('w-full', className)}>
       <Card title="GAS PRICE">
-        <div className="flex flex-row py-6 px-4"></div>
+        <div className="flex flex-row p-4 md:py-6"></div>
       </Card>
     </section>
   )

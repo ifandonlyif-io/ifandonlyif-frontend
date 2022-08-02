@@ -21,7 +21,7 @@ export function MintItMyNFT(props: MintItMyNFTProps) {
       >
         MY NFT
       </SectionTitle>
-      <div className="flex flex-row flex-wrap gap-[30px]">
+      <div className="grid grid-cols-2 gap-[30px] md:flex md:flex-row md:flex-wrap">
         {sortedNFTs.map((nft, index) => (
           <NFTFrame
             key={`${nft.name}-${index}`}
