@@ -13,3 +13,9 @@ export async function getDemoFeedbackList() {
     'http://localhost:3001/api/demo/feedbacklist'
   )
 }
+
+export async function getDemoGasPriceData() {
+  return await $fetch<[number, number][]>(
+    'https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/usdeur.json'
+  )
+}
