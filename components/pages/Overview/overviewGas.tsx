@@ -29,7 +29,7 @@ if (typeof Highcharts === 'object') {
 }
 
 const defaultChartOptions: Highcharts.Options = {
-  chart: { zoomType: 'x' },
+  chart: { zooming: { type: 'x' } },
   title: { text: 'Gas price over time' },
   xAxis: { type: 'datetime' },
   yAxis: { title: { text: 'Price (USD)' } },

@@ -43,7 +43,7 @@ function ConnectionOption(props: ConnectionOptionProps) {
 }
 
 type ConnectorOptionProps = {
-  tryActivation: (connector: Connector) => void
+  tryActivation: (connector: Connector) => Promise<void>
 }
 
 function MetaMaskOption(props: ConnectorOptionProps) {
@@ -51,7 +51,7 @@ function MetaMaskOption(props: ConnectorOptionProps) {
   const isActive = injectedConnection.hooks.useIsActive()
   const optionName = getConnectionName(ConnectionType.INJECTED, isMetaMask())
   const handleOptionClick = React.useCallback(
-    () => tryActivation(injectedConnection.connector),
+    async () => await tryActivation(injectedConnection.connector),
     [tryActivation]
   )
   return (
@@ -71,7 +71,7 @@ function WalletConnectOption(props: ConnectorOptionProps) {
   const isActive = walletConnectConnection.hooks.useIsActive()
   const optionName = getConnectionName(ConnectionType.WALLET_CONNECT)
   const handleOptionClick = React.useCallback(
-    () => tryActivation(walletConnectConnection.connector),
+    async () => await tryActivation(walletConnectConnection.connector),
     [tryActivation]
   )
   return (
