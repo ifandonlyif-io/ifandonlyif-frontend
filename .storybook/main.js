@@ -18,6 +18,12 @@ module.exports = {
   staticDirs: ['../public'],
   webpackFinal: async (config) => {
     config.resolve.modules = [path.resolve(__dirname, '..'), 'node_modules']
+    config.resolve.fallback = {
+      'events': require.resolve('events/'),
+      'assert': require.resolve('assert/'),
+      'path': require.resolve('path-browserify'),
+      'util': require.resolve('util/')
+    }
     return config
   },
 }
