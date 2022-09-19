@@ -2,7 +2,9 @@
 
 ## Getting Started
 
-### Install
+### Install and run
+
+Create `.env.local` file, copy from `.env.local.example` and edit all fields.
 
 Install dependencies.
 

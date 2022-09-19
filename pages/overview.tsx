@@ -1,4 +1,4 @@
-import { getDemoNftList } from 'backend'
+import { getDemoNftList, getGasPriceData } from 'backend'
 import { OverviewLayout } from 'components/Layouts'
 import {
   PanelIFFNFT,
@@ -7,6 +7,7 @@ import {
   PanelMintIt,
   PanelMintItProps,
   PanelOverview,
+  PanelOverviewProps,
   PanelPreMint,
   PanelPreMintProps,
   SectionTitleWithSortTimezoneProvider,
@@ -18,6 +19,7 @@ import React from 'react'
 import { NextPageWithLayout } from 'types'
 
 type OverviewProps = {
+  overview: PanelOverviewProps
   mintIt: PanelMintItProps
   preMint: PanelPreMintProps
   iffNFT: PanelIFFNFTProps
@@ -37,7 +39,7 @@ const tabs: TabData[] = [
 ]
 
 const Overview: NextPageWithLayout<OverviewProps> = (props: OverviewProps) => {
-  const { mintIt, preMint, iffNFT } = props
+  const { overview, mintIt, preMint, iffNFT } = props
   const router = useRouter()
   const [tabIndex, setTabIndex] = React.useState(0)
   const handleTabSelect = React.useCallback(
@@ -65,7 +67,7 @@ const Overview: NextPageWithLayout<OverviewProps> = (props: OverviewProps) => {
             ))}
           </TabList>
           <TabPanel>
-            <PanelOverview />
+            <PanelOverview {...overview} />
           </TabPanel>
           <TabPanel>
             <PanelMintIt {...mintIt} />
@@ -92,10 +94,12 @@ Overview.getLayout = (page) => {
 export const getServerSideProps: GetServerSideProps<
   OverviewProps
 > = async () => {
+  const priceData = await getGasPriceData()
+  const overview = { priceData }
   const mintIt = await getDemoNftList()
   const preMint: PanelPreMintProps = { preMintWhitelist: mintIt.myWhitelist }
   const iffNFT: PanelIFFNFTProps = { myIFFNFT: mintIt.myNFT }
-  return { props: { mintIt, preMint, iffNFT } }
+  return { props: { overview, mintIt, preMint, iffNFT } }
 }
 
 export default Overview

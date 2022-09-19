@@ -1,4 +1,3 @@
-import { getDemoGasPriceData } from 'backend'
 import { Card } from 'components/Card'
 import Highcharts from 'highcharts'
 import HighchartsAccessibility from 'highcharts/modules/accessibility'
@@ -8,7 +7,9 @@ import React from 'react'
 import { BaseComponent } from 'types'
 import { classNames, formatDatetime } from 'utils'
 
-type OverviewGasProps = BaseComponent
+export type OverviewGasProps = BaseComponent & {
+  priceData: [number, number][]
+}
 
 type GasTimeSeriesProps = BaseComponent & {
   data: [number, number][]
@@ -30,9 +31,9 @@ if (typeof Highcharts === 'object') {
 
 const defaultChartOptions: Highcharts.Options = {
   chart: { zooming: { type: 'x' } },
-  title: { text: 'Gas price over time' },
+  title: { text: 'Avg gas price last 24 hour' },
   xAxis: { type: 'datetime' },
-  yAxis: { title: { text: 'Price (USD)' } },
+  yAxis: { title: { text: 'Avg Gas Price (Gwei)' } },
   legend: { enabled: false },
   plotOptions: {
     area: {
@@ -75,7 +76,7 @@ function GasTimeSeries(props: GasTimeSeriesProps) {
 
 function GasPriceListItem(props: GasPriceListItemProps) {
   const { epotch, price } = props
-  const date = formatDatetime(epotch / 1000, 'yyyy/L/dd')
+  const date = formatDatetime(epotch / 1000, 'yyyy/L/dd T')
   return (
     <div
       className={classNames(
@@ -111,24 +112,13 @@ function GasPriceList(props: GasPriceListProps) {
   )
 }
 
-export function OverviewGas({ className }: OverviewGasProps) {
-  const [chartData, setChartData] = React.useState<[number, number][]>([])
-  const [listData, setListData] = React.useState<[number, number][]>([])
-  const fetchGasPriceData = React.useCallback(async () => {
-    const chartData = await getDemoGasPriceData()
-    const listData = chartData.reverse().slice(0, 20)
-    setChartData(chartData)
-    setListData(listData)
-  }, [])
-
-  React.useEffect(() => {
-    fetchGasPriceData()
-  }, [fetchGasPriceData])
+export function OverviewGas({ className, priceData }: OverviewGasProps) {
+  const listData = React.useMemo(() => priceData.slice(0, 20), [priceData])
   return (
     <section className={classNames('w-full', className)}>
       <Card title="GAS PRICE">
         <div className="grid grid-cols-1 gap-6 p-4 md:grid-cols-3 md:gap-0 md:py-6">
-          <GasTimeSeries className="xl:col-span-2" data={chartData} />
+          <GasTimeSeries className="xl:col-span-2" data={priceData} />
           <GasPriceList data={listData} />
         </div>
       </Card>
