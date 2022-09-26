@@ -6,10 +6,13 @@ import { ReactProvider } from 'types'
 import { getConnection, getConnectionName } from 'utils'
 
 export function Web3Provider({ children }: ReactProvider) {
-  const connections = [
-    ConnectionType.INJECTED,
-    ConnectionType.WALLET_CONNECT,
-  ].map(getConnection)
+  const connections = React.useMemo(() => {
+    const orderedConnectionTypes: ConnectionType[] = [
+      ConnectionType.INJECTED,
+      ConnectionType.WALLET_CONNECT,
+    ]
+    return orderedConnectionTypes.map(getConnection)
+  }, [])
   const connectors: [Connector, Web3ReactHooks][] = connections.map(
     ({ hooks, connector }) => [connector, hooks]
   )

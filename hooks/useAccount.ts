@@ -1,6 +1,8 @@
 import { useWeb3React } from '@web3-react/core'
-import { getSignatureCode } from 'backend'
+import { doWalletLogin, getSignatureCode } from 'backend'
+import { LSK_ACCESS_TOKEN } from 'constants/'
 import React from 'react'
+import useLocalStorageState from 'use-local-storage-state'
 
 type UseMetamaskAccount = {
   walletLogin: () => Promise<void>
@@ -8,6 +10,8 @@ type UseMetamaskAccount = {
 
 export function useMetamaskAccount(): UseMetamaskAccount {
   const { account, provider } = useWeb3React()
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, setAccessToken] = useLocalStorageState<string>(LSK_ACCESS_TOKEN)
 
   const getMetamaskSignCode = React.useCallback(async () => {
     if (!account) return null
@@ -16,13 +20,16 @@ export function useMetamaskAccount(): UseMetamaskAccount {
     return null
   }, [account])
 
-  const getMetamaskSignSignature = React.useCallback(async (code: string) => {
-    if (!(account && provider)) return null
-    const signer = provider.getSigner()
-    const signature = await signer.signMessage(code)
-    console.debug('account', account, 'signature', signature)
-    return signature
-  }, [])
+  const getMetamaskSignSignature = React.useCallback(
+    async (code: string) => {
+      if (!(account && provider)) return null
+      const signer = provider.getSigner()
+      const signature = await signer.signMessage(code)
+      console.debug('account', account, 'signature', signature)
+      return signature
+    },
+    [account, provider]
+  )
 
   const walletLogin = React.useCallback<
     UseMetamaskAccount['walletLogin']
@@ -36,12 +43,13 @@ export function useMetamaskAccount(): UseMetamaskAccount {
     if (!sig) throw new Error('No sign signature')
 
     try {
-      // TODO: Login api
+      const { accessToken } = await doWalletLogin(account, code, sig)
+      setAccessToken(accessToken)
     } catch (error) {
       // TODO: handle possible error
       console.error('Wallet login error', error)
     }
-  }, [])
+  }, [account, getMetamaskSignCode, getMetamaskSignSignature, setAccessToken])
 
   return { walletLogin }
 }

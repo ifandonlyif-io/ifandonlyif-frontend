@@ -39,9 +39,25 @@ export async function getGasPriceData(): Promise<GasPrice[]> {
 type GetSignatureCode = {
   code: string
 }
-export async function getSignatureCode(walletAddress: string) {
+export async function getSignatureCode(
+  walletAddress: string
+): Promise<GetSignatureCode> {
   return await backendFetch<GetSignatureCode>('/code', {
     method: 'POST',
     body: { walletAddress },
+  })
+}
+
+type DoWalletLogin = {
+  accessToken: string
+}
+export async function doWalletLogin(
+  walletAddress: string,
+  nonce: string,
+  signature: string
+): Promise<DoWalletLogin> {
+  return await backendFetch<DoWalletLogin>('/login', {
+    method: 'POST',
+    body: { walletAddress, nonce, signature },
   })
 }

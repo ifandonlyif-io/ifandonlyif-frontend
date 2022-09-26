@@ -12116,6 +12116,7 @@ __metadata:
     react-tabs: ^5.1.0
     tailwindcss: ^3.1.8
     typescript: ^4.8.2
+    use-local-storage-state: ^18.1.1
     util: ^0.12.4
   languageName: unknown
   linkType: soft
@@ -19524,6 +19525,16 @@ __metadata:
     punycode: 1.3.2
     querystring: 0.2.0
   checksum: 50d100d3dd2d98b9fe3ada48cadb0b08aa6be6d3ac64112b867b56b19be4bfcba03c2a9a0d7922bfd7ac17d4834e88537749fe182430dfd9b68e520175900d90
+  languageName: node
+  linkType: hard
+
+"use-local-storage-state@npm:^18.1.1":
+  version: 18.1.1
+  resolution: "use-local-storage-state@npm:18.1.1"
+  peerDependencies:
+    react: ">=18"
+    react-dom: ">=18"
+  checksum: e36ee6c4de5eeac3ce973fff4679a8d330237516ff05c06caa05e5b1557eef5ffe1a41b4151fb3ab5dbe640f3c5f7dfcc15519d2e1a1cbcc2d3b57620887e652
   languageName: node
   linkType: hard
 

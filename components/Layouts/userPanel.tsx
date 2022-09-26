@@ -9,6 +9,7 @@ import {
   injectedConnection,
   walletConnectConnection,
 } from 'connections'
+import { useMetamaskAccount } from 'hooks'
 import React from 'react'
 import { BaseComponent } from 'types'
 import { classNames, getConnectionName, isMetaMask, shortAccount } from 'utils'
@@ -116,6 +117,11 @@ function WalletInfo(props: WalletInfoProps) {
   const { account, className } = props
   const accStr = shortAccount(account)
   const { connector } = useWeb3React()
+  const { walletLogin } = useMetamaskAccount()
+
+  const handleLogin = React.useCallback(async () => {
+    await walletLogin()
+  }, [walletLogin])
   const handleDisconnectClick = React.useCallback(() => {
     if (connector.deactivate) {
       connector.deactivate()
@@ -123,9 +129,17 @@ function WalletInfo(props: WalletInfoProps) {
       connector.resetState()
     }
   }, [connector])
+
+  React.useEffect(() => {
+    if (account) walletLogin()
+  }, [account, walletLogin])
+
   return (
     <div className={classNames('grid grid-cols-1 gap-3', className)}>
-      <div className="flex flex-row flex-nowrap items-center">
+      <div
+        className="flex flex-row flex-nowrap items-center"
+        onClick={handleLogin}
+      >
         <EthereumIcon />
         <div className="ml-2 text-lg">{accStr}</div>
       </div>
