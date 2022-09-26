@@ -9,6 +9,8 @@ type UseMetamaskAccount = {
 }
 
 export function useMetamaskAccount(): UseMetamaskAccount {
+  const sendingRef = React.useRef<boolean>(false)
+
   const { account, provider } = useWeb3React()
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setAccessToken] = useLocalStorageState<string>(LSK_ACCESS_TOKEN)
@@ -34,6 +36,9 @@ export function useMetamaskAccount(): UseMetamaskAccount {
   const walletLogin = React.useCallback<
     UseMetamaskAccount['walletLogin']
   >(async () => {
+    if (sendingRef.current) return
+    sendingRef.current = true
+
     if (!account) throw new Error('No wallet address')
 
     const code = await getMetamaskSignCode()
@@ -43,11 +48,13 @@ export function useMetamaskAccount(): UseMetamaskAccount {
     if (!sig) throw new Error('No sign signature')
 
     try {
-      const { accessToken } = await doWalletLogin(account, code, sig)
+      const { accessToken } = await doWalletLogin(account, sig)
       setAccessToken(accessToken)
     } catch (error) {
       // TODO: handle possible error
       console.error('Wallet login error', error)
+    } finally {
+      sendingRef.current = false
     }
   }, [account, getMetamaskSignCode, getMetamaskSignSignature, setAccessToken])
 

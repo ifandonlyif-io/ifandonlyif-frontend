@@ -53,11 +53,10 @@ type DoWalletLogin = {
 }
 export async function doWalletLogin(
   walletAddress: string,
-  nonce: string,
   signature: string
 ): Promise<DoWalletLogin> {
   return await backendFetch<DoWalletLogin>('/login', {
     method: 'POST',
-    body: { walletAddress, nonce, signature },
+    body: { walletAddress, signature },
   })
 }
