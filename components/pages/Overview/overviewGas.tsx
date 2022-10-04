@@ -113,7 +113,10 @@ function GasPriceList(props: GasPriceListProps) {
 }
 
 export function OverviewGas({ className, priceData }: OverviewGasProps) {
-  const listData = React.useMemo(() => priceData.slice(0, 20), [priceData])
+  const listData = React.useMemo(
+    () => priceData.slice(0, 20).reverse(),
+    [priceData]
+  )
   return (
     <section className={classNames('w-full', className)}>
       <Card title="GAS PRICE">

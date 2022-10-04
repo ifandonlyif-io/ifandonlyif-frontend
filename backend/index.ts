@@ -30,10 +30,12 @@ type GasInfo = {
 type GasPrice = [number, number]
 export async function getGasPriceData(): Promise<GasPrice[]> {
   const infoList = await backendFetch<GasInfo[]>('/gasInfo')
-  return infoList.map((info) => [
+  const prices = infoList.map((info) => [
     parseISODateTime(info.createdAt) * 1000,
     info.average / 10,
   ])
+  const sorted = prices.sort((a, b) => a[0] - b[0])
+  return sorted as GasPrice[]
 }
 
 type GetSignatureCode = {
