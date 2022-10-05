@@ -1,0 +1,15 @@
+Dockerfile
+.dockerignore
+
+node_modules
+npm-debug.log
+
+README.md
+
+.git
+.github
+.husky
+.next
+.vscode
+.yarn/cache
+.yarn/*.gz
