@@ -36,6 +36,20 @@ yarn run build
 yarn run test
 ```
 
+### Build Docker container
+
+```bash
+docker build -t nextjs-docker .
+```
+
+### Run Docker container
+
+```bash
+docker run -p 3001:3001 nextjs-docker
+```
+
+Server is available at http://localhost:3001/.
+
 ## License
 
 This project is licensed under the MIT License.
