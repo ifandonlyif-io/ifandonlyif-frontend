@@ -9,31 +9,31 @@ Create `.env.local` file, copy from `.env.local.example` and edit all fields.
 Install dependencies.
 
 ```bash
-yarn install
+pnpm install
 ```
 
 Serve with hot reload at http://localhost:3001.
 
 ```bash
-yarn run dev
+pnpm run dev
 ```
 
 ### Lint
 
 ```bash
-yarn run lint
+pnpm run lint
 ```
 
 ### Build
 
 ```bash
-yarn run build
+pnpm run build
 ```
 
 ### Test
 
 ```bash
-yarn run test
+pnpm run test
 ```
 
 ### Build Docker container
