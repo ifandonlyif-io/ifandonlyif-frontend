@@ -1,5 +1,6 @@
 export * from './connection'
 export * from './css'
 export * from './datetime'
+export * from './jwt'
 export * from './nft'
 export * from './string'

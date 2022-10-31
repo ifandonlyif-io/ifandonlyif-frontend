@@ -2,7 +2,9 @@ import { useWeb3React } from '@web3-react/core'
 import { doWalletLogin, getSignatureCode } from 'backend'
 import { LSK_ACCESS_TOKEN } from 'constants/'
 import React from 'react'
+import { AccountAccessTokenJWTPayload } from 'types'
 import useLocalStorageState from 'use-local-storage-state'
+import { getAccessTokenPayload, isAccountTokenExpired } from 'utils'
 
 type UseMetamaskAccount = {
   walletLogin: () => Promise<void>
@@ -59,4 +61,32 @@ export function useMetamaskAccount(): UseMetamaskAccount {
   }, [account, getMetamaskSignCode, getMetamaskSignSignature, setAccessToken])
 
   return { walletLogin }
+}
+
+type UseAccountInfo = {
+  account?: AccountAccessTokenJWTPayload
+  expired: boolean
+  remove: () => void
+}
+
+export function useAccountInfo(): UseAccountInfo {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [accessToken, _, { removeItem }] =
+    useLocalStorageState<string>(LSK_ACCESS_TOKEN)
+
+  const account = React.useMemo(() => {
+    if (!accessToken) return undefined
+    return getAccessTokenPayload(accessToken)
+  }, [accessToken])
+
+  const expired = React.useMemo(() => {
+    if (!accessToken) return true
+    return isAccountTokenExpired(accessToken)
+  }, [accessToken])
+
+  const remove = React.useCallback(() => {
+    removeItem()
+  }, [removeItem])
+
+  return { account, expired, remove }
 }

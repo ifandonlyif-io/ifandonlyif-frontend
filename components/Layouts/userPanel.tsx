@@ -1,5 +1,4 @@
-import type { Web3Provider } from '@ethersproject/providers'
-import { useWeb3React, Web3ContextType } from '@web3-react/core'
+import { useWeb3React } from '@web3-react/core'
 import { Connector } from '@web3-react/types'
 import { Avatar } from 'components/Avatar'
 import { Button, ButtonProps } from 'components/Buttons'
@@ -9,7 +8,7 @@ import {
   injectedConnection,
   walletConnectConnection,
 } from 'connections'
-import { useMetamaskAccount } from 'hooks'
+import { useAccountInfo, useMetamaskAccount } from 'hooks'
 import React from 'react'
 import { BaseComponent } from 'types'
 import { classNames, getConnectionName, isMetaMask, shortAccount } from 'utils'
@@ -87,20 +86,32 @@ function WalletConnectOption(props: ConnectorOptionProps) {
   )
 }
 
-type WalletConnectionsProps = BaseComponent
+type WalletConnectionsProps = BaseComponent & {
+  onWalletDropdownClose: () => void
+}
 
 function WalletConnections(props: WalletConnectionsProps) {
-  const { className } = props
+  const { className, onWalletDropdownClose } = props
+  const { account } = useWeb3React()
+  const { expired } = useAccountInfo()
+  const { walletLogin } = useMetamaskAccount()
+
   const handleTryActivation = React.useCallback(
     async (connector: Connector) => {
       try {
         await connector.activate()
+        onWalletDropdownClose()
       } catch (error) {
         console.error('Activate connector error:', error)
       }
     },
-    []
+    [onWalletDropdownClose]
   )
+
+  React.useEffect(() => {
+    if (account && expired) walletLogin()
+  }, [account, expired, walletLogin])
+
   return (
     <div className={classNames('grid grid-cols-1 gap-3', className)}>
       <MetaMaskOption tryActivation={handleTryActivation} />
@@ -130,10 +141,6 @@ function WalletInfo(props: WalletInfoProps) {
     }
   }, [connector])
 
-  React.useEffect(() => {
-    if (account) walletLogin()
-  }, [account, walletLogin])
-
   return (
     <div className={classNames('grid grid-cols-1 gap-3', className)}>
       <div
@@ -154,17 +161,25 @@ function WalletInfo(props: WalletInfoProps) {
   )
 }
 
-type WalletDropdownProps = Pick<Web3ContextType<Web3Provider>, 'account'> & {
+type WalletDropdownProps = {
   isOpen: boolean
+  onWalletDropdownClose: () => void
 }
 
 function WalletDropdown(props: WalletDropdownProps) {
-  const { account, isOpen } = props
+  const { isOpen, onWalletDropdownClose } = props
+  const { account: accountInfo, expired } = useAccountInfo()
+
   if (!isOpen) return null
+
   return (
     <div className="absolute top-[90%] right-4 rounded-[10px] bg-white p-4 shadow-iff-modal">
-      {!account && <WalletConnections />}
-      {account && <WalletInfo account={account} />}
+      {expired && (
+        <WalletConnections onWalletDropdownClose={onWalletDropdownClose} />
+      )}
+      {!expired && accountInfo && (
+        <WalletInfo account={accountInfo.walletAddress} />
+      )}
     </div>
   )
 }
@@ -187,22 +202,33 @@ function ConnectWalletButton(props: Omit<ButtonProps, 'children'>) {
 type UserPanelProps = BaseComponent
 
 export function UserPanel({ className }: UserPanelProps) {
-  const { account } = useWeb3React()
+  const { account: accountInfo, expired } = useAccountInfo()
+
   const [isOpen, setIsOpen] = React.useState(false)
+
+  const username = accountInfo?.username || 'Name'
+
   const toggleWalletDropdown = React.useCallback(() => setIsOpen((s) => !s), [])
+  const handleWalletDropdownClose = React.useCallback(
+    () => setIsOpen(false),
+    []
+  )
 
   return (
     <div className={classNames('box-border', className)}>
-      {!account && <ConnectWalletButton onClick={toggleWalletDropdown} />}
-      {account && (
+      {expired && <ConnectWalletButton onClick={toggleWalletDropdown} />}
+      {!expired && (
         <Avatar
           size="small"
           variant="text"
-          src="S"
+          src={username}
           onClick={toggleWalletDropdown}
         />
       )}
-      <WalletDropdown account={account} isOpen={isOpen} />
+      <WalletDropdown
+        isOpen={isOpen}
+        onWalletDropdownClose={handleWalletDropdownClose}
+      />
     </div>
   )
 }
