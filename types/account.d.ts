@@ -5,5 +5,5 @@ import type { RemoveIndex } from './utils'
 export type AccountAccessTokenJWTPayload = RemoveIndex<JWTPayload> & {
   id: number
   username: string | null
-  walletAddress: string
+  wallet: string
 }

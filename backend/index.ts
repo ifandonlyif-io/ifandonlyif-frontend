@@ -1,4 +1,5 @@
-import { $fetch } from 'ohmyfetch'
+import { LSK_ACCESS_TOKEN } from 'constants/'
+import { $fetch, FetchContext, FetchResponse } from 'ohmyfetch'
 import { FeedbackItem } from 'types'
 import { GetDemoNFTListRes } from 'types/backend'
 import { parseISODateTime } from 'utils'
@@ -9,7 +10,42 @@ function getAPIBaseUrl(path: string): string {
   return new URL(path, baseUrl).href
 }
 
-const backendFetch = $fetch.create({ baseURL: getAPIBaseUrl('/') })
+async function onBackendFetchRequest(ctx: FetchContext) {
+  if (
+    typeof localStorage === 'object' &&
+    'getItem' in localStorage &&
+    typeof localStorage.getItem === 'function'
+  ) {
+    const token = localStorage.getItem(LSK_ACCESS_TOKEN)
+    if (token) {
+      ctx.options.headers = Object.assign({}, ctx.options.headers, {
+        Authorization: `bearer ${JSON.parse(token)}`,
+      })
+    }
+  }
+}
+
+async function onBackendFetchResponseError(
+  ctx: FetchContext & {
+    response: FetchResponse<unknown>
+  }
+) {
+  if (ctx.response.status === 401) {
+    if (
+      typeof localStorage === 'object' &&
+      'removeItem' in localStorage &&
+      typeof localStorage.removeItem === 'function'
+    )
+      localStorage.removeItem(LSK_ACCESS_TOKEN)
+    // TODO: support refresh token
+  }
+}
+
+const backendFetch = $fetch.create({
+  baseURL: getAPIBaseUrl('/'),
+  onRequest: onBackendFetchRequest,
+  onResponseError: onBackendFetchResponseError,
+})
 
 export async function getDemoNftList() {
   return await $fetch<GetDemoNFTListRes>(
@@ -42,11 +78,11 @@ type GetSignatureCode = {
   code: string
 }
 export async function getSignatureCode(
-  walletAddress: string
+  wallet: string
 ): Promise<GetSignatureCode> {
   return await backendFetch<GetSignatureCode>('/code', {
     method: 'POST',
-    body: { walletAddress },
+    body: { wallet },
   })
 }
 
@@ -54,11 +90,16 @@ type DoWalletLogin = {
   accessToken: string
 }
 export async function doWalletLogin(
-  walletAddress: string,
+  wallet: string,
   signature: string
 ): Promise<DoWalletLogin> {
   return await backendFetch<DoWalletLogin>('/login', {
     method: 'POST',
-    body: { walletAddress, signature },
+    body: { wallet, signature },
   })
+}
+
+export async function getUserNft(url = '/auth/fetchUserNft') {
+  const res = await backendFetch<string>(url, { method: 'POST' })
+  return JSON.parse(res)
 }

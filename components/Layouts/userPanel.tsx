@@ -177,9 +177,7 @@ function WalletDropdown(props: WalletDropdownProps) {
       {expired && (
         <WalletConnections onWalletDropdownClose={onWalletDropdownClose} />
       )}
-      {!expired && accountInfo && (
-        <WalletInfo account={accountInfo.walletAddress} />
-      )}
+      {!expired && accountInfo && <WalletInfo account={accountInfo.wallet} />}
     </div>
   )
 }
