@@ -12,7 +12,7 @@ export function Navbar({ className }: NavbarProps) {
   return (
     <nav
       className={classNames(
-        'flex flex-row justify-between items-center px-[22px] md:px-8 h-[88px] bg-black/20 shadow-iff-base backdrop-blur-2xl',
+        'sticky flex flex-row justify-between items-center px-[22px] md:px-8 h-[88px] bg-black/20 shadow-iff-base backdrop-blur-2xl z-10',
         className
       )}
     >
