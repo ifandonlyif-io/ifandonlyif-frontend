@@ -1,4 +1,4 @@
-import { getDemoNftList, getGasPriceData } from 'backend'
+import { getDemoNftList, getGasPriceData, getUserNft } from 'backend'
 import { OverviewLayout } from 'components/Layouts'
 import {
   PanelIFFNFT,
@@ -16,6 +16,7 @@ import { Tab, TabList, TabPanel, Tabs } from 'components/Tabs'
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import React from 'react'
+import useSWR from 'swr'
 import { NextPageWithLayout } from 'types'
 
 type OverviewProps = {
@@ -41,6 +42,11 @@ const tabs: TabData[] = [
 const Overview: NextPageWithLayout<OverviewProps> = (props: OverviewProps) => {
   const { overview, mintIt, preMint, iffNFT } = props
   const router = useRouter()
+  const { data } = useSWR('/auth/fetchUserNft', getUserNft, {
+    shouldRetryOnError: false,
+  })
+  console.log('fetchUserNft', data)
+
   const [tabIndex, setTabIndex] = React.useState(0)
   const handleTabSelect = React.useCallback(
     (index: number) => {
@@ -98,7 +104,7 @@ export const getServerSideProps: GetServerSideProps<
   const overview = { priceData }
   const mintIt = await getDemoNftList()
   const preMint: PanelPreMintProps = { preMintWhitelist: mintIt.myWhitelist }
-  const iffNFT: PanelIFFNFTProps = { myIFFNFT: mintIt.myNFT }
+  const iffNFT: PanelIFFNFTProps = { myIFFNFT: mintIt.myNFTs }
   return { props: { overview, mintIt, preMint, iffNFT } }
 }
 

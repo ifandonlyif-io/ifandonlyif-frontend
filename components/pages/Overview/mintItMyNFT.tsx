@@ -1,17 +1,17 @@
 import { NFTButton } from 'components/Buttons'
 import { NFTFrame } from 'components/NFTs'
-import type { BaseComponent, NFTItem } from 'types'
+import type { BaseComponent, MyNFTItem } from 'types'
 import { classNames, sortNFTItems } from 'utils'
 
 import { SectionTitle } from './title'
 
 export type MintItMyNFTProps = BaseComponent & {
-  myNFT: NFTItem[]
+  myNFTs: MyNFTItem[]
 }
 
 export function MintItMyNFT(props: MintItMyNFTProps) {
-  const { myNFT, className } = props
-  const sortedNFTs = sortNFTItems(myNFT).reverse()
+  const { myNFTs, className } = props
+  const sortedNFTs = sortNFTItems(myNFTs).reverse()
   return (
     <section className={classNames('flex flex-col', className)}>
       <SectionTitle

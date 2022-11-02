@@ -13,13 +13,13 @@ type FilterValues = 'all' | 'whitelist' | 'nft'
 type FilterOption = { label: string; value: FilterValues; count: number }
 
 export function PanelMintIt(props: PanelMintItProps) {
-  const { myWhitelist, preSaleWhitelist, myNFT } = props
+  const { myWhitelist, preSaleWhitelist, myNFTs } = props
   const whitelistCount = myWhitelist.length + preSaleWhitelist.length
-  const allCount = whitelistCount + myNFT.length
+  const allCount = whitelistCount + myNFTs.length
   const filterItems: FilterOption[] = [
     { label: 'ALL', value: 'all', count: allCount },
     { label: 'WHITELIST', value: 'whitelist', count: whitelistCount },
-    { label: 'NFT', value: 'nft', count: myNFT.length },
+    { label: 'NFT', value: 'nft', count: myNFTs.length },
   ]
   const [mintFilter, setMintFilter] = React.useState<string>('all')
   const handleFilterChange = React.useCallback(
