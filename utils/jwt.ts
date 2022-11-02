@@ -1,6 +1,7 @@
 import * as Jose from 'jose'
 
 import { AccountAccessTokenJWTPayload } from '../types'
+import { isHistorical } from './datetime'
 
 export function getAccessTokenPayload(
   token: string
@@ -10,8 +11,9 @@ export function getAccessTokenPayload(
 
 export function isAccountTokenExpired(token: string): boolean {
   const payload = getAccessTokenPayload(token)
-  const now = Date.now()
-  console.debug('Is account token expired', payload.exp, now)
-  if (!payload.exp || payload.exp * 1000 <= now) return true
+  if (!payload.exp) return true
+  const expired = isHistorical(payload.exp)
+  console.debug('Is account token expired', payload.exp)
+  if (expired) return true
   return false
 }
