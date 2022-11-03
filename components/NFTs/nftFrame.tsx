@@ -38,7 +38,7 @@ export function NFTFrame(props: React.PropsWithChildren<NFTFrameProps>) {
         )}
       >
         <img
-          className="h-full w-full object-cover"
+          className="aspect-square h-full w-full object-cover object-center"
           src={imageUri}
           alt="NFT Image"
         />
