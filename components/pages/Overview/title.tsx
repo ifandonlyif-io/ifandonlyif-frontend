@@ -53,7 +53,7 @@ export function SectionTitle(
       )}
     >
       <h3>{children}</h3>
-      {count && <p>&nbsp;({count})</p>}
+      {typeof count === 'number' && <p>&nbsp;({count})</p>}
     </div>
   )
 }

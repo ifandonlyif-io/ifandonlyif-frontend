@@ -33,7 +33,7 @@ export function FilterItem(props: FilterItemProps) {
       />
       <span className="box-border rounded-[20px] border-[1px] border-solid border-iff-cyan py-[6px] px-6 text-sm font-bold text-iff-text peer-checked:bg-iff-cyan">
         {children}
-        {count && ` (${count})`}
+        {typeof count === 'number' && ` (${count})`}
       </span>
     </label>
   )
