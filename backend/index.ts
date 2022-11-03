@@ -1,8 +1,8 @@
 import { LSK_ACCESS_TOKEN } from 'constants/'
 import { $fetch, FetchContext, FetchResponse } from 'ohmyfetch'
-import { FeedbackItem, FetchUserNftsResponse } from 'types'
+import { FeedbackItem, FetchUserNftsResponse, MyNFTItem, NFTItem } from 'types'
 import { GetDemoNFTListRes } from 'types/backend'
-import { parseISODateTime } from 'utils'
+import { convertOwnedNftsToMyNfts, parseISODateTime } from 'utils'
 
 function getAPIBaseUrl(path: string): string {
   const baseUrl: string | undefined = process.env.NEXT_PUBLIC_API_URL
@@ -53,6 +53,10 @@ export async function getDemoNftList() {
   )
 }
 
+export async function getDemoMyIffNft() {
+  return await $fetch<NFTItem[]>('http://localhost:3001/api/demo/fetchMyIffNft')
+}
+
 export async function getDemoFeedbackList() {
   return await $fetch<FeedbackItem[]>(
     'http://localhost:3001/api/demo/feedbacklist'
@@ -99,8 +103,11 @@ export async function doWalletLogin(
   })
 }
 
-export async function getUserNft(url = '/auth/fetchUserNft') {
+export async function getUserNft(
+  url = '/auth/fetchUserNft'
+): Promise<MyNFTItem[]> {
   const res = await backendFetch<string>(url, { method: 'POST' })
   const parsedRes: FetchUserNftsResponse = JSON.parse(res)
-  return parsedRes
+  const myNfts = convertOwnedNftsToMyNfts(parsedRes.ownedNfts)
+  return myNfts
 }

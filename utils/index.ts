@@ -1,4 +1,5 @@
 export * from './connection'
+export * from './converter'
 export * from './css'
 export * from './datetime'
 export * from './jwt'
