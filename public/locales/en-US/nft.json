@@ -1,0 +1,10 @@
+{
+  "nftView": {
+    "heading": "CHECK NFT HOLDER",
+    "backButton": "BACK",
+    "flipButton": {
+      "press": "Press to flip",
+      "tap": "Tap to flip"
+    }
+  }
+}

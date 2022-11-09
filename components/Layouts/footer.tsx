@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { BaseComponent } from 'types'
 import { classNames } from 'utils'
@@ -5,6 +6,8 @@ import { classNames } from 'utils'
 type FooterProps = BaseComponent
 
 export function Footer({ className }: FooterProps) {
+  const { t } = useTranslation('common')
+
   return (
     <footer
       className={classNames(
@@ -18,10 +21,10 @@ export function Footer({ className }: FooterProps) {
           'md:pt-20 md:mb-0 md:heading-2'
         )}
       >
-        Effortless Abcdefg
+        {t('layouts.footer.paragraph.heading')}
       </p>
       <p className="text-center text-[18px] font-bold leading-normal text-white md:text-[22px]">
-        Do the things you do, but better!
+        {t('layouts.footer.paragraph.content')}
       </p>
     </footer>
   )

@@ -49,3 +49,5 @@ storybook-static/
 
 # typescript
 tsconfig.tsbuildinfo
+
+demo.json

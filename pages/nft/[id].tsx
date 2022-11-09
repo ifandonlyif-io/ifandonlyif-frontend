@@ -2,7 +2,10 @@ import { Button } from 'components/Buttons'
 import { NeonBorder } from 'components/Decorate'
 import { Rotate360Icon } from 'components/Icons'
 import { HolderRecord, NFTCard, NFTCardProps } from 'components/NFTs'
-import { NextPage } from 'next'
+import { GetServerSideProps, NextPage } from 'next'
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React from 'react'
 import { classNames } from 'utils'
 
@@ -38,9 +41,17 @@ const demoNFTCard: NFTCardProps = {
   validity: true,
 }
 
-const NFTView: NextPage = () => {
+type NFTViewProps = {
+  nftData: NFTCardProps
+}
+
+const NFTView: NextPage<NFTViewProps> = (props: NFTViewProps) => {
+  const { nftData } = props
+  const { t } = useTranslation('nft')
+  const router = useRouter()
   const [flip, setFlip] = React.useState(false)
   const handleCardFlip = React.useCallback(() => setFlip(!flip), [flip])
+  const handleBackClick = React.useCallback(() => router.back(), [router])
 
   return (
     <div className="block flex-row flex-nowrap items-center py-16 md:flex md:py-24">
@@ -49,16 +60,21 @@ const NFTView: NextPage = () => {
         <div className="flex flex-col flex-nowrap px-4 py-6 md:flex-row md:justify-between md:py-7 md:px-20">
           <div className="flex flex-col">
             <h1 className="heading-4 md:heading-2 text-shadow-heading-1 mb-4 text-white md:mb-16">
-              CHECK NFT HOLDER
+              {t('nftView.heading')}
             </h1>
             <div className="text-md mb-5 flex flex-row font-bold text-white md:mb-6 md:flex-col md:text-xl">
-              <h3 className="mr-5 md:mb-5">NFT PROJECT</h3>
-              <p>#797</p>
+              <h3 className="mr-5 md:mb-5">{nftData.name}</h3>
+              <p>#{nftData.nftId}</p>
             </div>
-            <Button className="hidden !w-[116px] md:flex">BACK</Button>
+            <Button
+              className="hidden !w-[116px] md:flex"
+              onClick={handleBackClick}
+            >
+              {t('nftView.backButton')}
+            </Button>
           </div>
           <div className="mb-6 flex flex-col items-center rounded-[10px] bg-[#00183C]/50 p-6 backdrop-blur-[54px] md:mb-0">
-            <NFTCard {...demoNFTCard} flipBack={flip} />
+            <NFTCard {...nftData} flipBack={flip} />
             <button
               className={classNames(
                 'flex z-10 flex-row flex-nowrap justify-center items-cente',
@@ -68,17 +84,32 @@ const NFTView: NextPage = () => {
             >
               <Rotate360Icon />
               <span className="ml-[10px] hidden md:inline-block">
-                Press to flip
+                {t('nftView.flipButton.press')}
               </span>
-              <span className="ml-[10px] md:hidden">Tap to flip</span>
+              <span className="ml-[10px] md:hidden">
+                {t('nftView.flipButton.tap')}
+              </span>
             </button>
           </div>
-          <Button className="mb-2 ml-auto !w-[116px] md:hidden">BACK</Button>
+          <Button
+            className="mb-2 ml-auto !w-[116px] md:hidden"
+            onClick={handleBackClick}
+          >
+            {t('nftView.backButton')}
+          </Button>
         </div>
       </div>
       <NeonBorder className="hidden md:flex" color="cyan" flip />
     </div>
   )
+}
+
+export const getServerSideProps: GetServerSideProps<NFTViewProps> = async ({
+  locale = 'en-US',
+}) => {
+  const i18n = await serverSideTranslations(locale, ['common', 'nft'])
+  const nftData = demoNFTCard
+  return { props: { ...i18n, nftData } }
 }
 
 export default NFTView

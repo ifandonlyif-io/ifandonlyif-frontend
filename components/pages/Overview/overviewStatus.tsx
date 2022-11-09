@@ -1,5 +1,6 @@
 import { Card } from 'components/Card'
 import { Label } from 'components/Label'
+import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { BaseComponent } from 'types'
 import { classNames } from 'utils'
@@ -22,6 +23,11 @@ type OverviewStatusProps = BaseComponent
 
 function StatusWithView(props: StatusWithViewProps) {
   const { title, value, labelClass, valueClass } = props
+  const { t } = useTranslation('overview')
+  const viewText = t(
+    'overview.panelOverview.overviewStatus.statusWithView.viewLabel'
+  )
+
   return (
     <div className="flex flex-col font-bold">
       <div className="flex flex-row items-center">
@@ -32,10 +38,10 @@ function StatusWithView(props: StatusWithViewProps) {
           className={classNames('hidden md:flex', labelClass)}
           size="large"
         >
-          VIEW
+          {viewText}
         </Label>
         <Label className={classNames('md:hidden', labelClass)} size="medium">
-          VIEW
+          {viewText}
         </Label>
       </div>
       <p className={classNames('text-[48px] md:text-[64px]', valueClass)}>
@@ -66,6 +72,8 @@ function StatusCard(props: React.PropsWithChildren<StatusCardProps>) {
 }
 
 export function OverviewStatus({ className }: OverviewStatusProps) {
+  const { t } = useTranslation('overview')
+
   return (
     <section
       className={classNames(
@@ -73,40 +81,84 @@ export function OverviewStatus({ className }: OverviewStatusProps) {
         className
       )}
     >
-      <StatusCard title="WHITELIST STATUS">
+      <StatusCard
+        title={t(
+          'overview.panelOverview.overviewStatus.whitelist.statusCard.title'
+        )}
+      >
         <div className="grid grid-cols-2 md:gap-12">
           <StatusWithView
-            title="Expire Soon"
+            title={t(
+              'overview.panelOverview.overviewStatus.whitelist.statusWithView.title.expire'
+            )}
             value={1}
             labelClass="bg-[#FFC481]"
             valueClass="text-[#FF7E0C]"
           />
           <StatusWithView
-            title="Pre-mint Soon"
+            title={t(
+              'overview.panelOverview.overviewStatus.whitelist.statusWithView.title.preMint'
+            )}
             value={3}
             labelClass="bg-iff-cyan"
             valueClass="text-[#14D6D6]"
           />
         </div>
         <div className="grid grid-cols-3 gap-5">
-          <StatusInfo title="All" value={100} />
-          <StatusInfo title="Alive" value={10} />
-          <StatusInfo title="Expired" value={4} />
+          <StatusInfo
+            title={t(
+              'overview.panelOverview.overviewStatus.whitelist.statusInfo.title.all'
+            )}
+            value={100}
+          />
+          <StatusInfo
+            title={t(
+              'overview.panelOverview.overviewStatus.whitelist.statusInfo.title.alive'
+            )}
+            value={10}
+          />
+          <StatusInfo
+            title={t(
+              'overview.panelOverview.overviewStatus.whitelist.statusInfo.title.expired'
+            )}
+            value={4}
+          />
         </div>
       </StatusCard>
-      <StatusCard title="IFFNFTs STATUS">
+      <StatusCard
+        title={t(
+          'overview.panelOverview.overviewStatus.iffNfts.statusCard.title'
+        )}
+      >
         <div className="grid grid-cols-2">
           <StatusWithView
-            title="Recently Memoed"
+            title={t(
+              'overview.panelOverview.overviewStatus.iffNfts.statusWithView.title.recently'
+            )}
             value={5}
             labelClass="bg-[#D9CCFF]"
             valueClass="text-[#A585FF]"
           />
         </div>
         <div className="grid grid-cols-3 gap-5">
-          <StatusInfo title="All" value={100} />
-          <StatusInfo title="Memoed" value={5} />
-          <StatusInfo title="Fully On chain" value={1} />
+          <StatusInfo
+            title={t(
+              'overview.panelOverview.overviewStatus.iffNfts.statusInfo.title.all'
+            )}
+            value={100}
+          />
+          <StatusInfo
+            title={t(
+              'overview.panelOverview.overviewStatus.iffNfts.statusInfo.title.memoed'
+            )}
+            value={5}
+          />
+          <StatusInfo
+            title={t(
+              'overview.panelOverview.overviewStatus.iffNfts.statusInfo.title.fully'
+            )}
+            value={1}
+          />
         </div>
       </StatusCard>
     </section>

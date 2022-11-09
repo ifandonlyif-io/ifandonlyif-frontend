@@ -3,6 +3,7 @@ import { Radio, RadioGroup, Textarea } from 'components/Forms'
 import { Modal, ModalProps } from 'components/Modal'
 import { NFTFrame } from 'components/NFTs'
 import { useSortByTimezone } from 'hooks'
+import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { BaseComponent, NFTItem } from 'types'
 import { classNames, sortNFTItems } from 'utils'
@@ -52,9 +53,10 @@ type MemoModalProps = ModalProps
 
 function MemoModal(props: MemoModalProps) {
   const { isOpen, onModalClose } = props
+  const { t } = useTranslation('overview')
   const PoweredBy = () => (
     <p className="text-base font-medium text-iff-text">
-      Powered by&nbsp;
+      {t('overview.panelIFFNFT.memoModal.poweredBy')}&nbsp;
       <span className="font-semibold text-[#14D6D6]">Meta.io</span>
     </p>
   )
@@ -83,31 +85,49 @@ function MemoModal(props: MemoModalProps) {
     <Modal isOpen={isOpen} onModalClose={onModalClose}>
       <div className="flex flex-col px-20 pt-7 pb-9">
         <h2 className="mb-8 text-center text-2xl font-bold text-iff-text">
-          Memo on IFFNFT
+          {t('overview.panelIFFNFT.memoModal.heading')}
         </h2>
         <form className="flex min-w-[390px] flex-col" action="#">
-          <MemoModalTitle className="mb-4" title="Write a memo" />
+          <MemoModalTitle
+            className="mb-4"
+            title={t('overview.panelIFFNFT.memoModal.memoModalTitle.memo')}
+          />
           <RadioGroup className="mb-3" name="memo">
-            <Radio value="yes">Yes</Radio>
-            <Radio value="no">No</Radio>
+            <Radio value="yes">
+              {t('overview.panelIFFNFT.memoModal.radioGroup.yes')}
+            </Radio>
+            <Radio value="no">
+              {t('overview.panelIFFNFT.memoModal.radioGroup.no')}
+            </Radio>
           </RadioGroup>
           <Textarea className="mb-8 h-[88px] w-full [resize:none]" />
 
-          <MemoModalTitle className="mb-4" title="Add KYC info" />
+          <MemoModalTitle
+            className="mb-4"
+            title={t('overview.panelIFFNFT.memoModal.memoModalTitle.info')}
+          />
           <RadioGroup className="mb-3" name="info">
-            <Radio value="yes">Yes</Radio>
-            <Radio value="no">No</Radio>
+            <Radio value="yes">
+              {t('overview.panelIFFNFT.memoModal.radioGroup.yes')}
+            </Radio>
+            <Radio value="no">
+              {t('overview.panelIFFNFT.memoModal.radioGroup.no')}
+            </Radio>
           </RadioGroup>
           <MemoModalInfoBar className="mb-8" />
 
           <MemoModalTitle
             className="mb-4"
-            title="On chain"
+            title={t('overview.panelIFFNFT.memoModal.memoModalTitle.chain')}
             rightElement={<PoweredBy />}
           />
           <RadioGroup className="mb-3" name="chain">
-            <Radio value="yes">Yes</Radio>
-            <Radio value="no">No</Radio>
+            <Radio value="yes">
+              {t('overview.panelIFFNFT.memoModal.radioGroup.yes')}
+            </Radio>
+            <Radio value="no">
+              {t('overview.panelIFFNFT.memoModal.radioGroup.no')}
+            </Radio>
           </RadioGroup>
 
           <div className="mt-16 grid grid-cols-2 gap-[10px]">
@@ -117,7 +137,7 @@ function MemoModal(props: MemoModalProps) {
               shadow={false}
               onClick={handleCancelClick}
             >
-              CANCEL
+              {t('overview.panelIFFNFT.memoModal.button.cancel')}
             </Button>
             <Button
               className="border-[2px] border-[#14D6D6]"
@@ -125,7 +145,7 @@ function MemoModal(props: MemoModalProps) {
               shadow={false}
               onClick={handleOkClick}
             >
-              OK
+              {t('overview.panelIFFNFT.memoModal.button.ok')}
             </Button>
           </div>
         </form>
@@ -140,6 +160,8 @@ type NFTButtonsProps = {
 
 function NFTButtons(props: NFTButtonsProps) {
   const { onMemoClick } = props
+  const { t } = useTranslation('overview')
+
   return (
     <div className="flex flex-1 flex-row flex-nowrap items-center justify-between">
       <NFTButton
@@ -147,10 +169,10 @@ function NFTButtons(props: NFTButtonsProps) {
         size="small"
         outline
       >
-        VIEW
+        {t('overview.panelIFFNFT.nftButtons.view')}
       </NFTButton>
       <NFTButton className="!text-[#CBB9FF]" size="small" onClick={onMemoClick}>
-        MEMO
+        {t('overview.panelIFFNFT.nftButtons.memo')}
       </NFTButton>
     </div>
   )
@@ -163,6 +185,7 @@ export type PanelIFFNFTProps = {
 export function PanelIFFNFT(props: PanelIFFNFTProps) {
   const { myIFFNFT } = props
   const sortedNFTs = sortNFTItems(myIFFNFT).reverse()
+  const { t } = useTranslation('overview')
   const timezone = useSortByTimezone()
   const [isOpen, setIsOpen] = React.useState(false)
   const handleModalOpen = React.useCallback(() => setIsOpen(true), [])
@@ -170,7 +193,7 @@ export function PanelIFFNFT(props: PanelIFFNFTProps) {
 
   return (
     <div className="min-h-[640px] py-6 px-4 md:py-[50px] md:px-5">
-      <TabTitle className="mb-4">MY IFFNFT</TabTitle>
+      <TabTitle className="mb-4">{t('overview.panelIFFNFT.tabTitle')}</TabTitle>
       <SectionTitleWithSortTimezone className="mb-4" />
       <section className="mb-4 flex flex-col md:mb-8">
         <div className="grid grid-cols-2 gap-[30px] md:flex md:flex-row md:flex-wrap">

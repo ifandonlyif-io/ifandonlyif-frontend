@@ -2,6 +2,7 @@ import { NFTButton } from 'components/Buttons'
 import { ExternalLinkIcon } from 'components/Icons'
 import { NFTFrame } from 'components/NFTs'
 import { useSortByTimezone } from 'hooks'
+import { useTranslation } from 'next-i18next'
 import React from 'react'
 import type { BaseComponent, NFTItem } from 'types'
 import { classNames, filteredNFTItems } from 'utils'
@@ -35,12 +36,19 @@ type WhitelistProps = {
 
 function MyWhitelist(props: WhitelistProps) {
   const { nftList, zone } = props
+  const { t } = useTranslation('overview')
   const { availableNFTs, expiredNFTs } = filteredNFTItems(nftList)
+
   return (
-    <WhitelistContainer name="MY WHITELIST" count={nftList.length}>
+    <WhitelistContainer
+      name={t('overview.panelMintIt.mintItWhitelist.myWhitelist.name')}
+      count={nftList.length}
+    >
       {availableNFTs.map((nft, index) => (
         <NFTFrame key={`${nft.name}-${index}`} zone={zone} {...nft}>
-          <NFTButton>PRE-MINT</NFTButton>
+          <NFTButton>
+            {t('overview.panelMintIt.mintItWhitelist.myWhitelist.nftButton')}
+          </NFTButton>
         </NFTFrame>
       ))}
       {expiredNFTs.map((nft, index) => (
@@ -52,13 +60,21 @@ function MyWhitelist(props: WhitelistProps) {
 
 function PreSaleWhitelist(props: WhitelistProps) {
   const { nftList, zone } = props
+  const { t } = useTranslation('overview')
   const { availableNFTs, expiredNFTs } = filteredNFTItems(nftList)
+
   return (
-    <WhitelistContainer name="PRE-SALE WHITELIST" count={nftList.length}>
+    <WhitelistContainer
+      name={t('overview.panelMintIt.mintItWhitelist.preSaleWhitelist.name')}
+      count={nftList.length}
+    >
       {availableNFTs.map((nft, index) => (
         <NFTFrame key={`${nft.name}-${index}`} zone={zone} {...nft}>
           <NFTButton outline>
-            VIEW&nbsp;
+            {t(
+              'overview.panelMintIt.mintItWhitelist.preSaleWhitelist.nftButton'
+            )}
+            &nbsp;
             <ExternalLinkIcon fontSize={16} />
           </NFTButton>
         </NFTFrame>
@@ -77,10 +93,15 @@ export type MintItWhitelistProps = BaseComponent & {
 
 export function MintItWhitelist(props: MintItWhitelistProps) {
   const { myWhitelist, preSaleWhitelist, className } = props
+  const { t } = useTranslation('overview')
   const timezone = useSortByTimezone()
+
   return (
     <section className={classNames('flex flex-col', className)}>
-      <SectionTitleWithSortTimezone className="mb-5" title="WHITELIST" />
+      <SectionTitleWithSortTimezone
+        className="mb-5"
+        title={t('overview.panelMintIt.mintItWhitelist.sectionTitle.title')}
+      />
       <div className="flex flex-col gap-8 md:gap-16">
         <MyWhitelist nftList={myWhitelist} zone={timezone.value} />
         <PreSaleWhitelist nftList={preSaleWhitelist} zone={timezone.value} />

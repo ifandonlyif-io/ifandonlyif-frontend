@@ -1,5 +1,6 @@
 import { SelectMenuOption, SelectMenus } from 'components/Forms'
 import { TimezoneOptions } from 'data'
+import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { BaseComponent } from 'types'
 import { classNames } from 'utils'
@@ -13,6 +14,23 @@ const timezoneOptions: SelectMenuOption[] = TimezoneOptions
 
 export function SortByTimezone(props: SortByTimezoneProps) {
   const { className, defaultValue, onOptionChange } = props
+  const { t } = useTranslation(['common', 'overview'])
+  const timezoneOptionsWithTranslate = React.useMemo(
+    () =>
+      timezoneOptions.map((option) => ({
+        label: t(`forms.sortByTimezone.timezoneOptions.${option.value}`),
+        value: option.value,
+      })),
+    [t]
+  )
+  const defaultValueWithTranslate = React.useMemo(() => {
+    if (!defaultValue) return undefined
+    return {
+      label: t(`forms.sortByTimezone.timezoneOptions.${defaultValue.value}`),
+      value: defaultValue.value,
+    }
+  }, [defaultValue, t])
+
   return (
     <label
       className={classNames(
@@ -20,12 +38,14 @@ export function SortByTimezone(props: SortByTimezoneProps) {
         className
       )}
     >
-      <div className="mr-4 text-base font-bold text-iff-text">Sort by</div>
+      <div className="mr-4 text-base font-bold text-iff-text">
+        {t('forms.sortByTimezone.label')}
+      </div>
       <SelectMenus
-        className="min-w-[218px] !text-iff-text"
-        placeholder="Please select"
-        options={timezoneOptions}
-        defaultValue={defaultValue}
+        className="min-w-[240px] !text-iff-text"
+        placeholder={t('forms.sortByTimezone.placeholder')}
+        options={timezoneOptionsWithTranslate}
+        defaultValue={defaultValueWithTranslate}
         onOptionChange={onOptionChange}
       />
     </label>

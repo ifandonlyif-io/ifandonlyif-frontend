@@ -4,6 +4,7 @@ import { DefaultLayout as Layout } from 'components/Layouts'
 import { AppProviders } from 'components/Providers'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
+import { appWithTranslation } from 'next-i18next'
 import { Fragment } from 'react'
 import { NextPageWithLayout } from 'types'
 
@@ -26,4 +27,5 @@ function NextApp({ Component, pageProps }: AppPropsWithLayout) {
   )
 }
 
-export default NextApp
+// @ts-expect-error Custom Next layout
+export default appWithTranslation(NextApp)

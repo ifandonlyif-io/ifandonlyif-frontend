@@ -1,6 +1,7 @@
 import { Card } from 'components/Card'
 import { MoreVerticalIcon, TwitterIcon } from 'components/Icons'
 import { Label } from 'components/Label'
+import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { BaseComponent } from 'types'
 import { classNames } from 'utils'
@@ -14,6 +15,8 @@ type SocialInfoProps = {
 
 function SocialInfo(props: SocialInfoProps) {
   const { username, verified } = props
+  const { t } = useTranslation('overview')
+
   return (
     <div className="flex flex-row items-center">
       <TwitterIcon htmlColor="#4F4F4F" />
@@ -21,7 +24,9 @@ function SocialInfo(props: SocialInfoProps) {
         <p className="mr-3 text-base font-bold text-iff-text">{username}</p>
         {verified && (
           <Label className="bg-[#FFC481]" size="medium">
-            Verified
+            {t(
+              'overview.panelOverview.overviewSocial.socialInfo.label.verified'
+            )}
           </Label>
         )}
       </div>
@@ -33,9 +38,11 @@ function SocialInfo(props: SocialInfoProps) {
 }
 
 export function OverviewSocial({ className }: OverviewSocialProps) {
+  const { t } = useTranslation('overview')
+
   return (
     <section className={classNames('w-full', className)}>
-      <Card title="SOCIAL CONNECT">
+      <Card title={t('overview.panelOverview.overviewSocial.card.title')}>
         <div className="flex flex-col gap-4 p-4 md:gap-10 md:py-10 md:px-7">
           <SocialInfo username="collect_name_01" verified />
         </div>

@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { useCountUp } from 'react-countup'
 import { BaseComponent } from 'types'
@@ -16,7 +17,7 @@ function SiteData(props: SiteDataProps) {
     <div className={classNames('block site-data', className)}>
       <div className="flex flex-row flex-nowrap">
         <div className="flex w-full flex-col gap-0.5 px-2.5 text-center md:gap-1.5 md:px-8">
-          <h3 className="subtitle-3 md:heading-6 text-shadow-subtitle-3 md:text-shadow-heading-6 text-white">
+          <h3 className="subtitle-3 md:heading-6 text-shadow-subtitle-3 md:text-shadow-heading-6 uppercase text-white">
             {title}
           </h3>
           <p
@@ -33,11 +34,22 @@ function SiteData(props: SiteDataProps) {
 }
 
 export function SectionSiteData() {
+  const { t } = useTranslation('home')
+
   return (
     <section className="mb-11 grid w-full grid-cols-3 items-center bg-black/50 pt-3.5 pb-3 md:mb-16 md:rounded-[10px] md:pt-12 md:pb-9">
-      <SiteData title="KYC HOLDER" value={1356} />
-      <SiteData title="WHITELIST" value={1432566} />
-      <SiteData title="IFFNFT" value={5645243} />
+      <SiteData
+        title={t('home.sectionSiteData.siteData.kycHolder')}
+        value={1356}
+      />
+      <SiteData
+        title={t('home.sectionSiteData.siteData.whitelist')}
+        value={1432566}
+      />
+      <SiteData
+        title={t('home.sectionSiteData.siteData.iffNft')}
+        value={5645243}
+      />
     </section>
   )
 }

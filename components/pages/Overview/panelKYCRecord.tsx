@@ -1,5 +1,6 @@
 import { Avatar } from 'components/Avatar'
 import { Card } from 'components/Card'
+import { useTranslation } from 'next-i18next'
 import { BaseComponent } from 'types'
 import { classNames } from 'utils'
 
@@ -36,15 +37,23 @@ function RecordData(props: React.PropsWithChildren<RecordDataProps>) {
 }
 
 export function PanelKYCRecord() {
+  const { t } = useTranslation('overview')
+
   return (
     <div className="py-[50px] px-5">
-      <TabTitle className="mb-9">MY KYC RECORD</TabTitle>
+      <TabTitle className="mb-9">
+        {t('overview.panelKYCRecord.tabTitle')}
+      </TabTitle>
       <Card>
         <div className="flex flex-row items-center p-8">
           <Avatar variant="text" size="medium" src="S" />
           <div className="ml-12 flex flex-1 flex-col gap-[10px]">
-            <RecordData name="Date">2022/5/1</RecordData>
-            <RecordData name="Holder">BEN5566</RecordData>
+            <RecordData name={t('overview.panelKYCRecord.recordData.date')}>
+              2022/5/1
+            </RecordData>
+            <RecordData name={t('overview.panelKYCRecord.recordData.holder')}>
+              BEN5566
+            </RecordData>
           </div>
         </div>
       </Card>

@@ -1,0 +1,147 @@
+{
+  "overview": {
+    "tabData": {
+      "label": {
+        "overview": "OVERVIEW",
+        "mintIt": "MINT IT",
+        "premintNft": "PREMINT NFT",
+        "iffNft": "IFFNFT",
+        "kycRecord": "KYC RECORD"
+      }
+    },
+    "panelOverview": {
+      "tabTitle": "Overview",
+      "overviewStatus": {
+        "whitelist": {
+          "statusCard": {
+            "title": "WHITELIST STATUS"
+          },
+          "statusWithView": {
+            "title": {
+              "expire": "Expire Soon",
+              "preMint": "Pre-mint Soon"
+            }
+          },
+          "statusInfo": {
+            "title": {
+              "all": "All",
+              "alive": "Alive",
+              "expired": "Expired"
+            }
+          }
+        },
+        "iffNfts": {
+          "statusCard": {
+            "title": "IFFNFTs STATUS"
+          },
+          "statusWithView": {
+            "title": {
+              "recently": "Recently Memoed"
+            }
+          },
+          "statusInfo": {
+            "title": {
+              "all": "All",
+              "memoed": "Memoed",
+              "fully": "Fully On chain"
+            }
+          }
+        },
+        "statusWithView": {
+          "viewLabel": "VIEW"
+        }
+      },
+      "overviewWallet": {
+        "card": {
+          "title": "MY WALLETs"
+        },
+        "walletInfo": {
+          "totalBalance": "Total Balance",
+          "hideButton": "Hide"
+        }
+      },
+      "overviewEmail": {
+        "card": {
+          "title": "EMAIL ADDRESS"
+        },
+        "emailInfo": {
+          "label": {
+            "default": "Default",
+            "notification": "Notification"
+          }
+        }
+      },
+      "overviewSocial": {
+        "card": {
+          "title": "SOCIAL CONNECT"
+        },
+        "socialInfo": {
+          "label": {
+            "verified": "Verified"
+          }
+        }
+      }
+    },
+    "panelMintIt": {
+      "tabTitle": "All You Can Mint",
+      "filterOption": {
+        "all": "ALL",
+        "whitelist": "WHITELIST",
+        "nft": "NFT"
+      },
+      "mintItWhitelist": {
+        "sectionTitle": {
+          "title": "WHITELIST"
+        },
+        "myWhitelist": {
+          "name": "MY WHITELIST",
+          "nftButton": "PRE-MINT"
+        },
+        "preSaleWhitelist": {
+          "name": "PRE-SALE WHITELIST",
+          "nftButton": "VIEW"
+        }
+      },
+      "mintItMyNFT": {
+        "sectionTitle": "MY NFT",
+        "nftButton": "MINT TO IFFNFT"
+      }
+    },
+    "panelPreMint": {
+      "tabTitle": "Pre-mint NFT",
+      "sectionTitle": "MY WHITELIST",
+      "nftButton": "GO MINT"
+    },
+    "panelIFFNFT": {
+      "tabTitle": "MY IFFNFT",
+      "nftButtons": {
+        "view": "VIEW",
+        "memo": "MEMO"
+      },
+      "memoModal": {
+        "heading": "Memo on IFFNFT",
+        "memoModalTitle": {
+          "memo": "Write a memo",
+          "info": "Add KYC info",
+          "chain": "On chain"
+        },
+        "radioGroup": {
+          "yes": "Yes",
+          "no": "No"
+        },
+        "button": {
+          "cancel": "CANCEL",
+          "ok": "OK"
+        },
+        "poweredBy": "Powered by"
+      }
+    },
+    "panelKYCRecord": {
+      "tabTitle": "MY KYC RECORD",
+      "recordData": {
+        "date": "Date",
+        "holder": "Holder"
+      }
+    }
+  }
+}

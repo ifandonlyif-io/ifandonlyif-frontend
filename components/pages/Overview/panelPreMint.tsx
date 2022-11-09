@@ -2,6 +2,7 @@ import { NFTButton } from 'components/Buttons'
 import { ExternalLinkIcon } from 'components/Icons'
 import { NFTFrame } from 'components/NFTs'
 import { useSortByTimezone } from 'hooks'
+import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { NFTItem } from 'types'
 import { filteredNFTItems } from 'utils'
@@ -14,15 +15,19 @@ export type PanelPreMintProps = {
 
 export function PanelPreMint(props: PanelPreMintProps) {
   const { preMintWhitelist } = props
+  const { t } = useTranslation('overview')
   const timezone = useSortByTimezone()
   const { availableNFTs, expiredNFTs } = filteredNFTItems(preMintWhitelist)
+
   return (
     <div className="min-h-[640px] py-6 px-4 md:py-[50px] md:px-5">
-      <TabTitle className="mb-4">Pre-mint NFT</TabTitle>
+      <TabTitle className="mb-4">
+        {t('overview.panelPreMint.tabTitle')}
+      </TabTitle>
       <SectionTitleWithSortTimezone className="mb-4" />
       <section className="mb-4 flex flex-col md:mb-8">
         <SectionTitle className="mb-[10px] uppercase" size="small" count={5}>
-          MY WHITELIST
+          {t('overview.panelPreMint.sectionTitle')}
         </SectionTitle>
         <div className="grid grid-cols-2 gap-[30px] md:flex md:flex-row md:flex-wrap">
           {availableNFTs.map((nft, index) => (
@@ -32,7 +37,7 @@ export function PanelPreMint(props: PanelPreMintProps) {
               {...nft}
             >
               <NFTButton>
-                GO MINT&nbsp;
+                {t('overview.panelPreMint.nftButton')}&nbsp;
                 <ExternalLinkIcon fontSize={16} />
               </NFTButton>
             </NFTFrame>

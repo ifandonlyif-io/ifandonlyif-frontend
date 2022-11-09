@@ -9,6 +9,7 @@ import {
   walletConnectConnection,
 } from 'connections'
 import { useAccountInfo, useMetamaskAccount } from 'hooks'
+import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { BaseComponent } from 'types'
 import { classNames, getConnectionName, isMetaMask, shortAccount } from 'utils'
@@ -127,6 +128,7 @@ type WalletInfoProps = BaseComponent & {
 function WalletInfo(props: WalletInfoProps) {
   const { account, className } = props
   const accStr = shortAccount(account)
+  const { t } = useTranslation('common')
   const { connector } = useWeb3React()
   const { walletLogin } = useMetamaskAccount()
 
@@ -155,7 +157,7 @@ function WalletInfo(props: WalletInfoProps) {
         className="rounded-[10px] px-4 py-2 text-xl hover:bg-gray-300"
         onClick={handleDisconnectClick}
       >
-        Disconnect
+        {t('layouts.userPanel.walletInfo.disconnectButton')}
       </button>
     </div>
   )
@@ -183,15 +185,16 @@ function WalletDropdown(props: WalletDropdownProps) {
 }
 
 function ConnectWalletButton(props: Omit<ButtonProps, 'children'>) {
+  const { t } = useTranslation('common')
   return (
     <Button
       outline
-      className="w-[172px] gap-2"
+      className="gap-2 px-[8px]"
       shadow={false}
       size="small"
       {...props}
     >
-      Connect Metamask
+      {t('layouts.userPanel.connectWalletButton.connectButton')}
       <MetamaskIcon />
     </Button>
   )

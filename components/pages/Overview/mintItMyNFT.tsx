@@ -1,5 +1,6 @@
 import { NFTButton } from 'components/Buttons'
 import { NFTFrame } from 'components/NFTs'
+import { useTranslation } from 'next-i18next'
 import type { BaseComponent, MyNFTItem } from 'types'
 import { classNames, sortNFTItems } from 'utils'
 
@@ -11,7 +12,9 @@ export type MintItMyNFTProps = BaseComponent & {
 
 export function MintItMyNFT(props: MintItMyNFTProps) {
   const { myNFTs, className } = props
+  const { t } = useTranslation('overview')
   const sortedNFTs = sortNFTItems(myNFTs).reverse()
+
   return (
     <section className={classNames('flex flex-col', className)}>
       <SectionTitle
@@ -19,7 +22,7 @@ export function MintItMyNFT(props: MintItMyNFTProps) {
         size="medium"
         count={sortedNFTs.length}
       >
-        MY NFT
+        {t('overview.panelMintIt.mintItMyNFT.sectionTitle')}
       </SectionTitle>
       <div className="grid grid-cols-2 gap-[30px] md:flex md:flex-row md:flex-wrap">
         {sortedNFTs.map((nft, index) => (
@@ -29,7 +32,9 @@ export function MintItMyNFT(props: MintItMyNFTProps) {
             hideTime={true}
             {...nft}
           >
-            <NFTButton>MINT TO IFFNFT</NFTButton>
+            <NFTButton>
+              {t('overview.panelMintIt.mintItMyNFT.nftButton')}
+            </NFTButton>
           </NFTFrame>
         ))}
       </div>

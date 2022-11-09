@@ -1,0 +1,85 @@
+{
+  "layouts": {
+    "footer": {
+      "paragraph": {
+        "heading": "Effortless Abcdefg",
+        "content": "Do the things you do, but better!"
+      }
+    },
+    "layout": {
+      "overviewLayout": {
+        "connect": {
+          "tips": "請先連接 Metamask"
+        },
+        "main": {
+          "heading": "The best way to do 2fa on web3 era"
+        }
+      }
+    },
+    "userPanel": {
+      "connectWalletButton": {
+        "connectButton": "連接 Metamask"
+      },
+      "walletInfo": {
+        "disconnectButton": "斷開連接"
+      }
+    }
+  },
+  "forms": {
+    "sortByTimezone": {
+      "label": "排序依據",
+      "placeholder": "請選擇",
+      "timezoneOptions": {
+        "UTC": "UTC 倫敦",
+        "UTC+1": "UTC+1 柏林",
+        "UTC+2": "UTC+2 開羅/基輔",
+        "UTC+3": "UTC+3 莫斯科",
+        "UTC+3:30": "UTC+3:30 德黑蘭",
+        "UTC+4": "UTC+4 杜拜",
+        "UTC+5": "UTC+5 卡拉契",
+        "UTC+5:30": "UTC+5:30 新德裡",
+        "UTC+6": "UTC+6 達卡",
+        "UTC+7": "UTC+7 曼谷/雅加達",
+        "UTC+8": "UTC+8 上海/臺北",
+        "UTC+9": "UTC+9 東京",
+        "UTC+10": "UTC+10 悉尼",
+        "UTC+11": "UTC+11 馬加丹",
+        "UTC+12": "UTC+12 惠靈頓",
+        "UTC+13": "UTC+13 努庫阿洛法",
+        "UTC+14": "UTC+14 基里蒂馬蒂",
+        "UTC-1": "UTC-1 亞速爾群島",
+        "UTC-2": "UTC-2 愛德華國王角",
+        "UTC-3": "UTC-3 巴西利亞",
+        "UTC-4": "UTC-4 紐約",
+        "UTC-5": "UTC-5 多倫多",
+        "UTC-6": "UTC-6 墨西哥城",
+        "UTC-7": "UTC-7 洛杉磯",
+        "UTC-8": "UTC-8 溫哥華",
+        "UTC-9": "UTC-9 安克雷奇",
+        "UTC-10": "UTC-10 檀香山",
+        "UTC-11": "UTC-11 中途島",
+        "UTC-12": "UTC-12 貝克島"
+      }
+    }
+  },
+  "nfts": {
+    "nftCard": {
+      "nftValidity": {
+        "yes": "Yes",
+        "no": "No"
+      },
+      "text": {
+        "date": "KYC Date",
+        "validity": "Same holder as KYC wallet address",
+        "history": "Holder History",
+        "recently": "Recently 30 days records"
+      }
+    },
+    "nftFrame": {
+      "expired": "Expired",
+      "nftButton": {
+        "hide": "Hide"
+      }
+    }
+  }
+}

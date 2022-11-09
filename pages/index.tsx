@@ -7,6 +7,7 @@ import {
   SectionUserFeedbackProps,
 } from 'components/pages/Home'
 import { GetServerSideProps, NextPage } from 'next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 type IndexProps = SectionUserFeedbackProps
 
@@ -21,9 +22,12 @@ const Index: NextPage<IndexProps> = (props: IndexProps) => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps<IndexProps> = async () => {
+export const getServerSideProps: GetServerSideProps<IndexProps> = async ({
+  locale = 'en-US',
+}) => {
+  const i18n = await serverSideTranslations(locale, ['common', 'home'])
   const feedbacks = await getDemoFeedbackList()
-  return { props: { feedbacks } }
+  return { props: { ...i18n, feedbacks } }
 }
 
 export default Index

@@ -1,0 +1,40 @@
+{
+  "home": {
+    "sectionHeader": {
+      "heading": "THE BEST WAY TO DO 2FA ON WEB3 ERA",
+      "subheading": "A PROJECT THAT ALLOWS THAT USERS TO HAVE A BACKUPD/SECONDARY NFT.",
+      "joinButton": "JOIN NOW"
+    },
+    "sectionNFTCheck": {
+      "holderCheckPanel": {
+        "checkPanel": {
+          "heading": "Fill in the form then click OK -",
+          "okButton": "OK"
+        },
+        "selectMenus": {
+          "placeholder": "NFT Project"
+        }
+      },
+      "siteCheckPanel": {
+        "checkPanel": {
+          "heading": "Key in website url -",
+          "okButton": "OK"
+        }
+      },
+      "tabSwitchers": {
+        "left": "NFTs HOLDER CHECK",
+        "right": "FAKE SITES CHECK"
+      }
+    },
+    "sectionSiteData": {
+      "siteData": {
+        "kycHolder": "KYC HOLDER",
+        "whitelist": "WHITELIST",
+        "iffNft": "IFFNFT"
+      }
+    },
+    "sectionUserFeedback": {
+      "heading": "USER FEEDBACK"
+    }
+  }
+}

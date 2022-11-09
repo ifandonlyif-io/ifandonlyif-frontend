@@ -7,6 +7,7 @@ import {
   Textarea,
 } from 'components/Forms'
 import { TabPanel, TabSwitchers } from 'components/Tabs'
+import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { BaseComponent } from 'types'
 import { classNames } from 'utils'
@@ -33,37 +34,51 @@ function CheckPanel(props: React.PropsWithChildren<BaseComponent>) {
 }
 
 function HolderCheckPanel() {
+  const { t } = useTranslation('home')
+
   return (
     <CheckPanel>
       <div className="flex flex-col gap-5">
         <h3 className="text-sm font-bold text-white">
-          Fill in the form then click OK -
+          {t('home.sectionNFTCheck.holderCheckPanel.checkPanel.heading')}
         </h3>
         <SelectMenus
-          placeholder="NFT Project"
+          placeholder={t(
+            'home.sectionNFTCheck.holderCheckPanel.selectMenus.placeholder'
+          )}
           options={demoOptions}
           onOptionChange={() => void 0}
         />
         <Input placeholder="#" />
-        <Button>OK</Button>
+        <Button>
+          {t('home.sectionNFTCheck.holderCheckPanel.checkPanel.okButton')}
+        </Button>
       </div>
     </CheckPanel>
   )
 }
 
 function SiteCheckPanel() {
+  const { t } = useTranslation('home')
+
   return (
     <CheckPanel>
       <div className="flex flex-col gap-5">
-        <h3 className="text-sm font-bold text-white">Key in website url -</h3>
+        <h3 className="text-sm font-bold text-white">
+          {t('home.sectionNFTCheck.siteCheckPanel.checkPanel.heading')}
+        </h3>
         <Textarea className="[resize:none]" />
-        <Button>OK</Button>
+        <Button>
+          {t('home.sectionNFTCheck.siteCheckPanel.checkPanel.okButton')}
+        </Button>
       </div>
     </CheckPanel>
   )
 }
 
 export function SectionNFTCheck() {
+  const { t } = useTranslation('home')
+
   return (
     <section className="mb-16 block flex-row flex-nowrap items-center md:mb-24 md:flex">
       <NeonBorder className="hidden md:flex" color="cyan" />
@@ -71,8 +86,8 @@ export function SectionNFTCheck() {
         <TabSwitchers
           className="mx-4 md:mx-auto"
           switcherText={{
-            left: 'NFTs HOLDER CHECK',
-            right: 'FAKE SITES CHECK',
+            left: t('home.sectionNFTCheck.tabSwitchers.left'),
+            right: t('home.sectionNFTCheck.tabSwitchers.right'),
           }}
         >
           <TabPanel>
