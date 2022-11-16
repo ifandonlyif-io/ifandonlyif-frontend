@@ -1,125 +1,11 @@
-import { useWeb3React } from '@web3-react/core'
-import { Connector } from '@web3-react/types'
 import { Avatar } from 'components/Avatar'
 import { Button, ButtonProps } from 'components/Buttons'
-import { EthereumIcon, MetamaskIcon, WalletConnectIcon } from 'components/Icons'
-import {
-  ConnectionType,
-  injectedConnection,
-  walletConnectConnection,
-} from 'connections'
-import { useAccountInfo, useMetamaskAccount } from 'hooks'
+import { EthereumIcon, MetamaskIcon } from 'components/Icons'
+import { useAccountInfo, useIffAccount, useWeb3Account } from 'hooks'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { BaseComponent } from 'types'
-import { classNames, getConnectionName, isMetaMask, shortAccount } from 'utils'
-
-type ConnectionOptionProps = BaseComponent & {
-  id: string
-  icon: React.ReactNode
-  active: boolean
-  children: React.ReactNode
-  onOptionClick: () => void
-}
-
-function ConnectionOption(props: ConnectionOptionProps) {
-  const { className, id, icon, children, onOptionClick } = props
-  return (
-    <button
-      id={id}
-      className={classNames(
-        'px-4 py-2 rounded-[10px] hover:bg-gray-300',
-        className
-      )}
-      onClick={onOptionClick}
-    >
-      <div className="flex flex-row flex-nowrap items-center">
-        <div className="flex flex-row flex-nowrap items-center text-3xl">
-          {icon}
-        </div>
-        <div className="ml-3 text-xl">{children}</div>
-      </div>
-    </button>
-  )
-}
-
-type ConnectorOptionProps = {
-  tryActivation: (connector: Connector) => Promise<void>
-}
-
-function MetaMaskOption(props: ConnectorOptionProps) {
-  const { tryActivation } = props
-  const isActive = injectedConnection.hooks.useIsActive()
-  const optionName = getConnectionName(ConnectionType.INJECTED, isMetaMask())
-  const handleOptionClick = React.useCallback(
-    async () => await tryActivation(injectedConnection.connector),
-    [tryActivation]
-  )
-  return (
-    <ConnectionOption
-      id="wallet-connect"
-      icon={<MetamaskIcon />}
-      active={isActive}
-      onOptionClick={handleOptionClick}
-    >
-      {optionName}
-    </ConnectionOption>
-  )
-}
-
-function WalletConnectOption(props: ConnectorOptionProps) {
-  const { tryActivation } = props
-  const isActive = walletConnectConnection.hooks.useIsActive()
-  const optionName = getConnectionName(ConnectionType.WALLET_CONNECT)
-  const handleOptionClick = React.useCallback(
-    async () => await tryActivation(walletConnectConnection.connector),
-    [tryActivation]
-  )
-  return (
-    <ConnectionOption
-      id="wallet-connect"
-      icon={<WalletConnectIcon />}
-      active={isActive}
-      onOptionClick={handleOptionClick}
-    >
-      {optionName}
-    </ConnectionOption>
-  )
-}
-
-type WalletConnectionsProps = BaseComponent & {
-  onWalletDropdownClose: () => void
-}
-
-function WalletConnections(props: WalletConnectionsProps) {
-  const { className, onWalletDropdownClose } = props
-  const { account } = useWeb3React()
-  const { expired } = useAccountInfo()
-  const { walletLogin } = useMetamaskAccount()
-
-  const handleTryActivation = React.useCallback(
-    async (connector: Connector) => {
-      try {
-        await connector.activate()
-        onWalletDropdownClose()
-      } catch (error) {
-        console.error('Activate connector error:', error)
-      }
-    },
-    [onWalletDropdownClose]
-  )
-
-  React.useEffect(() => {
-    if (account && expired) walletLogin()
-  }, [account, expired, walletLogin])
-
-  return (
-    <div className={classNames('grid grid-cols-1 gap-3', className)}>
-      <MetaMaskOption tryActivation={handleTryActivation} />
-      <WalletConnectOption tryActivation={handleTryActivation} />
-    </div>
-  )
-}
+import { classNames, shortAccount } from 'utils'
 
 type WalletInfoProps = BaseComponent & {
   account: string
@@ -129,26 +15,16 @@ function WalletInfo(props: WalletInfoProps) {
   const { account, className } = props
   const accStr = shortAccount(account)
   const { t } = useTranslation('common')
-  const { connector } = useWeb3React()
-  const { walletLogin } = useMetamaskAccount()
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { disconnect } = useWeb3Account()
 
-  const handleLogin = React.useCallback(async () => {
-    await walletLogin()
-  }, [walletLogin])
-  const handleDisconnectClick = React.useCallback(() => {
-    if (connector.deactivate) {
-      connector.deactivate()
-    } else {
-      connector.resetState()
-    }
-  }, [connector])
+  const handleDisconnectClick = React.useCallback(async () => {
+    await disconnect()
+  }, [disconnect])
 
   return (
     <div className={classNames('grid grid-cols-1 gap-3', className)}>
-      <div
-        className="flex flex-row flex-nowrap items-center"
-        onClick={handleLogin}
-      >
+      <div className="flex flex-row flex-nowrap items-center">
         <EthereumIcon />
         <div className="ml-2 text-lg">{accStr}</div>
       </div>
@@ -169,17 +45,14 @@ type WalletDropdownProps = {
 }
 
 function WalletDropdown(props: WalletDropdownProps) {
-  const { isOpen, onWalletDropdownClose } = props
-  const { account: accountInfo, expired } = useAccountInfo()
+  const { isOpen } = props
+  const { account: accountInfo } = useAccountInfo()
 
   if (!isOpen) return null
 
   return (
     <div className="absolute top-[90%] right-4 rounded-[10px] bg-white p-4 shadow-iff-modal">
-      {expired && (
-        <WalletConnections onWalletDropdownClose={onWalletDropdownClose} />
-      )}
-      {!expired && accountInfo && <WalletInfo account={accountInfo.wallet} />}
+      {accountInfo && <WalletInfo account={accountInfo.wallet} />}
     </div>
   )
 }
@@ -204,10 +77,15 @@ type UserPanelProps = BaseComponent
 
 export function UserPanel({ className }: UserPanelProps) {
   const { account: accountInfo, expired } = useAccountInfo()
+  const { walletLogin } = useIffAccount()
 
   const [isOpen, setIsOpen] = React.useState(false)
 
   const username = accountInfo?.username || 'Name'
+
+  const handleWalletConnectClick = React.useCallback(async () => {
+    await walletLogin()
+  }, [walletLogin])
 
   const toggleWalletDropdown = React.useCallback(() => setIsOpen((s) => !s), [])
   const handleWalletDropdownClose = React.useCallback(
@@ -217,7 +95,7 @@ export function UserPanel({ className }: UserPanelProps) {
 
   return (
     <div className={classNames('box-border', className)}>
-      {expired && <ConnectWalletButton onClick={toggleWalletDropdown} />}
+      {expired && <ConnectWalletButton onClick={handleWalletConnectClick} />}
       {!expired && (
         <Avatar
           size="small"
