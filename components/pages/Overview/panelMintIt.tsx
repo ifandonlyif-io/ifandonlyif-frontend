@@ -4,7 +4,10 @@ import React from 'react'
 import { classNames } from 'utils'
 
 import { MintItMyNFT, MintItMyNFTProps } from './mintItMyNFT'
-import { MintItWhitelist, MintItWhitelistProps } from './mintItWhitelist'
+import {
+  // MintItWhitelist,
+  MintItWhitelistProps,
+} from './mintItWhitelist'
 import { TabTitle } from './title'
 
 export type PanelMintItProps = MintItWhitelistProps & MintItMyNFTProps
@@ -14,13 +17,14 @@ type FilterValues = 'all' | 'whitelist' | 'nft'
 type FilterOption = { value: FilterValues; count: number }
 
 export function PanelMintIt(props: PanelMintItProps) {
-  const { myWhitelist, preSaleWhitelist, myNFTs } = props
+  const { myNFTs } = props
   const { t } = useTranslation('overview')
-  const whitelistCount = myWhitelist.length + preSaleWhitelist.length
-  const allCount = whitelistCount + myNFTs.length
+  // const whitelistCount = myWhitelist.length + preSaleWhitelist.length
+  // const allCount = whitelistCount + myNFTs.length
+  const allCount = myNFTs.length
   const filterItems: FilterOption[] = [
     { value: 'all', count: allCount },
-    { value: 'whitelist', count: whitelistCount },
+    // { value: 'whitelist', count: whitelistCount },
     { value: 'nft', count: myNFTs.length },
   ]
   const [mintFilter, setMintFilter] = React.useState<string>('all')
@@ -29,7 +33,7 @@ export function PanelMintIt(props: PanelMintItProps) {
     []
   )
   const isShowAll = mintFilter === 'all'
-  const isShowWhitelist = isShowAll || mintFilter === 'whitelist'
+  // const isShowWhitelist = isShowAll || mintFilter === 'whitelist'
   const isShowMy = isShowAll || mintFilter === 'nft'
 
   return (
@@ -48,10 +52,10 @@ export function PanelMintIt(props: PanelMintItProps) {
         ))}
       </FilterGroup>
       <div className="mb-4 flex flex-col gap-10 md:mb-8 md:gap-28">
-        <MintItWhitelist
+        {/* <MintItWhitelist
           className={classNames(isShowWhitelist ? 'flex' : 'hidden')}
           {...props}
-        />
+        /> */}
         <MintItMyNFT
           className={classNames(isShowMy ? 'flex' : 'hidden')}
           {...props}

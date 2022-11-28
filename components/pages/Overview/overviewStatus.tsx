@@ -81,7 +81,7 @@ export function OverviewStatus({ className }: OverviewStatusProps) {
         className
       )}
     >
-      <StatusCard
+      {/* <StatusCard
         title={t(
           'overview.panelOverview.overviewStatus.whitelist.statusCard.title'
         )}
@@ -124,7 +124,7 @@ export function OverviewStatus({ className }: OverviewStatusProps) {
             value={4}
           />
         </div>
-      </StatusCard>
+      </StatusCard> */}
       <StatusCard
         title={t(
           'overview.panelOverview.overviewStatus.iffNfts.statusCard.title'

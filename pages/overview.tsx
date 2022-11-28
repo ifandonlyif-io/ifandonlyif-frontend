@@ -8,13 +8,13 @@ import { OverviewLayout } from 'components/Layouts'
 import {
   PanelIFFNFT,
   PanelIFFNFTProps,
-  PanelKYCRecord,
+  // PanelKYCRecord,
   PanelMintIt,
   PanelMintItProps,
   PanelOverview,
   PanelOverviewProps,
-  PanelPreMint,
-  PanelPreMintProps,
+  // PanelPreMint,
+  // PanelPreMintProps,
   SectionTitleWithSortTimezoneProvider,
 } from 'components/pages/Overview'
 import { Tab, TabList, TabPanel, Tabs } from 'components/Tabs'
@@ -29,7 +29,7 @@ import { NextPageWithLayout } from 'types'
 type OverviewProps = {
   overview: PanelOverviewProps
   mintIt: Omit<PanelMintItProps, 'myNFTs'>
-  preMint: PanelPreMintProps
+  // preMint: PanelPreMintProps
   iffNFT: PanelIFFNFTProps
 }
 
@@ -41,13 +41,13 @@ type TabData = {
 const tabs: TabData[] = [
   { label: 'overview', href: '#overview' },
   { label: 'mintIt', href: '#mint-it' },
-  { label: 'premintNft', href: '#premint-nft' },
+  // { label: 'premintNft', href: '#premint-nft' },
   { label: 'iffNft', href: '#iffnft' },
-  { label: 'kycRecord', href: '#kyc-record' },
+  // { label: 'kycRecord', href: '#kyc-record' },
 ]
 
 const Overview: NextPageWithLayout<OverviewProps> = (props: OverviewProps) => {
-  const { overview, mintIt, preMint, iffNFT } = props
+  const { overview, mintIt, iffNFT } = props
   const { t } = useTranslation('overview')
   const router = useRouter()
   const { data: myNfts } = useSWR('/auth/fetchUserNft', getUserNft)
@@ -90,14 +90,14 @@ const Overview: NextPageWithLayout<OverviewProps> = (props: OverviewProps) => {
             />
           </TabPanel>
           <TabPanel>
+            <PanelIFFNFT {...iffNFT} />
+          </TabPanel>
+          {/* <TabPanel>
             <PanelPreMint {...preMint} />
           </TabPanel>
           <TabPanel>
-            <PanelIFFNFT {...iffNFT} />
-          </TabPanel>
-          <TabPanel>
             <PanelKYCRecord />
-          </TabPanel>
+          </TabPanel> */}
         </Tabs>
       </SectionTitleWithSortTimezoneProvider>
     </div>
@@ -116,9 +116,9 @@ export const getServerSideProps: GetServerSideProps<OverviewProps> = async ({
   const overview = { priceData }
   const mintIt = await getDemoNftList()
   const myIFFNFT = await getDemoMyIffNft()
-  const preMint: PanelPreMintProps = { preMintWhitelist: mintIt.myWhitelist }
+  // const preMint: PanelPreMintProps = { preMintWhitelist: mintIt.myWhitelist }
   const iffNFT: PanelIFFNFTProps = { myIFFNFT }
-  return { props: { ...i18n, overview, mintIt, preMint, iffNFT } }
+  return { props: { ...i18n, overview, mintIt, iffNFT } }
 }
 
 export default Overview

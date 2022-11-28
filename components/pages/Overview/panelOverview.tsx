@@ -1,9 +1,9 @@
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
-import { OverviewEmail } from './overviewEmail'
+// import { OverviewEmail } from './overviewEmail'
 import { OverviewGas, OverviewGasProps } from './overviewGas'
-import { OverviewSocial } from './overviewSocial'
+// import { OverviewSocial } from './overviewSocial'
 import { OverviewStatus } from './overviewStatus'
 import { OverviewWallet } from './overviewWallet'
 import { TabTitle } from './title'
@@ -22,8 +22,8 @@ export function PanelOverview(props: PanelOverviewProps) {
         <OverviewStatus />
         <OverviewGas {...props} />
         <OverviewWallet />
-        <OverviewEmail />
-        <OverviewSocial />
+        {/* <OverviewEmail />
+        <OverviewSocial /> */}
       </div>
     </div>
   )
