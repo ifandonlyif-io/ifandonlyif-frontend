@@ -1,9 +1,16 @@
 import { Button } from 'components/Buttons'
 import { IFFCube } from 'components/Logo'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+import React from 'react'
 
 export function SectionHeader() {
   const { t } = useTranslation('home')
+  const router = useRouter()
+
+  const handleJoinButtonClick = React.useCallback(() => {
+    router.push('/overview')
+  }, [router])
 
   return (
     <section className="mx-auto mb-7 flex flex-col md:mb-[70px] md:flex-row md:flex-nowrap md:justify-center">
@@ -21,6 +28,7 @@ export function SectionHeader() {
           className="mx-auto max-w-[174px] md:max-w-[280px]"
           primary
           size="large"
+          onClick={handleJoinButtonClick}
         >
           {t('home.sectionHeader.joinButton')}
         </Button>
