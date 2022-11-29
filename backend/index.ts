@@ -111,3 +111,11 @@ export async function getUserNft(
   const myNfts = convertOwnedNftsToMyNfts(parsedRes.ownedNfts)
   return myNfts
 }
+
+export async function checkSiteUri(url: string): Promise<boolean> {
+  const res = await backendFetch<string>('/checkUri', {
+    method: 'POST',
+    body: { url },
+  })
+  return JSON.parse(res) as boolean
+}

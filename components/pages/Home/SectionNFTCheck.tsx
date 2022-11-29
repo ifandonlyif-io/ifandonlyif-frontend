@@ -9,8 +9,9 @@ import {
 import { TabPanel, TabSwitchers } from 'components/Tabs'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
-import { BaseComponent } from 'types'
-import { classNames } from 'utils'
+import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form'
+import { BaseComponent, CheckSiteUrlFormData } from 'types'
+import { classNames, validateCheckSiteUrlData } from 'utils'
 
 const demoOptions: SelectMenuOption[] = [
   { label: 'Apple', value: 'apple' },
@@ -58,25 +59,71 @@ function HolderCheckPanel() {
   )
 }
 
-function SiteCheckPanel() {
+type SiteCheckPanelProps = {
+  onSiteCheckPanelSubmit: (data: CheckSiteUrlFormData) => Promise<void>
+}
+
+function SiteCheckPanel(props: SiteCheckPanelProps) {
+  const { onSiteCheckPanelSubmit } = props
   const { t } = useTranslation('home')
+  const { register, handleSubmit } = useForm<CheckSiteUrlFormData>()
+
+  const handleSiteCheckPanelSubmit = React.useCallback<
+    SubmitHandler<CheckSiteUrlFormData>
+  >(
+    async (data) => {
+      console.debug('handleSiteCheckPanelSubmit', data)
+      await onSiteCheckPanelSubmit(data)
+    },
+    [onSiteCheckPanelSubmit]
+  )
+
+  const handleSiteCheckPanelError = React.useCallback<
+    SubmitErrorHandler<CheckSiteUrlFormData>
+  >(
+    (errors) => {
+      if (errors.siteUrl && errors.siteUrl.message)
+        alert(t(errors.siteUrl.message))
+    },
+    [t]
+  )
 
   return (
     <CheckPanel>
-      <div className="flex flex-col gap-5">
-        <h3 className="text-sm font-bold text-white">
-          {t('home.sectionNFTCheck.siteCheckPanel.checkPanel.heading')}
-        </h3>
-        <Textarea className="[resize:none]" />
-        <Button>
+      <form
+        className="flex flex-col gap-5"
+        onSubmit={handleSubmit(
+          handleSiteCheckPanelSubmit,
+          handleSiteCheckPanelError
+        )}
+      >
+        <label
+          className="flex flex-col gap-5"
+          htmlFor="check-site-url-textarea"
+        >
+          <h3 className="text-sm font-bold text-white">
+            {t('home.sectionNFTCheck.siteCheckPanel.checkPanel.heading')}
+          </h3>
+          <Textarea
+            id="check-site-url-textarea"
+            className="[resize:none]"
+            {...register('siteUrl', {
+              required: true,
+              validate: validateCheckSiteUrlData,
+            })}
+          />
+        </label>
+        <Button type="submit">
           {t('home.sectionNFTCheck.siteCheckPanel.checkPanel.okButton')}
         </Button>
-      </div>
+      </form>
     </CheckPanel>
   )
 }
 
-export function SectionNFTCheck() {
+type SectionNFTCheckProps = SiteCheckPanelProps
+
+export function SectionNFTCheck(props: SectionNFTCheckProps) {
   const { t } = useTranslation('home')
 
   return (
@@ -94,7 +141,7 @@ export function SectionNFTCheck() {
             <HolderCheckPanel />
           </TabPanel>
           <TabPanel>
-            <SiteCheckPanel />
+            <SiteCheckPanel {...props} />
           </TabPanel>
         </TabSwitchers>
       </div>

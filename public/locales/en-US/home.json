@@ -19,6 +19,11 @@
         "checkPanel": {
           "heading": "Key in website url -",
           "okButton": "OK"
+        },
+        "textarea": {
+          "errorMessage": {
+            "correctUrl": "Please enter the correct url."
+          }
         }
       },
       "tabSwitchers": {

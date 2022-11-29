@@ -4,3 +4,7 @@ export declare type GetDemoNFTListRes = {
   myWhitelist: NFTItem[]
   preSaleWhitelist: NFTItem[]
 }
+
+export declare type CheckSiteUrlFormData = {
+  siteUrl: string
+}
