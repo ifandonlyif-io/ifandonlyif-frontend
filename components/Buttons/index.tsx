@@ -1,10 +1,9 @@
 import React from 'react'
-import { BaseComponent } from 'types'
 import { classNames } from 'utils'
 
 type Size = 'small' | 'medium' | 'large'
 
-export type ButtonProps = BaseComponent & {
+export type ButtonProps = React.ComponentProps<'button'> & {
   primary?: boolean
   outline?: boolean
   shadow?: boolean
