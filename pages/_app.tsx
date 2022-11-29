@@ -8,6 +8,8 @@ import { appWithTranslation } from 'next-i18next'
 import { Fragment } from 'react'
 import { NextPageWithLayout } from 'types'
 
+import nextI18NextConfig from '../next-i18next.config.js'
+
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout
 }
@@ -28,4 +30,4 @@ function NextApp({ Component, pageProps }: AppPropsWithLayout) {
 }
 
 // @ts-expect-error Custom Next layout
-export default appWithTranslation(NextApp)
+export default appWithTranslation(NextApp, nextI18NextConfig)

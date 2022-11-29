@@ -3,7 +3,7 @@ import { BaseComponent } from 'types'
 import { classNames } from 'utils'
 
 type CardProps = BaseComponent & {
-  title?: string
+  title?: string | null
 }
 
 export function Card({

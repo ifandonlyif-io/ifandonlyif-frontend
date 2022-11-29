@@ -82,7 +82,7 @@ export function SectionTitleWithSortTimezoneProvider(
 }
 
 type SectionTitleWithSortTimezoneProps = BaseComponent & {
-  title?: string
+  title?: string | null
 }
 
 export function SectionTitleWithSortTimezone(

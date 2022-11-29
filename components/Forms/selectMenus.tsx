@@ -11,7 +11,7 @@ export type SelectMenuOption = {
 type SelectMenusProps = BaseComponent & {
   options: SelectMenuOption[]
   defaultValue?: SelectMenuOption
-  placeholder?: string
+  placeholder?: string | null
   onOptionChange: (option: SelectMenuOption) => void
 }
 

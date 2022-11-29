@@ -1,5 +1,6 @@
 import injectedModule from '@web3-onboard/injected-wallets'
 import { init, Web3OnboardProvider } from '@web3-onboard/react'
+import { FormProvider, useForm } from 'react-hook-form'
 import { ReactProvider } from 'types'
 
 function getInfuraApiKey(): string {
@@ -34,9 +35,11 @@ const web3Onboard = init({
 })
 
 export function AppProviders({ children }: ReactProvider) {
+  const formMethods = useForm()
+
   return (
     <Web3OnboardProvider web3Onboard={web3Onboard}>
-      {children}
+      <FormProvider {...formMethods}>{children}</FormProvider>
     </Web3OnboardProvider>
   )
 }
