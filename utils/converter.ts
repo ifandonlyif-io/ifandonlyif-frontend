@@ -1,6 +1,7 @@
+import { SelectMenuOption } from 'components/Forms'
 import { BigNumber } from 'ethers'
 import { isHexString } from 'ethers/lib/utils'
-import { MyNFTItem, OwnedNft } from 'types'
+import { MyNFTItem, NftProject, OwnedNft } from 'types'
 
 import { parseISODateTime } from './datetime'
 
@@ -32,4 +33,14 @@ export function convertOwnedNftsToMyNfts(ownedNfts: OwnedNft[]): MyNFTItem[] {
     return { address, name, symbol, tokenId, tokenType, imageUri, unixEpoch }
   })
   return result
+}
+
+export function convertNftProjectsToSelectMenuOptions(
+  projects: NftProject[]
+): SelectMenuOption[] {
+  const options = projects.map((project) => ({
+    label: project.collectionName,
+    value: project.id,
+  }))
+  return options
 }

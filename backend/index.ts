@@ -1,7 +1,7 @@
 import { LSK_ACCESS_TOKEN } from 'constants/'
 import { $fetch, FetchContext, FetchResponse } from 'ohmyfetch'
 import { FeedbackItem, FetchUserNftsResponse, MyNFTItem, NFTItem } from 'types'
-import { GetDemoNFTListRes } from 'types/backend'
+import { GetDemoNFTListRes, NftProject } from 'types/backend'
 import { convertOwnedNftsToMyNfts, parseISODateTime } from 'utils'
 
 function getAPIBaseUrl(path: string): string {
@@ -118,4 +118,10 @@ export async function checkSiteUri(url: string): Promise<boolean> {
     body: { url },
   })
   return JSON.parse(res) as boolean
+}
+
+type GetNftProjects = NftProject[]
+
+export async function getNftProjects(): Promise<GetNftProjects> {
+  return await backendFetch<GetNftProjects>('/nftProjects')
 }

@@ -13,13 +13,6 @@ import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form'
 import { BaseComponent, CheckSiteUrlFormData } from 'types'
 import { classNames, validateCheckSiteUrlData } from 'utils'
 
-const demoOptions: SelectMenuOption[] = [
-  { label: 'Apple', value: 'apple' },
-  { label: 'Amazon', value: 'amazon' },
-  { label: 'Meta', value: 'meta' },
-  { label: 'Microsoft', value: 'microsoft' },
-]
-
 function CheckPanel(props: React.PropsWithChildren<BaseComponent>) {
   const { className, children } = props
   return (
@@ -34,7 +27,13 @@ function CheckPanel(props: React.PropsWithChildren<BaseComponent>) {
   )
 }
 
-function HolderCheckPanel() {
+type HolderCheckPanelProps = {
+  projectOptions: SelectMenuOption[]
+  onProjectOptionChange: (option: SelectMenuOption) => void
+}
+
+function HolderCheckPanel(props: HolderCheckPanelProps) {
+  const { projectOptions, onProjectOptionChange } = props
   const { t } = useTranslation('home')
 
   return (
@@ -47,8 +46,8 @@ function HolderCheckPanel() {
           placeholder={t(
             'home.sectionNFTCheck.holderCheckPanel.selectMenus.placeholder'
           )}
-          options={demoOptions}
-          onOptionChange={() => void 0}
+          options={projectOptions}
+          onOptionChange={onProjectOptionChange}
         />
         <Input placeholder="#" />
         <Button>
@@ -121,7 +120,7 @@ function SiteCheckPanel(props: SiteCheckPanelProps) {
   )
 }
 
-type SectionNFTCheckProps = SiteCheckPanelProps
+type SectionNFTCheckProps = SiteCheckPanelProps & HolderCheckPanelProps
 
 export function SectionNFTCheck(props: SectionNFTCheckProps) {
   const { t } = useTranslation('home')
@@ -138,7 +137,7 @@ export function SectionNFTCheck(props: SectionNFTCheckProps) {
           }}
         >
           <TabPanel>
-            <HolderCheckPanel />
+            <HolderCheckPanel {...props} />
           </TabPanel>
           <TabPanel>
             <SiteCheckPanel {...props} />
