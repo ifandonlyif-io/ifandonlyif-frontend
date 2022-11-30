@@ -16,7 +16,8 @@ type IndexProps = SectionUserFeedbackProps
 const Index: NextPage<IndexProps> = (props: IndexProps) => {
   const handleSiteCheckPanelSubmit = React.useCallback(
     async (data: CheckSiteUrlFormData) => {
-      const check = await checkSiteUri(data.siteUrl)
+      const url = new URL('/', data.siteUrl)
+      const check = await checkSiteUri(url.origin)
       alert(`Check site url: ${check}`)
     },
     []
