@@ -125,3 +125,7 @@ type GetNftProjects = NftProject[]
 export async function getNftProjects(): Promise<GetNftProjects> {
   return await backendFetch<GetNftProjects>('/nftProjects')
 }
+
+export async function getEthToUsd(): Promise<string> {
+  return await backendFetch<string>('/ethToUsd')
+}
