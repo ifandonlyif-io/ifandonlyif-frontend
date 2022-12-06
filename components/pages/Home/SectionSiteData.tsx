@@ -37,15 +37,22 @@ export function SectionSiteData() {
   const { t } = useTranslation('home')
 
   return (
-    <section className="mb-11 grid w-full grid-cols-3 items-center bg-black/50 pt-3.5 pb-3 md:mb-16 md:rounded-[10px] md:pt-12 md:pb-9">
-      <SiteData
+    <section
+      className={classNames(
+        // 'grid grid-cols-3 items-center',
+        'flex justify-center items-center',
+        'w-full mb-11 bg-black/50 pt-3.5 pb-3',
+        'md:mb-16 md:pt-12 md:pb-9 md:rounded-[10px]'
+      )}
+    >
+      {/* <SiteData
         title={t('home.sectionSiteData.siteData.kycHolder')}
         value={1356}
       />
       <SiteData
         title={t('home.sectionSiteData.siteData.whitelist')}
         value={1432566}
-      />
+      /> */}
       <SiteData
         title={t('home.sectionSiteData.siteData.iffNft')}
         value={5645243}
