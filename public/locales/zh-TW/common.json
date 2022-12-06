@@ -21,7 +21,7 @@
         "connectButton": "連接 Metamask"
       },
       "walletInfo": {
-        "disconnectButton": "斷開連接"
+        "disconnectButton": "登出"
       }
     }
   },
