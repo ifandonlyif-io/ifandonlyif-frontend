@@ -21,6 +21,7 @@ specifiers:
   '@types/testing-library__jest-dom': ^5.14.5
   '@typescript-eslint/eslint-plugin': ^5.40.0
   '@typescript-eslint/parser': ^5.40.0
+  '@web3-onboard/core': ^2.11.0
   '@web3-onboard/injected-wallets': ^2.3.0
   '@web3-onboard/react': ^2.4.0
   alchemy-sdk: ^2.2.0
@@ -67,6 +68,7 @@ specifiers:
 
 dependencies:
   '@ethersproject/providers': 5.7.1
+  '@web3-onboard/core': 2.11.0
   '@web3-onboard/injected-wallets': 2.3.0
   '@web3-onboard/react': 2.4.0_react@18.2.0
   alchemy-sdk: 2.2.0
@@ -6266,12 +6268,12 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@web3-onboard/core/2.10.0:
-    resolution: {integrity: sha512-wzg9iefyKmhBmh6R0Jr6kmFqi4hggHaOmPn7pDBrGp/4GvyTjAlVj+42wV9KqJb0MY9ABB1Q8XIKmhtRnXftzQ==}
+  /@web3-onboard/core/2.11.0:
+    resolution: {integrity: sha512-bNQEVgZKiKiddI/+wDS4KzmNUsqAiNL9xpPyBWSjtGC7/S/N9602quqDQzQxle8ZC/BnrQhaIpNexHvydaVaEQ==}
     dependencies:
       '@web3-onboard/common': 2.2.3
       bignumber.js: 9.1.0
-      bnc-sdk: 4.6.0
+      bnc-sdk: 4.6.3
       bowser: 2.11.0
       ethers: 5.5.3
       eventemitter3: 4.0.7
@@ -6304,7 +6306,7 @@ packages:
       react: '>=16.8'
     dependencies:
       '@web3-onboard/common': 2.2.3
-      '@web3-onboard/core': 2.10.0
+      '@web3-onboard/core': 2.11.0
       react: 18.2.0
       use-sync-external-store: 1.0.0_react@18.2.0
     transitivePeerDependencies:
@@ -7487,8 +7489,8 @@ packages:
   /bn.js/5.2.1:
     resolution: {integrity: sha512-eXRvHzWyYPBuB4NBy0cmYQjGitUrtqwbvlzP3G6VFnNRbsZQIxQ10PbKKHt8gZ/HW/D/747aDl+QkDqg3KQLMQ==}
 
-  /bnc-sdk/4.6.0:
-    resolution: {integrity: sha512-ESN5pRkbAXwYqcgoi4vuDkVBjdVwV0DcNbQKWShYTh0I0anzsIZd52mKM929HPi4iuSnfmNkqSrDqvFcMCAvFQ==}
+  /bnc-sdk/4.6.3:
+    resolution: {integrity: sha512-rva+LyJuAm+U6xwZYqlsDxKaMy3EpHBqkOL93UDih7iwXDYnUr87n27pnGCw3B8xRBeRhCBC/VZMuzRFeea/Hw==}
     dependencies:
       crypto-es: 1.2.7
       nanoid: 3.3.4

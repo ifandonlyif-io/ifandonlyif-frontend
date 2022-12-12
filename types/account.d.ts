@@ -7,3 +7,8 @@ export type AccountAccessTokenJWTPayload = RemoveIndex<JWTPayload> & {
   username: string | null
   wallet: string
 }
+
+export type PreviouslyConnectedWallet = {
+  label: string
+  account: string
+}

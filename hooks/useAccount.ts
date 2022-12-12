@@ -1,10 +1,12 @@
 import { Web3Provider } from '@ethersproject/providers'
+import type { ConnectOptions } from '@web3-onboard/core'
 import { useConnectWallet, useSetChain } from '@web3-onboard/react'
 import { doWalletLogin, getSignatureCode } from 'backend'
-import { LSK_ACCESS_TOKEN } from 'constants/'
+import { LSK_ACCESS_TOKEN, LSK_PREV_WALLET } from 'constants/'
 import { ethers } from 'ethers'
+import { getAddress, isAddress } from 'ethers/lib/utils'
 import React from 'react'
-import { AccountAccessTokenJWTPayload } from 'types'
+import { AccountAccessTokenJWTPayload, PreviouslyConnectedWallet } from 'types'
 import useLocalStorageState from 'use-local-storage-state'
 import { getAccessTokenPayload, isAccountTokenExpired } from 'utils'
 
@@ -16,7 +18,9 @@ export function useWeb3Account() {
     if (!wallet) return null
     if (!Array.isArray(wallet.accounts) || wallet.accounts.length === 0)
       return null
-    return wallet.accounts[0].address
+    const account = wallet.accounts[0].address
+    if (!isAddress(account)) return null
+    return getAddress(account)
   }, [wallet])
 
   const provider = React.useMemo<Web3Provider | null>(() => {
@@ -24,11 +28,13 @@ export function useWeb3Account() {
     return new ethers.providers.Web3Provider(wallet.provider)
   }, [wallet])
 
-  const connect = React.useCallback(async () => {
-    const state = await connectWallet()
-    if (!Array.isArray(state) || !state.length) return null
-    return state[0]
-  }, [connectWallet])
+  const connect = React.useCallback(
+    async (options?: ConnectOptions) => {
+      const state = await connectWallet(options)
+      return state[0]
+    },
+    [connectWallet]
+  )
 
   const disconnect = React.useCallback(async () => {
     if (wallet) await disconnectWallet(wallet)
@@ -50,14 +56,21 @@ type UseIffAccount = {
 }
 
 export function useIffAccount(): UseIffAccount {
-  const {
-    account: previousAccount,
-    connect,
-    disconnect,
-    switchNetwork,
-  } = useWeb3Account()
+  const { account: currentAccount, connect, switchNetwork } = useWeb3Account()
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setAccessToken] = useLocalStorageState<string>(LSK_ACCESS_TOKEN)
+  const [prevWallet, setPrevWalet] =
+    useLocalStorageState<PreviouslyConnectedWallet>(LSK_PREV_WALLET)
+
+  const resumeWalletConnection = React.useCallback(async () => {
+    if (!prevWallet) return null
+    const { label, account } = prevWallet
+    const wallet = await connect({
+      autoSelect: { label, disableModals: true },
+    })
+    console.debug('resumeWalletConnection', label, account)
+    return wallet
+  }, [connect, prevWallet])
 
   const getWalletSignCode = React.useCallback(async (account: string) => {
     if (!account) return null
@@ -81,12 +94,10 @@ export function useIffAccount(): UseIffAccount {
   const walletLogin = React.useCallback<
     UseIffAccount['walletLogin']
   >(async () => {
-    if (previousAccount) await disconnect()
     const state = await connect()
-    if (!state) return
     const chainState = await switchNetwork('0x1')
     if (!chainState) return
-    const account = state.accounts[0].address
+    const account = getAddress(state.accounts[0].address)
     const provider = new ethers.providers.Web3Provider(state.provider)
     const code = await getWalletSignCode(account)
     if (!code) throw new Error('No signature code')
@@ -94,15 +105,19 @@ export function useIffAccount(): UseIffAccount {
     if (!sig) throw new Error('No sign signature')
     const { accessToken } = await doWalletLogin(account, sig)
     setAccessToken(accessToken)
+    setPrevWalet({ label: state.label, account })
   }, [
     connect,
-    disconnect,
     getWalletSignCode,
     getWalletSignSignature,
-    previousAccount,
     setAccessToken,
+    setPrevWalet,
     switchNetwork,
   ])
+
+  React.useEffect(() => {
+    if (!currentAccount && prevWallet) resumeWalletConnection().then()
+  }, [currentAccount, prevWallet, resumeWalletConnection])
 
   return { walletLogin }
 }
