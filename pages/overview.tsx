@@ -1,6 +1,7 @@
 import {
   getDemoMyIffNft,
   getDemoNftList,
+  getEthToUsd,
   getGasPriceData,
   getUserNft,
 } from 'backend'
@@ -113,7 +114,8 @@ export const getServerSideProps: GetServerSideProps<OverviewProps> = async ({
 }) => {
   const i18n = await serverSideTranslations(locale, ['common', 'overview'])
   const priceData = await getGasPriceData()
-  const overview = { priceData }
+  const ethPrice = await getEthToUsd()
+  const overview = { priceData, ethPrice }
   const mintIt = await getDemoNftList()
   const myIFFNFT = await getDemoMyIffNft()
   // const preMint: PanelPreMintProps = { preMintWhitelist: mintIt.myWhitelist }

@@ -5,10 +5,10 @@ import React from 'react'
 import { OverviewGas, OverviewGasProps } from './overviewGas'
 // import { OverviewSocial } from './overviewSocial'
 import { OverviewStatus } from './overviewStatus'
-import { OverviewWallet } from './overviewWallet'
+import { OverviewWallet, OverviewWalletProps } from './overviewWallet'
 import { TabTitle } from './title'
 
-export type PanelOverviewProps = OverviewGasProps
+export type PanelOverviewProps = OverviewGasProps & OverviewWalletProps
 
 export function PanelOverview(props: PanelOverviewProps) {
   const { t } = useTranslation('overview')
@@ -21,7 +21,7 @@ export function PanelOverview(props: PanelOverviewProps) {
       <div className="flex flex-col gap-6 md:gap-14">
         <OverviewStatus />
         <OverviewGas {...props} />
-        <OverviewWallet />
+        <OverviewWallet {...props} />
         {/* <OverviewEmail />
         <OverviewSocial /> */}
       </div>

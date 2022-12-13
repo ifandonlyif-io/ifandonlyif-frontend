@@ -1,18 +1,25 @@
 import { Card } from 'components/Card'
 import { EthereumIcon, MoreVerticalIcon } from 'components/Icons'
-import { useAccountInfo } from 'hooks'
+import { formatEther, formatUnits, parseUnits } from 'ethers/lib/utils'
+import { useWeb3Account } from 'hooks'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { BaseComponent } from 'types'
 import { classNames } from 'utils'
 
-type OverviewWalletProps = BaseComponent
-
-type WalletInfoProps = { account: string }
+type WalletInfoProps = {
+  ethPrice?: string
+}
 
 function WalletInfo(props: WalletInfoProps) {
-  const { account } = props
+  const { ethPrice = '0' } = props
   const { t } = useTranslation('overview')
+  const { account, balance } = useWeb3Account()
+
+  const balanceStr = parseFloat(formatEther(balance)).toFixed(4)
+  const _ethPrice = parseUnits(ethPrice, 4)
+  const ethUsdPrice = balance.mul(_ethPrice)
+  const ethUsdPriceStr = parseFloat(formatUnits(ethUsdPrice, 22)).toFixed(2)
 
   return (
     <div className="flex flex-col text-base">
@@ -32,8 +39,8 @@ function WalletInfo(props: WalletInfoProps) {
         <div className="flex flex-row items-center">
           <EthereumIcon />
           <p className="ml-2 flex-1 font-medium text-iff-text">
-            ETH 9,233 <br className="block md:hidden" />
-            <span className="whitespace-nowrap">($USD 2,423,940,509)</span>
+            ETH {balanceStr} <br className="block md:hidden" />
+            <span className="whitespace-nowrap">($USD {ethUsdPriceStr})</span>
           </p>
           <button className="ml-4 font-bold text-[#F2994A]">
             {t('overview.panelOverview.overviewWallet.walletInfo.hideButton')}
@@ -44,15 +51,16 @@ function WalletInfo(props: WalletInfoProps) {
   )
 }
 
-export function OverviewWallet({ className }: OverviewWalletProps) {
+export type OverviewWalletProps = BaseComponent & Required<WalletInfoProps>
+
+export function OverviewWallet(props: OverviewWalletProps) {
   const { t } = useTranslation('overview')
-  const { account } = useAccountInfo()
 
   return (
-    <section className={classNames('w-full', className)}>
+    <section className={classNames('w-full', props.className)}>
       <Card title={t('overview.panelOverview.overviewWallet.card.title')}>
         <div className="flex flex-col gap-4 p-4 md:gap-10 md:py-10 md:px-7">
-          <WalletInfo account={account?.wallet || ''} />
+          <WalletInfo {...props} />
         </div>
       </Card>
     </section>

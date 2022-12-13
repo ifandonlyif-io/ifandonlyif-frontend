@@ -4,7 +4,7 @@ import { useConnectWallet, useSetChain } from '@web3-onboard/react'
 import { doWalletLogin, getSignatureCode } from 'backend'
 import { LSK_ACCESS_TOKEN, LSK_PREV_WALLET, ZERO_BIG_NUMBER } from 'constants/'
 import { BigNumber, ethers } from 'ethers'
-import { getAddress, isAddress, parseEther } from 'ethers/lib/utils'
+import { getAddress, isAddress } from 'ethers/lib/utils'
 import React from 'react'
 import { AccountAccessTokenJWTPayload, PreviouslyConnectedWallet } from 'types'
 import useLocalStorageState from 'use-local-storage-state'
@@ -16,8 +16,10 @@ export function useWeb3Account() {
   const [prevWallet, setPrevWalet] =
     useLocalStorageState<PreviouslyConnectedWallet>(LSK_PREV_WALLET)
 
+  const [balance, setBalance] = React.useState<BigNumber>(ZERO_BIG_NUMBER)
+
   const account = React.useMemo<string | null>(() => {
-    if (!wallet) return null
+    if (!wallet?.provider) return null
     if (!Array.isArray(wallet.accounts) || wallet.accounts.length === 0)
       return null
     const account = wallet.accounts[0].address
@@ -30,18 +32,8 @@ export function useWeb3Account() {
     return account !== prevWallet.account
   }, [account, prevWallet])
 
-  const balance = React.useMemo<BigNumber>(() => {
-    if (!wallet) return ZERO_BIG_NUMBER
-    if (!Array.isArray(wallet.accounts) || wallet.accounts.length === 0)
-      return ZERO_BIG_NUMBER
-    const balances = wallet.accounts[0].balance
-    const ethBalance = balances && balances['ETH']
-    if (!ethBalance) return ZERO_BIG_NUMBER
-    return parseEther(ethBalance)
-  }, [wallet])
-
   const provider = React.useMemo<Web3Provider | null>(() => {
-    if (!wallet) return null
+    if (!wallet?.provider) return null
     return new ethers.providers.Web3Provider(wallet.provider)
   }, [wallet])
 
@@ -90,10 +82,21 @@ export function useWeb3Account() {
     return state
   }, [_connect, prevWallet, setPrevWalet])
 
+  const fetchWalletBalance = React.useCallback(async () => {
+    // Web3 onboard document not working, use provider function.
+    if (!account || !provider) return
+    const balance = await provider.getBalance(account)
+    setBalance(balance)
+  }, [account, provider])
+
   React.useEffect(() => {
     const notConnected = !wallet && prevWallet
     if (notConnected) resumeWalletConnection().then()
   }, [prevWallet, resumeWalletConnection, wallet])
+
+  React.useEffect(() => {
+    if (wallet && wallet.provider) fetchWalletBalance().then()
+  }, [fetchWalletBalance, wallet])
 
   return {
     account,
