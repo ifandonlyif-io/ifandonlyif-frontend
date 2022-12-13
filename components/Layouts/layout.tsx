@@ -1,5 +1,5 @@
 import { NeonUnderline } from 'components/Decorate'
-import { useAccountInfo } from 'hooks'
+import { useIffAccount } from 'hooks'
 import { useTranslation } from 'next-i18next'
 import React, { Fragment } from 'react'
 
@@ -22,19 +22,20 @@ export function DefaultLayout({ children }: LayoutProps) {
 
 export function OverviewLayout({ children }: LayoutProps) {
   const { t } = useTranslation('common')
-  const { expired } = useAccountInfo()
+  const { expired, accountMismatch } = useIffAccount()
+  const isLoggedIn = !expired && !accountMismatch
 
   return (
     <Fragment>
       <Navbar />
-      {expired && (
+      {!isLoggedIn && (
         <div className="flex h-[calc(100vh_-_88px)] w-full flex-row items-center justify-center bg-black/50 backdrop-blur-[18px]">
           <h4 className="heading-4 text-white">
             {t('layouts.layout.overviewLayout.connect.tips')}
           </h4>
         </div>
       )}
-      {!expired && (
+      {isLoggedIn && (
         <main className="iff-layout">
           <h1 className="heading-4 text-shadow-heading-4 px-4 pt-11 text-center uppercase text-white">
             {t('layouts.layout.overviewLayout.main.heading')}
