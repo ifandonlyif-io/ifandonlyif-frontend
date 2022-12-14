@@ -30,36 +30,36 @@ function MemoModalTitle(props: MemoModalTitleProps) {
   )
 }
 
-type MemoModalInfoBarProps = BaseComponent
+// type MemoModalInfoBarProps = BaseComponent
 
-function MemoModalInfoBar(props: MemoModalInfoBarProps) {
-  const { className } = props
-  return (
-    <div
-      className={classNames(
-        'flex flex-row flex-nowrap justify-between items-center',
-        'w-full h-[74px] px-6 bg-[#F0F0F0] rounded-[5px]',
-        'font-bold text-base text-iff-text',
-        className
-      )}
-    >
-      <p className="m-0">2022.5.10 10:20</p>
-      <p className="m-0">verified by IFANDONLYIF</p>
-    </div>
-  )
-}
+// function MemoModalInfoBar(props: MemoModalInfoBarProps) {
+//   const { className } = props
+//   return (
+//     <div
+//       className={classNames(
+//         'flex flex-row flex-nowrap justify-between items-center',
+//         'w-full h-[74px] px-6 bg-[#F0F0F0] rounded-[5px]',
+//         'font-bold text-base text-iff-text',
+//         className
+//       )}
+//     >
+//       <p className="m-0">2022.5.10 10:20</p>
+//       <p className="m-0">verified by IFANDONLYIF</p>
+//     </div>
+//   )
+// }
 
 type MemoModalProps = ModalProps
 
 function MemoModal(props: MemoModalProps) {
   const { isOpen, onModalClose } = props
   const { t } = useTranslation('overview')
-  const PoweredBy = () => (
-    <p className="text-base font-medium text-iff-text">
-      {t('overview.panelIFFNFT.memoModal.poweredBy')}&nbsp;
-      <span className="font-semibold text-[#14D6D6]">Meta.io</span>
-    </p>
-  )
+  // const PoweredBy = () => (
+  //   <p className="text-base font-medium text-iff-text">
+  //     {t('overview.panelIFFNFT.memoModal.poweredBy')}&nbsp;
+  //     <span className="font-semibold text-[#14D6D6]">Meta.io</span>
+  //   </p>
+  // )
   const handleCancelClick = React.useCallback<
     React.MouseEventHandler<HTMLButtonElement>
   >(
@@ -102,7 +102,7 @@ function MemoModal(props: MemoModalProps) {
           </RadioGroup>
           <Textarea className="mb-8 h-[88px] w-full [resize:none]" />
 
-          <MemoModalTitle
+          {/* <MemoModalTitle
             className="mb-4"
             title={t('overview.panelIFFNFT.memoModal.memoModalTitle.info')}
           />
@@ -128,7 +128,7 @@ function MemoModal(props: MemoModalProps) {
             <Radio value="no">
               {t('overview.panelIFFNFT.memoModal.radioGroup.no')}
             </Radio>
-          </RadioGroup>
+          </RadioGroup> */}
 
           <div className="mt-16 grid grid-cols-2 gap-[10px]">
             <Button
