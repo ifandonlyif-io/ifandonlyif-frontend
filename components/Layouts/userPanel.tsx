@@ -7,19 +7,23 @@ import React from 'react'
 import { BaseComponent } from 'types'
 import { classNames, shortAccount } from 'utils'
 
-type WalletInfoProps = BaseComponent
+type WalletInfoProps = BaseComponent & {
+  onClose: () => void
+}
 
 function WalletInfo(props: WalletInfoProps) {
+  const { className, onClose } = props
   const { t } = useTranslation('common')
   const { account, signOut } = useIffAccount()
   const accStr = account && shortAccount(account.wallet)
 
   const handleDisconnectClick = React.useCallback(async () => {
     await signOut()
-  }, [signOut])
+    onClose()
+  }, [onClose, signOut])
 
   return (
-    <div className={classNames('grid grid-cols-1 gap-3', props.className)}>
+    <div className={classNames('grid grid-cols-1 gap-3', className)}>
       <div className="flex flex-row flex-nowrap items-center">
         <EthereumIcon />
         <div className="ml-2 text-lg">{accStr}</div>
@@ -41,13 +45,13 @@ type WalletDropdownProps = {
 }
 
 function WalletDropdown(props: WalletDropdownProps) {
-  const { isOpen } = props
+  const { isOpen, onWalletDropdownClose } = props
 
   if (!isOpen) return null
 
   return (
     <div className="absolute top-[90%] right-4 rounded-[10px] bg-white p-4 shadow-iff-modal">
-      <WalletInfo />
+      <WalletInfo onClose={onWalletDropdownClose} />
     </div>
   )
 }
@@ -94,17 +98,19 @@ export function UserPanel({ className }: UserPanelProps) {
         <ConnectWalletButton onClick={handleWalletConnectClick} />
       )}
       {isLoggedIn && (
-        <Avatar
-          size="small"
-          variant="text"
-          src={username}
-          onClick={toggleWalletDropdown}
-        />
+        <React.Fragment>
+          <Avatar
+            size="small"
+            variant="text"
+            src={username}
+            onClick={toggleWalletDropdown}
+          />
+          <WalletDropdown
+            isOpen={isOpen}
+            onWalletDropdownClose={handleWalletDropdownClose}
+          />
+        </React.Fragment>
       )}
-      <WalletDropdown
-        isOpen={isOpen}
-        onWalletDropdownClose={handleWalletDropdownClose}
-      />
     </div>
   )
 }
