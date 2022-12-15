@@ -18,7 +18,7 @@
     "storybook": "start-storybook -p 6006",
     "test": "jest",
     "lint": "next lint",
-    "postinstall": "husky install"
+    "postinstall": "npx husky install"
   },
   "dependencies": {
     "@ethersproject/providers": "^5.7.1",
