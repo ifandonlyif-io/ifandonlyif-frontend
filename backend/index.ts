@@ -1,5 +1,5 @@
 import { LSK_ACCESS_TOKEN } from 'constants/'
-import { $fetch, FetchContext, FetchResponse } from 'ohmyfetch'
+import { FetchContext, FetchResponse, ofetch } from 'ofetch'
 import { FeedbackItem, FetchUserNftsResponse, MyNFTItem, NFTItem } from 'types'
 import { GetDemoNFTListRes, NftProject } from 'types/backend'
 import { convertOwnedNftsToMyNfts, parseISODateTime } from 'utils'
@@ -10,12 +10,45 @@ function getAPIBaseUrl(path: string): string {
   return new URL(path, baseUrl).href
 }
 
+const baseURL = getAPIBaseUrl('/')
+
+function isLocalStorageAvailable(): boolean {
+  if (typeof localStorage !== 'object') return false
+  try {
+    const test = 'test'
+    localStorage.setItem(test, test)
+    localStorage.removeItem(test)
+    return true
+  } catch (e) {
+    return false
+  }
+}
+
+type RefreshTokenRes = {
+  accessToken: string
+  accessTokenExpiresAt: number
+}
+
+async function refreshToken(): Promise<boolean> {
+  if (!isLocalStorageAvailable()) return false
+  const token = localStorage.getItem(LSK_ACCESS_TOKEN)
+  if (!token) return false
+  try {
+    const { accessToken } = await ofetch<RefreshTokenRes>('/renewAccess', {
+      baseURL,
+      method: 'POST',
+      body: { refreshToken: JSON.parse(token) },
+    })
+    if (!accessToken || typeof accessToken !== 'string') return false
+    localStorage.setItem(LSK_ACCESS_TOKEN, JSON.stringify(accessToken))
+    return true
+  } catch (error) {
+    return false
+  }
+}
+
 async function onBackendFetchRequest(ctx: FetchContext) {
-  if (
-    typeof localStorage === 'object' &&
-    'getItem' in localStorage &&
-    typeof localStorage.getItem === 'function'
-  ) {
+  if (isLocalStorageAvailable()) {
     const token = localStorage.getItem(LSK_ACCESS_TOKEN)
     if (token) {
       ctx.options.headers = Object.assign({}, ctx.options.headers, {
@@ -31,34 +64,29 @@ async function onBackendFetchResponseError(
   }
 ) {
   if (ctx.response.status === 401) {
-    if (
-      typeof localStorage === 'object' &&
-      'removeItem' in localStorage &&
-      typeof localStorage.removeItem === 'function'
-    )
-      localStorage.removeItem(LSK_ACCESS_TOKEN)
+    if (isLocalStorageAvailable()) localStorage.removeItem(LSK_ACCESS_TOKEN)
     // TODO: support refresh token
   }
 }
 
-const backendFetch = $fetch.create({
-  baseURL: getAPIBaseUrl('/'),
+const backendFetch = ofetch.create({
+  baseURL,
   onRequest: onBackendFetchRequest,
   onResponseError: onBackendFetchResponseError,
 })
 
 export async function getDemoNftList() {
-  return await $fetch<GetDemoNFTListRes>(
+  return await ofetch<GetDemoNFTListRes>(
     'http://localhost:3001/api/demo/nftlist'
   )
 }
 
 export async function getDemoMyIffNft() {
-  return await $fetch<NFTItem[]>('http://localhost:3001/api/demo/fetchMyIffNft')
+  return await ofetch<NFTItem[]>('http://localhost:3001/api/demo/fetchMyIffNft')
 }
 
 export async function getDemoFeedbackList() {
-  return await $fetch<FeedbackItem[]>(
+  return await ofetch<FeedbackItem[]>(
     'http://localhost:3001/api/demo/feedbacklist'
   )
 }
