@@ -7,7 +7,7 @@ import {
 } from 'backend'
 import { OverviewLayout } from 'components/Layouts'
 import {
-  PanelIFFNFT,
+  // PanelIFFNFT,
   PanelIFFNFTProps,
   // PanelKYCRecord,
   PanelMintIt,
@@ -43,12 +43,12 @@ const tabs: TabData[] = [
   { label: 'overview', href: '#overview' },
   { label: 'mintIt', href: '#mint-it' },
   // { label: 'premintNft', href: '#premint-nft' },
-  { label: 'iffNft', href: '#iffnft' },
+  // { label: 'iffNft', href: '#iffnft' },
   // { label: 'kycRecord', href: '#kyc-record' },
 ]
 
 const Overview: NextPageWithLayout<OverviewProps> = (props: OverviewProps) => {
-  const { overview, mintIt, iffNFT } = props
+  const { overview, mintIt } = props
   const { t } = useTranslation('overview')
   const router = useRouter()
   const { data: myNfts } = useSWR('/auth/fetchUserNft', getUserNft)
@@ -90,10 +90,10 @@ const Overview: NextPageWithLayout<OverviewProps> = (props: OverviewProps) => {
               myNFTs={myNfts || []}
             />
           </TabPanel>
-          <TabPanel>
+          {/* <TabPanel>
             <PanelIFFNFT {...iffNFT} />
           </TabPanel>
-          {/* <TabPanel>
+          <TabPanel>
             <PanelPreMint {...preMint} />
           </TabPanel>
           <TabPanel>
