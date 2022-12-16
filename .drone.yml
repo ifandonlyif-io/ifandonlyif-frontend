@@ -1,0 +1,169 @@
+kind: secret
+name: AWS_REPO_IFFF
+get:
+  path: docker
+  name: AWS_REPO_IFFF
+---
+kind: secret
+name: AWS_ACCESS_KEY_IFFF
+get:
+  path: docker
+  name: AWS_ACCESS_KEY_IFFF
+---
+kind: secret
+name: AWS_SECRET_KEY_IFFF
+get:
+  path: docker
+  name: AWS_SECRET_KEY_IFFF
+---
+kind: secret
+name: AWS_REGION
+get:
+  path: docker
+  name: AWS_REGION
+---
+kind: secret
+name: KUBERNETES_CONFIG_IFFF_DEV
+get:
+  path: docker
+  name: KUBERNETES_CONFIG_IFFF_DEV
+---
+kind: secret
+name: KUBERNETES_CONFIG_IFFF_PROD
+get:
+  path: docker
+  name: KUBERNETES_CONFIG_IFFF_PROD
+---
+kind: secret
+name: IFANDONLYIF_FRONTEND_DEV_BUILD_ARGS
+get:
+  path: docker
+  name: IFANDONLYIF_FRONTEND_DEV_BUILD_ARGS
+---
+kind: secret
+name: IFANDONLYIF_FRONTEND_PROD_BUILD_ARGS
+get:
+  path: docker
+  name: IFANDONLYIF_FRONTEND_PROD_BUILD_ARGS
+---
+kind: pipeline
+type: kubernetes
+name: default
+
+platform:
+  os: linux
+  arch: arm64
+
+workspace:
+  path: /app
+
+steps:
+  - name: push to ecr dev
+    image: plugins/ecr
+    settings:
+      mtu: 1400
+      registry:
+        from_secret: AWS_REPO_IFFF
+      dockerfile: ./Dockerfile
+      build_args:
+        from_secret: IFANDONLYIF_FRONTEND_DEV_BUILD_ARGS
+      repo: ifandonlyif-frontend
+      region:
+        from_secret: AWS_REGION
+      tags:
+        - dev
+      access_key:
+        from_secret: AWS_ACCESS_KEY_IFFF
+      secret_key:
+        from_secret: AWS_SECRET_KEY_IFFF
+    when:
+      branch:
+        - dev
+      local: true
+      event:
+        - push
+
+  - name: push to ecr prod
+    image: plugins/ecr
+    settings:
+      mtu: 1400
+      registry:
+        from_secret: AWS_REPO_IFFF
+      dockerfile: ./Dockerfile
+      build_args:
+        from_secret: IFANDONLYIF_FRONTEND_PROD_BUILD_ARGS
+      repo: ifandonlyif-frontend
+      region:
+        from_secret: AWS_REGION
+      tags:
+        - prod
+        - ${DRONE_TAG}
+      access_key:
+        from_secret: AWS_ACCESS_KEY_IFFF
+      secret_key:
+        from_secret: AWS_SECRET_KEY_IFFF
+    when:
+      event:
+        - tag
+
+  - name: deploy dev
+    image: bitnami/minideb:bullseye
+    environment:
+      KUBERNETES_CONFIG_GZBASE64:
+        from_secret: KUBERNETES_CONFIG_IFFF_DEV
+      KUBERNETES_NAMESPACE: ifandonlyif-dev
+      AWS_ACCESS_KEY_ID:
+        from_secret: AWS_ACCESS_KEY_IFFF
+      AWS_SECRET_ACCESS_KEY:
+        from_secret: AWS_SECRET_KEY_IFFF
+    commands:
+      - |
+        install_packages aria2 ca-certificates unzip
+        cat <<EOT >> list.txt
+        https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip
+          out=awscliv2.zip
+        https://amazon-eks.s3.us-west-2.amazonaws.com/1.21.2/2021-07-05/bin/linux/arm64/aws-iam-authenticator
+          out=bin/aws-iam-authenticator
+        https://dl.k8s.io/release/v1.23.6/bin/linux/arm64/kubectl
+          out=bin/kubectl
+        EOT
+        aria2c --dir / -i list.txt
+        chmod +x /bin/aws-iam-authenticator /bin/kubectl
+        unzip /awscliv2.zip -d ./ && ./aws/install --update
+      - echo $KUBERNETES_CONFIG_GZBASE64 | base64 -d | gunzip > kubeconfig.yaml
+      - kubectl --kubeconfig ./kubeconfig.yaml rollout restart deployment.apps/ifandonlyif-frontend -n $KUBERNETES_NAMESPACE
+    when:
+      branch:
+        - dev
+      local: true
+      event:
+        - push
+
+  - name: deploy prod
+    image: bitnami/minideb:bullseye
+    environment:
+      KUBERNETES_CONFIG_GZBASE64:
+        from_secret: KUBERNETES_CONFIG_IFFF_PROD
+      KUBERNETES_NAMESPACE: ifandonlyif-prod
+      AWS_ACCESS_KEY_ID:
+        from_secret: AWS_ACCESS_KEY_IFFF
+      AWS_SECRET_ACCESS_KEY:
+        from_secret: AWS_SECRET_KEY_IFFF
+    commands:
+      - |
+        install_packages aria2 ca-certificates unzip
+        cat <<EOT >> list.txt
+        https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip
+          out=awscliv2.zip
+        https://amazon-eks.s3.us-west-2.amazonaws.com/1.21.2/2021-07-05/bin/linux/arm64/aws-iam-authenticator
+          out=bin/aws-iam-authenticator
+        https://dl.k8s.io/release/v1.23.6/bin/linux/arm64/kubectl
+          out=bin/kubectl
+        EOT
+        aria2c --dir / -i list.txt
+        chmod +x /bin/aws-iam-authenticator /bin/kubectl
+        unzip /awscliv2.zip -d ./ && ./aws/install --update
+      - echo $KUBERNETES_CONFIG_GZBASE64 | base64 -d | gunzip > kubeconfig.yaml
+    when:
+      event:
+        - tag
