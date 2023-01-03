@@ -1,4 +1,4 @@
-import { Web3Provider } from '@ethersproject/providers'
+import type { Web3Provider } from '@ethersproject/providers'
 import type { ConnectOptions } from '@web3-onboard/core'
 import { useConnectWallet, useSetChain } from '@web3-onboard/react'
 import { doWalletLogin, getSignatureCode } from 'backend'

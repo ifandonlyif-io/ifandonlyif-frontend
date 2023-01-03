@@ -21,7 +21,6 @@
     "postinstall": "npx husky install"
   },
   "dependencies": {
-    "@ethersproject/providers": "^5.7.2",
     "@web3-onboard/core": "^2.12.1",
     "@web3-onboard/injected-wallets": "^2.4.0",
     "@web3-onboard/react": "^2.5.3",
@@ -48,6 +47,8 @@
   "devDependencies": {
     "@commitlint/cli": "^17.3.0",
     "@commitlint/config-conventional": "^17.3.0",
+    "@ethersproject/abi": "^5.7.0",
+    "@ethersproject/providers": "^5.7.2",
     "@storybook/addon-essentials": "^6.5.15",
     "@storybook/addon-interactions": "^6.5.15",
     "@storybook/addon-links": "^6.5.15",
