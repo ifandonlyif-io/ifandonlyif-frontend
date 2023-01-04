@@ -1,5 +1,5 @@
 # Install dependencies only when needed
-FROM node:16.18-bullseye AS builder
+FROM node:18.12.1-bullseye-slim AS builder
 
 WORKDIR /app
 COPY . .
@@ -12,8 +12,8 @@ RUN apt update && apt install unzip curl -y
 ADD https://bun.sh/install /bin/install-bun
 RUN chmod +x /bin/install-bun && BUN_INSTALL=/usr install-bun
 
-RUN npm i
-RUN npm run build
+RUN bun i
+RUN bun run build
 
 # Production image, copy all the files and run next
 FROM node:16-alpine AS runner
