@@ -12,8 +12,8 @@ RUN apt update && apt install unzip curl -y
 ADD https://bun.sh/install /bin/install-bun
 RUN chmod +x /bin/install-bun && BUN_INSTALL=/usr install-bun
 
-RUN bun i
-RUN bun run build
+RUN npm i
+RUN npm run build
 
 # Production image, copy all the files and run next
 FROM node:16-alpine AS runner
