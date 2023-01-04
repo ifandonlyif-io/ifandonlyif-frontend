@@ -1,5 +1,5 @@
 # Install dependencies only when needed
-FROM node:18.12.1-bullseye-slim AS builder
+FROM node:18.12-bullseye-slim AS builder
 
 WORKDIR /app
 COPY . .
