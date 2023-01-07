@@ -28,6 +28,8 @@ import type {
 
 export interface IFFNFTInterface extends utils.Interface {
   functions: {
+    'BurnNFT(uint256)': FunctionFragment
+    'CheckMinter(uint256)': FunctionFragment
     'NFT_minted()': FunctionFragment
     'OwnerMint(uint256,address)': FunctionFragment
     'RenewNftAPI(uint256,string)': FunctionFragment
@@ -49,6 +51,8 @@ export interface IFFNFTInterface extends utils.Interface {
     'safeTransferFrom(address,address,uint256,bytes)': FunctionFragment
     'setApprovalForAll(address,bool)': FunctionFragment
     'setBaseURI(string)': FunctionFragment
+    'setState(bool)': FunctionFragment
+    'state()': FunctionFragment
     'supportsInterface(bytes4)': FunctionFragment
     'symbol()': FunctionFragment
     'tokenURI(uint256)': FunctionFragment
@@ -58,6 +62,8 @@ export interface IFFNFTInterface extends utils.Interface {
 
   getFunction(
     nameOrSignatureOrTopic:
+      | 'BurnNFT'
+      | 'CheckMinter'
       | 'NFT_minted'
       | 'OwnerMint'
       | 'RenewNftAPI'
@@ -79,6 +85,8 @@ export interface IFFNFTInterface extends utils.Interface {
       | 'safeTransferFrom(address,address,uint256,bytes)'
       | 'setApprovalForAll'
       | 'setBaseURI'
+      | 'setState'
+      | 'state'
       | 'supportsInterface'
       | 'symbol'
       | 'tokenURI'
@@ -86,6 +94,14 @@ export interface IFFNFTInterface extends utils.Interface {
       | 'transferOwnership'
   ): FunctionFragment
 
+  encodeFunctionData(
+    functionFragment: 'BurnNFT',
+    values: [PromiseOrValue<BigNumberish>]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'CheckMinter',
+    values: [PromiseOrValue<BigNumberish>]
+  ): string
   encodeFunctionData(functionFragment: 'NFT_minted', values?: undefined): string
   encodeFunctionData(
     functionFragment: 'OwnerMint',
@@ -172,6 +188,11 @@ export interface IFFNFTInterface extends utils.Interface {
     values: [PromiseOrValue<string>]
   ): string
   encodeFunctionData(
+    functionFragment: 'setState',
+    values: [PromiseOrValue<boolean>]
+  ): string
+  encodeFunctionData(functionFragment: 'state', values?: undefined): string
+  encodeFunctionData(
     functionFragment: 'supportsInterface',
     values: [PromiseOrValue<BytesLike>]
   ): string
@@ -193,6 +214,8 @@ export interface IFFNFTInterface extends utils.Interface {
     values: [PromiseOrValue<string>]
   ): string
 
+  decodeFunctionResult(functionFragment: 'BurnNFT', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'CheckMinter', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'NFT_minted', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'OwnerMint', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'RenewNftAPI', data: BytesLike): Result
@@ -235,6 +258,8 @@ export interface IFFNFTInterface extends utils.Interface {
     data: BytesLike
   ): Result
   decodeFunctionResult(functionFragment: 'setBaseURI', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'setState', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'state', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'supportsInterface',
     data: BytesLike
@@ -338,6 +363,16 @@ export interface IFFNFT extends BaseContract {
   removeListener: OnEvent<this>
 
   functions: {
+    BurnNFT(
+      tokenID: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>
+
+    CheckMinter(
+      tokenID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[string]>
+
     NFT_minted(overrides?: CallOverrides): Promise<[BigNumber]>
 
     OwnerMint(
@@ -439,6 +474,13 @@ export interface IFFNFT extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>
 
+    setState(
+      constate: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>
+
+    state(overrides?: CallOverrides): Promise<[boolean]>
+
     supportsInterface(
       interfaceId: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
@@ -463,6 +505,16 @@ export interface IFFNFT extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>
   }
+
+  BurnNFT(
+    tokenID: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>
+
+  CheckMinter(
+    tokenID: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<string>
 
   NFT_minted(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -565,6 +617,13 @@ export interface IFFNFT extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>
 
+  setState(
+    constate: PromiseOrValue<boolean>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>
+
+  state(overrides?: CallOverrides): Promise<boolean>
+
   supportsInterface(
     interfaceId: PromiseOrValue<BytesLike>,
     overrides?: CallOverrides
@@ -590,6 +649,16 @@ export interface IFFNFT extends BaseContract {
   ): Promise<ContractTransaction>
 
   callStatic: {
+    BurnNFT(
+      tokenID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    CheckMinter(
+      tokenID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<string>
+
     NFT_minted(overrides?: CallOverrides): Promise<BigNumber>
 
     OwnerMint(
@@ -689,6 +758,13 @@ export interface IFFNFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>
 
+    setState(
+      constate: PromiseOrValue<boolean>,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    state(overrides?: CallOverrides): Promise<boolean>
+
     supportsInterface(
       interfaceId: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
@@ -759,6 +835,16 @@ export interface IFFNFT extends BaseContract {
   }
 
   estimateGas: {
+    BurnNFT(
+      tokenID: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>
+
+    CheckMinter(
+      tokenID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
     NFT_minted(overrides?: CallOverrides): Promise<BigNumber>
 
     OwnerMint(
@@ -860,6 +946,13 @@ export interface IFFNFT extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>
 
+    setState(
+      constate: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>
+
+    state(overrides?: CallOverrides): Promise<BigNumber>
+
     supportsInterface(
       interfaceId: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
@@ -886,6 +979,16 @@ export interface IFFNFT extends BaseContract {
   }
 
   populateTransaction: {
+    BurnNFT(
+      tokenID: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>
+
+    CheckMinter(
+      tokenID: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
     NFT_minted(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     OwnerMint(
@@ -986,6 +1089,13 @@ export interface IFFNFT extends BaseContract {
       baseURI: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>
+
+    setState(
+      constate: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>
+
+    state(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     supportsInterface(
       interfaceId: PromiseOrValue<BytesLike>,
