@@ -1,14 +1,12 @@
 import React from 'react'
-import { BaseComponent } from 'types'
 import { classNames } from 'utils'
 
-type InputProps = BaseComponent &
-  React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLInputElement>,
-    HTMLInputElement
-  >
+type InputProps = React.ComponentPropsWithoutRef<'input'> & {
+  forwardedRef: React.ForwardedRef<HTMLInputElement>
+}
 
-export function Input({ className, ...props }: InputProps) {
+export function StyledInput(props: InputProps) {
+  const { className, forwardedRef, ...others } = props
   return (
     <input
       className={classNames(
@@ -18,7 +16,15 @@ export function Input({ className, ...props }: InputProps) {
         'placeholder:text-base placeholder:text-iff-cyan hover:outline-none focus:outline-none',
         className
       )}
-      {...props}
+      {...others}
+      ref={forwardedRef}
     />
   )
 }
+
+export const Input = React.forwardRef<
+  HTMLInputElement,
+  Omit<InputProps, 'forwardedRef'>
+>(function renderInput(props, ref) {
+  return <StyledInput {...props} forwardedRef={ref} />
+})
