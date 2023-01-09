@@ -34,7 +34,9 @@ function SiteData(props: SiteDataProps) {
 }
 
 export function SectionSiteData() {
-  const { t } = useTranslation('home')
+  const { t } = useTranslation('home', {
+    keyPrefix: 'home.sectionSiteData.siteData',
+  })
 
   return (
     <section
@@ -45,18 +47,9 @@ export function SectionSiteData() {
         'md:mb-16 md:pt-12 md:pb-9 md:rounded-[10px]'
       )}
     >
-      {/* <SiteData
-        title={t('home.sectionSiteData.siteData.kycHolder')}
-        value={1356}
-      />
-      <SiteData
-        title={t('home.sectionSiteData.siteData.whitelist')}
-        value={1432566}
-      /> */}
-      <SiteData
-        title={t('home.sectionSiteData.siteData.iffNft')}
-        value={5645243}
-      />
+      {/* <SiteData title={t('kycHolder')} value={1356} />
+      <SiteData title={t('whitelist')} value={1432566} /> */}
+      <SiteData title={t('iffNft')} value={5645243} />
     </section>
   )
 }

@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next'
 import React from 'react'
 
 export function SectionHeader() {
-  const { t } = useTranslation('home')
+  const { t } = useTranslation('home', { keyPrefix: 'home.sectionHeader' })
   const router = useRouter()
 
   const handleJoinButtonClick = React.useCallback(() => {
@@ -19,10 +19,10 @@ export function SectionHeader() {
       </div>
       <div className="flex max-w-[298px] flex-col md:max-w-[684px]">
         <h1 className="heading-4 md:heading-1 text-shadow-heading-1 mb-4 text-white md:mb-6">
-          {t('home.sectionHeader.heading')}
+          {t('heading')}
         </h1>
         <h2 className="subtitle-2 md:heading-5 text-shadow-subtitle-2 md:text-shadow-heading-5 mb-8 text-[#D9FFFA]">
-          {t('home.sectionHeader.subheading')}
+          {t('subheading')}
         </h2>
         <Button
           className="mx-auto max-w-[174px] md:max-w-[280px]"
@@ -30,7 +30,7 @@ export function SectionHeader() {
           size="large"
           onClick={handleJoinButtonClick}
         >
-          {t('home.sectionHeader.joinButton')}
+          {t('joinButton')}
         </Button>
       </div>
     </section>

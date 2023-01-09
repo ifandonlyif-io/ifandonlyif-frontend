@@ -53,10 +53,12 @@ type MemoModalProps = ModalProps
 
 function MemoModal(props: MemoModalProps) {
   const { isOpen, onModalClose } = props
-  const { t } = useTranslation('overview')
+  const { t } = useTranslation('overview', {
+    keyPrefix: 'overview.panelIFFNFT.memoModal',
+  })
   // const PoweredBy = () => (
   //   <p className="text-base font-medium text-iff-text">
-  //     {t('overview.panelIFFNFT.memoModal.poweredBy')}&nbsp;
+  //     {t('poweredBy')}&nbsp;
   //     <span className="font-semibold text-[#14D6D6]">Meta.io</span>
   //   </p>
   // )
@@ -85,49 +87,31 @@ function MemoModal(props: MemoModalProps) {
     <Modal isOpen={isOpen} onModalClose={onModalClose}>
       <div className="flex flex-col px-20 pt-7 pb-9">
         <h2 className="mb-8 text-center text-2xl font-bold text-iff-text">
-          {t('overview.panelIFFNFT.memoModal.heading')}
+          {t('heading')}
         </h2>
         <form className="flex min-w-[390px] flex-col" action="#">
-          <MemoModalTitle
-            className="mb-4"
-            title={t('overview.panelIFFNFT.memoModal.memoModalTitle.memo')}
-          />
+          <MemoModalTitle className="mb-4" title={t('memoModalTitle.memo')} />
           <RadioGroup className="mb-3" name="memo">
-            <Radio value="yes">
-              {t('overview.panelIFFNFT.memoModal.radioGroup.yes')}
-            </Radio>
-            <Radio value="no">
-              {t('overview.panelIFFNFT.memoModal.radioGroup.no')}
-            </Radio>
+            <Radio value="yes">{t('radioGroup.yes')}</Radio>
+            <Radio value="no">{t('radioGroup.no')}</Radio>
           </RadioGroup>
           <Textarea className="mb-8 h-[88px] w-full [resize:none]" />
 
-          {/* <MemoModalTitle
-            className="mb-4"
-            title={t('overview.panelIFFNFT.memoModal.memoModalTitle.info')}
-          />
+          {/* <MemoModalTitle className="mb-4" title={t('memoModalTitle.info')} />
           <RadioGroup className="mb-3" name="info">
-            <Radio value="yes">
-              {t('overview.panelIFFNFT.memoModal.radioGroup.yes')}
-            </Radio>
-            <Radio value="no">
-              {t('overview.panelIFFNFT.memoModal.radioGroup.no')}
-            </Radio>
+            <Radio value="yes">{t('radioGroup.yes')}</Radio>
+            <Radio value="no">{t('radioGroup.no')}</Radio>
           </RadioGroup>
           <MemoModalInfoBar className="mb-8" />
 
           <MemoModalTitle
             className="mb-4"
-            title={t('overview.panelIFFNFT.memoModal.memoModalTitle.chain')}
+            title={t('memoModalTitle.chain')}
             rightElement={<PoweredBy />}
           />
           <RadioGroup className="mb-3" name="chain">
-            <Radio value="yes">
-              {t('overview.panelIFFNFT.memoModal.radioGroup.yes')}
-            </Radio>
-            <Radio value="no">
-              {t('overview.panelIFFNFT.memoModal.radioGroup.no')}
-            </Radio>
+            <Radio value="yes">{t('radioGroup.yes')}</Radio>
+            <Radio value="no">{t('radioGroup.no')}</Radio>
           </RadioGroup> */}
 
           <div className="mt-16 grid grid-cols-2 gap-[10px]">
@@ -137,7 +121,7 @@ function MemoModal(props: MemoModalProps) {
               shadow={false}
               onClick={handleCancelClick}
             >
-              {t('overview.panelIFFNFT.memoModal.button.cancel')}
+              {t('button.cancel')}
             </Button>
             <Button
               className="border-[2px] border-[#14D6D6]"
@@ -145,7 +129,7 @@ function MemoModal(props: MemoModalProps) {
               shadow={false}
               onClick={handleOkClick}
             >
-              {t('overview.panelIFFNFT.memoModal.button.ok')}
+              {t('button.ok')}
             </Button>
           </div>
         </form>
@@ -160,7 +144,9 @@ type NFTButtonsProps = {
 
 function NFTButtons(props: NFTButtonsProps) {
   const { onMemoClick } = props
-  const { t } = useTranslation('overview')
+  const { t } = useTranslation('overview', {
+    keyPrefix: 'overview.panelIFFNFT.nftButtons',
+  })
 
   return (
     <div className="flex flex-1 flex-row flex-nowrap items-center justify-between">
@@ -169,10 +155,10 @@ function NFTButtons(props: NFTButtonsProps) {
         size="small"
         outline
       >
-        {t('overview.panelIFFNFT.nftButtons.view')}
+        {t('view')}
       </NFTButton>
       <NFTButton className="!text-[#CBB9FF]" size="small" onClick={onMemoClick}>
-        {t('overview.panelIFFNFT.nftButtons.memo')}
+        {t('memo')}
       </NFTButton>
     </div>
   )

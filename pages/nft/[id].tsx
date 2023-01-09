@@ -47,7 +47,7 @@ type NFTViewProps = {
 
 const NFTView: NextPage<NFTViewProps> = (props: NFTViewProps) => {
   const { nftData } = props
-  const { t } = useTranslation('nft')
+  const { t } = useTranslation('nft', { keyPrefix: 'nftView' })
   const router = useRouter()
   const [flip, setFlip] = React.useState(false)
   const handleCardFlip = React.useCallback(() => setFlip(!flip), [flip])
@@ -60,7 +60,7 @@ const NFTView: NextPage<NFTViewProps> = (props: NFTViewProps) => {
         <div className="flex flex-col flex-nowrap px-4 py-6 md:flex-row md:justify-between md:py-7 md:px-20">
           <div className="flex flex-col">
             <h1 className="heading-4 md:heading-2 text-shadow-heading-1 mb-4 text-white md:mb-16">
-              {t('nftView.heading')}
+              {t('heading')}
             </h1>
             <div className="text-md mb-5 flex flex-row font-bold text-white md:mb-6 md:flex-col md:text-xl">
               <h3 className="mr-5 md:mb-5">{nftData.name}</h3>
@@ -70,7 +70,7 @@ const NFTView: NextPage<NFTViewProps> = (props: NFTViewProps) => {
               className="hidden !w-[116px] md:flex"
               onClick={handleBackClick}
             >
-              {t('nftView.backButton')}
+              {t('backButton')}
             </Button>
           </div>
           <div className="mb-6 flex flex-col items-center rounded-[10px] bg-[#00183C]/50 p-6 backdrop-blur-[54px] md:mb-0">
@@ -84,18 +84,16 @@ const NFTView: NextPage<NFTViewProps> = (props: NFTViewProps) => {
             >
               <Rotate360Icon />
               <span className="ml-[10px] hidden md:inline-block">
-                {t('nftView.flipButton.press')}
+                {t('flipButton.press')}
               </span>
-              <span className="ml-[10px] md:hidden">
-                {t('nftView.flipButton.tap')}
-              </span>
+              <span className="ml-[10px] md:hidden">{t('flipButton.tap')}</span>
             </button>
           </div>
           <Button
             className="mb-2 ml-auto !w-[116px] md:hidden"
             onClick={handleBackClick}
           >
-            {t('nftView.backButton')}
+            {t('backButton')}
           </Button>
         </div>
       </div>

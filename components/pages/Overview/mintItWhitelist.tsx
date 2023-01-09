@@ -36,19 +36,16 @@ type WhitelistProps = {
 
 function MyWhitelist(props: WhitelistProps) {
   const { nftList, zone } = props
-  const { t } = useTranslation('overview')
+  const { t } = useTranslation('overview', {
+    keyPrefix: 'overview.panelMintIt.mintItWhitelist.myWhitelist',
+  })
   const { availableNFTs, expiredNFTs } = filteredNFTItems(nftList)
 
   return (
-    <WhitelistContainer
-      name={t('overview.panelMintIt.mintItWhitelist.myWhitelist.name')}
-      count={nftList.length}
-    >
+    <WhitelistContainer name={t('name')} count={nftList.length}>
       {availableNFTs.map((nft, index) => (
         <NFTFrame key={`${nft.name}-${index}`} zone={zone} {...nft}>
-          <NFTButton>
-            {t('overview.panelMintIt.mintItWhitelist.myWhitelist.nftButton')}
-          </NFTButton>
+          <NFTButton>{t('nftButton')}</NFTButton>
         </NFTFrame>
       ))}
       {expiredNFTs.map((nft, index) => (
@@ -60,20 +57,17 @@ function MyWhitelist(props: WhitelistProps) {
 
 function PreSaleWhitelist(props: WhitelistProps) {
   const { nftList, zone } = props
-  const { t } = useTranslation('overview')
+  const { t } = useTranslation('overview', {
+    keyPrefix: 'overview.panelMintIt.mintItWhitelist.preSaleWhitelist',
+  })
   const { availableNFTs, expiredNFTs } = filteredNFTItems(nftList)
 
   return (
-    <WhitelistContainer
-      name={t('overview.panelMintIt.mintItWhitelist.preSaleWhitelist.name')}
-      count={nftList.length}
-    >
+    <WhitelistContainer name={t('name')} count={nftList.length}>
       {availableNFTs.map((nft, index) => (
         <NFTFrame key={`${nft.name}-${index}`} zone={zone} {...nft}>
           <NFTButton outline>
-            {t(
-              'overview.panelMintIt.mintItWhitelist.preSaleWhitelist.nftButton'
-            )}
+            {t('nftButton')}
             &nbsp;
             <ExternalLinkIcon fontSize={16} />
           </NFTButton>

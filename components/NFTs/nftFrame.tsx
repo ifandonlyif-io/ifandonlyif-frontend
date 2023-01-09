@@ -18,7 +18,7 @@ type NFTFrameProps = BaseComponent & {
 export function NFTFrame(props: React.PropsWithChildren<NFTFrameProps>) {
   let { expired } = props
   const { children, className, onHideClick } = props
-  const { t } = useTranslation('common')
+  const { t } = useTranslation('common', { keyPrefix: 'nfts.nftFrame' })
   const { name, imageUri, unixEpoch, zone, hideTime = false } = props
   const dateTimeStr = formatDatetime(unixEpoch, "yyyy,L,dd ha 'UTC'Z", zone)
   if (typeof expired === 'undefined') {
@@ -64,7 +64,7 @@ export function NFTFrame(props: React.PropsWithChildren<NFTFrameProps>) {
               'text-[8px] text-white font-bold text-center'
             )}
           >
-            {t('nfts.nftFrame.expired')}
+            {t('expired')}
           </div>
         )}
       </div>
@@ -84,7 +84,7 @@ export function NFTFrame(props: React.PropsWithChildren<NFTFrameProps>) {
               className="!border-[#FFC8A0] !text-[#FF906D]"
               onClick={onHideClick}
             >
-              {t('nfts.nftFrame.nftButton.hide')}
+              {t('nftButton.hide')}
             </NFTButton>
           ) : (
             <div className="flex flex-row items-center justify-between">

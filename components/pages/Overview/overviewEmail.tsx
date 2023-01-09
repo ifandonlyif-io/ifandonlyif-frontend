@@ -16,7 +16,9 @@ type EmailInfoProps = {
 
 function EmailInfo(props: EmailInfoProps) {
   const { email, notification } = props
-  const { t } = useTranslation('overview')
+  const { t } = useTranslation('overview', {
+    keyPrefix: 'overview.panelOverview.overviewEmail.emailInfo.label',
+  })
 
   return (
     <div className="flex flex-row items-center">
@@ -28,16 +30,12 @@ function EmailInfo(props: EmailInfoProps) {
         <div className="flex flex-row flex-nowrap items-center gap-[10px] self-end md:self-center">
           {props.default && (
             <Label className="bg-[#BED0FF]" size="medium">
-              {t(
-                'overview.panelOverview.overviewEmail.emailInfo.label.default'
-              )}
+              {t('default')}
             </Label>
           )}
           {notification && (
             <Label className="bg-[#FFC481]" size="medium">
-              {t(
-                'overview.panelOverview.overviewEmail.emailInfo.label.notification'
-              )}
+              {t('notification')}
             </Label>
           )}
         </div>

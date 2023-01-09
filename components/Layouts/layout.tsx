@@ -21,7 +21,9 @@ export function DefaultLayout({ children }: LayoutProps) {
 }
 
 export function OverviewLayout({ children }: LayoutProps) {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation('common', {
+    keyPrefix: 'layouts.layout.overviewLayout',
+  })
   const { expired, accountMismatch } = useIffAccount()
   const isLoggedIn = !expired && !accountMismatch
 
@@ -30,15 +32,13 @@ export function OverviewLayout({ children }: LayoutProps) {
       <Navbar />
       {!isLoggedIn && (
         <div className="flex h-[calc(100vh_-_88px)] w-full flex-row items-center justify-center bg-black/50 backdrop-blur-[18px]">
-          <h4 className="heading-4 text-white">
-            {t('layouts.layout.overviewLayout.connect.tips')}
-          </h4>
+          <h4 className="heading-4 text-white">{t('connect.tips')}</h4>
         </div>
       )}
       {isLoggedIn && (
         <main className="iff-layout">
           <h1 className="heading-4 text-shadow-heading-4 px-4 pt-11 text-center uppercase text-white">
-            {t('layouts.layout.overviewLayout.main.heading')}
+            {t('main.heading')}
           </h1>
           <div className="hidden w-full flex-row justify-center md:flex">
             <NeonUnderline className="ml-[180px]" />

@@ -6,7 +6,9 @@ import { classNames } from 'utils'
 type FooterProps = BaseComponent
 
 export function Footer({ className }: FooterProps) {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation('common', {
+    keyPrefix: 'layouts.footer.paragraph',
+  })
 
   return (
     <footer
@@ -24,10 +26,10 @@ export function Footer({ className }: FooterProps) {
             'mb-3 md:mb-0 md:heading-2'
           )}
         >
-          {t('layouts.footer.paragraph.heading')}
+          {t('heading')}
         </p>
         <p className="text-center text-[18px] font-bold leading-normal text-white md:text-[22px]">
-          {t('layouts.footer.paragraph.content')}
+          {t('content')}
         </p>
       </div>
     </footer>

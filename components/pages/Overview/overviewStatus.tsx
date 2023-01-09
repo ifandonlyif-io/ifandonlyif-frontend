@@ -72,7 +72,9 @@ function StatusCard(props: React.PropsWithChildren<StatusCardProps>) {
 }
 
 export function OverviewStatus({ className }: OverviewStatusProps) {
-  const { t } = useTranslation('overview')
+  const { t } = useTranslation('overview', {
+    keyPrefix: 'overview.panelOverview.overviewStatus',
+  })
 
   return (
     <section
@@ -81,84 +83,46 @@ export function OverviewStatus({ className }: OverviewStatusProps) {
         className
       )}
     >
-      {/* <StatusCard
-        title={t(
-          'overview.panelOverview.overviewStatus.whitelist.statusCard.title'
-        )}
-      >
+      {/* <StatusCard title={t('whitelist.statusCard.title')}>
         <div className="grid grid-cols-2 md:gap-12">
           <StatusWithView
-            title={t(
-              'overview.panelOverview.overviewStatus.whitelist.statusWithView.title.expire'
-            )}
+            title={t('whitelist.statusWithView.title.expire')}
             value={1}
             labelClass="bg-[#FFC481]"
             valueClass="text-[#FF7E0C]"
           />
           <StatusWithView
-            title={t(
-              'overview.panelOverview.overviewStatus.whitelist.statusWithView.title.preMint'
-            )}
+            title={t('whitelist.statusWithView.title.preMint')}
             value={3}
             labelClass="bg-iff-cyan"
             valueClass="text-[#14D6D6]"
           />
         </div>
         <div className="grid grid-cols-3 gap-5">
+          <StatusInfo title={t('whitelist.statusInfo.title.all')} value={100} />
           <StatusInfo
-            title={t(
-              'overview.panelOverview.overviewStatus.whitelist.statusInfo.title.all'
-            )}
-            value={100}
-          />
-          <StatusInfo
-            title={t(
-              'overview.panelOverview.overviewStatus.whitelist.statusInfo.title.alive'
-            )}
+            title={t('whitelist.statusInfo.title.alive')}
             value={10}
           />
           <StatusInfo
-            title={t(
-              'overview.panelOverview.overviewStatus.whitelist.statusInfo.title.expired'
-            )}
+            title={t('whitelist.statusInfo.title.expired')}
             value={4}
           />
         </div>
       </StatusCard> */}
-      <StatusCard
-        title={t(
-          'overview.panelOverview.overviewStatus.iffNfts.statusCard.title'
-        )}
-      >
+      <StatusCard title={t('iffNfts.statusCard.title')}>
         <div className="grid grid-cols-2">
           <StatusWithView
-            title={t(
-              'overview.panelOverview.overviewStatus.iffNfts.statusWithView.title.recently'
-            )}
+            title={t('iffNfts.statusWithView.title.recently')}
             value={5}
             labelClass="bg-[#D9CCFF]"
             valueClass="text-[#A585FF]"
           />
         </div>
         <div className="grid grid-cols-3 gap-5">
-          <StatusInfo
-            title={t(
-              'overview.panelOverview.overviewStatus.iffNfts.statusInfo.title.all'
-            )}
-            value={100}
-          />
-          <StatusInfo
-            title={t(
-              'overview.panelOverview.overviewStatus.iffNfts.statusInfo.title.memoed'
-            )}
-            value={5}
-          />
-          <StatusInfo
-            title={t(
-              'overview.panelOverview.overviewStatus.iffNfts.statusInfo.title.fully'
-            )}
-            value={1}
-          />
+          <StatusInfo title={t('iffNfts.statusInfo.title.all')} value={100} />
+          <StatusInfo title={t('iffNfts.statusInfo.title.memoed')} value={5} />
+          <StatusInfo title={t('iffNfts.statusInfo.title.fully')} value={1} />
         </div>
       </StatusCard>
     </section>

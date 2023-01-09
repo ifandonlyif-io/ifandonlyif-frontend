@@ -37,23 +37,19 @@ function RecordData(props: React.PropsWithChildren<RecordDataProps>) {
 }
 
 export function PanelKYCRecord() {
-  const { t } = useTranslation('overview')
+  const { t } = useTranslation('overview', {
+    keyPrefix: 'overview.panelKYCRecord',
+  })
 
   return (
     <div className="py-[50px] px-5">
-      <TabTitle className="mb-9">
-        {t('overview.panelKYCRecord.tabTitle')}
-      </TabTitle>
+      <TabTitle className="mb-9">{t('tabTitle')}</TabTitle>
       <Card>
         <div className="flex flex-row items-center p-8">
           <Avatar variant="text" size="medium" src="S" />
           <div className="ml-12 flex flex-1 flex-col gap-[10px]">
-            <RecordData name={t('overview.panelKYCRecord.recordData.date')}>
-              2022/5/1
-            </RecordData>
-            <RecordData name={t('overview.panelKYCRecord.recordData.holder')}>
-              BEN5566
-            </RecordData>
+            <RecordData name={t('recordData.date')}>2022/5/1</RecordData>
+            <RecordData name={t('recordData.holder')}>BEN5566</RecordData>
           </div>
         </div>
       </Card>

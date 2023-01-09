@@ -34,25 +34,23 @@ type HolderCheckPanelProps = {
 
 function HolderCheckPanel(props: HolderCheckPanelProps) {
   const { projectOptions, onProjectOptionChange } = props
-  const { t } = useTranslation('home')
+  const { t } = useTranslation('home', {
+    keyPrefix: 'home.sectionNFTCheck.holderCheckPanel',
+  })
 
   return (
     <CheckPanel>
       <div className="flex flex-col gap-5">
         <h3 className="text-sm font-bold text-white">
-          {t('home.sectionNFTCheck.holderCheckPanel.checkPanel.heading')}
+          {t('checkPanel.heading')}
         </h3>
         <SelectMenus
-          placeholder={t(
-            'home.sectionNFTCheck.holderCheckPanel.selectMenus.placeholder'
-          )}
+          placeholder={t('selectMenus.placeholder')}
           options={projectOptions}
           onOptionChange={onProjectOptionChange}
         />
         <Input placeholder="#" />
-        <Button>
-          {t('home.sectionNFTCheck.holderCheckPanel.checkPanel.okButton')}
-        </Button>
+        <Button>{t('checkPanel.okButton')}</Button>
       </div>
     </CheckPanel>
   )
@@ -64,7 +62,9 @@ type SiteCheckPanelProps = {
 
 function SiteCheckPanel(props: SiteCheckPanelProps) {
   const { onSiteCheckPanelSubmit } = props
-  const { t } = useTranslation('home')
+  const { t } = useTranslation('home', {
+    keyPrefix: 'home.sectionNFTCheck.siteCheckPanel.checkPanel',
+  })
   const { register, handleSubmit } = useForm<CheckSiteUrlFormData>()
 
   const handleSiteCheckPanelSubmit = React.useCallback<
@@ -100,9 +100,7 @@ function SiteCheckPanel(props: SiteCheckPanelProps) {
           className="flex flex-col gap-5"
           htmlFor="check-site-url-textarea"
         >
-          <h3 className="text-sm font-bold text-white">
-            {t('home.sectionNFTCheck.siteCheckPanel.checkPanel.heading')}
-          </h3>
+          <h3 className="text-sm font-bold text-white">{t('heading')}</h3>
           <Textarea
             id="check-site-url-textarea"
             className="[resize:none]"
@@ -112,9 +110,7 @@ function SiteCheckPanel(props: SiteCheckPanelProps) {
             })}
           />
         </label>
-        <Button type="submit">
-          {t('home.sectionNFTCheck.siteCheckPanel.checkPanel.okButton')}
-        </Button>
+        <Button type="submit">{t('okButton')}</Button>
       </form>
     </CheckPanel>
   )
@@ -123,7 +119,9 @@ function SiteCheckPanel(props: SiteCheckPanelProps) {
 type SectionNFTCheckProps = SiteCheckPanelProps & HolderCheckPanelProps
 
 export function SectionNFTCheck(props: SectionNFTCheckProps) {
-  const { t } = useTranslation('home')
+  const { t } = useTranslation('home', {
+    keyPrefix: 'home.sectionNFTCheck.tabSwitchers',
+  })
 
   return (
     <section className="mb-16 block flex-row flex-nowrap items-center md:mb-24 md:flex">
@@ -131,10 +129,7 @@ export function SectionNFTCheck(props: SectionNFTCheckProps) {
       <div className="iff-glass-cyan py-7 shadow-iff-base md:-mx-8 md:flex-1 md:py-20">
         <TabSwitchers
           className="mx-4 md:mx-auto"
-          switcherText={{
-            left: t('home.sectionNFTCheck.tabSwitchers.left'),
-            right: t('home.sectionNFTCheck.tabSwitchers.right'),
-          }}
+          switcherText={{ left: t('left'), right: t('right') }}
         >
           <TabPanel>
             <HolderCheckPanel {...props} />

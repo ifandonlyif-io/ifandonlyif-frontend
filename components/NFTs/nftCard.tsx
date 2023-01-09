@@ -79,10 +79,10 @@ function NFTCardFront(props: NFTCardProps) {
 
 function NFTValidity(props: Pick<NFTCardProps, 'validity'>) {
   const { validity } = props
-  const { t } = useTranslation('common')
-  const state = validity
-    ? t('nfts.nftCard.nftValidity.yes')
-    : t('nfts.nftCard.nftValidity.no')
+  const { t } = useTranslation('common', {
+    keyPrefix: 'nfts.nftCard.nftValidity',
+  })
+  const state = validity ? t('yes') : t('no')
 
   return (
     <div className="flex flex-row items-center">
@@ -129,7 +129,7 @@ function NFTCardBack(props: NFTCardProps) {
   const { name, nftId, nftType, imageUri, kycEpoch } = props
   const { holderRecords = [], validity = false } = props
   const date = dateString(kycEpoch)
-  const { t } = useTranslation('common')
+  const { t } = useTranslation('common', { keyPrefix: 'nfts.nftCard.text' })
 
   return (
     <div className="iff-nft-card__face iff-nft-card__face--back">
@@ -148,17 +148,15 @@ function NFTCardBack(props: NFTCardProps) {
       </TextRow>
       <div className="flex flex-1 flex-col py-4 px-5 text-black">
         <TextRow className="text-sm">
-          <Text className="font-normal">{t('nfts.nftCard.text.date')}</Text>
+          <Text className="font-normal">{t('date')}</Text>
           <Text className="font-semibold">{date}</Text>
         </TextRow>
         <TextRow className="pt-[10px] text-sm">
-          <Text className="font-normal">{t('nfts.nftCard.text.validity')}</Text>
+          <Text className="font-normal">{t('validity')}</Text>
           <NFTValidity validity={validity} />
         </TextRow>
         <div className="mt-4 h-[1px] w-full bg-iff-cyan" />
-        <Text className="mt-3 text-sm font-normal">
-          {t('nfts.nftCard.text.history')}
-        </Text>
+        <Text className="mt-3 text-sm font-normal">{t('history')}</Text>
         <div className="mt-3 ml-2 flex h-[140px] min-h-0 flex-col overflow-y-scroll">
           {holderRecords.map((recoed, index) => (
             <HolderRecord
@@ -169,7 +167,7 @@ function NFTCardBack(props: NFTCardProps) {
           ))}
         </div>
         <Text className="mt-1 ml-[11px] text-xs text-[#BDBDBD]">
-          {t('nfts.nftCard.text.recently')}
+          {t('recently')}
         </Text>
       </div>
     </div>
