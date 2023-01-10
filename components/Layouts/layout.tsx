@@ -24,8 +24,8 @@ export function OverviewLayout({ children }: LayoutProps) {
   const { t } = useTranslation('common', {
     keyPrefix: 'layouts.layout.overviewLayout',
   })
-  const { expired, accountMismatch } = useIffAccount()
-  const isLoggedIn = !expired && !accountMismatch
+  const { expired, accountMismatch, chainMismatch } = useIffAccount()
+  const isLoggedIn = !expired && !accountMismatch && !chainMismatch
 
   return (
     <Fragment>

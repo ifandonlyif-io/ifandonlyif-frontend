@@ -75,11 +75,12 @@ function ConnectWalletButton(props: Omit<ButtonProps, 'children'>) {
 type UserPanelProps = BaseComponent
 
 export function UserPanel({ className }: UserPanelProps) {
-  const { account, accountMismatch, expired, signIn } = useIffAccount()
+  const { account, accountMismatch, chainMismatch, expired, signIn } =
+    useIffAccount()
 
   const [isOpen, setIsOpen] = React.useState(false)
 
-  const isLoggedIn = !expired && !accountMismatch
+  const isLoggedIn = !expired && !accountMismatch && !chainMismatch
   const username = account?.username || 'Name'
 
   const handleWalletConnectClick = React.useCallback(async () => {

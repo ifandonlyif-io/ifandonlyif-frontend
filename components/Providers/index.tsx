@@ -2,12 +2,7 @@ import injectedModule from '@web3-onboard/injected-wallets'
 import { init, Web3OnboardProvider } from '@web3-onboard/react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { ReactProvider } from 'types'
-
-function getInfuraApiKey(): string {
-  const apiKey: string | undefined = process.env.NEXT_PUBLIC_INFURA_API_KEY
-  if (!apiKey) throw new TypeError('NEXT_PUBLIC_INFURA_API_KEY not set')
-  return apiKey
-}
+import { getInfuraApiKey } from 'utils'
 
 const infuraApiKey = getInfuraApiKey()
 
@@ -17,6 +12,12 @@ const chains = [
     token: 'ETH',
     label: 'Ethereum Mainnet',
     rpcUrl: `https://mainnet.infura.io/v3/${infuraApiKey}`,
+  },
+  {
+    id: '0x5',
+    token: 'gETH',
+    label: 'Ethereum Goerli Testnet',
+    rpcUrl: `https://goerli.infura.io/v3/${infuraApiKey}`,
   },
 ]
 const wallets = [injectedModule()]

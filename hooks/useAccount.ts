@@ -1,5 +1,5 @@
 import type { Web3Provider } from '@ethersproject/providers'
-import type { ConnectOptions } from '@web3-onboard/core'
+import type { ConnectOptions, WalletState } from '@web3-onboard/core'
 import { useConnectWallet, useSetChain } from '@web3-onboard/react'
 import { doWalletLogin, getSignatureCode } from 'backend'
 import { LSK_ACCESS_TOKEN, LSK_PREV_WALLET, ZERO_BIG_NUMBER } from 'constants/'
@@ -8,7 +8,19 @@ import { getAddress, isAddress } from 'ethers/lib/utils'
 import React from 'react'
 import { AccountAccessTokenJWTPayload, PreviouslyConnectedWallet } from 'types'
 import useLocalStorageState from 'use-local-storage-state'
-import { getAccessTokenPayload, isAccountTokenExpired } from 'utils'
+import {
+  getAccessTokenPayload,
+  getDefaultChainId,
+  isAccountTokenExpired,
+} from 'utils'
+
+const defaultChainId = getDefaultChainId()
+
+type UseWeb3Account = {
+  switchNetwork: (chainId: string) => Promise<boolean>
+  connect: () => Promise<WalletState | null>
+  disconnect: () => Promise<void>
+}
 
 export function useWeb3Account() {
   const [{ wallet }, connectWallet, disconnectWallet] = useConnectWallet()
@@ -32,20 +44,17 @@ export function useWeb3Account() {
     return account !== prevWallet.account
   }, [account, prevWallet])
 
+  const chainMismatch = React.useMemo<boolean>(() => {
+    if (!connectedChain) return false
+    return connectedChain.id !== defaultChainId
+  }, [connectedChain])
+
   const provider = React.useMemo<Web3Provider | null>(() => {
     if (!wallet?.provider) return null
     return new ethers.providers.Web3Provider(wallet.provider)
   }, [wallet])
 
-  const _connect = React.useCallback(
-    async (options?: ConnectOptions) => {
-      const state = await connectWallet(options)
-      return state[0]
-    },
-    [connectWallet]
-  )
-
-  const switchNetwork = React.useCallback(
+  const switchNetwork = React.useCallback<UseWeb3Account['switchNetwork']>(
     async (chainId: string) => {
       if (connectedChain && connectedChain.id === chainId) return true
       return await setChain({ chainId })
@@ -53,22 +62,33 @@ export function useWeb3Account() {
     [connectedChain, setChain]
   )
 
-  const connect = React.useCallback(async () => {
+  const _connect = React.useCallback(
+    async (options?: ConnectOptions) => {
+      const state = await connectWallet(options)
+      await switchNetwork(defaultChainId)
+      return state[0]
+    },
+    [connectWallet, switchNetwork]
+  )
+
+  const connect = React.useCallback<UseWeb3Account['connect']>(async () => {
     if (wallet) {
+      const chain = await switchNetwork(defaultChainId)
+      if (!chain) return null
       const account = getAddress(wallet.accounts[0].address)
       setPrevWalet({ label: wallet.label, account })
       return wallet
     }
 
     const state = await _connect()
-    const chainState = await switchNetwork('0x1')
-    if (!chainState) return null
     const account = getAddress(state.accounts[0].address)
     setPrevWalet({ label: state.label, account })
     return state
   }, [_connect, setPrevWalet, switchNetwork, wallet])
 
-  const disconnect = React.useCallback(async () => {
+  const disconnect = React.useCallback<
+    UseWeb3Account['disconnect']
+  >(async () => {
     if (wallet) await disconnectWallet(wallet)
   }, [disconnectWallet, wallet])
 
@@ -77,7 +97,7 @@ export function useWeb3Account() {
     const { label } = prevWallet
     const state = await _connect({ autoSelect: { label, disableModals: true } })
     const account = getAddress(state.accounts[0].address)
-    console.debug('resumeWalletConnection', label, account)
+    console.debug('resumeWalletConnection', label, account, state.chains)
     setPrevWalet({ label, account })
     return state
   }, [_connect, prevWallet, setPrevWalet])
@@ -102,6 +122,7 @@ export function useWeb3Account() {
     account,
     accountMismatch,
     balance,
+    chainMismatch,
     connectedChain,
     wallet,
     provider,
@@ -115,6 +136,7 @@ export function useIffAccount() {
   const {
     account: walletAccount,
     accountMismatch: walletMismatch,
+    chainMismatch,
     connect,
     disconnect,
   } = useWeb3Account()
@@ -179,15 +201,17 @@ export function useIffAccount() {
     const wallet = await connectWallet()
     if (!wallet) return
     const { account, provider } = wallet
-    const accessToken = await getAccessToken(account, provider)
-    setAccessToken(accessToken)
+    if (expired) {
+      const accessToken = await getAccessToken(account, provider)
+      setAccessToken(accessToken)
+    }
     console.debug('signIn', account)
-  }, [connectWallet, getAccessToken, setAccessToken])
+  }, [connectWallet, expired, getAccessToken, setAccessToken])
 
   const signOut = React.useCallback(async () => {
     removeItem()
     await disconnect()
   }, [disconnect, removeItem])
 
-  return { account, accountMismatch, expired, signIn, signOut }
+  return { account, accountMismatch, chainMismatch, expired, signIn, signOut }
 }
