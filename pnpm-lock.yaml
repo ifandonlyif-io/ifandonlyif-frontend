@@ -4,6 +4,7 @@ specifiers:
   '@commitlint/cli': ^17.3.0
   '@commitlint/config-conventional': ^17.3.0
   '@ethersproject/abi': ^5.7.0
+  '@ethersproject/logger': ^5.7.0
   '@ethersproject/providers': ^5.7.2
   '@storybook/addon-essentials': ^6.5.15
   '@storybook/addon-interactions': ^6.5.15
@@ -95,6 +96,7 @@ devDependencies:
   '@commitlint/cli': 17.3.0
   '@commitlint/config-conventional': 17.3.0
   '@ethersproject/abi': 5.7.0
+  '@ethersproject/logger': 5.7.0
   '@ethersproject/providers': 5.7.2
   '@storybook/addon-essentials': 6.5.15_dibhqbkjaeqipxn3fk34floegm
   '@storybook/addon-interactions': 6.5.15_6x2dic2t3jo22t7lozhl5vcive

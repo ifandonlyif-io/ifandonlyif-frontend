@@ -19,17 +19,20 @@ import {
   SectionTitleWithSortTimezoneProvider,
 } from 'components/pages/Overview'
 import { Tab, TabList, TabPanel, Tabs } from 'components/Tabs'
+import { useWeb3Account } from 'hooks'
+import { useIffNftContract } from 'hooks/useContract'
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React from 'react'
 import useSWR from 'swr'
-import { NextPageWithLayout } from 'types'
+import { MintIffNftFormData, NextPageWithLayout, NFTItem } from 'types'
+import { getIffNftTypeId, isEthersError } from 'utils'
 
 type OverviewProps = {
   overview: PanelOverviewProps
-  mintIt: Omit<PanelMintItProps, 'myNFTs'>
+  mintIt: Omit<PanelMintItProps, 'myNFTs' | 'onMintIffNftClick'>
   // preMint: PanelPreMintProps
   iffNFT: PanelIFFNFTProps
 }
@@ -51,6 +54,8 @@ const Overview: NextPageWithLayout<OverviewProps> = (props: OverviewProps) => {
   const { overview, mintIt } = props
   const { t } = useTranslation('overview')
   const router = useRouter()
+  const { provider } = useWeb3Account()
+  const iffNftContract = useIffNftContract(provider)
   const { data: myNfts } = useSWR('/auth/fetchUserNft', getUserNft)
 
   const [tabIndex, setTabIndex] = React.useState(0)
@@ -60,6 +65,38 @@ const Overview: NextPageWithLayout<OverviewProps> = (props: OverviewProps) => {
       router.push(tabs[index].href)
     },
     [router]
+  )
+
+  const handleMintIffNftClick = React.useCallback(
+    async (nft: NFTItem, data: MintIffNftFormData) => {
+      try {
+        if (!iffNftContract) return
+        const { inputAddress, userInfo } = data
+        const typeId = getIffNftTypeId(nft.name)
+        if (typeId === null || typeof typeId !== 'number')
+          return alert(
+            t('overview.panelMintIt.mintItMyNFT.errorMessage.invalidTypeId')
+          )
+
+        const mint = await iffNftContract.mintNFT(
+          inputAddress,
+          typeId,
+          userInfo
+        )
+        const receipt = await mint.wait()
+        console.debug('handleMintIffNftClick', receipt.transactionHash)
+        alert(`Mint transaction hash: ${receipt.transactionHash}`)
+      } catch (error) {
+        if (isEthersError(error)) {
+          alert(`Mint error: ${error.reason}`)
+        } else if (error instanceof Error) {
+          alert(`Mint error: ${error.message}`)
+        } else if (typeof error === 'string') {
+          alert(`Mint error: ${error}`)
+        }
+      }
+    },
+    [iffNftContract, t]
   )
 
   React.useEffect(() => {
@@ -88,6 +125,7 @@ const Overview: NextPageWithLayout<OverviewProps> = (props: OverviewProps) => {
               myWhitelist={mintIt.myWhitelist}
               preSaleWhitelist={mintIt.preSaleWhitelist}
               myNFTs={myNfts || []}
+              onMintIffNftClick={handleMintIffNftClick}
             />
           </TabPanel>
           {/* <TabPanel>
