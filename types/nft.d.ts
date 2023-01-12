@@ -80,3 +80,8 @@ export declare type FetchUserNftsResponse = {
   /** The block hash to get transaction receipts for. */
   blockHash: string
 }
+
+export declare type MintIffNftFormData = {
+  inputAddress: string
+  userInfo: string
+}

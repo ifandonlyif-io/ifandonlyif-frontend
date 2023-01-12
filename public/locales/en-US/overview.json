@@ -104,7 +104,33 @@
       },
       "mintItMyNFT": {
         "sectionTitle": "MY NFT",
-        "nftButton": "MINT TO IFFNFT"
+        "nftButton": "MINT TO IFFNFT",
+        "mintModal": {
+          "heading": "Mint {{nft.name}}#{{nft.tokenId}} to IFF NFT",
+          "mintModalTitle": {
+            "inputAddress": "Mint to address",
+            "userInfo": "User info"
+          },
+          "input": {
+            "placeholder": {
+              "inputAddress": "Please input an address",
+              "userInfo": "Please input an address"
+            },
+            "errorMessage": {
+              "required": "Please input an address",
+              "invalidAddress": "Invalid address",
+              "invalidWallet": "Address is not a wallet",
+              "notOwnAddress": "No mint to own address"
+            }
+          },
+          "button": {
+            "cancel": "CANCEL",
+            "ok": "OK"
+          }
+        },
+        "errorMessage": {
+          "invalidTypeId": "Invalid nft type id"
+        }
       }
     },
     "panelPreMint": {
