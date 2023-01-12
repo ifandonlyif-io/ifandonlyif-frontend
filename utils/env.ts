@@ -4,6 +4,12 @@ export function getInfuraApiKey(): string {
   return apiKey
 }
 
+export function getAlchemyApiKey(): string {
+  const apiKey: string | undefined = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY
+  if (!apiKey) throw new TypeError('NEXT_PUBLIC_ALCHEMY_API_KEY not set')
+  return apiKey
+}
+
 export function getDefaultChainId(): string {
   const chainId: string | undefined = process.env.NEXT_PUBLIC_CHAIN_ID
   if (!chainId) throw new TypeError('NEXT_PUBLIC_CHAIN_ID not set')
