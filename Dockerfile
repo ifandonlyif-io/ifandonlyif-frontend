@@ -14,6 +14,7 @@ RUN printf "NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}\nNEXT_PUBLIC_INFURA_API_K
 ADD https://bun.sh/install /bin/install-bun
 RUN chmod +x /bin/install-bun && BUN_INSTALL=/usr install-bun
 
+RUN npm cache clean --force
 RUN bun i
 RUN bun run build
 
