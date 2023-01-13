@@ -61,6 +61,9 @@ steps:
   - name: push to ecr dev
     image: plugins/ecr
     settings:
+      custom_dns:
+        - 8.8.8.8
+        - 1.1.1.1
       mtu: 1400
       registry:
         from_secret: AWS_REPO_IFFF
