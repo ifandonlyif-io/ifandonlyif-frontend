@@ -15,7 +15,7 @@ ADD https://bun.sh/install /bin/install-bun
 RUN chmod +x /bin/install-bun && BUN_INSTALL=/usr install-bun
 
 RUN npm cache clean --force
-RUN bun i
+RUN bun i --loglevel verbose
 RUN bun run build
 
 # Production image, copy all the files and run next
