@@ -16,9 +16,11 @@ RUN echo $IFANDONLYIF_FRONTEND_DEV_BUILD_ARGS > .env.local
 
 RUN cat .env.local
 
+ADD https://bun.sh/install /bin/install-bun
+RUN chmod +x /bin/install-bun && BUN_INSTALL=/usr install-bun
 RUN npm cache clean --force
-RUN npm i --loglevel verbose
-RUN npm run build
+RUN bun i --loglevel verbose
+RUN bun run build
 
 # Production image, copy all the files and run next
 FROM node:16-alpine AS runner
