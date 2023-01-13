@@ -68,8 +68,8 @@ steps:
       registry:
         from_secret: AWS_REPO_IFFF
       dockerfile: ./Dockerfile
-        #build_args:
-        #from_secret: IFANDONLYIF_FRONTEND_DEV_BUILD_ARGS
+      build_args:
+        from_secret: IFANDONLYIF_FRONTEND_DEV_BUILD_ARGS
       repo: ifandonlyif-frontend
       region:
         from_secret: AWS_REGION
