@@ -19,8 +19,8 @@ RUN cat .env.local
 ADD https://bun.sh/install /bin/install-bun
 RUN chmod +x /bin/install-bun && BUN_INSTALL=/usr install-bun
 RUN npm cache clean --force
-RUN NODE_OPTIONS=--max_old_space_size=800 bun i --loglevel verbose
-RUN NODE_OPTIONS=--max_old_space_size=800 bun run build
+RUN NODE_OPTIONS=--max_old_space_size=800 npm i --loglevel verbose
+RUN NODE_OPTIONS=--max_old_space_size=800 npm run build
 
 # Production image, copy all the files and run next
 FROM node:16-alpine AS runner
