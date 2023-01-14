@@ -14,9 +14,10 @@ RUN if [ "$(uname -m)" = "x86_64" ] ; \
     wget https://github.com/pnpm/pnpm/releases/download/v7.25.0/pnpm-linuxstatic-$LINUX_ARCH \
     -O /bin/pnpm && chmod +x /bin/pnpm
 
-
+RUN apt install python3 -y
+RUN npm i -g node-gyp
 RUN npm cache clean --force
-RUN NODE_OPTIONS=--max_old_space_size=800 pnpm i
+RUN pnpm i
 RUN NODE_OPTIONS=--max_old_space_size=800 pnpm run build
 
 # Production image, copy all the files and run next
