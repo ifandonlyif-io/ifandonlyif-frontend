@@ -4,22 +4,20 @@ FROM node:18.10-bullseye AS builder
 WORKDIR /app
 COPY . .
 
-# ARG NEXT_PUBLIC_API_URL=http://127.0.0.1:8080
-# ARG NEXT_PUBLIC_INFURA_API_KEY=test
-# ARG NEXT_PUBLIC_ALCHEMY_API_KEY=test
-# ARG NEXT_PUBLIC_CHAIN_ID=test
-# ARG NEXT_PUBLIC_IFFNFT_CONTRACT_ADDRESS=test
+ARG NEXT_PUBLIC_API_URL=http://127.0.0.1:8080
+ARG NEXT_PUBLIC_INFURA_API_KEY=test
+ARG NEXT_PUBLIC_ALCHEMY_API_KEY=test
+ARG NEXT_PUBLIC_CHAIN_ID=test
+ARG NEXT_PUBLIC_IFFNFT_CONTRACT_ADDRESS=test
 # RUN printf "NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}\nNEXT_PUBLIC_INFURA_API_KEY=${NEXT_PUBLIC_INFURA_API_KEY}\nNEXT_PUBLIC_CHAIN_ID=${NEXT_PUBLIC_CHAIN_ID}\nNEXT_PUBLIC_IFFNFT_CONTRACT_ADDRESS=${NEXT_PUBLIC_IFFNFT_CONTRACT_ADDRESS}\nNEXT_PUBLIC_ALCHEMY_API_KEY=${NEXT_PUBLIC_ALCHEMY_API_KEY}\n" > .env.local
 
-ARG BUILD_ENV=empty
-RUN echo $BUILD_ENV > .env.local
+ARG IFANDONLYIF_FRONTEND_BUILD_ARGS=empty
+RUN echo $IFANDONLYIF_FRONTEND_BUILD_ARGS > .env.local
 
 RUN cat .env.local
 
-ADD https://bun.sh/install /bin/install-bun
-RUN chmod +x /bin/install-bun && BUN_INSTALL=/usr install-bun
 RUN npm cache clean --force
-RUN NODE_OPTIONS=--max_old_space_size=800 npm i --loglevel verbose
+RUN NODE_OPTIONS=--max_old_space_size=800 npm i
 RUN NODE_OPTIONS=--max_old_space_size=800 npm run build
 
 # Production image, copy all the files and run next
