@@ -60,6 +60,9 @@ workspace:
 steps:
   - name: push to ecr dev
     image: plugins/ecr
+    environment:
+      IFANDONLYIF_FRONTEND_BUILD_ARGS:
+        from_secret: IFANDONLYIF_FRONTEND_DEV_BUILD_ARGS
     settings:
       custom_dns:
         - 8.8.8.8
@@ -68,9 +71,6 @@ steps:
       registry:
         from_secret: AWS_REPO_IFFF
       dockerfile: ./Dockerfile
-      environment:
-        IFANDONLYIF_FRONTEND_BUILD_ARGS:
-          from_secret: IFANDONLYIF_FRONTEND_DEV_BUILD_ARGS
       build_args_from_env:
         - IFANDONLYIF_FRONTEND_BUILD_ARGS
       repo: ifandonlyif-frontend
