@@ -44,5 +44,5 @@ EXPOSE 3001
 
 ENV PORT 3001
 
-CMD ["npm", "run", "serve"]
+CMD ["node", "server.js"]
 
