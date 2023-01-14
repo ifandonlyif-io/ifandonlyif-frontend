@@ -17,8 +17,8 @@ RUN if [ "$(uname -m)" = "x86_64" ] ; \
 RUN apt install python3 -y
 RUN npm i -g node-gyp
 RUN npm cache clean --force
-RUN pnpm i
-RUN NODE_OPTIONS=--max_old_space_size=800 pnpm run build
+RUN NODE_OPTIONS=--max_old_space_size=1600 pnpm i
+RUN NODE_OPTIONS=--max_old_space_size=1600 pnpm run build
 
 # Production image, copy all the files and run next
 FROM node:16-alpine AS runner
