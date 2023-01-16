@@ -16,8 +16,10 @@ export function Navbar({ className }: NavbarProps) {
         className
       )}
     >
-      <Link href="/" title="Home" aria-label="Home">
-        <IFFLogo className="w-16 md:w-[106px]" />
+      <Link href="/">
+        <a title="Home" aria-label="Home">
+          <IFFLogo className="w-16 md:w-[106px]" />
+        </a>
       </Link>
       <UserPanel />
     </nav>
