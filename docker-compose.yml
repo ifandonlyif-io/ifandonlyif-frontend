@@ -1,0 +1,41 @@
+version: "3.9"
+services:
+  web:
+    build:
+      context: .
+      args:
+        IFANDONLYIF_FRONTEND_BUILD_ARGS: TkVYVF9QVUJMSUNfSU5GVVJBX0FQSV9LRVk9ZWFjNDIxZTgwZWY2NDczOWJjYjA0NDJjOTEzZmNhN2EKTkVYVF9QVUJMSUNfQVBJX1VSTD1odHRwOi8vc2VydmVyOjEzMjMKTkVYVF9QVUJMSUNfQ0hBSU5fSUQ9MHg1Ck5FWFRfUFVCTElDX0lGRk5GVF9DT05UUkFDVF9BRERSRVNTPTB4QTNlQ2Y3YUVFNjZBMzczMjc4YzQ2YjFkNmY4RkNlYjIyMjEwMjk0ZQpORVhUX1BVQkxJQ19BTENIRU1ZX0FQSV9LRVk9SkpxWndQTHlUaGlCel9Ub3dqcnVNQlpXS2lMOVVJYWUK
+    ports:
+      - 3001:3001
+    depends_on:
+      - server
+  server:
+    image: ifff-backend
+    ports:
+      - 8080:1323
+    environment:
+      - DB_DRIVER=postgres
+      - DB_SOURCE=postgresql://postgres:12345678@postgres:5432/iffdev?sslmode=disable
+      - MIGRATION_URL=file://db/migration
+      - HTTP_SERVER_ADDRESS=0.0.0.0:8080
+      - TOKEN_SYMMETRIC_KEY=12345678901234567890123456789012
+      - ACCESS_TOKEN_DURATION=15m
+      - REFRESH_TOKEN_DURATION=24h
+    depends_on:
+      - postgres
+    entrypoint:
+      [
+        "/app/wait-for.sh",
+        "postgres:5432",
+        "--",
+        "/app/start.sh"
+      ]
+    command: [ "/app/main" ]
+  postgres:
+    image: postgres:14-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=12345678
+      - POSTGRES_DB=iffdev
+    ports:
+      - 5432:5432
