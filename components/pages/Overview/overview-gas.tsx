@@ -1,7 +1,7 @@
-import Highcharts from 'highcharts'
+import * as Highcharts from 'highcharts'
 import HighchartsAccessibility from 'highcharts/modules/accessibility'
 import HighchartsExporting from 'highcharts/modules/exporting'
-import type HighchartsReact from 'highcharts-react-official'
+import { HighchartsReact } from 'highcharts-react-official'
 import React from 'react'
 
 import { Card } from '@/components/Card'
