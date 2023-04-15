@@ -1,11 +1,4 @@
-Dockerfile
-.dockerignore
-
-node_modules
-npm-debug.log
-
-README.md
-
+# folders
 .git
 .github
 .husky
@@ -13,3 +6,26 @@ README.md
 .vscode
 .yarn/cache
 .yarn/*.gz
+node_modules
+
+# files
+.DS_Store
+.dockerignore
+.editorconfig
+.env
+.env*.local
+.eslint*
+.gitignore
+.prettier*
+commitlint*
+compose*
+docker-compose*
+Dockerfile*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+LICENSE
+lint-staged*
+README.md
+*.tsbuildinfo
