@@ -1,6 +1,38 @@
 {
+  "prettier.enable": false,
+  "editor.formatOnSave": false,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "i18n-ally.localesPaths": ["public/locales"]
+  "eslint.format.enable": true,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "i18n-ally.localesPaths": ["public/locales"],
+  "cSpell.language": "en,en-US,lorem",
+  "cSpell.words": [
+    "autodocs",
+    "commitlint",
+    "countup",
+    "csstype",
+    "ethersproject",
+    "highcharts",
+    "ifandonlyif",
+    "IFFNFT",
+    "Kiritimati",
+    "luxon",
+    "Magadan",
+    "Nuku'alofa",
+    "ofetch",
+    "premint",
+    "tailwindcss"
+  ]
 }

@@ -1,9 +1,14 @@
-/* 
-  Explore configuration options docs https://tailwindcss.com/docs/configuration#configuration-options
-  Or check the default configuration https://unpkg.com/browse/tailwindcss@latest/stubs/defaultConfig.stub.js
-*/
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+// @ts-check
+
+/**
+ * @template {import('tailwindcss').Config} T
+ * @param {T} config - A generic parameter that flows through to the return type
+ */
+function defineTailwindCSSConfig(config) {
+  return config
+}
+
+export default defineTailwindCSSConfig({
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
@@ -49,4 +54,4 @@ module.exports = {
     },
   },
   plugins: [],
-}
+})
