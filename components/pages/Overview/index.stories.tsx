@@ -1,35 +1,38 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react'
 
 import { SectionTitle, SectionTitleWithSortTimezone, TabTitle } from './title'
 
-export default {
+const meta: Meta<typeof SectionTitle> = {
   title: 'Components/Page/Overview',
   component: TabTitle,
-} as ComponentMeta<typeof TabTitle>
-
-export const TabTitleComponent: ComponentStory<typeof TabTitle> = (args) => (
-  <TabTitle {...args} />
-)
-TabTitleComponent.args = {
-  children: 'All You Can Mint',
+  tags: ['autodocs'],
 }
 
-export const SectionTitleComponent: ComponentStory<typeof SectionTitle> = (
-  args
-) => <SectionTitle {...args} />
-SectionTitleComponent.args = {
-  children: 'MY WHITELIST',
-  count: 5,
-  size: 'small',
+export default meta
+
+export const TabTitleComponent: StoryObj<typeof TabTitle> = {
+  args: {
+    children: 'All You Can Mint',
+  },
 }
 
-export const SectionTitleWithSortTimezoneComponent: ComponentStory<
+export const SectionTitleComponent: StoryObj<typeof SectionTitle> = {
+  args: {
+    children: 'MY WHITELIST',
+    count: 5,
+    size: 'small',
+  },
+}
+
+export const SectionTitleWithSortTimezoneComponent: StoryObj<
   typeof SectionTitleWithSortTimezone
-> = (args) => (
-  <div className="px-6">
-    <SectionTitleWithSortTimezone {...args} />
-  </div>
-)
-SectionTitleWithSortTimezoneComponent.args = {
-  title: 'WHITELIST',
+> = {
+  args: {
+    title: 'WHITELIST',
+  },
+  render: (arguments_) => (
+    <div className="px-6">
+      <SectionTitleWithSortTimezone {...arguments_} />
+    </div>
+  ),
 }

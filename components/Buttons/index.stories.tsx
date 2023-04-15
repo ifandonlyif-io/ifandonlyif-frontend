@@ -1,75 +1,92 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react'
 
 import { Button, NFTButton } from './index'
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
+const meta: Meta<typeof Button> = {
   title: 'Components/Button',
   component: Button,
-} as ComponentMeta<typeof Button>
+  tags: ['autodocs'],
+  render: (arguments_) => (
+    <div className="w-40">
+      <Button {...arguments_} onClick={() => window.alert('Click!')} />
+    </div>
+  ),
+}
 
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Button> = (args) => (
+export default meta
+
+type Story = StoryObj<typeof Button>
+
+export const Primary: Story = {
+  args: {
+    primary: true,
+    size: 'large',
+    children: 'JOIN NOW',
+  },
+}
+
+export const Secondary: Story = {
+  args: {
+    size: 'medium',
+    children: 'OK',
+  },
+}
+
+export const Small: Story = {
+  args: {
+    size: 'small',
+    outline: true,
+    children: 'Connect Metamask',
+  },
+}
+
+type NFTButtonStory = StoryObj<typeof NFTButton>
+
+const renderNFTButton: NFTButtonStory['render'] = (arguments_) => (
   <div className="w-40">
-    <Button {...args} onClick={() => window.alert('Click!')} />
+    <NFTButton {...arguments_} onClick={() => window.alert('Click!')} />
   </div>
 )
 
-export const Primary = Template.bind({})
-Primary.args = {
-  primary: true,
-  size: 'large',
-  children: 'JOIN NOW',
+export const NFTDefault: NFTButtonStory = {
+  args: {
+    children: 'Pre-mint',
+  },
+  render: renderNFTButton,
 }
 
-export const Secondary = Template.bind({})
-Secondary.args = {
-  size: 'medium',
-  children: 'OK',
+export const NFTOutline: NFTButtonStory = {
+  args: {
+    children: 'View',
+    outline: true,
+  },
+  render: renderNFTButton,
 }
 
-export const Small = Template.bind({})
-Small.args = {
-  size: 'small',
-  outline: true,
-  children: 'Connect Metamask',
+export const NFTHide: NFTButtonStory = {
+  args: {
+    children: 'Hide',
+    className: '!text-[#FF906D] !border-[#FFC8A0]',
+    outline: true,
+  },
+  render: renderNFTButton,
 }
 
-const NFTTemplate: ComponentStory<typeof NFTButton> = (args) => (
-  <div className="w-40 bg-white p-5">
-    <NFTButton {...args} onClick={() => window.alert('Click!')} />
-  </div>
-)
-
-export const NFTDefault = NFTTemplate.bind({})
-NFTDefault.args = {
-  children: 'Pre-mint',
+export const NFTSmall: NFTButtonStory = {
+  args: {
+    children: 'Memo',
+    className: '!text-[#CBB9FF]',
+    size: 'small',
+  },
+  render: renderNFTButton,
 }
 
-export const NFTOutline = NFTTemplate.bind({})
-NFTOutline.args = {
-  children: 'View',
-  outline: true,
-}
-
-export const NFTHide = NFTTemplate.bind({})
-NFTHide.args = {
-  children: 'Hide',
-  className: '!text-[#FF906D] !border-[#FFC8A0]',
-  outline: true,
-}
-
-export const NFTSmall = NFTTemplate.bind({})
-NFTSmall.args = {
-  children: 'Memo',
-  className: '!text-[#CBB9FF]',
-  size: 'small',
-}
-
-export const NFTSmallOutline = NFTTemplate.bind({})
-NFTSmallOutline.args = {
-  children: 'View',
-  className: '!text-[#A585FF] !border-[#A585FF]',
-  outline: true,
-  size: 'small',
+export const NFTSmallOutline: NFTButtonStory = {
+  args: {
+    children: 'View',
+    className: '!text-[#A585FF] !border-[#A585FF]',
+    outline: true,
+    size: 'small',
+  },
+  render: renderNFTButton,
 }

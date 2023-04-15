@@ -1,19 +1,26 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react'
 
 import { Card } from './index'
 
-export default {
+const meta: Meta<typeof Card> = {
   title: 'Components/Card',
   component: Card,
-} as ComponentMeta<typeof Card>
+  tags: ['autodocs'],
+  render: (arguments_) => (
+    <div className="bg-white p-10">
+      <Card {...arguments_} />
+    </div>
+  ),
+}
 
-export const CardComponent: ComponentStory<typeof Card> = (args) => (
-  <div className="bg-white p-10">
-    <Card {...args} />
-  </div>
-)
-CardComponent.args = {
-  className: 'w-96 h-60 flex justify-center items-center',
-  children: 'Content',
-  title: 'WHITELIST STATUS',
+export default meta
+
+type Story = StoryObj<typeof Card>
+
+export const CardComponent: Story = {
+  args: {
+    className: 'w-96 h-60 flex justify-center items-center',
+    children: 'Content',
+    title: 'WHITELIST STATUS',
+  },
 }

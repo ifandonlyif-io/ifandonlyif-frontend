@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react'
 
 import {
   NeonBorder,
@@ -8,41 +8,50 @@ import {
   NeonUnderline,
 } from './index'
 
-export default {
+const meta: Meta<typeof NeonBorder> = {
   title: 'Components/Decorate',
   component: NeonBorder,
-} as ComponentMeta<typeof NeonBorder>
-
-export const NeonCornerComponent: ComponentStory<typeof NeonCorner> = () => (
-  <NeonCorner />
-)
-
-export const NeonRhombusComponent: ComponentStory<typeof NeonRhombus> = () => (
-  <NeonRhombus />
-)
-
-export const NeonLineComponent: ComponentStory<typeof NeonLine> = () => (
-  <NeonLine />
-)
-
-const Template: ComponentStory<typeof NeonBorder> = (args) => (
-  <NeonBorder {...args} />
-)
-
-export const NeonBorderCyan = Template.bind({})
-NeonBorderCyan.args = {
-  className: '',
-  flip: false,
-  color: 'cyan',
+  tags: ['autodocs'],
 }
 
-export const NeonBorderPurple = Template.bind({})
-NeonBorderPurple.args = {
-  className: '',
-  flip: false,
-  color: 'purple',
+export default meta
+
+type NeonCornerStory = StoryObj<typeof NeonCorner>
+
+export const NeonCornerComponent: NeonCornerStory = {
+  render: () => <NeonCorner />,
 }
 
-export const NeonUnderlineCyan: ComponentStory<typeof NeonUnderline> = () => (
-  <NeonUnderline />
-)
+type NeonRhombusStory = StoryObj<typeof NeonRhombus>
+
+export const NeonRhombusComponent: NeonRhombusStory = {
+  render: () => <NeonRhombus />,
+}
+
+type NeonLineStory = StoryObj<typeof NeonLine>
+
+export const NeonLineComponent: NeonLineStory = {
+  render: () => <NeonLine />,
+}
+
+type Story = StoryObj<typeof NeonBorder>
+
+export const NeonBorderCyan: Story = {
+  args: {
+    flip: false,
+    color: 'cyan',
+  },
+}
+
+export const NeonBorderPurple: Story = {
+  args: {
+    flip: false,
+    color: 'purple',
+  },
+}
+
+type NeonUnderlineStory = StoryObj<typeof NeonUnderline>
+
+export const NeonUnderlineCyan: NeonUnderlineStory = {
+  render: () => <NeonUnderline />,
+}

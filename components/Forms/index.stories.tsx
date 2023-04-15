@@ -1,19 +1,21 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react'
 import React from 'react'
 
 import { FilterGroup, FilterItem } from './filter'
 import { Input } from './input'
 import { Radio, RadioGroup } from './radio'
-import { SelectMenuOption, SelectMenus } from './selectMenus'
-import { SortByTimezone } from './sortByTimezone'
+import { type SelectMenuOption, SelectMenus } from './select-menus'
+import { SortByTimezone } from './sort-by-timezone'
 import { Textarea } from './textarea'
 
 const DivElement = () => <div />
 
-export default {
+const meta: Meta<typeof DivElement> = {
   title: 'Components/Forms',
   component: DivElement,
-} as ComponentMeta<typeof DivElement>
+}
+
+export default meta
 
 const defaultSelectOptions: SelectMenuOption[] = [
   { label: 'Apple', value: 'apple' },
@@ -22,29 +24,31 @@ const defaultSelectOptions: SelectMenuOption[] = [
   { label: 'Microsoft', value: 'microsoft' },
 ]
 
-export const SelectMenusComponent: ComponentStory<typeof SelectMenus> = (
-  args
-) => (
-  <div className="w-80">
-    <SelectMenus {...args} />
-  </div>
-)
-SelectMenusComponent.args = {
-  placeholder: 'Please select',
-  options: defaultSelectOptions,
-  onOptionChange: (option) => window.alert(option.value),
+export const SelectMenusComponent: StoryObj<typeof SelectMenus> = {
+  args: {
+    placeholder: 'Please select',
+    options: defaultSelectOptions,
+    onOptionChange: (option) => window.alert(option.value),
+  },
+  render: (arguments_) => (
+    <div className="w-80">
+      <SelectMenus {...arguments_} />
+    </div>
+  ),
 }
 
-export const InputComponent: ComponentStory<typeof Input> = (args) => (
-  <div className="w-80">
-    <Input {...args} />
-  </div>
-)
-InputComponent.args = {
-  placeholder: '#',
+export const InputComponent: StoryObj<typeof Input> = {
+  args: {
+    placeholder: '#',
+  },
+  render: (arguments_) => (
+    <div className="w-80">
+      <Input {...arguments_} />
+    </div>
+  ),
 }
 
-export const TextareaComponent: ComponentStory<typeof Textarea> = () => {
+const TextareaWithHooks = () => {
   const [value, setValue] = React.useState('')
   const handleOnChange = React.useCallback(
     (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -66,51 +70,54 @@ export const TextareaComponent: ComponentStory<typeof Textarea> = () => {
   )
 }
 
-export const RadioComponent: ComponentStory<typeof Radio> = (args) => (
-  <Radio {...args}>Email</Radio>
-)
-RadioComponent.args = {
-  id: 'radio-email',
-  name: 'contact',
-  value: 'email',
-  checked: false,
+export const TextareaComponent: StoryObj<typeof Textarea> = {
+  render: () => <TextareaWithHooks />,
 }
 
-export const RadioGroupComponent: ComponentStory<typeof RadioGroup> = (
-  args
-) => (
-  <RadioGroup {...args}>
-    <Radio value="email">Email</Radio>
-    <Radio value="phone">Phone</Radio>
-    <Radio value="fax">Fax</Radio>
-  </RadioGroup>
-)
-RadioGroupComponent.args = {
-  name: 'contact',
+export const RadioComponent: StoryObj<typeof Radio> = {
+  args: {
+    id: 'radio-email',
+    name: 'contact',
+    value: 'email',
+    checked: false,
+    children: 'Email',
+  },
 }
 
-export const FilterGroupComponent: ComponentStory<typeof FilterGroup> = (
-  args
-) => (
-  <FilterGroup {...args}>
-    <FilterItem value="all" count={15}>
-      ALL
-    </FilterItem>
-    <FilterItem value="whitelist" count={11}>
-      WHITELIST
-    </FilterItem>
-    <FilterItem value="nft" count={4}>
-      NFT
-    </FilterItem>
-  </FilterGroup>
-)
-FilterGroupComponent.args = {
-  name: 'nftType',
+export const RadioGroupComponent: StoryObj<typeof RadioGroup> = {
+  args: {
+    name: 'contact',
+  },
+  render: (arguments_) => (
+    <RadioGroup {...arguments_}>
+      <Radio value="email">Email</Radio>
+      <Radio value="phone">Phone</Radio>
+      <Radio value="fax">Fax</Radio>
+    </RadioGroup>
+  ),
 }
 
-export const SortByTimezoneComponent: ComponentStory<typeof SortByTimezone> = (
-  args
-) => <SortByTimezone {...args} />
-SortByTimezoneComponent.args = {
-  onOptionChange: () => void 0,
+export const FilterGroupComponent: StoryObj<typeof FilterGroup> = {
+  args: {
+    name: 'nftType',
+  },
+  render: (arguments_) => (
+    <FilterGroup {...arguments_}>
+      <FilterItem value="all" count={15}>
+        ALL
+      </FilterItem>
+      <FilterItem value="whitelist" count={11}>
+        WHITELIST
+      </FilterItem>
+      <FilterItem value="nft" count={4}>
+        NFT
+      </FilterItem>
+    </FilterGroup>
+  ),
+}
+
+export const SortByTimezoneComponent: StoryObj<typeof SortByTimezone> = {
+  args: {
+    onOptionChange: () => void 0,
+  },
 }

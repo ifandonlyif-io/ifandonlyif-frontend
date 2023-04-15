@@ -1,13 +1,14 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react'
 
 import { Label } from './index'
 
-export default {
+const meta: Meta<typeof Label> = {
   title: 'Components/Label',
   component: Label,
-} as ComponentMeta<typeof Label>
+  tags: ['autodocs'],
+}
 
-const Template: ComponentStory<typeof Label> = (args) => <Label {...args} />
+export default meta
 
 export const Showcase = () => (
   <div className="flex flex-row items-center gap-4">
@@ -20,16 +21,20 @@ export const Showcase = () => (
   </div>
 )
 
-export const DefaultLabel = Template.bind({})
-DefaultLabel.args = {
-  className: 'bg-[#FFC481]',
-  children: 'Notification',
-  size: 'medium',
+type Story = StoryObj<typeof Label>
+
+export const DefaultLabel: Story = {
+  args: {
+    className: 'bg-[#FFC481]',
+    children: 'Notification',
+    size: 'medium',
+  },
 }
 
-export const LargeLabel = Template.bind({})
-LargeLabel.args = {
-  className: 'bg-iff-cyan',
-  children: 'VIEW',
-  size: 'large',
+export const LargeLabel: Story = {
+  args: {
+    className: 'bg-iff-cyan',
+    children: 'VIEW',
+    size: 'large',
+  },
 }

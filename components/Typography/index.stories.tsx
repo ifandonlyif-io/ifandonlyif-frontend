@@ -1,11 +1,14 @@
-import { ComponentMeta } from '@storybook/react'
+import type { Meta } from '@storybook/react'
 
 const DivElement = () => <div />
 
-export default {
+const meta: Meta<typeof DivElement> = {
   title: 'Components/Typography',
   component: DivElement,
-} as ComponentMeta<typeof DivElement>
+  tags: ['autodocs'],
+}
+
+export default meta
 
 export const Heading1 = () => (
   <h1 className="heading-1 text-shadow-heading-1 text-white">

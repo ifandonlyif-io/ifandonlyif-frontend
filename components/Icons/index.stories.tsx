@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react'
+import type { Meta } from '@storybook/react'
 
 import {
   CheckMarkIcon,
@@ -13,12 +13,15 @@ import {
   WalletConnectIcon,
   WarnMarkIcon,
 } from './icon'
-import { SvgIcons } from './svgIcon'
+import { SvgIcons } from './svg-icon'
 
-export default {
+const meta: Meta<typeof SvgIcons> = {
   title: 'Components/Icons',
   component: SvgIcons,
-} as ComponentMeta<typeof SvgIcons>
+  tags: ['autodocs'],
+}
+
+export default meta
 
 export const Showcase = () => (
   <div className="flex flex-row items-center gap-2 bg-white p-4">
