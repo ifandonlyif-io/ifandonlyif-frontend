@@ -1,5 +1,5 @@
 import type { Provider, TransactionRequest } from '@ethersproject/providers'
-import { Contract, ContractFactory, Overrides, Signer, utils } from 'ethers'
+import { Contract, ContractFactory, type Overrides, Signer, utils } from 'ethers'
 
 import type { PromiseOrValue } from '../../common'
 import type { IFFNFT, IFFNFTInterface } from '../../contracts/IFFNFT'

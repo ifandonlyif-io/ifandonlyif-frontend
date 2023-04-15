@@ -1,2 +1,2 @@
 export * from './icon'
-export * from './svgIcon'
+export * from './svg-icon'

@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import type { FeedbackItem } from 'types'
+
+import type { FeedbackItem } from '@/types'
 
 const demoFeedbackList: FeedbackItem[] = [
   {
@@ -40,8 +41,8 @@ const demoFeedbackList: FeedbackItem[] = [
   },
 ]
 
-function handler(_: NextApiRequest, res: NextApiResponse<FeedbackItem[]>) {
-  res.status(200).json(demoFeedbackList)
+function handler(_: NextApiRequest, response: NextApiResponse<FeedbackItem[]>) {
+  response.status(200).json(demoFeedbackList)
 }
 
 export default handler

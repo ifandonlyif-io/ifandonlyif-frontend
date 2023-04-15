@@ -1,20 +1,22 @@
 import '../styles/index.css'
 
-import { DefaultLayout as Layout } from 'components/Layouts'
-import { AppProviders } from 'components/Providers'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { appWithTranslation } from 'next-i18next'
 import { Fragment } from 'react'
-import { NextPageWithLayout } from 'types'
 
-import nextI18NextConfig from '../next-i18next.config.js'
+import { DefaultLayout as Layout } from '@/components/Layouts'
+import { AppProviders } from '@/components/Providers'
+import type { NextPageWithLayout } from '@/types'
 
-type AppPropsWithLayout = AppProps & {
+// @ts-expect-error - next-i18next not yet supporting ESM
+import nextI18NextConfig from '../next-i18next.config.cjs'
+
+type AppPropertiesWithLayout = AppProps & {
   Component: NextPageWithLayout
 }
 
-function NextApp({ Component, pageProps }: AppPropsWithLayout) {
+function NextApp({ Component, pageProps }: AppPropertiesWithLayout) {
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout ?? ((page) => <Layout>{page}</Layout>)
 
@@ -29,5 +31,4 @@ function NextApp({ Component, pageProps }: AppPropsWithLayout) {
   )
 }
 
-// @ts-expect-error Custom Next layout
 export default appWithTranslation(NextApp, nextI18NextConfig)

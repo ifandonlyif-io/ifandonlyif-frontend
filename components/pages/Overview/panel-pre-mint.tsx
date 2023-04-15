@@ -1,20 +1,21 @@
-import { NFTButton } from 'components/Buttons'
-import { ExternalLinkIcon } from 'components/Icons'
-import { NFTFrame } from 'components/NFTs'
-import { useSortByTimezone } from 'hooks'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
-import { NFTItem } from 'types'
-import { filteredNFTItems } from 'utils'
+
+import { NFTButton } from '@/components/Buttons'
+import { ExternalLinkIcon } from '@/components/Icons'
+import { NFTFrame } from '@/components/NFTs'
+import { useSortByTimezone } from '@/hooks'
+import type { NFTItem } from '@/types'
+import { filteredNFTItems } from '@/utils'
 
 import { SectionTitle, SectionTitleWithSortTimezone, TabTitle } from './title'
 
-export type PanelPreMintProps = {
+export type PanelPreMintProperties = {
   preMintWhitelist: NFTItem[]
 }
 
-export function PanelPreMint(props: PanelPreMintProps) {
-  const { preMintWhitelist } = props
+export function PanelPreMint(properties: PanelPreMintProperties) {
+  const { preMintWhitelist } = properties
   const { t } = useTranslation('overview', {
     keyPrefix: 'overview.panelPreMint',
   })
@@ -22,7 +23,7 @@ export function PanelPreMint(props: PanelPreMintProps) {
   const { availableNFTs, expiredNFTs } = filteredNFTItems(preMintWhitelist)
 
   return (
-    <div className="min-h-[640px] py-6 px-4 md:py-[50px] md:px-5">
+    <div className="min-h-[640px] px-4 py-6 md:px-5 md:py-[50px]">
       <TabTitle className="mb-4">{t('tabTitle')}</TabTitle>
       <SectionTitleWithSortTimezone className="mb-4" />
       <section className="mb-4 flex flex-col md:mb-8">

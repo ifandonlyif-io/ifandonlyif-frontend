@@ -1,18 +1,19 @@
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { useCountUp } from 'react-countup'
-import { BaseComponent } from 'types'
-import { classNames } from 'utils'
 
-type SiteDataProps = BaseComponent & {
+import type { BaseComponent } from '@/types'
+import { classNames } from '@/utils'
+
+type SiteDataProperties = BaseComponent & {
   title: string
   value: number
 }
 
-function SiteData(props: SiteDataProps) {
-  const { className, title, value } = props
-  const countUpRef = React.useRef(null)
-  useCountUp({ ref: countUpRef, end: value, duration: 1, separator: ',' })
+function SiteData(properties: SiteDataProperties) {
+  const { className, title, value } = properties
+  const countUpReference = React.useRef(null)
+  useCountUp({ ref: countUpReference, end: value, duration: 1, separator: ',' })
   return (
     <div className={classNames('block site-data', className)}>
       <div className="flex flex-row flex-nowrap">
@@ -22,12 +23,12 @@ function SiteData(props: SiteDataProps) {
           </h3>
           <p
             className="subtitle-1 md:heading-1 text-shadow-subtitle-1 md:text-shadow-heading-1 text-white"
-            ref={countUpRef}
+            ref={countUpReference}
           >
             {value}
           </p>
         </div>
-        <div className="gap-line mb-1 hidden h-4 w-[1px] self-end bg-iff-cyan md:mb-5 md:h-[54px] md:w-0.5" />
+        <div className="gap-line bg-iff-cyan mb-1 hidden h-4 w-[1px] self-end md:mb-5 md:h-[54px] md:w-0.5" />
       </div>
     </div>
   )
@@ -49,7 +50,7 @@ export function SectionSiteData() {
     >
       {/* <SiteData title={t('kycHolder')} value={1356} />
       <SiteData title={t('whitelist')} value={1432566} /> */}
-      <SiteData title={t('iffNft')} value={5645243} />
+      <SiteData title={t('iffNft')} value={5_645_243} />
     </section>
   )
 }

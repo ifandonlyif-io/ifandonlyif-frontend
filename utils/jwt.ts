@@ -1,7 +1,7 @@
 import * as Jose from 'jose'
 
-import { AccountAccessTokenJWTPayload } from '../types'
-import { isHistorical } from './datetime'
+import type { AccountAccessTokenJWTPayload } from '../types'
+import { isHistorical } from './date-time'
 
 export function getAccessTokenPayload(
   token: string

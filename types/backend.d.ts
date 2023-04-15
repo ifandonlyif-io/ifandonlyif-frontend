@@ -1,6 +1,6 @@
 import type { NFTItem } from 'types'
 
-export declare type GetDemoNFTListRes = {
+export declare type GetDemoNFTListResponse = {
   myWhitelist: NFTItem[]
   preSaleWhitelist: NFTItem[]
 }

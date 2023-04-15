@@ -1,26 +1,27 @@
-import { Card } from 'components/Card'
 import Highcharts from 'highcharts'
 import HighchartsAccessibility from 'highcharts/modules/accessibility'
 import HighchartsExporting from 'highcharts/modules/exporting'
-import HighchartsReact from 'highcharts-react-official'
+import type HighchartsReact from 'highcharts-react-official'
 import React from 'react'
-import { BaseComponent } from 'types'
-import { classNames, formatDatetime } from 'utils'
 
-export type OverviewGasProps = BaseComponent & {
+import { Card } from '@/components/Card'
+import type { BaseComponent } from '@/types'
+import { classNames, formatDateTime } from '@/utils'
+
+export type OverviewGasProperties = BaseComponent & {
   priceData: [number, number][]
 }
 
-type GasTimeSeriesProps = BaseComponent & {
+type GasTimeSeriesProperties = BaseComponent & {
   data: [number, number][]
 }
 
-type GasPriceListItemProps = BaseComponent & {
+type GasPriceListItemProperties = BaseComponent & {
   epotch: number
   price: number
 }
 
-type GasPriceListProps = BaseComponent & {
+type GasPriceListProperties = BaseComponent & {
   data: [number, number][]
 }
 
@@ -48,13 +49,13 @@ const defaultChartOptions: Highcharts.Options = {
       marker: { radius: 2 },
       lineWidth: 1,
       states: { hover: { lineWidth: 1 } },
-      threshold: null,
+      threshold: undefined,
     },
   },
 }
 
-function GasTimeSeries(props: GasTimeSeriesProps) {
-  const { className, data } = props
+function GasTimeSeries(properties: GasTimeSeriesProperties) {
+  const { className, data } = properties
   const [options, setOptions] =
     React.useState<Highcharts.Options>(defaultChartOptions)
 
@@ -74,9 +75,9 @@ function GasTimeSeries(props: GasTimeSeriesProps) {
   )
 }
 
-function GasPriceListItem(props: GasPriceListItemProps) {
-  const { epotch, price } = props
-  const date = formatDatetime(epotch / 1000, 'yyyy/L/dd T')
+function GasPriceListItem(properties: GasPriceListItemProperties) {
+  const { epotch, price } = properties
+  const date = formatDateTime(epotch / 1000, 'yyyy/L/dd T')
   return (
     <div
       className={classNames(
@@ -90,8 +91,8 @@ function GasPriceListItem(props: GasPriceListItemProps) {
   )
 }
 
-function GasPriceList(props: GasPriceListProps) {
-  const { data } = props
+function GasPriceList(properties: GasPriceListProperties) {
+  const { data } = properties
   return (
     <div className="flex max-h-[200px] flex-col md:max-h-[400px] md:px-7">
       <div
@@ -112,7 +113,7 @@ function GasPriceList(props: GasPriceListProps) {
   )
 }
 
-export function OverviewGas({ className, priceData }: OverviewGasProps) {
+export function OverviewGas({ className, priceData }: OverviewGasProperties) {
   const listData = React.useMemo(
     () => priceData.slice(0, 20).reverse(),
     [priceData]

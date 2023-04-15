@@ -1,8 +1,9 @@
 import React from 'react'
-import { BaseComponent } from 'types'
-import { classNames } from 'utils'
 
-export type SvgIconProps = BaseComponent &
+import type { BaseComponent } from '@/types'
+import { classNames } from '@/utils'
+
+export type SvgIconProperties = BaseComponent &
   React.SVGProps<SVGSVGElement> & {
     /**
      * Node passed into the SVG element.
@@ -47,8 +48,8 @@ export function SvgIcons({
   titleAccess,
   fontSize = 24,
   viewBox = '0 0 24 24',
-  ...props
-}: SvgIconProps) {
+  ...properties
+}: SvgIconProperties) {
   return (
     <svg
       className={classNames(
@@ -64,10 +65,10 @@ export function SvgIcons({
       viewBox={viewBox}
       aria-hidden={titleAccess ? undefined : true}
       role={titleAccess ? 'img' : undefined}
-      {...props}
+      {...properties}
     >
       {children}
-      {titleAccess ? <title>{titleAccess}</title> : null}
+      {titleAccess ? <title>{titleAccess}</title> : undefined}
     </svg>
   )
 }

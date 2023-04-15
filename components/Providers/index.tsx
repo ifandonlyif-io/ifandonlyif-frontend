@@ -1,8 +1,9 @@
 import injectedModule from '@web3-onboard/injected-wallets'
 import { init, Web3OnboardProvider } from '@web3-onboard/react'
 import { FormProvider, useForm } from 'react-hook-form'
-import { ReactProvider } from 'types'
-import { getInfuraApiKey } from 'utils'
+
+import type { ReactProvider } from '@/types'
+import { getInfuraApiKey } from '@/utils'
 
 const infuraApiKey = getInfuraApiKey()
 

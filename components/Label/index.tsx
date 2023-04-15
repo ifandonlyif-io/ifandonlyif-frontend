@@ -1,10 +1,11 @@
 import React from 'react'
-import { BaseComponent } from 'types'
-import { classNames } from 'utils'
+
+import type { BaseComponent } from '@/types'
+import { classNames } from '@/utils'
 
 type Size = 'medium' | 'large'
 
-type LabelProps = BaseComponent &
+type LabelProperties = BaseComponent &
   React.DetailedHTMLProps<
     React.LabelHTMLAttributes<HTMLLabelElement>,
     HTMLLabelElement
@@ -20,8 +21,8 @@ const sizes: Record<Size, string> = {
 export function Label({
   className,
   size = 'medium',
-  ...props
-}: React.PropsWithChildren<LabelProps>) {
+  ...properties
+}: React.PropsWithChildren<LabelProperties>) {
   return (
     <label
       className={classNames(
@@ -29,7 +30,7 @@ export function Label({
         sizes[size],
         className
       )}
-      {...props}
+      {...properties}
     />
   )
 }

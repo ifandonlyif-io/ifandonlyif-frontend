@@ -1,16 +1,17 @@
-import { NeonUnderline } from 'components/Decorate'
-import { useIffAccount } from 'hooks'
 import { useTranslation } from 'next-i18next'
 import React, { Fragment } from 'react'
+
+import { NeonUnderline } from '@/components/Decorate'
+import { useIffAccount } from '@/hooks'
 
 import { Footer } from './footer'
 import { Navbar } from './navbar'
 
-type LayoutProps = {
+type LayoutProperties = {
   children: React.ReactNode
 }
 
-export function DefaultLayout({ children }: LayoutProps) {
+export function DefaultLayout({ children }: LayoutProperties) {
   return (
     <Fragment>
       <Navbar />
@@ -20,7 +21,7 @@ export function DefaultLayout({ children }: LayoutProps) {
   )
 }
 
-export function OverviewLayout({ children }: LayoutProps) {
+export function OverviewLayout({ children }: LayoutProperties) {
   const { t } = useTranslation('common', {
     keyPrefix: 'layouts.layout.overviewLayout',
   })

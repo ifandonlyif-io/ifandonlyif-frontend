@@ -1,11 +1,11 @@
-/* eslint-disable @next/next/no-img-element */
-import { NFTButton } from 'components/Buttons'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
-import { BaseComponent } from 'types'
-import { classNames, formatDatetime, isHistorical } from 'utils'
 
-type NFTFrameProps = BaseComponent & {
+import { NFTButton } from '@/components/Buttons'
+import type { BaseComponent } from '@/types'
+import { classNames, formatDateTime, isHistorical } from '@/utils'
+
+type NFTFrameProperties = BaseComponent & {
   name: string
   unixEpoch: number
   imageUri: string
@@ -15,13 +15,15 @@ type NFTFrameProps = BaseComponent & {
   onHideClick?: () => void
 }
 
-export function NFTFrame(props: React.PropsWithChildren<NFTFrameProps>) {
-  let { expired } = props
-  const { children, className, onHideClick } = props
+export function NFTFrame(
+  properties: React.PropsWithChildren<NFTFrameProperties>
+) {
+  let { expired } = properties
+  const { children, className, onHideClick } = properties
   const { t } = useTranslation('common', { keyPrefix: 'nfts.nftFrame' })
-  const { name, imageUri, unixEpoch, zone, hideTime = false } = props
-  const dateTimeStr = formatDatetime(unixEpoch, "yyyy,L,dd ha 'UTC'Z", zone)
-  if (typeof expired === 'undefined') {
+  const { name, imageUri, unixEpoch, zone, hideTime = false } = properties
+  const dateTimeString = formatDateTime(unixEpoch, "yyyy,L,dd ha 'UTC'Z", zone)
+  if (expired === undefined) {
     expired = isHistorical(unixEpoch)
     if (hideTime) expired = false
   }
@@ -53,7 +55,7 @@ export function NFTFrame(props: React.PropsWithChildren<NFTFrameProps>) {
               expired && 'group-hover:text-white'
             )}
           >
-            {dateTimeStr}
+            {dateTimeString}
           </p>
         )}
         {expired && (

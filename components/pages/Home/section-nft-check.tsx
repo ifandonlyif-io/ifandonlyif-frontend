@@ -1,20 +1,25 @@
-import { Button } from 'components/Buttons'
-import { NeonBorder } from 'components/Decorate'
-import {
-  Input,
-  SelectMenuOption,
-  SelectMenus,
-  Textarea,
-} from 'components/Forms'
-import { TabPanel, TabSwitchers } from 'components/Tabs'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
-import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form'
-import { BaseComponent, CheckSiteUrlFormData } from 'types'
-import { classNames, validateCheckSiteUrlData } from 'utils'
+import {
+  type SubmitErrorHandler,
+  type SubmitHandler,
+  useForm,
+} from 'react-hook-form'
 
-function CheckPanel(props: React.PropsWithChildren<BaseComponent>) {
-  const { className, children } = props
+import { Button } from '@/components/Buttons'
+import { NeonBorder } from '@/components/Decorate'
+import {
+  Input,
+  type SelectMenuOption,
+  SelectMenus,
+  Textarea,
+} from '@/components/Forms'
+import { TabPanel, TabSwitchers } from '@/components/Tabs'
+import type { BaseComponent, CheckSiteUrlFormData } from '@/types'
+import { classNames, validateCheckSiteUrlData } from '@/utils'
+
+function CheckPanel(properties: React.PropsWithChildren<BaseComponent>) {
+  const { className, children } = properties
   return (
     <div
       className={classNames(
@@ -27,13 +32,13 @@ function CheckPanel(props: React.PropsWithChildren<BaseComponent>) {
   )
 }
 
-type HolderCheckPanelProps = {
+type HolderCheckPanelProperties = {
   projectOptions: SelectMenuOption[]
   onProjectOptionChange: (option: SelectMenuOption) => void
 }
 
-function HolderCheckPanel(props: HolderCheckPanelProps) {
-  const { projectOptions, onProjectOptionChange } = props
+function HolderCheckPanel(properties: HolderCheckPanelProperties) {
+  const { projectOptions, onProjectOptionChange } = properties
   const { t } = useTranslation('home', {
     keyPrefix: 'home.sectionNFTCheck.holderCheckPanel',
   })
@@ -56,12 +61,12 @@ function HolderCheckPanel(props: HolderCheckPanelProps) {
   )
 }
 
-type SiteCheckPanelProps = {
+type SiteCheckPanelProperties = {
   onSiteCheckPanelSubmit: (data: CheckSiteUrlFormData) => Promise<void>
 }
 
-function SiteCheckPanel(props: SiteCheckPanelProps) {
-  const { onSiteCheckPanelSubmit } = props
+function SiteCheckPanel(properties: SiteCheckPanelProperties) {
+  const { onSiteCheckPanelSubmit } = properties
   const { t } = useTranslation('home', {
     keyPrefix: 'home.sectionNFTCheck.siteCheckPanel.checkPanel',
   })
@@ -116,9 +121,10 @@ function SiteCheckPanel(props: SiteCheckPanelProps) {
   )
 }
 
-type SectionNFTCheckProps = SiteCheckPanelProps & HolderCheckPanelProps
+type SectionNFTCheckProperties = SiteCheckPanelProperties &
+  HolderCheckPanelProperties
 
-export function SectionNFTCheck(props: SectionNFTCheckProps) {
+export function SectionNFTCheck(properties: SectionNFTCheckProperties) {
   const { t } = useTranslation('home', {
     keyPrefix: 'home.sectionNFTCheck.tabSwitchers',
   })
@@ -126,16 +132,16 @@ export function SectionNFTCheck(props: SectionNFTCheckProps) {
   return (
     <section className="mb-16 block flex-row flex-nowrap items-center md:mb-24 md:flex">
       <NeonBorder className="hidden md:flex" color="cyan" />
-      <div className="iff-glass-cyan py-7 shadow-iff-base md:-mx-8 md:flex-1 md:py-20">
+      <div className="iff-glass-cyan shadow-iff-base py-7 md:-mx-8 md:flex-1 md:py-20">
         <TabSwitchers
           className="mx-4 md:mx-auto"
           switcherText={{ left: t('left'), right: t('right') }}
         >
           <TabPanel>
-            <HolderCheckPanel {...props} />
+            <HolderCheckPanel {...properties} />
           </TabPanel>
           <TabPanel>
-            <SiteCheckPanel {...props} />
+            <SiteCheckPanel {...properties} />
           </TabPanel>
         </TabSwitchers>
       </div>

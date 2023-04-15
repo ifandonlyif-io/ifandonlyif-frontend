@@ -1,22 +1,23 @@
-import { NFTButton } from 'components/Buttons'
-import { ExternalLinkIcon } from 'components/Icons'
-import { NFTFrame } from 'components/NFTs'
-import { useSortByTimezone } from 'hooks'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
-import type { BaseComponent, NFTItem } from 'types'
-import { classNames, filteredNFTItems } from 'utils'
+
+import { NFTButton } from '@/components/Buttons'
+import { ExternalLinkIcon } from '@/components/Icons'
+import { NFTFrame } from '@/components/NFTs'
+import { useSortByTimezone } from '@/hooks'
+import type { BaseComponent, NFTItem } from '@/types'
+import { classNames, filteredNFTItems } from '@/utils'
 
 import { SectionTitle, SectionTitleWithSortTimezone } from './title'
 
-type WhitelistContainerProps = {
+type WhitelistContainerProperties = {
   name: string
   count: number
   children: React.ReactNode
 }
 
-function WhitelistContainer(props: WhitelistContainerProps) {
-  const { name, count, children } = props
+function WhitelistContainer(properties: WhitelistContainerProperties) {
+  const { name, count, children } = properties
   return (
     <div className="flex flex-col">
       <SectionTitle className="mb-[10px] uppercase" size="small" count={count}>
@@ -29,13 +30,13 @@ function WhitelistContainer(props: WhitelistContainerProps) {
   )
 }
 
-type WhitelistProps = {
+type WhitelistProperties = {
   nftList: NFTItem[]
   zone: string
 }
 
-function MyWhitelist(props: WhitelistProps) {
-  const { nftList, zone } = props
+function MyWhitelist(properties: WhitelistProperties) {
+  const { nftList, zone } = properties
   const { t } = useTranslation('overview', {
     keyPrefix: 'overview.panelMintIt.mintItWhitelist.myWhitelist',
   })
@@ -55,8 +56,8 @@ function MyWhitelist(props: WhitelistProps) {
   )
 }
 
-function PreSaleWhitelist(props: WhitelistProps) {
-  const { nftList, zone } = props
+function PreSaleWhitelist(properties: WhitelistProperties) {
+  const { nftList, zone } = properties
   const { t } = useTranslation('overview', {
     keyPrefix: 'overview.panelMintIt.mintItWhitelist.preSaleWhitelist',
   })
@@ -80,13 +81,13 @@ function PreSaleWhitelist(props: WhitelistProps) {
   )
 }
 
-export type MintItWhitelistProps = BaseComponent & {
+export type MintItWhitelistProperties = BaseComponent & {
   myWhitelist: NFTItem[]
   preSaleWhitelist: NFTItem[]
 }
 
-export function MintItWhitelist(props: MintItWhitelistProps) {
-  const { myWhitelist, preSaleWhitelist, className } = props
+export function MintItWhitelist(properties: MintItWhitelistProperties) {
+  const { myWhitelist, preSaleWhitelist, className } = properties
   const { t } = useTranslation('overview')
   const timezone = useSortByTimezone()
 

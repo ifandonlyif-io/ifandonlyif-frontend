@@ -1,8 +1,15 @@
-import { LSK_ACCESS_TOKEN } from 'constants/'
-import { FetchContext, FetchResponse, ofetch } from 'ofetch'
-import { FeedbackItem, FetchUserNftsResponse, MyNFTItem, NFTItem } from 'types'
-import { GetDemoNFTListRes, NftProject } from 'types/backend'
-import { convertOwnedNftsToMyNfts, parseISODateTime } from 'utils'
+import { type FetchContext, type FetchResponse, ofetch } from 'ofetch'
+
+import { LSK_ACCESS_TOKEN } from '@/constants'
+import type {
+  FeedbackItem,
+  FetchUserNftsResponse,
+  GetDemoNFTListResponse,
+  MyNFTItem,
+  NFTItem,
+  NftProject,
+} from '@/types'
+import { convertOwnedNftsToMyNfts, parseISODateTime } from '@/utils'
 
 function getAPIBaseUrl(path: string): string {
   const baseUrl: string | undefined = process.env.NEXT_PUBLIC_API_URL
@@ -19,12 +26,12 @@ function isLocalStorageAvailable(): boolean {
     localStorage.setItem(test, test)
     localStorage.removeItem(test)
     return true
-  } catch (e) {
+  } catch {
     return false
   }
 }
 
-type RefreshTokenRes = {
+type RefreshTokenResponse = {
   accessToken: string
   accessTokenExpiresAt: number
 }
@@ -34,7 +41,7 @@ async function refreshToken(): Promise<boolean> {
   const token = localStorage.getItem(LSK_ACCESS_TOKEN)
   if (!token) return false
   try {
-    const { accessToken } = await ofetch<RefreshTokenRes>('/renewAccess', {
+    const { accessToken } = await ofetch<RefreshTokenResponse>('/renewAccess', {
       baseURL,
       method: 'POST',
       body: { refreshToken: JSON.parse(token) },
@@ -42,16 +49,16 @@ async function refreshToken(): Promise<boolean> {
     if (!accessToken || typeof accessToken !== 'string') return false
     localStorage.setItem(LSK_ACCESS_TOKEN, JSON.stringify(accessToken))
     return true
-  } catch (error) {
+  } catch {
     return false
   }
 }
 
-async function onBackendFetchRequest(ctx: FetchContext) {
+async function onBackendFetchRequest(context: FetchContext) {
   if (isLocalStorageAvailable()) {
     const token = localStorage.getItem(LSK_ACCESS_TOKEN)
     if (token) {
-      ctx.options.headers = Object.assign({}, ctx.options.headers, {
+      context.options.headers = Object.assign({}, context.options.headers, {
         Authorization: `bearer ${JSON.parse(token)}`,
       })
     }
@@ -59,14 +66,13 @@ async function onBackendFetchRequest(ctx: FetchContext) {
 }
 
 async function onBackendFetchResponseError(
-  ctx: FetchContext & {
+  context: FetchContext & {
     response: FetchResponse<unknown>
   }
 ) {
-  if (ctx.response.status === 401) {
-    if (isLocalStorageAvailable()) localStorage.removeItem(LSK_ACCESS_TOKEN)
-    // TODO: support refresh token
-  }
+  if (context.response.status === 401 && isLocalStorageAvailable())
+    localStorage.removeItem(LSK_ACCESS_TOKEN)
+  // TODO: support refresh token
 }
 
 const backendFetch = ofetch.create({
@@ -76,18 +82,20 @@ const backendFetch = ofetch.create({
 })
 
 export async function getDemoNftList() {
-  return await ofetch<GetDemoNFTListRes>(
-    'http://localhost:3001/api/demo/nftlist'
+  return await ofetch<GetDemoNFTListResponse>(
+    'http://localhost:3001/api/demo/nft-list'
   )
 }
 
 export async function getDemoMyIffNft() {
-  return await ofetch<NFTItem[]>('http://localhost:3001/api/demo/fetchMyIffNft')
+  return await ofetch<NFTItem[]>(
+    'http://localhost:3001/api/demo/fetch-my-iff-nft'
+  )
 }
 
 export async function getDemoFeedbackList() {
   return await ofetch<FeedbackItem[]>(
-    'http://localhost:3001/api/demo/feedbacklist'
+    'http://localhost:3001/api/demo/feedback-list'
   )
 }
 
@@ -134,18 +142,18 @@ export async function doWalletLogin(
 export async function getUserNft(
   url = '/auth/fetchUserNft'
 ): Promise<MyNFTItem[]> {
-  const res = await backendFetch<string>(url, { method: 'POST' })
-  const parsedRes: FetchUserNftsResponse = JSON.parse(res)
-  const myNfts = convertOwnedNftsToMyNfts(parsedRes.ownedNfts)
+  const response = await backendFetch<string>(url, { method: 'POST' })
+  const parsedResponse: FetchUserNftsResponse = JSON.parse(response)
+  const myNfts = convertOwnedNftsToMyNfts(parsedResponse.ownedNfts)
   return myNfts
 }
 
 export async function checkSiteUri(url: string): Promise<boolean> {
-  const res = await backendFetch<string>('/checkUri', {
+  const response = await backendFetch<string>('/checkUri', {
     method: 'POST',
     body: { url },
   })
-  return JSON.parse(res) as boolean
+  return JSON.parse(response) as boolean
 }
 
 type GetNftProjects = NftProject[]

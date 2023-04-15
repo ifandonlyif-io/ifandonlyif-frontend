@@ -1,13 +1,14 @@
-import { SelectMenuOption } from 'components/Forms'
 import { BigNumber } from 'ethers'
 import { isHexString } from 'ethers/lib/utils'
-import { MyNFTItem, NftProject, OwnedNft } from 'types'
 
-import { parseISODateTime } from './datetime'
+import type { SelectMenuOption } from '@/components/Forms'
+import type { MyNFTItem, NftProject, OwnedNft } from '@/types'
 
-export function convertStringToNumber(str: string): number {
-  if (isHexString(str)) return BigNumber.from(str).toNumber()
-  if (!Number.isNaN(str)) return Number(str)
+import { parseISODateTime } from './date-time'
+
+export function convertStringToNumber(string_: string): number {
+  if (isHexString(string_)) return BigNumber.from(string_).toNumber()
+  if (!Number.isNaN(string_)) return Number(string_)
   return 0
 }
 

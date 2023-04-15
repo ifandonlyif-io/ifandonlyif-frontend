@@ -1,11 +1,12 @@
 import { useTranslation } from 'next-i18next'
 import React from 'react'
-import { BaseComponent } from 'types'
-import { classNames } from 'utils'
 
-type FooterProps = BaseComponent
+import type { BaseComponent } from '@/types'
+import { classNames } from '@/utils'
 
-export function Footer({ className }: FooterProps) {
+type FooterProperties = BaseComponent
+
+export function Footer({ className }: FooterProperties) {
   const { t } = useTranslation('common', {
     keyPrefix: 'layouts.footer.paragraph',
   })

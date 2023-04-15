@@ -1,12 +1,13 @@
 import React from 'react'
-import { classNames } from 'utils'
 
-type InputProps = React.ComponentPropsWithoutRef<'input'> & {
+import { classNames } from '@/utils'
+
+type InputProperties = React.ComponentPropsWithoutRef<'input'> & {
   forwardedRef: React.ForwardedRef<HTMLInputElement>
 }
 
-export function StyledInput(props: InputProps) {
-  const { className, forwardedRef, ...others } = props
+export function StyledInput(properties: InputProperties) {
+  const { className, forwardedRef, ...others } = properties
   return (
     <input
       className={classNames(
@@ -24,7 +25,7 @@ export function StyledInput(props: InputProps) {
 
 export const Input = React.forwardRef<
   HTMLInputElement,
-  Omit<InputProps, 'forwardedRef'>
->(function renderInput(props, ref) {
-  return <StyledInput {...props} forwardedRef={ref} />
+  Omit<InputProperties, 'forwardedRef'>
+>(function renderInput(properties, reference) {
+  return <StyledInput {...properties} forwardedRef={reference} />
 })

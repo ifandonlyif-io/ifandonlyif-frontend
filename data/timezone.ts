@@ -1,4 +1,4 @@
-import type { SelectMenuOption } from 'components/Forms'
+import type { SelectMenuOption } from '@/components/Forms'
 
 export const TimezoneOptions: SelectMenuOption[] = [
   { label: 'UTC London', value: 'UTC' },

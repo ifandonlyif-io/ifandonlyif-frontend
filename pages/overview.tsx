@@ -1,40 +1,40 @@
+import type { GetServerSideProps } from 'next'
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import React from 'react'
+import useSWR from 'swr'
+
 import {
   getDemoMyIffNft,
   getDemoNftList,
   getEthToUsd,
   getGasPriceData,
   getUserNft,
-} from 'backend'
-import { OverviewLayout } from 'components/Layouts'
+} from '@/backend'
+import { OverviewLayout } from '@/components/Layouts'
 import {
   // PanelIFFNFT,
-  PanelIFFNFTProps,
+  type PanelIFFNFTProperties,
   // PanelKYCRecord,
   PanelMintIt,
-  PanelMintItProps,
+  type PanelMintItProperties,
   PanelOverview,
-  PanelOverviewProps,
+  type PanelOverviewProperties,
   // PanelPreMint,
   // PanelPreMintProps,
   SectionTitleWithSortTimezoneProvider,
-} from 'components/pages/Overview'
-import { Tab, TabList, TabPanel, Tabs } from 'components/Tabs'
-import { useWeb3Account } from 'hooks'
-import { useIffNftContract } from 'hooks/useContract'
-import { GetServerSideProps } from 'next'
-import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import React from 'react'
-import useSWR from 'swr'
-import { MintIffNftFormData, NextPageWithLayout, NFTItem } from 'types'
-import { getIffNftTypeId, isEthersError } from 'utils'
+} from '@/components/pages/Overview'
+import { Tab, TabList, TabPanel, Tabs } from '@/components/Tabs'
+import { useIffNftContract, useWeb3Account } from '@/hooks'
+import type { MintIffNftFormData, NextPageWithLayout, NFTItem } from '@/types'
+import { getIffNftTypeId, isEthersError } from '@/utils'
 
-type OverviewProps = {
-  overview: PanelOverviewProps
-  mintIt: Omit<PanelMintItProps, 'myNFTs' | 'onMintIffNftClick'>
+type OverviewProperties = {
+  overview: PanelOverviewProperties
+  mintIt: Omit<PanelMintItProperties, 'myNFTs' | 'onMintIffNftClick'>
   // preMint: PanelPreMintProps
-  iffNFT: PanelIFFNFTProps
+  iffNFT: PanelIFFNFTProperties
 }
 
 type TabData = {
@@ -50,8 +50,10 @@ const tabs: TabData[] = [
   // { label: 'kycRecord', href: '#kyc-record' },
 ]
 
-const Overview: NextPageWithLayout<OverviewProps> = (props: OverviewProps) => {
-  const { overview, mintIt } = props
+const Overview: NextPageWithLayout<OverviewProperties> = (
+  properties: OverviewProperties
+) => {
+  const { overview, mintIt } = properties
   const { t } = useTranslation('overview')
   const router = useRouter()
   const { provider } = useWeb3Account()
@@ -107,7 +109,7 @@ const Overview: NextPageWithLayout<OverviewProps> = (props: OverviewProps) => {
   }, [router.asPath])
 
   return (
-    <div className="my-10 rounded-b-[10px] bg-white shadow-iff-overview md:my-16 md:px-[24px] xl:px-[30px]">
+    <div className="shadow-iff-overview my-10 rounded-b-[10px] bg-white md:my-16 md:px-[24px] xl:px-[30px]">
       <SectionTitleWithSortTimezoneProvider>
         <Tabs selectedIndex={tabIndex} onSelect={handleTabSelect}>
           <TabList>
@@ -147,9 +149,9 @@ Overview.getLayout = (page) => {
   return <OverviewLayout>{page}</OverviewLayout>
 }
 
-export const getServerSideProps: GetServerSideProps<OverviewProps> = async ({
-  locale = 'en-US',
-}) => {
+export const getServerSideProps: GetServerSideProps<
+  OverviewProperties
+> = async ({ locale = 'en-US' }) => {
   const i18n = await serverSideTranslations(locale, ['common', 'overview'])
   const priceData = await getGasPriceData()
   const ethPrice = await getEthToUsd()
@@ -157,7 +159,7 @@ export const getServerSideProps: GetServerSideProps<OverviewProps> = async ({
   const mintIt = await getDemoNftList()
   const myIFFNFT = await getDemoMyIffNft()
   // const preMint: PanelPreMintProps = { preMintWhitelist: mintIt.myWhitelist }
-  const iffNFT: PanelIFFNFTProps = { myIFFNFT }
+  const iffNFT: PanelIFFNFTProperties = { myIFFNFT }
   return { props: { ...i18n, overview, mintIt, iffNFT } }
 }
 

@@ -1,25 +1,33 @@
-import { Button, NFTButton } from 'components/Buttons'
-import { Input } from 'components/Forms'
-import { Modal, ModalProps } from 'components/Modal'
-import { NFTFrame } from 'components/NFTs'
-import { useWeb3Account } from 'hooks'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { BaseComponent, MintIffNftFormData, MyNFTItem, NFTItem } from 'types'
+import { type SubmitHandler, useForm } from 'react-hook-form'
+
+import { Button, NFTButton } from '@/components/Buttons'
+import { Input } from '@/components/Forms'
+import { Modal, type ModalProperties } from '@/components/Modal'
+import { NFTFrame } from '@/components/NFTs'
+import { useWeb3Account } from '@/hooks'
+import type {
+  BaseComponent,
+  MintIffNftFormData,
+  MyNFTItem,
+  NFTItem,
+} from '@/types'
 import {
   classNames,
   sortNFTItems,
   validateMintIffNftFormInputAddress,
   validateMintIffNftFormUserInfo,
-} from 'utils'
+} from '@/utils'
 
 import { SectionTitle } from './title'
 
-type MintModalTitleProps = BaseComponent & { title: string }
+type MintModalTitleProperties = BaseComponent & { title: string }
 
-function MintModalTitle(props: React.PropsWithChildren<MintModalTitleProps>) {
-  const { className, children, title } = props
+function MintModalTitle(
+  properties: React.PropsWithChildren<MintModalTitleProperties>
+) {
+  const { className, children, title } = properties
   return (
     <div
       className={classNames(
@@ -27,17 +35,18 @@ function MintModalTitle(props: React.PropsWithChildren<MintModalTitleProps>) {
         className
       )}
     >
-      <h3 className="text-base font-bold text-iff-text">{title}&nbsp;-</h3>
+      <h3 className="text-iff-text text-base font-bold">{title}&nbsp;-</h3>
       {children}
     </div>
   )
 }
 
-type MintModalErrorProps = BaseComponent & { msg?: string }
+type MintModalErrorProperties = BaseComponent & { msg?: string }
 
-function MintModalError(props: MintModalErrorProps) {
-  const { className, msg } = props
+function MintModalError(properties: MintModalErrorProperties) {
+  const { className, msg } = properties
   const { t } = useTranslation('overview')
+  // eslint-disable-next-line unicorn/no-null
   if (!msg) return null
   return (
     <p className={classNames('text-base font-bold text-red-500', className)}>
@@ -46,13 +55,13 @@ function MintModalError(props: MintModalErrorProps) {
   )
 }
 
-type MintModalProps = ModalProps & {
+type MintModalProperties = ModalProperties & {
   nft: NFTItem | undefined
   onMintIffNftClick: (nft: NFTItem, data: MintIffNftFormData) => Promise<void>
 }
 
-function MintModal(props: MintModalProps) {
-  const { isOpen, nft, onModalClose, onMintIffNftClick } = props
+function MintModal(properties: MintModalProperties) {
+  const { isOpen, nft, onModalClose, onMintIffNftClick } = properties
   const { account } = useWeb3Account()
   const { t } = useTranslation('overview', {
     keyPrefix: 'overview.panelMintIt.mintItMyNFT.mintModal',
@@ -93,8 +102,8 @@ function MintModal(props: MintModalProps) {
       isOpen={isOpen && typeof nft === 'object'}
       onModalClose={onModalClose}
     >
-      <div className="flex flex-col px-20 pt-7 pb-9">
-        <h2 className="mb-8 text-center text-2xl font-bold text-iff-text">
+      <div className="flex flex-col px-20 pb-9 pt-7">
+        <h2 className="text-iff-text mb-8 text-center text-2xl font-bold">
           {t('heading', { nft })}
         </h2>
         <form
@@ -150,13 +159,13 @@ function MintModal(props: MintModalProps) {
   )
 }
 
-export type MintItMyNFTProps = BaseComponent &
-  Pick<MintModalProps, 'onMintIffNftClick'> & {
+export type MintItMyNFTProperties = BaseComponent &
+  Pick<MintModalProperties, 'onMintIffNftClick'> & {
     myNFTs: MyNFTItem[]
   }
 
-export function MintItMyNFT(props: MintItMyNFTProps) {
-  const { myNFTs, className, onMintIffNftClick } = props
+export function MintItMyNFT(properties: MintItMyNFTProperties) {
+  const { myNFTs, className, onMintIffNftClick } = properties
   const { t } = useTranslation('overview', {
     keyPrefix: 'overview.panelMintIt.mintItMyNFT',
   })

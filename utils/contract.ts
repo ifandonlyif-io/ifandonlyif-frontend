@@ -1,6 +1,6 @@
-import { NFTArray } from 'constants/'
+import { NFTArray } from '@/constants'
 
-export function getIffNftTypeId(name: string): number | null {
+export function getIffNftTypeId(name: string): number | undefined {
   const _name = name.toLowerCase()
   const index = NFTArray.findIndex((value) => {
     const _value = value.toLowerCase()
@@ -8,6 +8,6 @@ export function getIffNftTypeId(name: string): number | null {
     console.debug('getIffNftTypeId', _name, _value, match)
     return match
   })
-  if (index === -1) return null
+  if (index === -1) return undefined
   return index
 }

@@ -1,6 +1,5 @@
-import { NFTItem } from 'types'
-
-import { isHistorical } from './datetime'
+import type { NFTItem } from '../types'
+import { isHistorical } from './date-time'
 
 export function sortNFTItems(items: NFTItem[]): NFTItem[] {
   return items.sort((l, r) => l.unixEpoch - r.unixEpoch)

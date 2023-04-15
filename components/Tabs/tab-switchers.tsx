@@ -1,4 +1,3 @@
-import { ButtonProps } from 'components/Buttons'
 import React from 'react'
 import type {
   ReactTabsFunctionComponent,
@@ -6,15 +5,17 @@ import type {
   TabsProps,
 } from 'react-tabs'
 import { Tab, TabList, Tabs } from 'react-tabs'
-import { classNames } from 'utils'
 
-type TabSwitcherProps = TabProps & Pick<ButtonProps, 'onClick'>
+import type { ButtonProperties } from '@/components/Buttons'
+import { classNames } from '@/utils'
 
-const TabSwitcher: ReactTabsFunctionComponent<TabSwitcherProps> = ({
+type TabSwitcherProperties = TabProps & Pick<ButtonProperties, 'onClick'>
+
+const TabSwitcher: ReactTabsFunctionComponent<TabSwitcherProperties> = ({
   children,
   className,
   selected,
-  ...props
+  ...properties
 }) => (
   <Tab
     className={classNames(
@@ -23,7 +24,7 @@ const TabSwitcher: ReactTabsFunctionComponent<TabSwitcherProps> = ({
       className
     )}
     selectedClassName="react-tabs__tab-switcher--selected"
-    {...props}
+    {...properties}
   >
     {children}
   </Tab>
@@ -36,16 +37,13 @@ type TabSwitcherText = {
   right: string
 }
 
-type TabSwitchersProps = TabsProps & {
+type TabSwitchersProperties = TabsProps & {
   switcherText: TabSwitcherText
 }
 
-export const TabSwitchers: ReactTabsFunctionComponent<TabSwitchersProps> = ({
-  children,
-  className,
-  switcherText,
-  ...props
-}) => {
+export const TabSwitchers: ReactTabsFunctionComponent<
+  TabSwitchersProperties
+> = ({ children, className, switcherText, ...properties }) => {
   const [tabIndex, setTabIndex] = React.useState(0)
 
   return (
@@ -53,7 +51,7 @@ export const TabSwitchers: ReactTabsFunctionComponent<TabSwitchersProps> = ({
       className={classNames('react-tabs__tab-switchers', className)}
       selectedIndex={tabIndex}
       onSelect={(index) => setTabIndex(index)}
-      {...props}
+      {...properties}
     >
       <TabList className="react-tabs__tab-switcher-list">
         <TabSwitcher selected={tabIndex === 0} className="mr-[-2px]">

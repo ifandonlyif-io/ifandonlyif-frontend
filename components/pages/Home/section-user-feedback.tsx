@@ -1,15 +1,16 @@
 import Carousel from 'better-react-carousel'
-import { NeonBorder } from 'components/Decorate'
-import { UserFeedback } from 'components/Feedback'
-import { SvgIconProps, SvgIcons } from 'components/Icons'
 import { useTranslation } from 'next-i18next'
-import { BaseComponent, FeedbackItem } from 'types'
-import { classNames } from 'utils'
 
-type CarouselDotProps = { isActive: boolean }
+import { NeonBorder } from '@/components/Decorate'
+import { UserFeedback } from '@/components/Feedback'
+import { type SvgIconProperties, SvgIcons } from '@/components/Icons'
+import type { BaseComponent, FeedbackItem } from '@/types'
+import { classNames } from '@/utils'
 
-function CarouselDot(props: CarouselDotProps) {
-  const { isActive } = props
+type CarouselDotProperties = { isActive: boolean }
+
+function CarouselDot(properties: CarouselDotProperties) {
+  const { isActive } = properties
   return (
     <span
       className={classNames(
@@ -21,9 +22,9 @@ function CarouselDot(props: CarouselDotProps) {
   )
 }
 
-function ChevronLeftIcon(props: BaseComponent & SvgIconProps) {
+function ChevronLeftIcon(properties: BaseComponent & SvgIconProperties) {
   return (
-    <SvgIcons viewBox="0 0 37 47" fill="none" fontSize={30} {...props}>
+    <SvgIcons viewBox="0 0 37 47" fill="none" fontSize={30} {...properties}>
       <g filter="url(#filter0_ddi_2_669)">
         <path
           d="M8.44133 23.5003L13.0586 18.883L23.9414 8L28.5587 12.617L17.6759 23.5003L28.5587 34.383L23.9417 39L13.0589 28.1173L8.44192 23.5003H8.44133Z"
@@ -117,24 +118,24 @@ function ArrowLeft() {
 
 function ArrowRight() {
   return (
-    <div className="absolute top-1/2 right-0 -translate-y-2/4 rotate-180 md:hidden">
+    <div className="absolute right-0 top-1/2 -translate-y-2/4 rotate-180 md:hidden">
       <ChevronLeftIcon />
     </div>
   )
 }
 
-export declare type SectionUserFeedbackProps = {
+export declare type SectionUserFeedbackProperties = {
   feedbacks: FeedbackItem[]
 }
 
-export function SectionUserFeedback(props: SectionUserFeedbackProps) {
-  const { feedbacks } = props
+export function SectionUserFeedback(properties: SectionUserFeedbackProperties) {
+  const { feedbacks } = properties
   const { t } = useTranslation('home')
 
   return (
     <section className="block flex-row flex-nowrap items-center md:flex">
       <NeonBorder className="hidden md:flex" color="purple" />
-      <div className="iff-glass-cyan min-w-0 px-8 pt-10 pb-7 shadow-iff-base md:-mx-8 md:flex-1 md:px-28 md:pt-12">
+      <div className="iff-glass-cyan shadow-iff-base min-w-0 px-8 pb-7 pt-10 md:-mx-8 md:flex-1 md:px-28 md:pt-12">
         <h2 className="heading-4 md:heading-2 text-shadow-heading-4-purple md:text-shadow-heading-2-purple mb-6 text-center uppercase text-white md:mb-10">
           {t('home.sectionUserFeedback.heading')}
         </h2>

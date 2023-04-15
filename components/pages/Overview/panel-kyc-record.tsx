@@ -1,15 +1,16 @@
-import { Avatar } from 'components/Avatar'
-import { Card } from 'components/Card'
 import { useTranslation } from 'next-i18next'
-import { BaseComponent } from 'types'
-import { classNames } from 'utils'
+
+import { Avatar } from '@/components/Avatar'
+import { Card } from '@/components/Card'
+import type { BaseComponent } from '@/types'
+import { classNames } from '@/utils'
 
 import { TabTitle } from './title'
 
-type RecordDataProps = { name: string }
+type RecordDataProperties = { name: string }
 
-function TextRow(props: React.PropsWithChildren<BaseComponent>) {
-  const { className, children } = props
+function TextRow(properties: React.PropsWithChildren<BaseComponent>) {
+  const { className, children } = properties
   return (
     <div
       className={classNames(
@@ -26,8 +27,8 @@ function Text({ className, children }: React.PropsWithChildren<BaseComponent>) {
   return <p className={classNames('p-0 m-0', className)}>{children}</p>
 }
 
-function RecordData(props: React.PropsWithChildren<RecordDataProps>) {
-  const { name, children } = props
+function RecordData(properties: React.PropsWithChildren<RecordDataProperties>) {
+  const { name, children } = properties
   return (
     <TextRow>
       <Text className="min-w-[88px]">{name}</Text>
@@ -42,7 +43,7 @@ export function PanelKYCRecord() {
   })
 
   return (
-    <div className="py-[50px] px-5">
+    <div className="px-5 py-[50px]">
       <TabTitle className="mb-9">{t('tabTitle')}</TabTitle>
       <Card>
         <div className="flex flex-row items-center p-8">

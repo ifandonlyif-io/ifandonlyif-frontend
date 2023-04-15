@@ -1,21 +1,22 @@
-import { Avatar } from 'components/Avatar'
-import { Button, ButtonProps } from 'components/Buttons'
-import { EthereumIcon, MetamaskIcon } from 'components/Icons'
-import { useIffAccount } from 'hooks'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
-import { BaseComponent } from 'types'
-import { classNames, shortAccount } from 'utils'
 
-type WalletInfoProps = BaseComponent & {
+import { Avatar } from '@/components/Avatar'
+import { Button, type ButtonProperties } from '@/components/Buttons'
+import { EthereumIcon, MetamaskIcon } from '@/components/Icons'
+import { useIffAccount } from '@/hooks'
+import type { BaseComponent } from '@/types'
+import { classNames, shortAccount } from '@/utils'
+
+type WalletInfoProperties = BaseComponent & {
   onClose: () => void
 }
 
-function WalletInfo(props: WalletInfoProps) {
-  const { className, onClose } = props
+function WalletInfo(properties: WalletInfoProperties) {
+  const { className, onClose } = properties
   const { t } = useTranslation('common')
   const { account, signOut } = useIffAccount()
-  const accStr = account && shortAccount(account.wallet)
+  const accumulatorString = account && shortAccount(account.wallet)
 
   const handleDisconnectClick = React.useCallback(async () => {
     await signOut()
@@ -26,7 +27,7 @@ function WalletInfo(props: WalletInfoProps) {
     <div className={classNames('grid grid-cols-1 gap-3', className)}>
       <div className="flex flex-row flex-nowrap items-center">
         <EthereumIcon />
-        <div className="ml-2 text-lg">{accStr}</div>
+        <div className="ml-2 text-lg">{accumulatorString}</div>
       </div>
       <button
         id="disconnect-wallet"
@@ -39,24 +40,25 @@ function WalletInfo(props: WalletInfoProps) {
   )
 }
 
-type WalletDropdownProps = {
+type WalletDropdownProperties = {
   isOpen: boolean
   onWalletDropdownClose: () => void
 }
 
-function WalletDropdown(props: WalletDropdownProps) {
-  const { isOpen, onWalletDropdownClose } = props
+function WalletDropdown(properties: WalletDropdownProperties) {
+  const { isOpen, onWalletDropdownClose } = properties
 
+  // eslint-disable-next-line unicorn/no-null
   if (!isOpen) return null
 
   return (
-    <div className="absolute top-[90%] right-4 rounded-[10px] bg-white p-4 shadow-iff-modal">
+    <div className="shadow-iff-modal absolute right-4 top-[90%] rounded-[10px] bg-white p-4">
       <WalletInfo onClose={onWalletDropdownClose} />
     </div>
   )
 }
 
-function ConnectWalletButton(props: Omit<ButtonProps, 'children'>) {
+function ConnectWalletButton(properties: Omit<ButtonProperties, 'children'>) {
   const { t } = useTranslation('common')
   return (
     <Button
@@ -64,7 +66,7 @@ function ConnectWalletButton(props: Omit<ButtonProps, 'children'>) {
       className="gap-2 px-[8px]"
       shadow={false}
       size="small"
-      {...props}
+      {...properties}
     >
       {t('layouts.userPanel.connectWalletButton.connectButton')}
       <MetamaskIcon />
@@ -72,9 +74,9 @@ function ConnectWalletButton(props: Omit<ButtonProps, 'children'>) {
   )
 }
 
-type UserPanelProps = BaseComponent
+type UserPanelProperties = BaseComponent
 
-export function UserPanel({ className }: UserPanelProps) {
+export function UserPanel({ className }: UserPanelProperties) {
   const { account, accountMismatch, chainMismatch, expired, signIn } =
     useIffAccount()
 

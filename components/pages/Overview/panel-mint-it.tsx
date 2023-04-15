@@ -1,23 +1,25 @@
-import { FilterGroup, FilterItem } from 'components/Forms'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
-import { classNames } from 'utils'
 
-import { MintItMyNFT, MintItMyNFTProps } from './mintItMyNFT'
+import { FilterGroup, FilterItem } from '@/components/Forms'
+import { classNames } from '@/utils'
+
+import { MintItMyNFT, type MintItMyNFTProperties } from './mint-it-my-nft'
 import {
   // MintItWhitelist,
-  MintItWhitelistProps,
-} from './mintItWhitelist'
+  type MintItWhitelistProperties,
+} from './mint-it-whitelist'
 import { TabTitle } from './title'
 
-export type PanelMintItProps = MintItWhitelistProps & MintItMyNFTProps
+export type PanelMintItProperties = MintItWhitelistProperties &
+  MintItMyNFTProperties
 
 type FilterValues = 'all' | 'whitelist' | 'nft'
 
 type FilterOption = { value: FilterValues; count: number }
 
-export function PanelMintIt(props: PanelMintItProps) {
-  const { myNFTs } = props
+export function PanelMintIt(properties: PanelMintItProperties) {
+  const { myNFTs } = properties
   const { t } = useTranslation('overview')
   // const whitelistCount = myWhitelist.length + preSaleWhitelist.length
   // const allCount = whitelistCount + myNFTs.length
@@ -37,7 +39,7 @@ export function PanelMintIt(props: PanelMintItProps) {
   const isShowMy = isShowAll || mintFilter === 'nft'
 
   return (
-    <div className="py-6 px-4 md:py-[50px] md:px-5">
+    <div className="px-4 py-6 md:px-5 md:py-[50px]">
       <TabTitle className="mb-4">{t('overview.panelMintIt.tabTitle')}</TabTitle>
       <FilterGroup
         className="mb-7"
@@ -58,7 +60,7 @@ export function PanelMintIt(props: PanelMintItProps) {
         /> */}
         <MintItMyNFT
           className={classNames(isShowMy ? 'flex' : 'hidden')}
-          {...props}
+          {...properties}
         />
       </div>
     </div>

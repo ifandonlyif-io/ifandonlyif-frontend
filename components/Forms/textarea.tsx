@@ -1,12 +1,13 @@
 import React from 'react'
-import { classNames } from 'utils'
 
-type TextareaProps = React.ComponentPropsWithoutRef<'textarea'> & {
+import { classNames } from '@/utils'
+
+type TextareaProperties = React.ComponentPropsWithoutRef<'textarea'> & {
   forwardedRef: React.ForwardedRef<HTMLTextAreaElement>
 }
 
-export function StyledTextarea(props: TextareaProps) {
-  const { className, forwardedRef, ...others } = props
+export function StyledTextarea(properties: TextareaProperties) {
+  const { className, forwardedRef, ...others } = properties
   return (
     <textarea
       className={classNames(
@@ -24,7 +25,7 @@ export function StyledTextarea(props: TextareaProps) {
 
 export const Textarea = React.forwardRef<
   HTMLTextAreaElement,
-  Omit<TextareaProps, 'forwardedRef'>
->(function renderTextarea(props, ref) {
-  return <StyledTextarea {...props} forwardedRef={ref} />
+  Omit<TextareaProperties, 'forwardedRef'>
+>(function renderTextarea(properties, reference) {
+  return <StyledTextarea {...properties} forwardedRef={reference} />
 })

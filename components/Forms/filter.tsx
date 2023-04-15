@@ -1,20 +1,21 @@
 import React from 'react'
-import { BaseComponent } from 'types'
-import { classNames } from 'utils'
 
-type InputRadioProps = React.DetailedHTMLProps<
+import type { BaseComponent } from '@/types'
+import { classNames } from '@/utils'
+
+type InputRadioProperties = React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
   HTMLInputElement
 >
 
-type FilterItemProps = BaseComponent &
-  Omit<InputRadioProps, 'value'> &
-  Required<Pick<InputRadioProps, 'value'>> & {
+type FilterItemProperties = BaseComponent &
+  Omit<InputRadioProperties, 'value'> &
+  Required<Pick<InputRadioProperties, 'value'>> & {
     count?: number
   }
 
-export function FilterItem(props: FilterItemProps) {
-  const { className, children, id, name, value, count, ...input } = props
+export function FilterItem(properties: FilterItemProperties) {
+  const { className, children, id, name, value, count, ...input } = properties
   return (
     <label
       className={classNames(
@@ -31,7 +32,7 @@ export function FilterItem(props: FilterItemProps) {
         value={value}
         {...input}
       />
-      <span className="box-border rounded-[20px] border-[1px] border-solid border-iff-cyan py-[6px] px-6 text-sm font-bold text-iff-text peer-checked:bg-iff-cyan">
+      <span className="border-iff-cyan text-iff-text peer-checked:bg-iff-cyan box-border rounded-[20px] border-[1px] border-solid px-6 py-[6px] text-sm font-bold">
         {children}
         {typeof count === 'number' && ` (${count})`}
       </span>
@@ -39,15 +40,15 @@ export function FilterItem(props: FilterItemProps) {
   )
 }
 
-type FilterGroupProps = BaseComponent & {
+type FilterGroupProperties = BaseComponent & {
   children: React.ReactNode
   name: string
   defaultValue?: string
   onFilterChange: (value: string) => void
 }
 
-export function FilterGroup(props: FilterGroupProps) {
-  const { className, children, name, defaultValue, onFilterChange } = props
+export function FilterGroup(properties: FilterGroupProperties) {
+  const { className, children, name, defaultValue, onFilterChange } = properties
   const [filterValue, setFilterValue] = React.useState(defaultValue)
   const handleFilterItemChange = React.useCallback<
     React.ChangeEventHandler<HTMLInputElement>
@@ -62,7 +63,7 @@ export function FilterGroup(props: FilterGroupProps) {
   return (
     <div className={classNames('flex flex-row gap-3', className)}>
       {React.Children.map(children, (child, index) => {
-        if (React.isValidElement<InputRadioProps>(child)) {
+        if (React.isValidElement<InputRadioProperties>(child)) {
           const { props } = child
           const checked = filterValue === props.value
           return React.cloneElement(child, {
@@ -73,7 +74,7 @@ export function FilterGroup(props: FilterGroupProps) {
             onChange: handleFilterItemChange,
           })
         }
-        return null
+        return
       })}
     </div>
   )

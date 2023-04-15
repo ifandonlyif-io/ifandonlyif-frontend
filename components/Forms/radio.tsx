@@ -1,16 +1,17 @@
-import { CheckIcon } from 'components/Icons'
 import React from 'react'
-import { BaseComponent } from 'types'
-import { classNames } from 'utils'
 
-type InputRadioProps = React.DetailedHTMLProps<
+import { CheckIcon } from '@/components/Icons'
+import type { BaseComponent } from '@/types'
+import { classNames } from '@/utils'
+
+type InputRadioProperties = React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
   HTMLInputElement
 >
 
-type RadioProps = BaseComponent &
-  Omit<InputRadioProps, 'value'> &
-  Required<Pick<InputRadioProps, 'value'>>
+type RadioProperties = BaseComponent &
+  Omit<InputRadioProperties, 'value'> &
+  Required<Pick<InputRadioProperties, 'value'>>
 
 export function Radio({
   className,
@@ -19,7 +20,7 @@ export function Radio({
   name,
   value,
   ...input
-}: RadioProps) {
+}: RadioProperties) {
   return (
     <label
       className={classNames('flex flex-row items-center', className)}
@@ -37,7 +38,7 @@ export function Radio({
        * Use two checkbox element to show different state
        * because of Tailwind css `peer` use general sibling combinator
        */}
-      <div className="input-checkbox hidden bg-iff-cyan peer-checked:flex">
+      <div className="input-checkbox bg-iff-cyan hidden peer-checked:flex">
         <CheckIcon htmlColor="#46FFE6" fontSize={14} />
       </div>
       <div className="input-checkbox flex bg-transparent peer-checked:hidden" />
@@ -48,12 +49,16 @@ export function Radio({
   )
 }
 
-type RadioGroupProps = BaseComponent & {
+type RadioGroupProperties = BaseComponent & {
   children: React.ReactNode
   name: string
 }
 
-export function RadioGroup({ className, children, name }: RadioGroupProps) {
+export function RadioGroup({
+  className,
+  children,
+  name,
+}: RadioGroupProperties) {
   return (
     <div className={classNames('flex flex-row gap-10', className)}>
       {React.Children.map(children, (child, index) => {
@@ -64,7 +69,7 @@ export function RadioGroup({ className, children, name }: RadioGroupProps) {
             id: `radio-${name}-${index}`,
           })
         }
-        return null
+        return
       })}
     </div>
   )

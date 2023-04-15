@@ -1,2 +1,2 @@
+export * from './tab-switchers'
 export * from './tabs'
-export * from './tabSwitchers'

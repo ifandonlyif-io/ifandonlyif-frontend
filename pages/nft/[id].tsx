@@ -1,52 +1,59 @@
-import { Button } from 'components/Buttons'
-import { NeonBorder } from 'components/Decorate'
-import { Rotate360Icon } from 'components/Icons'
-import { HolderRecord, NFTCard, NFTCardProps } from 'components/NFTs'
-import { GetServerSideProps, NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React from 'react'
-import { classNames } from 'utils'
+
+import { Button } from '@/components/Buttons'
+import { NeonBorder } from '@/components/Decorate'
+import { Rotate360Icon } from '@/components/Icons'
+import {
+  type HolderRecord,
+  NFTCard,
+  type NFTCardProperties,
+} from '@/components/NFTs'
+import { classNames } from '@/utils'
 
 const holderRecords: HolderRecord[] = [
   {
-    unixEpoch: 1657864800,
+    unixEpoch: 1_657_864_800,
     message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
   },
   {
-    unixEpoch: 1657864800,
+    unixEpoch: 1_657_864_800,
     message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
   },
   {
-    unixEpoch: 1657864800,
+    unixEpoch: 1_657_864_800,
     message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
   },
   {
-    unixEpoch: 1657864800,
+    unixEpoch: 1_657_864_800,
     message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
   },
   {
-    unixEpoch: 1657864800,
+    unixEpoch: 1_657_864_800,
     message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
   },
 ]
-const demoNFTCard: NFTCardProps = {
+const demoNFTCard: NFTCardProperties = {
   name: 'BORED APE YACHT CLUB',
   nftId: 797,
   nftType: 'ERC-721',
   imageUri: 'https://avatars.githubusercontent.com/u/11311364',
-  kycEpoch: 1657864800,
+  kycEpoch: 1_657_864_800,
   holderRecords,
   validity: true,
 }
 
-type NFTViewProps = {
-  nftData: NFTCardProps
+type NFTViewProperties = {
+  nftData: NFTCardProperties
 }
 
-const NFTView: NextPage<NFTViewProps> = (props: NFTViewProps) => {
-  const { nftData } = props
+const NFTView: NextPage<NFTViewProperties> = (
+  properties: NFTViewProperties
+) => {
+  const { nftData } = properties
   const { t } = useTranslation('nft', { keyPrefix: 'nftView' })
   const router = useRouter()
   const [flip, setFlip] = React.useState(false)
@@ -57,7 +64,7 @@ const NFTView: NextPage<NFTViewProps> = (props: NFTViewProps) => {
     <div className="block flex-row flex-nowrap items-center py-16 md:flex md:py-24">
       <NeonBorder className="hidden md:flex" color="cyan" />
       <div className="iff-glass-cyan shadow-iff-base md:-mx-9 md:flex-1">
-        <div className="flex flex-col flex-nowrap px-4 py-6 md:flex-row md:justify-between md:py-7 md:px-20">
+        <div className="flex flex-col flex-nowrap px-4 py-6 md:flex-row md:justify-between md:px-20 md:py-7">
           <div className="flex flex-col">
             <h1 className="heading-4 md:heading-2 text-shadow-heading-1 mb-4 text-white md:mb-16">
               {t('heading')}
@@ -102,9 +109,9 @@ const NFTView: NextPage<NFTViewProps> = (props: NFTViewProps) => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps<NFTViewProps> = async ({
-  locale = 'en-US',
-}) => {
+export const getServerSideProps: GetServerSideProps<
+  NFTViewProperties
+> = async ({ locale = 'en-US' }) => {
   const i18n = await serverSideTranslations(locale, ['common', 'nft'])
   const nftData = demoNFTCard
   return { props: { ...i18n, nftData } }

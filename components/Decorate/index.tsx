@@ -1,5 +1,5 @@
-import { BaseComponent } from 'types'
-import { classNames } from 'utils'
+import type { BaseComponent } from '@/types'
+import { classNames } from '@/utils'
 
 type NeonColor = 'cyan' | 'purple'
 

@@ -1,7 +1,8 @@
-import { DefaultTimezone } from 'data'
 import { DateTime } from 'luxon'
 
-export function formatDatetime(
+import { DefaultTimezone } from '@/data'
+
+export function formatDateTime(
   seconds: number,
   format: string,
   zone?: string

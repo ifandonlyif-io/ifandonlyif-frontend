@@ -1,8 +1,9 @@
-import { Button } from 'components/Buttons'
-import { IFFCube } from 'components/Logo'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
+
+import { Button } from '@/components/Buttons'
+import { IFFCube } from '@/components/Logo'
 
 export function SectionHeader() {
   const { t } = useTranslation('home', { keyPrefix: 'home.sectionHeader' })

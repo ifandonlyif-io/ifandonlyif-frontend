@@ -1,8 +1,9 @@
 import React from 'react'
-import { BaseComponent } from 'types'
-import { classNames } from 'utils'
 
-type CardProps = BaseComponent & {
+import type { BaseComponent } from '@/types'
+import { classNames } from '@/utils'
+
+type CardProperties = BaseComponent & {
   title?: string | null
 }
 
@@ -10,11 +11,11 @@ export function Card({
   className,
   children,
   title,
-}: React.PropsWithChildren<CardProps>) {
+}: React.PropsWithChildren<CardProperties>) {
   return (
     <div className="box-border">
       {title && (
-        <h4 className="m-0 mb-[10px] text-base font-bold text-iff-text">
+        <h4 className="text-iff-text m-0 mb-[10px] text-base font-bold">
           {title}
         </h4>
       )}

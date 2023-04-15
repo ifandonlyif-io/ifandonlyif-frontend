@@ -1,29 +1,30 @@
-import { SelectMenuArrowIcon } from 'components/Icons'
 import React from 'react'
-import { BaseComponent } from 'types'
-import { classNames } from 'utils'
+
+import { SelectMenuArrowIcon } from '@/components/Icons'
+import type { BaseComponent } from '@/types'
+import { classNames } from '@/utils'
 
 export type SelectMenuOption = {
   label: string
   value: string
 }
 
-type SelectMenusProps = BaseComponent & {
+type SelectMenusProperties = BaseComponent & {
   options: SelectMenuOption[]
   defaultValue?: SelectMenuOption
   placeholder?: string | null
   onOptionChange: (option: SelectMenuOption) => void
 }
 
-type SelectOptionProps = SelectMenuOption & {
+type SelectOptionProperties = SelectMenuOption & {
   onOptionClick: (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     option: SelectMenuOption
   ) => void
 }
 
-function SelectOption(props: SelectOptionProps) {
-  const { onOptionClick, ...option } = props
+function SelectOption(properties: SelectOptionProperties) {
+  const { onOptionClick, ...option } = properties
   return (
     <div
       className={classNames(
@@ -40,9 +41,9 @@ function SelectOption(props: SelectOptionProps) {
   )
 }
 
-export function SelectMenus(props: SelectMenusProps) {
+export function SelectMenus(properties: SelectMenusProperties) {
   const { className, defaultValue, options, placeholder, onOptionChange } =
-    props
+    properties
   const [optionsOpen, setOptionsOpen] = React.useState(false)
   const [selectedOption, setSelectedOption] = React.useState<
     SelectMenuOption | undefined

@@ -1,20 +1,21 @@
 import type {
   ReactTabsFunctionComponent,
-  TabPanelProps as RTabPanelProps,
-  TabProps as RTabProps,
+  TabPanelProps as RTabPanelProperties,
+  TabProps as RTabProperties,
 } from 'react-tabs'
-import { Tab as RTab, TabList, TabPanel as RTabPanel, Tabs } from 'react-tabs'
-import { classNames } from 'utils'
+import { Tab as RTab, TabPanel as RTabPanel } from 'react-tabs'
 
-type TabProps = RTabProps & {
+import { classNames } from '@/utils'
+
+type TabProperties = RTabProperties & {
   warned?: boolean
 }
 
-export const Tab: ReactTabsFunctionComponent<TabProps> = ({
+export const Tab: ReactTabsFunctionComponent<TabProperties> = ({
   children,
   className,
   warned = false,
-  ...props
+  ...properties
 }) => (
   <RTab
     className={classNames(
@@ -22,7 +23,7 @@ export const Tab: ReactTabsFunctionComponent<TabProps> = ({
       warned && 'react-tabs__tab--warned',
       className
     )}
-    {...props}
+    {...properties}
   >
     {children}
   </RTab>
@@ -30,13 +31,13 @@ export const Tab: ReactTabsFunctionComponent<TabProps> = ({
 
 Tab.tabsRole = 'Tab'
 
-type TabPanelProps = RTabPanelProps
+type TabPanelProperties = RTabPanelProperties
 
-export const TabPanel: ReactTabsFunctionComponent<TabPanelProps> = ({
+export const TabPanel: ReactTabsFunctionComponent<TabPanelProperties> = ({
   children,
   className,
   selected,
-  ...props
+  ...properties
 }) => (
   <RTabPanel
     forceRender
@@ -45,7 +46,7 @@ export const TabPanel: ReactTabsFunctionComponent<TabPanelProps> = ({
       selected && 'react-tabs__tab-panel--selected',
       className
     )}
-    {...props}
+    {...properties}
   >
     {children}
   </RTabPanel>
@@ -53,4 +54,4 @@ export const TabPanel: ReactTabsFunctionComponent<TabPanelProps> = ({
 
 TabPanel.tabsRole = 'TabPanel'
 
-export { TabList, Tabs }
+export { TabList, Tabs } from 'react-tabs'

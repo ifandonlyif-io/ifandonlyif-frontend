@@ -1,14 +1,15 @@
-import { IFFLogo } from 'components/Logo'
 import Link from 'next/link'
 import React from 'react'
-import { BaseComponent } from 'types'
-import { classNames } from 'utils'
 
-import { UserPanel } from './userPanel'
+import { IFFLogo } from '@/components/Logo'
+import type { BaseComponent } from '@/types'
+import { classNames } from '@/utils'
 
-type NavbarProps = BaseComponent
+import { UserPanel } from './user-panel'
 
-export function Navbar({ className }: NavbarProps) {
+type NavbarProperties = BaseComponent
+
+export function Navbar({ className }: NavbarProperties) {
   return (
     <nav
       className={classNames(
@@ -16,10 +17,8 @@ export function Navbar({ className }: NavbarProps) {
         className
       )}
     >
-      <Link href="/">
-        <a title="Home" aria-label="Home">
-          <IFFLogo className="w-16 md:w-[106px]" />
-        </a>
+      <Link href="/" title="Home" aria-label="Home">
+        <IFFLogo className="w-16 md:w-[106px]" />
       </Link>
       <UserPanel />
     </nav>

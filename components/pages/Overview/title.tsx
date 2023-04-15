@@ -1,17 +1,20 @@
-import { NeonRhombus } from 'components/Decorate'
-import { SelectMenuOption, SortByTimezone } from 'components/Forms'
-import { SortByTimezoneContext } from 'context'
-import { DefaultTimezone } from 'data'
 import React from 'react'
-import { BaseComponent } from 'types'
-import { classNames } from 'utils'
 
-const defaultOptuon: SelectMenuOption = DefaultTimezone
+import { NeonRhombus } from '@/components/Decorate'
+import { type SelectMenuOption, SortByTimezone } from '@/components/Forms'
+import { SortByTimezoneContext } from '@/context'
+import { DefaultTimezone } from '@/data'
+import { type BaseComponent } from '@/types'
+import { classNames } from '@/utils'
 
-type TabTitleProps = BaseComponent
+const defaultOption: SelectMenuOption = DefaultTimezone
 
-export function TabTitle(props: React.PropsWithChildren<TabTitleProps>) {
-  const { className, children } = props
+type TabTitleProperties = BaseComponent
+
+export function TabTitle(
+  properties: React.PropsWithChildren<TabTitleProperties>
+) {
+  const { className, children } = properties
   return (
     <div
       className={classNames(
@@ -30,7 +33,7 @@ export function TabTitle(props: React.PropsWithChildren<TabTitleProps>) {
 }
 
 type SectionTitleSize = 'medium' | 'small'
-type SectionTitleProps = BaseComponent & {
+type SectionTitleProperties = BaseComponent & {
   count?: number
   size?: SectionTitleSize
 }
@@ -41,9 +44,9 @@ const sectionTitleSizes: Record<SectionTitleSize, string> = {
 }
 
 export function SectionTitle(
-  props: React.PropsWithChildren<SectionTitleProps>
+  properties: React.PropsWithChildren<SectionTitleProperties>
 ) {
-  const { className, children, count, size = 'medium' } = props
+  const { className, children, count, size = 'medium' } = properties
   return (
     <div
       className={classNames(
@@ -58,16 +61,16 @@ export function SectionTitle(
   )
 }
 
-type SectionTitleWithSortTimezoneProviderProps = {
+type SectionTitleWithSortTimezoneProviderProperties = {
   children: React.ReactNode
 }
 
 export function SectionTitleWithSortTimezoneProvider(
-  props: SectionTitleWithSortTimezoneProviderProps
+  properties: SectionTitleWithSortTimezoneProviderProperties
 ) {
-  const { children } = props
+  const { children } = properties
   const [timezone, setTimezone] =
-    React.useState<SelectMenuOption>(defaultOptuon)
+    React.useState<SelectMenuOption>(defaultOption)
   const handleTimezoneChange = React.useCallback(
     (option: SelectMenuOption) => setTimezone(option),
     []
@@ -81,14 +84,14 @@ export function SectionTitleWithSortTimezoneProvider(
   )
 }
 
-type SectionTitleWithSortTimezoneProps = BaseComponent & {
+type SectionTitleWithSortTimezoneProperties = BaseComponent & {
   title?: string | null
 }
 
 export function SectionTitleWithSortTimezone(
-  props: SectionTitleWithSortTimezoneProps
+  properties: SectionTitleWithSortTimezoneProperties
 ) {
-  const { className, title } = props
+  const { className, title } = properties
   return (
     <div
       className={classNames(
@@ -103,7 +106,7 @@ export function SectionTitleWithSortTimezone(
         {({ onTimezoneChange }) => (
           <SortByTimezone
             className="self-end md:self-center"
-            defaultValue={defaultOptuon}
+            defaultValue={defaultOption}
             onOptionChange={onTimezoneChange}
           />
         )}

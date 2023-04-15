@@ -1,22 +1,23 @@
-import { Button, NFTButton } from 'components/Buttons'
-import { Radio, RadioGroup, Textarea } from 'components/Forms'
-import { Modal, ModalProps } from 'components/Modal'
-import { NFTFrame } from 'components/NFTs'
-import { useSortByTimezone } from 'hooks'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
-import { BaseComponent, NFTItem } from 'types'
-import { classNames, sortNFTItems } from 'utils'
+
+import { Button, NFTButton } from '@/components/Buttons'
+import { Radio, RadioGroup, Textarea } from '@/components/Forms'
+import { Modal, type ModalProperties } from '@/components/Modal'
+import { NFTFrame } from '@/components/NFTs'
+import { useSortByTimezone } from '@/hooks'
+import type { BaseComponent, NFTItem } from '@/types'
+import { classNames, sortNFTItems } from '@/utils'
 
 import { SectionTitleWithSortTimezone, TabTitle } from './title'
 
-type MemoModalTitleProps = BaseComponent & {
+type MemoModalTitleProperties = BaseComponent & {
   title: string
   rightElement?: React.ReactNode
 }
 
-function MemoModalTitle(props: MemoModalTitleProps) {
-  const { className, title, rightElement } = props
+function MemoModalTitle(properties: MemoModalTitleProperties) {
+  const { className, title, rightElement } = properties
   return (
     <div
       className={classNames(
@@ -24,7 +25,7 @@ function MemoModalTitle(props: MemoModalTitleProps) {
         className
       )}
     >
-      <h3 className="text-base font-bold text-iff-text">{title}&nbsp;-</h3>
+      <h3 className="text-iff-text text-base font-bold">{title}&nbsp;-</h3>
       {rightElement}
     </div>
   )
@@ -49,10 +50,10 @@ function MemoModalTitle(props: MemoModalTitleProps) {
 //   )
 // }
 
-type MemoModalProps = ModalProps
+type MemoModalProperties = ModalProperties
 
-function MemoModal(props: MemoModalProps) {
-  const { isOpen, onModalClose } = props
+function MemoModal(properties: MemoModalProperties) {
+  const { isOpen, onModalClose } = properties
   const { t } = useTranslation('overview', {
     keyPrefix: 'overview.panelIFFNFT.memoModal',
   })
@@ -85,8 +86,8 @@ function MemoModal(props: MemoModalProps) {
 
   return (
     <Modal isOpen={isOpen} onModalClose={onModalClose}>
-      <div className="flex flex-col px-20 pt-7 pb-9">
-        <h2 className="mb-8 text-center text-2xl font-bold text-iff-text">
+      <div className="flex flex-col px-20 pb-9 pt-7">
+        <h2 className="text-iff-text mb-8 text-center text-2xl font-bold">
           {t('heading')}
         </h2>
         <form className="flex min-w-[390px] flex-col" action="#">
@@ -138,12 +139,12 @@ function MemoModal(props: MemoModalProps) {
   )
 }
 
-type NFTButtonsProps = {
+type NFTButtonsProperties = {
   onMemoClick: () => void
 }
 
-function NFTButtons(props: NFTButtonsProps) {
-  const { onMemoClick } = props
+function NFTButtons(properties: NFTButtonsProperties) {
+  const { onMemoClick } = properties
   const { t } = useTranslation('overview', {
     keyPrefix: 'overview.panelIFFNFT.nftButtons',
   })
@@ -164,12 +165,12 @@ function NFTButtons(props: NFTButtonsProps) {
   )
 }
 
-export type PanelIFFNFTProps = {
+export type PanelIFFNFTProperties = {
   myIFFNFT: NFTItem[]
 }
 
-export function PanelIFFNFT(props: PanelIFFNFTProps) {
-  const { myIFFNFT } = props
+export function PanelIFFNFT(properties: PanelIFFNFTProperties) {
+  const { myIFFNFT } = properties
   const sortedNFTs = sortNFTItems(myIFFNFT).reverse()
   const { t } = useTranslation('overview')
   const timezone = useSortByTimezone()
@@ -178,7 +179,7 @@ export function PanelIFFNFT(props: PanelIFFNFTProps) {
   const handleModalClose = React.useCallback(() => setIsOpen(false), [])
 
   return (
-    <div className="min-h-[640px] py-6 px-4 md:py-[50px] md:px-5">
+    <div className="min-h-[640px] px-4 py-6 md:px-5 md:py-[50px]">
       <TabTitle className="mb-4">{t('overview.panelIFFNFT.tabTitle')}</TabTitle>
       <SectionTitleWithSortTimezone className="mb-4" />
       <section className="mb-4 flex flex-col md:mb-8">

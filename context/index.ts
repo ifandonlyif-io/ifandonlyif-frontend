@@ -1,6 +1,7 @@
-import { SelectMenuOption } from 'components/Forms'
-import { DefaultTimezone } from 'data'
 import React from 'react'
+
+import type { SelectMenuOption } from '@/components/Forms'
+import { DefaultTimezone } from '@/data'
 
 export type SortByTimezoneContextValue = {
   zone: SelectMenuOption

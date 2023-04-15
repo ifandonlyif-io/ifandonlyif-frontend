@@ -1,5 +1,6 @@
-import { SortByTimezoneContext } from 'context'
 import React from 'react'
+
+import { SortByTimezoneContext } from '@/context'
 
 export function useSortByTimezone() {
   const { zone } = React.useContext(SortByTimezoneContext)

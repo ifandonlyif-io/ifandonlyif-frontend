@@ -1,2 +1,2 @@
-export * from './nftCard'
-export * from './nftFrame'
+export * from './nft-card'
+export * from './nft-frame'

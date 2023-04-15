@@ -1,8 +1,8 @@
-import { SvgIconProps } from 'components/Icons'
-import { BaseComponent } from 'types'
-import { classNames } from 'utils'
+import type { SvgIconProperties } from '@/components/Icons'
+import type { BaseComponent } from '@/types'
+import { classNames } from '@/utils'
 
-export function IFFLogo(props: BaseComponent & SvgIconProps) {
+export function IFFLogo(properties: BaseComponent & SvgIconProperties) {
   return (
     <svg
       width="106"
@@ -10,7 +10,7 @@ export function IFFLogo(props: BaseComponent & SvgIconProps) {
       viewBox="0 0 106 62"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      {...props}
+      {...properties}
     >
       <rect width="106" height="62" fill="black" />
       <path
@@ -21,8 +21,8 @@ export function IFFLogo(props: BaseComponent & SvgIconProps) {
   )
 }
 
-export function IFFCube(props: BaseComponent) {
-  const { className } = props
+export function IFFCube(properties: BaseComponent) {
+  const { className } = properties
   return (
     <div
       className={classNames(

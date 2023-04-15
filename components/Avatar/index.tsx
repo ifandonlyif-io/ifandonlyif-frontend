@@ -1,13 +1,13 @@
-/* eslint-disable @next/next/no-img-element */
 import type * as CSS from 'csstype'
-import type { BaseComponent } from 'types'
-import { classNames } from 'utils'
+
+import type { BaseComponent } from '@/types'
+import { classNames } from '@/utils'
 
 type Size = 'small' | 'medium' | 'large'
 
 type Variant = 'image' | 'text'
 
-type AvatarProps = BaseComponent & {
+type AvatarProperties = BaseComponent & {
   src: string
   alt?: string
   size?: Size
@@ -28,10 +28,13 @@ const shadow: Record<Size, string> = {
   large: 'shadow-avatar-large drop-shadow-avatar-large',
 }
 
-type EmptyAvatarProps = Pick<AvatarProps, 'size' | 'alt' | 'className'>
+type EmptyAvatarProperties = Pick<
+  AvatarProperties,
+  'size' | 'alt' | 'className'
+>
 
-function EmptyAvatar(props: EmptyAvatarProps) {
-  const { className, size = 'medium', alt = 'avatar' } = props
+function EmptyAvatar(properties: EmptyAvatarProperties) {
+  const { className, size = 'medium', alt = 'avatar' } = properties
   return (
     <span
       data-testid="empty-avatar"
@@ -53,7 +56,7 @@ function EmptyAvatar(props: EmptyAvatarProps) {
   )
 }
 
-function ImageAvatar(props: AvatarProps) {
+function ImageAvatar(properties: AvatarProperties) {
   const {
     className,
     size = 'medium',
@@ -61,7 +64,7 @@ function ImageAvatar(props: AvatarProps) {
     alt = 'avatar',
     onClick,
     ...others
-  } = props
+  } = properties
   return (
     <img
       className={classNames(
@@ -79,7 +82,7 @@ function ImageAvatar(props: AvatarProps) {
   )
 }
 
-function TextAvatar(props: AvatarProps) {
+function TextAvatar(properties: AvatarProperties) {
   const {
     className,
     src,
@@ -88,7 +91,7 @@ function TextAvatar(props: AvatarProps) {
     alt = 'avatar',
     onClick,
     ...others
-  } = props
+  } = properties
   return (
     <div
       className={classNames(
@@ -109,10 +112,14 @@ function TextAvatar(props: AvatarProps) {
   )
 }
 
-export function Avatar({ variant = 'image', src, ...props }: AvatarProps) {
-  if (variant === 'text') return <TextAvatar src={src} {...props} />
+export function Avatar({
+  variant = 'image',
+  src,
+  ...properties
+}: AvatarProperties) {
+  if (variant === 'text') return <TextAvatar src={src} {...properties} />
 
-  if (!src) return <EmptyAvatar {...props} />
+  if (!src) return <EmptyAvatar {...properties} />
 
-  return <ImageAvatar src={src} {...props} />
+  return <ImageAvatar src={src} {...properties} />
 }

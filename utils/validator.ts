@@ -1,5 +1,5 @@
 import { getAddress, isAddress } from 'ethers/lib/utils'
-import { ValidateResult } from 'react-hook-form'
+import { type ValidateResult } from 'react-hook-form'
 
 import { readonlyProvider } from './chain'
 
@@ -8,7 +8,7 @@ export function validateStringIsUrl(value: string): boolean {
     const url = new URL('/', value)
     if (url.origin) return true
     return false
-  } catch (error) {
+  } catch {
     return false
   }
 }
@@ -36,14 +36,14 @@ export function validateToAddressMatch(
 
 export function validateCheckSiteUrlData(value: string): ValidateResult {
   const check = validateStringIsUrl(value)
-  if (check) return true
   if (!check)
     return 'home.sectionNFTCheck.siteCheckPanel.textarea.errorMessage.correctUrl'
+  return true
 }
 
 export async function validateMintIffNftFormInputAddress(
   value: string,
-  account: string | null
+  account: string | null | undefined
 ): Promise<ValidateResult> {
   const isAddress = validateStringIsAddress(value)
   if (!isAddress || !account)

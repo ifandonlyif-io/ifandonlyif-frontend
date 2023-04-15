@@ -1,19 +1,20 @@
-import { SelectMenuOption, SelectMenus } from 'components/Forms'
-import { TimezoneOptions } from 'data'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
-import { BaseComponent } from 'types'
-import { classNames } from 'utils'
 
-export type SortByTimezoneProps = BaseComponent & {
+import { type SelectMenuOption, SelectMenus } from '@/components/Forms'
+import { TimezoneOptions } from '@/data'
+import type { BaseComponent } from '@/types'
+import { classNames } from '@/utils'
+
+export type SortByTimezoneProperties = BaseComponent & {
   defaultValue?: SelectMenuOption
   onOptionChange: (option: SelectMenuOption) => void
 }
 
 const timezoneOptions: SelectMenuOption[] = TimezoneOptions
 
-export function SortByTimezone(props: SortByTimezoneProps) {
-  const { className, defaultValue, onOptionChange } = props
+export function SortByTimezone(properties: SortByTimezoneProperties) {
+  const { className, defaultValue, onOptionChange } = properties
   const { t } = useTranslation(['common', 'overview'], {
     keyPrefix: 'forms.sortByTimezone',
   })
@@ -26,7 +27,7 @@ export function SortByTimezone(props: SortByTimezoneProps) {
     [t]
   )
   const defaultValueWithTranslate = React.useMemo(() => {
-    if (!defaultValue) return undefined
+    if (!defaultValue) return
     return {
       label: t(`timezoneOptions.${defaultValue.value}`),
       value: defaultValue.value,
@@ -40,9 +41,9 @@ export function SortByTimezone(props: SortByTimezoneProps) {
         className
       )}
     >
-      <div className="mr-4 text-base font-bold text-iff-text">{t('label')}</div>
+      <div className="text-iff-text mr-4 text-base font-bold">{t('label')}</div>
       <SelectMenus
-        className="min-w-[240px] !text-iff-text"
+        className="!text-iff-text min-w-[240px]"
         placeholder={t('placeholder')}
         options={timezoneOptionsWithTranslate}
         defaultValue={defaultValueWithTranslate}

@@ -1,17 +1,17 @@
-/* eslint-disable @next/next/no-img-element */
-import { Avatar } from 'components/Avatar'
-import { CheckMarkIcon, CrossMarkIcon } from 'components/Icons'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
-import { BaseComponent } from 'types'
-import { classNames, formatDatetime } from 'utils'
+
+import { Avatar } from '@/components/Avatar'
+import { CheckMarkIcon, CrossMarkIcon } from '@/components/Icons'
+import type { BaseComponent } from '@/types'
+import { classNames, formatDateTime } from '@/utils'
 
 export type HolderRecord = {
   unixEpoch: number
   message: string
 }
 
-export type NFTCardProps = BaseComponent & {
+export type NFTCardProperties = BaseComponent & {
   name: string
   nftId: number
   nftType: string
@@ -22,10 +22,10 @@ export type NFTCardProps = BaseComponent & {
   validity?: boolean
 }
 
-type HolderRecordProps = BaseComponent & HolderRecord
+type HolderRecordProperties = BaseComponent & HolderRecord
 
 function dateString(unixEpoch: number): string {
-  return formatDatetime(unixEpoch, 'yyyy/L/dd')
+  return formatDateTime(unixEpoch, 'yyyy/L/dd')
 }
 
 function TextRow({
@@ -48,8 +48,8 @@ function Text({ className, children }: React.PropsWithChildren<BaseComponent>) {
   return <p className={classNames('p-0 m-0', className)}>{children}</p>
 }
 
-function NFTCardFront(props: NFTCardProps) {
-  const { name, nftId, nftType, imageUri } = props
+function NFTCardFront(properties: NFTCardProperties) {
+  const { name, nftId, nftType, imageUri } = properties
   return (
     <div className="iff-nft-card__face iff-nft-card__face--front">
       <div className="flex flex-1 flex-col rounded-t-[10px] bg-[#F5F5F5] px-5">
@@ -77,8 +77,8 @@ function NFTCardFront(props: NFTCardProps) {
   )
 }
 
-function NFTValidity(props: Pick<NFTCardProps, 'validity'>) {
-  const { validity } = props
+function NFTValidity(properties: Pick<NFTCardProperties, 'validity'>) {
+  const { validity } = properties
   const { t } = useTranslation('common', {
     keyPrefix: 'nfts.nftCard.nftValidity',
   })
@@ -96,8 +96,8 @@ function NFTValidity(props: Pick<NFTCardProps, 'validity'>) {
   )
 }
 
-function HolderRecord(props: HolderRecordProps) {
-  const { className, unixEpoch, message } = props
+function HolderRecord(properties: HolderRecordProperties) {
+  const { className, unixEpoch, message } = properties
   const date = dateString(unixEpoch)
   return (
     <div
@@ -125,9 +125,9 @@ function HolderRecord(props: HolderRecordProps) {
   )
 }
 
-function NFTCardBack(props: NFTCardProps) {
-  const { name, nftId, nftType, imageUri, kycEpoch } = props
-  const { holderRecords = [], validity = false } = props
+function NFTCardBack(properties: NFTCardProperties) {
+  const { name, nftId, nftType, imageUri, kycEpoch } = properties
+  const { holderRecords = [], validity = false } = properties
   const date = dateString(kycEpoch)
   const { t } = useTranslation('common', { keyPrefix: 'nfts.nftCard.text' })
 
@@ -146,7 +146,7 @@ function NFTCardBack(props: NFTCardProps) {
           <Text className="font-normal">{nftType}</Text>
         </div>
       </TextRow>
-      <div className="flex flex-1 flex-col py-4 px-5 text-black">
+      <div className="flex flex-1 flex-col px-5 py-4 text-black">
         <TextRow className="text-sm">
           <Text className="font-normal">{t('date')}</Text>
           <Text className="font-semibold">{date}</Text>
@@ -155,9 +155,9 @@ function NFTCardBack(props: NFTCardProps) {
           <Text className="font-normal">{t('validity')}</Text>
           <NFTValidity validity={validity} />
         </TextRow>
-        <div className="mt-4 h-[1px] w-full bg-iff-cyan" />
+        <div className="bg-iff-cyan mt-4 h-[1px] w-full" />
         <Text className="mt-3 text-sm font-normal">{t('history')}</Text>
-        <div className="mt-3 ml-2 flex h-[140px] min-h-0 flex-col overflow-y-scroll">
+        <div className="ml-2 mt-3 flex h-[140px] min-h-0 flex-col overflow-y-scroll">
           {holderRecords.map((recoed, index) => (
             <HolderRecord
               unixEpoch={recoed.unixEpoch}
@@ -166,7 +166,7 @@ function NFTCardBack(props: NFTCardProps) {
             />
           ))}
         </div>
-        <Text className="mt-1 ml-[11px] text-xs text-[#BDBDBD]">
+        <Text className="ml-[11px] mt-1 text-xs text-[#BDBDBD]">
           {t('recently')}
         </Text>
       </div>
@@ -174,8 +174,8 @@ function NFTCardBack(props: NFTCardProps) {
   )
 }
 
-export function NFTCard(props: NFTCardProps) {
-  const { className, flipBack = false } = props
+export function NFTCard(properties: NFTCardProperties) {
+  const { className, flipBack = false } = properties
   return (
     <div className={classNames('iff-nft-card-scene', className)}>
       <div
@@ -184,8 +184,8 @@ export function NFTCard(props: NFTCardProps) {
           flipBack && '[transform:rotateY(180deg)]'
         )}
       >
-        <NFTCardFront {...props} />
-        <NFTCardBack {...props} />
+        <NFTCardFront {...properties} />
+        <NFTCardBack {...properties} />
       </div>
     </div>
   )

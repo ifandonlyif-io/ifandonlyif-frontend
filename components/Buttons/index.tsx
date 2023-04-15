@@ -1,9 +1,10 @@
 import React from 'react'
-import { classNames } from 'utils'
+
+import { classNames } from '@/utils'
 
 type Size = 'small' | 'medium' | 'large'
 
-export type ButtonProps = React.ComponentProps<'button'> & {
+export type ButtonProperties = React.ComponentProps<'button'> & {
   primary?: boolean
   outline?: boolean
   shadow?: boolean
@@ -26,8 +27,8 @@ export function Button({
   shadow = true,
   size = 'medium',
   children,
-  ...props
-}: ButtonProps) {
+  ...properties
+}: ButtonProperties) {
   return (
     <button
       className={classNames(
@@ -41,14 +42,14 @@ export function Button({
         className
       )}
       type="button"
-      {...props}
+      {...properties}
     >
       {children}
     </button>
   )
 }
 
-type NFTButtonProps = Omit<ButtonProps, 'primary' | 'size'> & {
+type NFTButtonProperties = Omit<ButtonProperties, 'primary' | 'size'> & {
   size?: Exclude<Size, 'large'>
 }
 
@@ -62,8 +63,8 @@ export function NFTButton({
   className,
   outline,
   size = 'medium',
-  ...props
-}: NFTButtonProps) {
+  ...properties
+}: NFTButtonProperties) {
   return (
     <button
       className={classNames(
@@ -75,7 +76,7 @@ export function NFTButton({
         nftSizes[size],
         className
       )}
-      {...props}
+      {...properties}
     >
       {children}
     </button>
