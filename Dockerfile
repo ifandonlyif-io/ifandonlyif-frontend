@@ -9,7 +9,7 @@ WORKDIR /app
 
 COPY package.json pnpm-lock.yaml* ./
 
-RUN corepack pnpm install --frozen-lockfile
+RUN NODE_OPTIONS=--max_old_space_size=1600 corepack pnpm install --frozen-lockfile
 
 # Rebuild the source code only when needed
 FROM base AS builder
@@ -22,7 +22,7 @@ ARG IFANDONLYIF_FRONTEND_BUILD_ARGS=empty
 RUN echo $IFANDONLYIF_FRONTEND_BUILD_ARGS | base64 -d > .env.local
 RUN cat .env.local
 
-RUN corepack pnpm run build
+RUN NODE_OPTIONS=--max_old_space_size=1600 corepack pnpm run build
 
 # Production image, copy all the files and run next
 FROM base AS runner

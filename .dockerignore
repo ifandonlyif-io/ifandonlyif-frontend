@@ -11,6 +11,7 @@ node_modules
 # files
 .DS_Store
 .dockerignore
+.drone.yml
 .editorconfig
 .env
 .env*.local
