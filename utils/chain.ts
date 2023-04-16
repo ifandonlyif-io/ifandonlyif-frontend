@@ -1,6 +1,10 @@
 import { ethers } from 'ethers'
 
-import { getAlchemyApiKey, getDefaultChainId, getInfuraApiKey } from './env'
+import {
+  getAlchemyApiKey,
+  getDefaultChainId,
+  getInfuraApiKey,
+} from './environment'
 
 const defaultChainId = getDefaultChainId()
 const infuraKey = getInfuraApiKey()

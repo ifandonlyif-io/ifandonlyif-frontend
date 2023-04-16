@@ -44,7 +44,8 @@
     "react-i18next": "^12.2.0",
     "react-tabs": "^6.0.0",
     "swr": "^2.1.3",
-    "use-local-storage-state": "^18.3.2"
+    "use-local-storage-state": "^18.3.2",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.6.1",

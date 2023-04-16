@@ -1,6 +1,7 @@
 import { type FetchContext, type FetchResponse, ofetch } from 'ofetch'
 
 import { LSK_ACCESS_TOKEN } from '@/constants'
+import { environment } from '@/env'
 import type {
   FeedbackItem,
   FetchUserNftsResponse,
@@ -12,8 +13,7 @@ import type {
 import { convertOwnedNftsToMyNfts, parseISODateTime } from '@/utils'
 
 function getAPIBaseUrl(path: string): string {
-  const baseUrl: string | undefined = process.env.NEXT_PUBLIC_API_URL
-  if (!baseUrl) throw new TypeError('NEXT_PUBLIC_API_URL not set')
+  const baseUrl = environment.client.NEXT_PUBLIC_API_URL
   return new URL(path, baseUrl).href
 }
 
