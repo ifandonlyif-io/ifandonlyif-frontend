@@ -4,7 +4,7 @@ RUN corepack enable
 # Install dependencies only when needed
 FROM base AS deps
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-RUN apk add --no-cache libc6-compat
+RUN apk add --update --no-cache libc6-compat python3 build-base gcc && ln -sf /usr/bin/python3 /usr/bin/python
 WORKDIR /app
 
 COPY package.json pnpm-lock.yaml* ./
@@ -14,6 +14,8 @@ RUN NODE_OPTIONS=--max_old_space_size=1600 corepack pnpm install --frozen-lockfi
 # Rebuild the source code only when needed
 FROM base AS builder
 WORKDIR /app
+
+ENV I18NEXT_DEFAULT_CONFIG_PATH next-i18next.config.cjs
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
