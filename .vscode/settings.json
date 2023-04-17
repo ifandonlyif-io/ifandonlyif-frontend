@@ -21,6 +21,7 @@
   "cSpell.words": [
     "autodocs",
     "commitlint",
+    "connectkit",
     "countup",
     "csstype",
     "ethersproject",
@@ -30,9 +31,11 @@
     "Kiritimati",
     "luxon",
     "Magadan",
+    "nextjs",
     "Nuku'alofa",
     "ofetch",
     "premint",
-    "tailwindcss"
+    "tailwindcss",
+    "wagmi"
   ]
 }

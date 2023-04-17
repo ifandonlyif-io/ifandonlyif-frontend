@@ -1,7 +1,16 @@
-export function stringSlice(str: string, start: number, end: number): string {
-  return `${str.slice(0, start)} ... ${str.slice(-Math.abs(end))}`
+import { isAddress } from 'ethers/lib/utils.js'
+
+export function stringSlice(
+  string_: string,
+  start: number,
+  end: number
+): string {
+  return `${string_.slice(0, start)} ... ${string_.slice(-Math.abs(end))}`
 }
 
-export function shortAccount(account: string): string {
-  return stringSlice(account, 6, 4)
+export function shortenAddress(address: string): string {
+  if (isAddress(address)) {
+    return stringSlice(address, 6, 4)
+  }
+  return address
 }

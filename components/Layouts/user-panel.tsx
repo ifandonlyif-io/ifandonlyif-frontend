@@ -1,12 +1,13 @@
+import { ConnectKitButton } from 'connectkit'
 import { useTranslation } from 'next-i18next'
-import React from 'react'
+import React, { Fragment } from 'react'
 
 import { Avatar } from '@/components/Avatar'
 import { Button, type ButtonProperties } from '@/components/Buttons'
 import { EthereumIcon, MetamaskIcon } from '@/components/Icons'
 import { useIffAccount } from '@/hooks'
 import type { BaseComponent } from '@/types'
-import { classNames, shortAccount } from '@/utils'
+import { classNames, shortenAddress } from '@/utils'
 
 type WalletInfoProperties = BaseComponent & {
   onClose: () => void
@@ -16,7 +17,7 @@ function WalletInfo(properties: WalletInfoProperties) {
   const { className, onClose } = properties
   const { t } = useTranslation('common')
   const { account, signOut } = useIffAccount()
-  const accumulatorString = account && shortAccount(account.wallet)
+  const accountString = account && shortenAddress(account.wallet)
 
   const handleDisconnectClick = React.useCallback(async () => {
     await signOut()
@@ -27,7 +28,7 @@ function WalletInfo(properties: WalletInfoProperties) {
     <div className={classNames('grid grid-cols-1 gap-3', className)}>
       <div className="flex flex-row flex-nowrap items-center">
         <EthereumIcon />
-        <div className="ml-2 text-lg">{accumulatorString}</div>
+        <div className="ml-2 text-lg">{accountString}</div>
       </div>
       <button
         id="disconnect-wallet"
@@ -61,28 +62,48 @@ function WalletDropdown(properties: WalletDropdownProperties) {
 function ConnectWalletButton(properties: Omit<ButtonProperties, 'children'>) {
   const { t } = useTranslation('common')
   return (
-    <Button
-      outline
-      className="gap-2 px-[8px]"
-      shadow={false}
-      size="small"
-      {...properties}
-    >
-      {t('layouts.userPanel.connectWalletButton.connectButton')}
-      <MetamaskIcon />
-    </Button>
+    <ConnectKitButton.Custom>
+      {({ isConnected, show, address }) => {
+        return (
+          <Fragment>
+            {isConnected ? (
+              <Button
+                outline
+                className="gap-2 px-[8px]"
+                shadow={false}
+                size="small"
+                {...properties}
+              >
+                Sign In
+                {address && ` with ${shortenAddress(address)}`}
+              </Button>
+            ) : (
+              <Button
+                outline
+                className="gap-2 px-[8px]"
+                shadow={false}
+                size="small"
+                onClick={show}
+              >
+                {t('layouts.userPanel.connectWalletButton.connectButton')}
+                <MetamaskIcon />
+              </Button>
+            )}
+          </Fragment>
+        )
+      }}
+    </ConnectKitButton.Custom>
   )
 }
 
 type UserPanelProperties = BaseComponent
 
 export function UserPanel({ className }: UserPanelProperties) {
-  const { account, accountMismatch, chainMismatch, expired, signIn } =
-    useIffAccount()
+  const { account, expired, signIn } = useIffAccount()
 
   const [isOpen, setIsOpen] = React.useState(false)
 
-  const isLoggedIn = !expired && !accountMismatch && !chainMismatch
+  const isLoggedIn = !expired
   const username = account?.username || 'Name'
 
   const handleWalletConnectClick = React.useCallback(async () => {

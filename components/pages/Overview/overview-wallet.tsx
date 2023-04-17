@@ -1,10 +1,9 @@
-import { formatEther, formatUnits, parseUnits } from 'ethers/lib/utils'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
+import { useAccount, useBalance } from 'wagmi'
 
 import { Card } from '@/components/Card'
 import { EthereumIcon, MoreVerticalIcon } from '@/components/Icons'
-import { useWeb3Account } from '@/hooks'
 import type { BaseComponent } from '@/types'
 import { classNames } from '@/utils'
 
@@ -17,14 +16,13 @@ function WalletInfo(properties: WalletInfoProperties) {
   const { t } = useTranslation('overview', {
     keyPrefix: 'overview.panelOverview.overviewWallet.walletInfo',
   })
-  const { account, balance } = useWeb3Account()
+  const { address } = useAccount()
+  const { data: balance } = useBalance({ address, watch: true })
 
-  const balanceString = Number.parseFloat(formatEther(balance)).toFixed(4)
-  const _ethPrice = parseUnits(ethPrice, 4)
-  const ethUsdPrice = balance.mul(_ethPrice)
-  const ethUsdPriceString = Number.parseFloat(
-    formatUnits(ethUsdPrice, 22)
-  ).toFixed(2)
+  const balanceString = Number.parseFloat(balance?.formatted || '0').toFixed(4)
+  const ethUsdPrice =
+    Number.parseFloat(ethPrice) * Number.parseFloat(balance?.formatted || '0')
+  const ethUsdPriceString = ethUsdPrice.toFixed(2)
 
   return (
     <div className="flex flex-col text-base">
@@ -32,7 +30,7 @@ function WalletInfo(properties: WalletInfoProperties) {
         <div className="mr-4">
           <EthereumIcon />
         </div>
-        <p className="text-iff-text flex-1 break-all font-bold">{account}</p>
+        <p className="text-iff-text flex-1 break-all font-bold">{address}</p>
         <button className="ml-4 md:ml-0 md:mr-8" title="More">
           <MoreVerticalIcon stroke="#4F4F4F" />
         </button>
