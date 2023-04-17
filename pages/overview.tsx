@@ -26,9 +26,7 @@ import {
   SectionTitleWithSortTimezoneProvider,
 } from '@/components/pages/Overview'
 import { Tab, TabList, TabPanel, Tabs } from '@/components/Tabs'
-import { useIffNftContract, useWeb3Account } from '@/hooks'
-import type { MintIffNftFormData, NextPageWithLayout, NFTItem } from '@/types'
-import { getIffNftTypeId, isEthersError } from '@/utils'
+import type { NextPageWithLayout } from '@/types'
 
 type OverviewProperties = {
   overview: PanelOverviewProperties
@@ -56,8 +54,6 @@ const Overview: NextPageWithLayout<OverviewProperties> = (
   const { overview, mintIt } = properties
   const { t } = useTranslation('overview')
   const router = useRouter()
-  const { provider } = useWeb3Account()
-  const iffNftContract = useIffNftContract(provider)
   const { data: myNfts } = useSWR('/auth/fetchUserNft', getUserNft)
 
   const [tabIndex, setTabIndex] = React.useState(0)
@@ -67,38 +63,6 @@ const Overview: NextPageWithLayout<OverviewProperties> = (
       router.push(tabs[index].href)
     },
     [router]
-  )
-
-  const handleMintIffNftClick = React.useCallback(
-    async (nft: NFTItem, data: MintIffNftFormData) => {
-      try {
-        if (!iffNftContract) return
-        const { inputAddress, userInfo } = data
-        const typeId = getIffNftTypeId(nft.name)
-        if (typeId === null || typeof typeId !== 'number')
-          return alert(
-            t('overview.panelMintIt.mintItMyNFT.errorMessage.invalidTypeId')
-          )
-
-        const mint = await iffNftContract.mintNFT(
-          inputAddress,
-          typeId,
-          userInfo
-        )
-        const receipt = await mint.wait()
-        console.debug('handleMintIffNftClick', receipt.transactionHash)
-        alert(`Mint transaction hash: ${receipt.transactionHash}`)
-      } catch (error) {
-        if (isEthersError(error)) {
-          alert(`Mint error: ${error.reason}`)
-        } else if (error instanceof Error) {
-          alert(`Mint error: ${error.message}`)
-        } else if (typeof error === 'string') {
-          alert(`Mint error: ${error}`)
-        }
-      }
-    },
-    [iffNftContract, t]
   )
 
   React.useEffect(() => {
@@ -127,7 +91,6 @@ const Overview: NextPageWithLayout<OverviewProperties> = (
               myWhitelist={mintIt.myWhitelist}
               preSaleWhitelist={mintIt.preSaleWhitelist}
               myNFTs={myNfts || []}
-              onMintIffNftClick={handleMintIffNftClick}
             />
           </TabPanel>
           {/* <TabPanel>

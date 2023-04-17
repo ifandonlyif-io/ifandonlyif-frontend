@@ -1,12 +1,13 @@
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { type SubmitHandler, useForm } from 'react-hook-form'
+import { useAccount } from 'wagmi'
 
 import { Button, NFTButton } from '@/components/Buttons'
 import { Input } from '@/components/Forms'
 import { Modal, type ModalProperties } from '@/components/Modal'
 import { NFTFrame } from '@/components/NFTs'
-import { useWeb3Account } from '@/hooks'
+import { useMintIffNft } from '@/hooks'
 import type {
   BaseComponent,
   MintIffNftFormData,
@@ -15,6 +16,7 @@ import type {
 } from '@/types'
 import {
   classNames,
+  getIffNftTypeId,
   sortNFTItems,
   validateMintIffNftFormInputAddress,
   validateMintIffNftFormUserInfo,
@@ -57,20 +59,28 @@ function MintModalError(properties: MintModalErrorProperties) {
 
 type MintModalProperties = ModalProperties & {
   nft: NFTItem | undefined
-  onMintIffNftClick: (nft: NFTItem, data: MintIffNftFormData) => Promise<void>
 }
 
 function MintModal(properties: MintModalProperties) {
-  const { isOpen, nft, onModalClose, onMintIffNftClick } = properties
-  const { account } = useWeb3Account()
+  const { isOpen, nft, onModalClose } = properties
+  const { address } = useAccount()
   const { t } = useTranslation('overview', {
     keyPrefix: 'overview.panelMintIt.mintItMyNFT.mintModal',
   })
   const {
     register,
+    watch,
     formState: { errors },
     handleSubmit,
   } = useForm<MintIffNftFormData>()
+  const typeId = React.useMemo(
+    () => getIffNftTypeId(nft?.name || '') ?? -1,
+    [nft]
+  )
+  const inputAddress = watch('inputAddress')
+  const userInfo = watch('userInfo')
+
+  const { writeAsync } = useMintIffNft(inputAddress, typeId, userInfo)
 
   const required = t('input.errorMessage.required') || true
 
@@ -91,10 +101,10 @@ function MintModal(properties: MintModalProperties) {
     async (data) => {
       if (!nft) return
       console.debug('handleMintModalSubmit', data)
-      await onMintIffNftClick(nft, data)
+      await writeAsync?.()
       onModalClose && onModalClose()
     },
-    [nft, onMintIffNftClick, onModalClose]
+    [nft, onModalClose, writeAsync]
   )
 
   return (
@@ -119,7 +129,7 @@ function MintModal(properties: MintModalProperties) {
               {...register('inputAddress', {
                 required,
                 validate: (value) =>
-                  validateMintIffNftFormInputAddress(value, account),
+                  validateMintIffNftFormInputAddress(value, address),
               })}
             />
           </div>
@@ -159,13 +169,12 @@ function MintModal(properties: MintModalProperties) {
   )
 }
 
-export type MintItMyNFTProperties = BaseComponent &
-  Pick<MintModalProperties, 'onMintIffNftClick'> & {
-    myNFTs: MyNFTItem[]
-  }
+export type MintItMyNFTProperties = BaseComponent & {
+  myNFTs: MyNFTItem[]
+}
 
 export function MintItMyNFT(properties: MintItMyNFTProperties) {
-  const { myNFTs, className, onMintIffNftClick } = properties
+  const { myNFTs, className } = properties
   const { t } = useTranslation('overview', {
     keyPrefix: 'overview.panelMintIt.mintItMyNFT',
   })
@@ -206,7 +215,6 @@ export function MintItMyNFT(properties: MintItMyNFTProperties) {
         isOpen={isOpen}
         nft={selectedNft}
         onModalClose={handleModalClose}
-        onMintIffNftClick={onMintIffNftClick}
       />
     </section>
   )
