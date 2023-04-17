@@ -1,14 +1,40 @@
-import { Web3Provider } from '@ethersproject/providers'
 import React from 'react'
+import {
+  useContractWrite,
+  usePrepareContractWrite,
+  useWaitForTransaction,
+} from 'wagmi'
 
-import { IFFNFT__factory } from '@/contracts'
+import { IFFNFT } from '@/contracts/abi'
 import { getIffNftContractAddress } from '@/utils'
 
-export function useIffNftContract(provider: Web3Provider | undefined) {
-  return React.useMemo(() => {
-    const address = getIffNftContractAddress()
-    if (!provider || !address) return
-    const signer = provider.getSigner()
-    return IFFNFT__factory.connect(address, signer)
-  }, [provider])
+export function useMintIffNft(
+  inputAddress: `0x${string}`,
+  typeId: number,
+  userInfo: string
+) {
+  const address = React.useMemo(() => getIffNftContractAddress(), [])
+  const {
+    config,
+    error: prepareError,
+    isError: isPrepareError,
+  } = usePrepareContractWrite({
+    address,
+    abi: IFFNFT,
+    functionName: 'mintNFT',
+    args: [inputAddress, typeId, userInfo],
+  })
+  const { data, error, isError, writeAsync } = useContractWrite(config)
+  const { isLoading, isSuccess } = useWaitForTransaction({ hash: data?.hash })
+
+  return {
+    data,
+    writeAsync,
+    isLoading,
+    isSuccess,
+    isError,
+    isPrepareError,
+    error,
+    prepareError,
+  }
 }
