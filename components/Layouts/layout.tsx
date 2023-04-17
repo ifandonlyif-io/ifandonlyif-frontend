@@ -25,8 +25,14 @@ export function OverviewLayout({ children }: LayoutProperties) {
   const { t } = useTranslation('common', {
     keyPrefix: 'layouts.layout.overviewLayout',
   })
-  const { expired, accountMismatch, chainMismatch } = useIffAccount()
-  const isLoggedIn = !expired && !accountMismatch && !chainMismatch
+  const { account, address, expired, signOut } = useIffAccount()
+  const isLoggedIn = !expired
+
+  React.useEffect(() => {
+    if (!expired && account && address && account.wallet !== address) {
+      signOut().then()
+    }
+  }, [account, address, expired, signOut])
 
   return (
     <Fragment>
