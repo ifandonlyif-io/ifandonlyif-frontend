@@ -1,4 +1,5 @@
 import type * as CSS from 'csstype'
+import Image from 'next/image'
 
 import type { BaseComponent } from '@/types'
 import { classNames } from '@/utils'
@@ -20,6 +21,12 @@ const sizes: Record<Size, string> = {
   small: 'w-11 h-11 border-[1.5px]',
   medium: 'w-[62px] h-[62px] border-[3px]',
   large: 'w-20 h-20 border-[3px]',
+}
+
+const imgSizes: Record<Size, number> = {
+  small: 44,
+  medium: 62,
+  large: 80,
 }
 
 const shadow: Record<Size, string> = {
@@ -66,7 +73,7 @@ function ImageAvatar(properties: AvatarProperties) {
     ...others
   } = properties
   return (
-    <img
+    <Image
       className={classNames(
         'inline-block box-border rounded-full border-solid',
         sizes[size],
@@ -77,6 +84,8 @@ function ImageAvatar(properties: AvatarProperties) {
       style={{ borderColor: color }}
       alt={alt}
       onClick={onClick}
+      width={imgSizes[size]}
+      height={imgSizes[size]}
       {...others}
     />
   )

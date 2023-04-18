@@ -36,6 +36,7 @@
     "ofetch",
     "premint",
     "tailwindcss",
+    "unoptimized",
     "wagmi"
   ]
 }

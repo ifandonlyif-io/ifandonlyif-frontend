@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
@@ -41,10 +42,13 @@ export function NFTFrame(
           expired && 'opacity-50'
         )}
       >
-        <img
+        <Image
           className="aspect-square h-full w-full object-cover object-center"
           src={imageUri}
           alt="NFT Image"
+          width={250}
+          height={250}
+          unoptimized
         />
         {!hideTime && (
           <p

@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
@@ -67,10 +68,13 @@ function NFTCardFront(properties: NFTCardProperties) {
         </TextRow>
       </div>
       <div className="flex flex-col items-center p-5">
-        <img
+        <Image
           className="h-[280px] w-[280px] rounded-[10px] object-cover"
           src={imageUri}
           alt="NFT Image"
+          width={280}
+          height={280}
+          unoptimized
         />
       </div>
     </div>
