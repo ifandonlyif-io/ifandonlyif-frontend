@@ -1,3 +1,4 @@
+import { Menu, Transition } from '@headlessui/react'
 import { ConnectKitButton } from 'connectkit'
 import { useTranslation } from 'next-i18next'
 import React, { Fragment } from 'react'
@@ -9,53 +10,63 @@ import { useIffAccount } from '@/hooks'
 import type { BaseComponent } from '@/types'
 import { classNames, shortenAddress } from '@/utils'
 
-type WalletInfoProperties = BaseComponent & {
-  onClose: () => void
+type WalletDropdownProperties = {
+  username: string
 }
 
-function WalletInfo(properties: WalletInfoProperties) {
-  const { className, onClose } = properties
+function WalletDropdown(properties: WalletDropdownProperties) {
+  const { username } = properties
+
   const { t } = useTranslation('common')
   const { account, signOut } = useIffAccount()
   const accountString = account && shortenAddress(account.wallet)
 
   const handleDisconnectClick = React.useCallback(async () => {
     await signOut()
-    onClose()
-  }, [onClose, signOut])
+  }, [signOut])
 
   return (
-    <div className={classNames('grid grid-cols-1 gap-3', className)}>
-      <div className="flex flex-row flex-nowrap items-center">
-        <EthereumIcon />
-        <div className="ml-2 text-lg">{accountString}</div>
-      </div>
-      <button
-        id="disconnect-wallet"
-        className="rounded-[10px] px-4 py-2 text-xl hover:bg-gray-300"
-        onClick={handleDisconnectClick}
+    <Menu>
+      <Menu.Button>
+        <Avatar size="small" variant="text" src={username} />
+      </Menu.Button>
+      <Transition
+        as={Fragment}
+        enter="transition ease-out duration-100"
+        enterFrom="transform opacity-0 scale-95"
+        enterTo="transform opacity-100 scale-100"
+        leave="transition ease-in duration-75"
+        leaveFrom="transform opacity-100 scale-100"
+        leaveTo="transform opacity-0 scale-95"
       >
-        {t('layouts.userPanel.walletInfo.disconnectButton')}
-      </button>
-    </div>
-  )
-}
-
-type WalletDropdownProperties = {
-  isOpen: boolean
-  onWalletDropdownClose: () => void
-}
-
-function WalletDropdown(properties: WalletDropdownProperties) {
-  const { isOpen, onWalletDropdownClose } = properties
-
-  // eslint-disable-next-line unicorn/no-null
-  if (!isOpen) return null
-
-  return (
-    <div className="shadow-iff-modal absolute right-4 top-[90%] rounded-[10px] bg-white p-4">
-      <WalletInfo onClose={onWalletDropdownClose} />
-    </div>
+        <Menu.Items className="shadow-iff-modal min-w-56 absolute right-4 mt-4 origin-top-right divide-y divide-gray-100 rounded-md bg-white">
+          <div className="p-2">
+            <Menu.Item>
+              <div className="flex w-full items-center rounded-md p-1 text-lg">
+                <EthereumIcon />
+                <div className="ml-2">{accountString}</div>
+              </div>
+            </Menu.Item>
+          </div>
+          <div className="p-2">
+            <Menu.Item>
+              {({ active }) => (
+                <button
+                  id="disconnect-wallet"
+                  className={classNames(
+                    'flex w-full justify-center items-center rounded-md p-1 text-lg',
+                    active && 'bg-gray-300'
+                  )}
+                  onClick={handleDisconnectClick}
+                >
+                  {t('layouts.userPanel.walletInfo.disconnectButton')}
+                </button>
+              )}
+            </Menu.Item>
+          </div>
+        </Menu.Items>
+      </Transition>
+    </Menu>
   )
 }
 
@@ -101,8 +112,6 @@ type UserPanelProperties = BaseComponent
 export function UserPanel({ className }: UserPanelProperties) {
   const { account, expired, signIn } = useIffAccount()
 
-  const [isOpen, setIsOpen] = React.useState(false)
-
   const isLoggedIn = !expired
   const username = account?.username || 'Name'
 
@@ -110,31 +119,12 @@ export function UserPanel({ className }: UserPanelProperties) {
     await signIn()
   }, [signIn])
 
-  const toggleWalletDropdown = React.useCallback(() => setIsOpen((s) => !s), [])
-  const handleWalletDropdownClose = React.useCallback(
-    () => setIsOpen(false),
-    []
-  )
-
   return (
     <div className={classNames('box-border', className)}>
       {!isLoggedIn && (
         <ConnectWalletButton onClick={handleWalletConnectClick} />
       )}
-      {isLoggedIn && (
-        <React.Fragment>
-          <Avatar
-            size="small"
-            variant="text"
-            src={username}
-            onClick={toggleWalletDropdown}
-          />
-          <WalletDropdown
-            isOpen={isOpen}
-            onWalletDropdownClose={handleWalletDropdownClose}
-          />
-        </React.Fragment>
-      )}
+      {isLoggedIn && <WalletDropdown username={username} />}
     </div>
   )
 }
