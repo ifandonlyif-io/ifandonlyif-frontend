@@ -35,8 +35,8 @@ export function Button({
         'flex justify-center items-center rounded w-full box-border',
         sizes[size],
         primary
-          ? 'bg-iff-purple border-iff-purple shadow-iff-button-2'
-          : 'bg-iff-cyan border-iff-cyan shadow-iff-button',
+          ? 'bg-iff-purple border-iff-purple shadow-iff-button-2 hover:bg-iff-purple/90'
+          : 'bg-iff-cyan border-iff-cyan shadow-iff-button hover:bg-iff-cyan/90',
         outline && 'border-[1px] bg-transparent',
         !shadow && 'shadow-none',
         className
@@ -72,7 +72,7 @@ export function NFTButton({
         'text-sm font-bold text-center uppercase',
         outline
           ? 'bg-transparent border-iff-cyan text-[#14D6D6]'
-          : 'bg-[#182948] bg-gradient-nft-button border-[#28425D] text-iff-cyan',
+          : 'bg-[#182948] bg-gradient-nft-button border-[#28425D] text-iff-cyan hover:bg-[#35536D]',
         nftSizes[size],
         className
       )}

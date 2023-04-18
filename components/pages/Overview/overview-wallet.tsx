@@ -31,7 +31,10 @@ function WalletInfo(properties: WalletInfoProperties) {
           <EthereumIcon />
         </div>
         <p className="text-iff-text flex-1 break-all font-bold">{address}</p>
-        <button className="ml-4 md:ml-0 md:mr-8" title="More">
+        <button
+          className="ml-4 flex rounded-full p-3 hover:bg-gray-300 md:ml-0 md:mr-8"
+          title="More"
+        >
           <MoreVerticalIcon stroke="#4F4F4F" />
         </button>
       </div>
@@ -47,7 +50,7 @@ function WalletInfo(properties: WalletInfoProperties) {
               ($USD {ethUsdPriceString})
             </span>
           </p>
-          <button className="ml-4 font-bold text-[#F2994A]">
+          <button className="ml-4 rounded-md px-4 py-1 font-bold text-[#F2994A] hover:bg-gray-100">
             {t('hideButton')}
           </button>
         </div>

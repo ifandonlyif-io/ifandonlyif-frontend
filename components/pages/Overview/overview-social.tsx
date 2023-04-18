@@ -31,7 +31,10 @@ function SocialInfo(properties: SocialInfoProperties) {
           </Label>
         )}
       </div>
-      <button className="ml-4 md:ml-0 md:mr-8" title="More">
+      <button
+        className="ml-4 flex rounded-full p-3 hover:bg-gray-300 md:ml-0 md:mr-8"
+        title="More"
+      >
         <MoreVerticalIcon stroke="#4F4F4F" />
       </button>
     </div>

@@ -32,7 +32,7 @@ export function FilterItem(properties: FilterItemProperties) {
         value={value}
         {...input}
       />
-      <span className="border-iff-cyan text-iff-text peer-checked:bg-iff-cyan box-border rounded-[20px] border-[1px] border-solid px-6 py-[6px] text-sm font-bold">
+      <span className="border-iff-cyan text-iff-text peer-checked:bg-iff-cyan hover:bg-iff-cyan/40 box-border rounded-[20px] border-[1px] border-solid px-6 py-[6px] text-sm font-bold">
         {children}
         {typeof count === 'number' && ` (${count})`}
       </span>

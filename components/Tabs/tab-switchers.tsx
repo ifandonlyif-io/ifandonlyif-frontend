@@ -20,7 +20,9 @@ const TabSwitcher: ReactTabsFunctionComponent<TabSwitcherProperties> = ({
   <Tab
     className={classNames(
       'react-tabs__tab-switcher',
-      selected ? 'text-[#333333] bg-iff-cyan' : 'text-iff-cyan bg-transparent',
+      selected
+        ? 'text-[#333333] bg-iff-cyan'
+        : 'text-iff-cyan bg-transparent hover:bg-iff-cyan/10',
       className
     )}
     selectedClassName="react-tabs__tab-switcher--selected"
