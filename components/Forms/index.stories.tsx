@@ -53,7 +53,7 @@ const TextareaWithHooks = () => {
   const handleOnChange = React.useCallback(
     (event: React.ChangeEvent<HTMLTextAreaElement>) => {
       const { value } = event.target
-      const trimWhitespaceValue = value.replace(/\s/g, '')
+      const trimWhitespaceValue = value.replaceAll(/\s/g, '')
       setValue(trimWhitespaceValue)
     },
     []
