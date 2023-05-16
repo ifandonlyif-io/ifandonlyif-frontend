@@ -110,9 +110,8 @@ function ConnectWalletButton(properties: Omit<ButtonProperties, 'children'>) {
 type UserPanelProperties = BaseComponent
 
 export function UserPanel({ className }: UserPanelProperties) {
-  const { account, expired, signIn } = useIffAccount()
+  const { account, signIn } = useIffAccount()
 
-  const isLoggedIn = !expired
   const username = account?.username || 'Name'
 
   const handleWalletConnectClick = React.useCallback(async () => {
@@ -121,10 +120,11 @@ export function UserPanel({ className }: UserPanelProperties) {
 
   return (
     <div className={classNames('box-border', className)}>
-      {!isLoggedIn && (
+      {account ? (
+        <WalletDropdown username={username} />
+      ) : (
         <ConnectWalletButton onClick={handleWalletConnectClick} />
       )}
-      {isLoggedIn && <WalletDropdown username={username} />}
     </div>
   )
 }

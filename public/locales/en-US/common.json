@@ -9,7 +9,7 @@
     "layout": {
       "overviewLayout": {
         "connect": {
-          "tips": "Please connect Metamask first"
+          "tips": "Please login"
         },
         "main": {
           "heading": "THE BEST WAY TO SOCIALLY SECURE YOUR NFTs"

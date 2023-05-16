@@ -1,12 +1,10 @@
 import * as Jose from 'jose'
 
-import type { AccountAccessTokenJWTPayload } from '../types'
+import type { AccessTokenJWTPayload } from '../types'
 import { isHistorical } from './date-time'
 
-export function getAccessTokenPayload(
-  token: string
-): AccountAccessTokenJWTPayload {
-  return Jose.decodeJwt(token) as AccountAccessTokenJWTPayload
+export function getAccessTokenPayload(token: string): AccessTokenJWTPayload {
+  return Jose.decodeJwt(token) as AccessTokenJWTPayload
 }
 
 export function isAccountTokenExpired(token: string): boolean {

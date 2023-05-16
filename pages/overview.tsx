@@ -10,7 +10,6 @@ import {
   getDemoNftList,
   getEthToUsd,
   getGasPriceData,
-  getUserNft,
 } from '@/backend'
 import { OverviewLayout } from '@/components/Layouts'
 import {
@@ -26,7 +25,9 @@ import {
   SectionTitleWithSortTimezoneProvider,
 } from '@/components/pages/Overview'
 import { Tab, TabList, TabPanel, Tabs } from '@/components/Tabs'
-import type { NextPageWithLayout } from '@/types'
+import { usePrivateFetch } from '@/hooks'
+import type { FetchUserNftsResponse, NextPageWithLayout } from '@/types'
+import { convertOwnedNftsToMyNfts } from '@/utils'
 
 type OverviewProperties = {
   overview: PanelOverviewProperties
@@ -54,7 +55,12 @@ const Overview: NextPageWithLayout<OverviewProperties> = (
   const { overview, mintIt } = properties
   const { t } = useTranslation('overview')
   const router = useRouter()
-  const { data: myNfts } = useSWR('/auth/fetchUserNft', getUserNft)
+  const fetch = usePrivateFetch()
+  const { data: myNfts } = useSWR('/auth/fetchUserNft', async (key) => {
+    const response = await fetch<string>(key, { method: 'POST' })
+    const parsedResponse: FetchUserNftsResponse = JSON.parse(response)
+    return convertOwnedNftsToMyNfts(parsedResponse.ownedNfts)
+  })
 
   const [tabIndex, setTabIndex] = React.useState(0)
   const handleTabSelect = React.useCallback(

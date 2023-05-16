@@ -3,32 +3,29 @@ import useLocalStorageState from 'use-local-storage-state'
 import { useAccount, useSignMessage } from 'wagmi'
 
 import { doWalletLogin, getSignatureCode } from '@/backend'
-import { LSK_ACCESS_TOKEN } from '@/constants'
-import type { AccountAccessTokenJWTPayload } from '@/types'
-import {
-  getAccessTokenPayload,
-  // getDefaultChainId,
-  isAccountTokenExpired,
-} from '@/utils'
+import { LSK_ACCESS_TOKEN, LSK_REFRESH_TOKEN } from '@/constants'
+import type { UserInfo } from '@/types'
+import { getAccessTokenPayload } from '@/utils'
 
 // const defaultChainId = getDefaultChainId()
 
 export function useIffAccount() {
   const { address } = useAccount()
   const { signMessageAsync } = useSignMessage()
-  const [accessToken, setAccessToken, { removeItem }] =
+  const [accessToken, setAccessToken, { removeItem: removeAccessToken }] =
     useLocalStorageState<string>(LSK_ACCESS_TOKEN)
+  const [refreshToken, setRefreshToken, { removeItem: removeRefreshToken }] =
+    useLocalStorageState<string>(LSK_REFRESH_TOKEN)
 
-  const account = React.useMemo<
-    AccountAccessTokenJWTPayload | undefined
-  >(() => {
+  // TODO(550): Better way to check if user is logged in
+  const hasToken = React.useMemo<boolean>(
+    () => Boolean(accessToken || refreshToken),
+    [accessToken, refreshToken]
+  )
+
+  const account = React.useMemo<UserInfo | undefined>(() => {
     if (!accessToken) return
     return getAccessTokenPayload(accessToken)
-  }, [accessToken])
-
-  const expired = React.useMemo<boolean>(() => {
-    if (!accessToken) return true
-    return isAccountTokenExpired(accessToken)
   }, [accessToken])
 
   const getWalletSignCode = React.useCallback(async (address: string) => {
@@ -47,30 +44,29 @@ export function useIffAccount() {
     [signMessageAsync]
   )
 
-  const getAccessToken = React.useCallback(
+  const getLoginToken = React.useCallback(
     async (address: string) => {
       const code = await getWalletSignCode(address)
       if (!code) throw new Error('No signature code')
       const signature = await getWalletSignSignature(code)
       if (!signature) throw new Error('No sign signature')
       console.debug('address', address, 'signature', signature)
-      const { accessToken } = await doWalletLogin(address, signature)
-      return accessToken
+      return await doWalletLogin(address, signature)
     },
     [getWalletSignCode, getWalletSignSignature]
   )
 
   const signIn = React.useCallback(async () => {
-    if (!address) return
-    if (expired) {
-      const accessToken = await getAccessToken(address)
-      setAccessToken(accessToken)
-    }
-  }, [address, expired, getAccessToken, setAccessToken])
+    if (!address || account) return
+    const { accessToken, refreshToken } = await getLoginToken(address)
+    setAccessToken(accessToken)
+    setRefreshToken(refreshToken)
+  }, [account, address, getLoginToken, setAccessToken, setRefreshToken])
 
   const signOut = React.useCallback(async () => {
-    removeItem()
-  }, [removeItem])
+    removeAccessToken()
+    removeRefreshToken()
+  }, [removeAccessToken, removeRefreshToken])
 
-  return { account, address, expired, signIn, signOut }
+  return { hasToken, account, signIn, signOut }
 }

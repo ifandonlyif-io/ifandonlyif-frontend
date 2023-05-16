@@ -9,7 +9,7 @@
     "layout": {
       "overviewLayout": {
         "connect": {
-          "tips": "請先連接 Metamask"
+          "tips": "請先登錄"
         },
         "main": {
           "heading": "THE BEST WAY TO SOCIALLY SECURE YOUR NFTs"

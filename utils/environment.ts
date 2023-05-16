@@ -2,6 +2,11 @@ import { getAddress } from 'ethers/lib/utils.js'
 
 import { environment } from '@/env/client'
 
+export function getAPIBaseUrl(path: string): string {
+  const baseUrl = environment.NEXT_PUBLIC_API_URL
+  return new URL(path, baseUrl).href
+}
+
 export function getInfuraApiKey(): string {
   const apiKey = environment.NEXT_PUBLIC_INFURA_API_KEY
   return apiKey

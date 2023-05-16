@@ -2,13 +2,10 @@ import type { JWTPayload } from 'jose'
 
 import type { RemoveIndex } from './utils'
 
-export type AccountAccessTokenJWTPayload = RemoveIndex<JWTPayload> & {
+export type AccessTokenJWTPayload = RemoveIndex<JWTPayload> & {
   id: number
   username: string | null
   wallet: string
 }
 
-export type PreviouslyConnectedWallet = {
-  label: string
-  account: string
-}
+export type UserInfo = AccessTokenJWTPayload
