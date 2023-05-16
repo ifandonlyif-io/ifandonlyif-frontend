@@ -132,7 +132,7 @@ export function SectionNFTCheck(properties: SectionNFTCheckProperties) {
   return (
     <section className="mb-16 block flex-row flex-nowrap items-center md:mb-24 md:flex">
       <NeonBorder className="hidden md:flex" color="cyan" />
-      <div className="iff-glass-cyan shadow-iff-base py-7 md:-mx-8 md:flex-1 md:py-20">
+      <div className="iff-glass-cyan py-7 shadow-iff-base md:-mx-8 md:flex-1 md:py-20">
         <TabSwitchers
           className="mx-4 md:mx-auto"
           switcherText={{ left: t('left'), right: t('right') }}

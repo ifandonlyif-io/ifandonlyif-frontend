@@ -22,7 +22,7 @@ function SocialInfo(properties: SocialInfoProperties) {
     <div className="flex flex-row items-center">
       <TwitterIcon htmlColor="#4F4F4F" />
       <div className="ml-3 flex flex-1 flex-row items-center gap-[10px]">
-        <p className="text-iff-text mr-3 text-base font-bold">{username}</p>
+        <p className="mr-3 text-base font-bold text-iff-text">{username}</p>
         {verified && (
           <Label className="bg-[#FFC481]" size="medium">
             {t(

@@ -135,7 +135,7 @@ export function SectionUserFeedback(properties: SectionUserFeedbackProperties) {
   return (
     <section className="block flex-row flex-nowrap items-center md:flex">
       <NeonBorder className="hidden md:flex" color="purple" />
-      <div className="iff-glass-cyan shadow-iff-base min-w-0 px-8 pb-7 pt-10 md:-mx-8 md:flex-1 md:px-28 md:pt-12">
+      <div className="iff-glass-cyan min-w-0 px-8 pb-7 pt-10 shadow-iff-base md:-mx-8 md:flex-1 md:px-28 md:pt-12">
         <h2 className="heading-4 md:heading-2 text-shadow-heading-4-purple md:text-shadow-heading-2-purple mb-6 text-center uppercase text-white md:mb-10">
           {t('home.sectionUserFeedback.heading')}
         </h2>

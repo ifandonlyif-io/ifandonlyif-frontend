@@ -28,7 +28,7 @@ function SiteData(properties: SiteDataProperties) {
             {value}
           </p>
         </div>
-        <div className="gap-line bg-iff-cyan mb-1 hidden h-4 w-[1px] self-end md:mb-5 md:h-[54px] md:w-0.5" />
+        <div className="gap-line mb-1 hidden h-4 w-[1px] self-end bg-iff-cyan md:mb-5 md:h-[54px] md:w-0.5" />
       </div>
     </div>
   )

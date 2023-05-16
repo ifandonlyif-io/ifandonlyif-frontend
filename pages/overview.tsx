@@ -79,7 +79,7 @@ const Overview: NextPageWithLayout<OverviewProperties> = (
   }, [router.asPath])
 
   return (
-    <div className="shadow-iff-overview my-10 rounded-b-[10px] bg-white md:my-16 md:px-[24px] xl:px-[30px]">
+    <div className="my-10 rounded-b-[10px] bg-white shadow-iff-overview md:my-16 md:px-[24px] xl:px-[30px]">
       <SectionTitleWithSortTimezoneProvider>
         <Tabs selectedIndex={tabIndex} onSelect={handleTabSelect}>
           <TabList>

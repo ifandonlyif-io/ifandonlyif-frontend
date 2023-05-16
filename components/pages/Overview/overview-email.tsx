@@ -26,7 +26,7 @@ function EmailInfo(properties: EmailInfoProperties) {
       <div className="flex flex-1 flex-col gap-[10px] md:flex-row">
         <div className="flex flex-row flex-nowrap items-center gap-[10px]">
           <EmailIcon htmlColor="#4F4F4F" />
-          <p className="text-iff-text mr-3 text-base font-bold">{email}</p>
+          <p className="mr-3 text-base font-bold text-iff-text">{email}</p>
         </div>
         <div className="flex flex-row flex-nowrap items-center gap-[10px] self-end md:self-center">
           {properties.default && (

@@ -25,7 +25,7 @@ function MemoModalTitle(properties: MemoModalTitleProperties) {
         className
       )}
     >
-      <h3 className="text-iff-text text-base font-bold">{title}&nbsp;-</h3>
+      <h3 className="text-base font-bold text-iff-text">{title}&nbsp;-</h3>
       {rightElement}
     </div>
   )
@@ -87,7 +87,7 @@ function MemoModal(properties: MemoModalProperties) {
   return (
     <Modal isOpen={isOpen} onModalClose={onModalClose}>
       <div className="flex flex-col px-20 pb-9 pt-7">
-        <h2 className="text-iff-text mb-8 text-center text-2xl font-bold">
+        <h2 className="mb-8 text-center text-2xl font-bold text-iff-text">
           {t('heading')}
         </h2>
         <form className="flex min-w-[390px] flex-col" action="#">

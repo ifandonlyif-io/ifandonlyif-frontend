@@ -32,7 +32,7 @@ function StatusWithView(properties: StatusWithViewProperties) {
   return (
     <div className="flex flex-col font-bold">
       <div className="flex flex-row items-center">
-        <p className="text-iff-text mr-2 whitespace-nowrap text-base md:mr-6">
+        <p className="mr-2 whitespace-nowrap text-base text-iff-text md:mr-6">
           {title}
         </p>
         <Label
@@ -54,7 +54,7 @@ function StatusWithView(properties: StatusWithViewProperties) {
 
 function StatusInfo({ title, value }: StatusProperties) {
   return (
-    <div className="text-iff-text flex flex-col font-bold">
+    <div className="flex flex-col font-bold text-iff-text">
       <p className="mr-6 whitespace-nowrap text-base">{title}</p>
       <p className="text-[32px]">{value}</p>
     </div>

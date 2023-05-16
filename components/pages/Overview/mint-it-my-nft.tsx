@@ -37,7 +37,7 @@ function MintModalTitle(
         className
       )}
     >
-      <h3 className="text-iff-text text-base font-bold">{title}&nbsp;-</h3>
+      <h3 className="text-base font-bold text-iff-text">{title}&nbsp;-</h3>
       {children}
     </div>
   )
@@ -113,7 +113,7 @@ function MintModal(properties: MintModalProperties) {
       onModalClose={onModalClose}
     >
       <div className="flex flex-col px-20 pb-9 pt-7">
-        <h2 className="text-iff-text mb-8 text-center text-2xl font-bold">
+        <h2 className="mb-8 text-center text-2xl font-bold text-iff-text">
           {t('heading', { nft })}
         </h2>
         <form

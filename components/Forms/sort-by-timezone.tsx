@@ -41,9 +41,9 @@ export function SortByTimezone(properties: SortByTimezoneProperties) {
         className
       )}
     >
-      <div className="text-iff-text mr-4 text-base font-bold">{t('label')}</div>
+      <div className="mr-4 text-base font-bold text-iff-text">{t('label')}</div>
       <SelectMenus
-        className="!text-iff-text min-w-[240px]"
+        className="min-w-[240px] !text-iff-text"
         placeholder={t('placeholder')}
         options={timezoneOptionsWithTranslate}
         defaultValue={defaultValueWithTranslate}

@@ -159,7 +159,7 @@ function NFTCardBack(properties: NFTCardProperties) {
           <Text className="font-normal">{t('validity')}</Text>
           <NFTValidity validity={validity} />
         </TextRow>
-        <div className="bg-iff-cyan mt-4 h-[1px] w-full" />
+        <div className="mt-4 h-[1px] w-full bg-iff-cyan" />
         <Text className="mt-3 text-sm font-normal">{t('history')}</Text>
         <div className="ml-2 mt-3 flex h-[140px] min-h-0 flex-col overflow-y-scroll">
           {holderRecords.map((recoed, index) => (

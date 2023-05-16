@@ -30,7 +30,7 @@ function WalletInfo(properties: WalletInfoProperties) {
         <div className="mr-4">
           <EthereumIcon />
         </div>
-        <p className="text-iff-text flex-1 break-all font-bold">{address}</p>
+        <p className="flex-1 break-all font-bold text-iff-text">{address}</p>
         <button
           className="ml-4 flex rounded-full p-3 hover:bg-gray-300 md:ml-0 md:mr-8"
           title="More"
@@ -44,7 +44,7 @@ function WalletInfo(properties: WalletInfoProperties) {
         </div>
         <div className="flex flex-row items-center">
           <EthereumIcon />
-          <p className="text-iff-text ml-2 flex-1 font-medium">
+          <p className="ml-2 flex-1 font-medium text-iff-text">
             ETH {balanceString} <br className="block md:hidden" />
             <span className="whitespace-nowrap">
               ($USD {ethUsdPriceString})
