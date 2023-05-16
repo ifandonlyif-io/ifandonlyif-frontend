@@ -17,4 +17,12 @@ export default defineNextConfig({
   reactStrictMode: true,
   output: 'standalone',
   i18n: i18next.i18n,
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+    ],
+  },
 })
