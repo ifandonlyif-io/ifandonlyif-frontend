@@ -57,7 +57,10 @@
         },
         "walletInfo": {
           "totalBalance": "Total Balance",
-          "hideButton": "Hide"
+          "hideButton": {
+            "show": "Show",
+            "hide": "Hide"
+          }
         }
       },
       "overviewEmail": {

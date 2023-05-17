@@ -18,11 +18,21 @@ function WalletInfo(properties: WalletInfoProperties) {
   })
   const { address } = useAccount()
   const { data: balance } = useBalance({ address, watch: true })
+  const [hidden, setHidden] = React.useState(false)
 
   const balanceString = Number.parseFloat(balance?.formatted || '0').toFixed(4)
   const ethUsdPrice =
     Number.parseFloat(ethPrice) * Number.parseFloat(balance?.formatted || '0')
   const ethUsdPriceString = ethUsdPrice.toFixed(2)
+
+  const hiddenString = React.useCallback(
+    (value: string) => (hidden ? '******' : value),
+    [hidden]
+  )
+  const toggleHidden = React.useCallback(
+    () => setHidden((previous) => !previous),
+    []
+  )
 
   return (
     <div className="flex flex-col text-base">
@@ -45,13 +55,16 @@ function WalletInfo(properties: WalletInfoProperties) {
         <div className="flex flex-row items-center">
           <EthereumIcon />
           <p className="ml-2 flex-1 font-medium text-iff-text">
-            ETH {balanceString} <br className="block md:hidden" />
+            ETH {hiddenString(balanceString)} <br className="block md:hidden" />
             <span className="whitespace-nowrap">
-              ($USD {ethUsdPriceString})
+              ($USD {hiddenString(ethUsdPriceString)})
             </span>
           </p>
-          <button className="ml-4 rounded-md px-4 py-1 font-bold text-[#F2994A] hover:bg-gray-100">
-            {t('hideButton')}
+          <button
+            className="ml-4 rounded-md px-4 py-1 font-bold text-[#F2994A] hover:bg-gray-100"
+            onClick={toggleHidden}
+          >
+            {hidden ? t('hideButton.show') : t('hideButton.hide')}
           </button>
         </div>
       </div>
