@@ -1,32 +1,16 @@
-import {
-  type FetchContext,
-  FetchError,
-  type FetchOptions,
-  type FetchRequest,
-  type FetchResponse,
-  ofetch,
-} from 'ofetch'
+import { type FetchContext, type FetchResponse, ofetch } from 'ofetch'
 import React from 'react'
-import useLocalStorageState from 'use-local-storage-state'
 
-import { LSK_ACCESS_TOKEN } from '@/constants'
 import { getAPIBaseUrl } from '@/utils'
 
 import { useRefreshToken } from './use-refresh-token'
-
-interface ResponseMap {
-  blob: Blob
-  text: string
-  arrayBuffer: ArrayBuffer
-  stream: ReadableStream<Uint8Array>
-}
-type ResponseType = keyof ResponseMap | 'json'
+import { useTokenStorage } from './use-token-storage'
 
 const baseURL = getAPIBaseUrl('/')
 
 export function usePrivateFetch() {
-  const refreshToken = useRefreshToken()
-  const [accessToken] = useLocalStorageState<string>(LSK_ACCESS_TOKEN)
+  const { refresh } = useRefreshToken()
+  const { accessToken } = useTokenStorage()
 
   const onRequest = React.useCallback(
     async (context: FetchContext<unknown>) => {
@@ -38,44 +22,30 @@ export function usePrivateFetch() {
     [accessToken]
   )
 
-  const onResponseError = React.useCallback(
+  const onResponse = React.useCallback(
     async (
       context: FetchContext<unknown> & {
         response: FetchResponse<unknown>
       }
     ) => {
       if (context.response.status === 401) {
-        await refreshToken()
+        const token = await refresh()
+        if (!token) return
+        context.options.headers = Object.assign({}, context.options.headers, {
+          Authorization: `bearer ${token}`,
+        })
+        const response = await ofetch.raw(context.request, context.options)
+        context.error = undefined
+        context.response = response
       }
     },
-    [refreshToken]
+    [refresh]
   )
 
   const privateFetch = React.useMemo(
-    () => ofetch.create({ baseURL, onRequest, onResponseError }),
-    [onRequest, onResponseError]
+    () => ofetch.create({ baseURL, onRequest, onResponse }),
+    [onRequest, onResponse]
   )
 
-  const fetch = React.useCallback(
-    async <T = unknown, R extends ResponseType = 'json'>(
-      request: FetchRequest,
-      options?: FetchOptions<R>
-    ) => {
-      try {
-        return await privateFetch<T, R>(request, options)
-      } catch (error) {
-        if (
-          error instanceof FetchError &&
-          (error.status === 401 || error.response?.status === 401) &&
-          accessToken
-        ) {
-          return await privateFetch<T, R>(request, options)
-        }
-        throw error
-      }
-    },
-    [accessToken, privateFetch]
-  )
-
-  return fetch
+  return privateFetch
 }

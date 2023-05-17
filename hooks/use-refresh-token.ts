@@ -1,19 +1,26 @@
 import React from 'react'
-import useLocalStorageState from 'use-local-storage-state'
 
-import { refreshToken } from '@/backend'
-import { LSK_ACCESS_TOKEN, LSK_REFRESH_TOKEN } from '@/constants'
+import { refreshToken as refreshTokenApi } from '@/backend'
+import { getRefreshTokenPayload, isTokenExpired } from '@/utils'
+
+import { useTokenStorage } from './use-token-storage'
 
 export function useRefreshToken() {
-  const [refreshToken_] = useLocalStorageState<string>(LSK_REFRESH_TOKEN)
-  const [, setAccessToken] = useLocalStorageState<string>(LSK_ACCESS_TOKEN)
+  const { refreshToken, setAccessToken } = useTokenStorage()
+
+  const expired = React.useMemo<boolean>(() => {
+    if (!refreshToken) return true
+    const payload = getRefreshTokenPayload(refreshToken)
+    return isTokenExpired(payload)
+  }, [refreshToken])
 
   const refresh = React.useCallback(async () => {
-    if (!refreshToken_) return
-    const accessToken = await refreshToken(refreshToken_)
+    if (!refreshToken) return
+    const accessToken = await refreshTokenApi(refreshToken)
     if (!accessToken) return
     setAccessToken(accessToken)
-  }, [refreshToken_, setAccessToken])
+    return accessToken
+  }, [refreshToken, setAccessToken])
 
-  return refresh
+  return { expired, refresh }
 }

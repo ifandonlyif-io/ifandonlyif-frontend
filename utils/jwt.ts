@@ -7,11 +7,14 @@ export function getAccessTokenPayload(token: string): AccessTokenJWTPayload {
   return Jose.decodeJwt(token) as AccessTokenJWTPayload
 }
 
-export function isAccountTokenExpired(token: string): boolean {
-  const payload = getAccessTokenPayload(token)
+export function getRefreshTokenPayload(token: string): Jose.JWTPayload {
+  return Jose.decodeJwt(token)
+}
+
+export function isTokenExpired(payload: Jose.JWTPayload): boolean {
   if (!payload.exp) return true
   const expired = isHistorical(payload.exp)
-  console.debug('Is account token expired', payload.exp)
+  console.debug('Is token expired', expired, payload.exp)
   if (expired) return true
   return false
 }

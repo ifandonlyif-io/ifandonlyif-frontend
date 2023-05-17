@@ -2,7 +2,7 @@ import { useTranslation } from 'next-i18next'
 import React, { Fragment } from 'react'
 
 import { NeonUnderline } from '@/components/Decorate'
-import { useIffAccount } from '@/hooks'
+import { useRefreshToken } from '@/hooks'
 
 import { Footer } from './footer'
 import { Navbar } from './navbar'
@@ -25,9 +25,9 @@ export function OverviewLayout({ children }: LayoutProperties) {
   const { t } = useTranslation('common', {
     keyPrefix: 'layouts.layout.overviewLayout',
   })
-  const { hasToken } = useIffAccount()
+  const { expired } = useRefreshToken()
 
-  if (!hasToken) {
+  if (expired) {
     return (
       <Fragment>
         <Navbar />
