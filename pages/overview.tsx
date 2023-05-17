@@ -56,11 +56,14 @@ const Overview: NextPageWithLayout<OverviewProperties> = (
   const { t } = useTranslation('overview')
   const router = useRouter()
   const fetch = usePrivateFetch()
-  const { data: myNfts } = useSWR('/auth/fetchUserNft', async (key) => {
-    const response = await fetch<string>(key, { method: 'POST' })
-    const parsedResponse: FetchUserNftsResponse = JSON.parse(response)
-    return convertOwnedNftsToMyNfts(parsedResponse.ownedNfts)
-  })
+  const { data: myNfts, isLoading } = useSWR(
+    '/auth/fetchUserNft',
+    async (key) => {
+      const response = await fetch<string>(key, { method: 'POST' })
+      const parsedResponse: FetchUserNftsResponse = JSON.parse(response)
+      return convertOwnedNftsToMyNfts(parsedResponse.ownedNfts)
+    }
+  )
 
   const [tabIndex, setTabIndex] = React.useState(0)
   const handleTabSelect = React.useCallback(
@@ -97,6 +100,7 @@ const Overview: NextPageWithLayout<OverviewProperties> = (
               myWhitelist={mintIt.myWhitelist}
               preSaleWhitelist={mintIt.preSaleWhitelist}
               myNFTs={myNfts || []}
+              myNftsLoading={isLoading}
             />
           </TabPanel>
           {/* <TabPanel>

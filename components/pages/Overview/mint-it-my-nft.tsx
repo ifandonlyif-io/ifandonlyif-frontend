@@ -171,10 +171,11 @@ function MintModal(properties: MintModalProperties) {
 
 export type MintItMyNFTProperties = BaseComponent & {
   myNFTs: MyNFTItem[]
+  myNftsLoading?: boolean
 }
 
 export function MintItMyNFT(properties: MintItMyNFTProperties) {
-  const { myNFTs, className } = properties
+  const { myNFTs, myNftsLoading, className } = properties
   const { t } = useTranslation('overview', {
     keyPrefix: 'overview.panelMintIt.mintItMyNFT',
   })
@@ -197,6 +198,7 @@ export function MintItMyNFT(properties: MintItMyNFTProperties) {
       >
         {t('sectionTitle')}
       </SectionTitle>
+      {myNftsLoading && <div className="flex justify-center">Loading...</div>}
       <div className="grid grid-cols-2 gap-[30px] md:flex md:flex-row md:flex-wrap">
         {sortedNFTs.map((nft, index) => (
           <NFTFrame
