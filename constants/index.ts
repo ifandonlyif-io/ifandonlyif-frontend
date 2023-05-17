@@ -1,4 +1,4 @@
-export const LSK_ACCESS_TOKEN = 'access_token'
+export const SSK_ACCESS_TOKEN = 'access_token'
 export const LSK_REFRESH_TOKEN = 'refresh_token'
 
 export const NFTArray = [

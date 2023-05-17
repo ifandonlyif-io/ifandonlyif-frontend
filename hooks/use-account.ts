@@ -1,27 +1,24 @@
 import React from 'react'
-import useLocalStorageState from 'use-local-storage-state'
 import { useAccount, useSignMessage } from 'wagmi'
 
 import { doWalletLogin, getSignatureCode } from '@/backend'
-import { LSK_ACCESS_TOKEN, LSK_REFRESH_TOKEN } from '@/constants'
 import type { UserInfo } from '@/types'
 import { getAccessTokenPayload } from '@/utils'
+
+import { useTokenStorage } from './use-token-storage'
 
 // const defaultChainId = getDefaultChainId()
 
 export function useIffAccount() {
   const { address } = useAccount()
   const { signMessageAsync } = useSignMessage()
-  const [accessToken, setAccessToken, { removeItem: removeAccessToken }] =
-    useLocalStorageState<string>(LSK_ACCESS_TOKEN)
-  const [refreshToken, setRefreshToken, { removeItem: removeRefreshToken }] =
-    useLocalStorageState<string>(LSK_REFRESH_TOKEN)
-
-  // TODO(550): Better way to check if user is logged in
-  const hasToken = React.useMemo<boolean>(
-    () => Boolean(accessToken || refreshToken),
-    [accessToken, refreshToken]
-  )
+  const {
+    accessToken,
+    setAccessToken,
+    removeAccessToken,
+    setRefreshToken,
+    removeRefreshToken,
+  } = useTokenStorage()
 
   const account = React.useMemo<UserInfo | undefined>(() => {
     if (!accessToken) return
@@ -68,5 +65,5 @@ export function useIffAccount() {
     removeRefreshToken()
   }, [removeAccessToken, removeRefreshToken])
 
-  return { hasToken, account, signIn, signOut }
+  return { account, signIn, signOut }
 }

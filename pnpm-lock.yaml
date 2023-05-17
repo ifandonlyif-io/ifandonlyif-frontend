@@ -64,6 +64,9 @@ dependencies:
   use-local-storage-state:
     specifier: ^18.3.2
     version: 18.3.2(react-dom@18.2.0)(react@18.2.0)
+  use-session-storage-state:
+    specifier: ^18.1.1
+    version: 18.1.1(react-dom@18.2.0)(react@18.2.0)
   wagmi:
     specifier: 0.12.12
     version: 0.12.12(ethers@5.7.2)(react-dom@18.2.0)(react@18.2.0)(typescript@5.0.4)(zod@3.21.4)
@@ -14472,6 +14475,17 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: true
+
+  /use-session-storage-state@18.1.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-smeznwdz+7ClDng/9eDLt4Dh8Af8jRR1BqW0Ps6E998S/GZ8INoL73Qf0vb6UbvAAIs60FGstnyLmGz2AKEeWQ==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      react: '>=18'
+      react-dom: '>=18'
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
 
   /use-sync-external-store@1.2.0(react@18.2.0):
     resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}

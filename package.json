@@ -44,6 +44,7 @@
     "react-tabs": "^6.0.1",
     "swr": "^2.1.5",
     "use-local-storage-state": "^18.3.2",
+    "use-session-storage-state": "^18.1.1",
     "wagmi": "0.12.12",
     "zod": "^3.21.4"
   },
