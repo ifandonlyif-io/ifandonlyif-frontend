@@ -7,7 +7,7 @@ export function getAPIBaseUrl(path: string): string {
   return new URL(path, baseUrl).href
 }
 
-export function getInfuraApiKey(): string {
+export function getInfuraApiKey(): string | undefined {
   const apiKey = environment.NEXT_PUBLIC_INFURA_API_KEY
   return apiKey
 }

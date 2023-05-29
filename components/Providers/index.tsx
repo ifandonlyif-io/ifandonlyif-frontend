@@ -12,9 +12,9 @@ import {
   getWalletConnectProjectId,
 } from '@/utils'
 
-const infuraId = getInfuraApiKey()
 const alchemyId = getAlchemyApiKey()
 const walletConnectProjectId = getWalletConnectProjectId()
+const infuraId = getInfuraApiKey()
 
 const initialChainId = Number(getDefaultChainId())
 const availableChains: Chain[] = [mainnet, goerli].filter(
@@ -25,9 +25,9 @@ const config = createConfig(
   getDefaultConfig({
     appName: 'If and only if',
     chains: availableChains.length > 0 ? availableChains : [mainnet],
-    infuraId,
-    alchemyId,
     walletConnectProjectId,
+    alchemyId,
+    infuraId,
   })
 )
 

@@ -6,7 +6,7 @@ import { z, type ZodFormattedError } from 'zod'
  */
 export const serverSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']),
-  I18NEXT_DEFAULT_CONFIG_PATH: z.string(),
+  I18NEXT_DEFAULT_CONFIG_PATH: z.string().default('next-i18next.config.cjs'),
 })
 
 /**
@@ -16,8 +16,8 @@ export const serverSchema = z.object({
  */
 export const clientSchema = z.object({
   NEXT_PUBLIC_API_URL: z.string().url(),
-  NEXT_PUBLIC_INFURA_API_KEY: z.string(),
   NEXT_PUBLIC_ALCHEMY_API_KEY: z.string(),
+  NEXT_PUBLIC_INFURA_API_KEY: z.string().optional(),
   NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID: z.string(),
   NEXT_PUBLIC_CHAIN_ID: z.string(),
   NEXT_PUBLIC_IFFNFT_CONTRACT_ADDRESS: z.string(),
