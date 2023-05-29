@@ -1,17 +1,17 @@
-import { ethers } from 'ethers'
+import { createPublicClient, http } from 'viem'
+import { type Chain, goerli, mainnet } from 'viem/chains'
 
-import {
-  getAlchemyApiKey,
-  getDefaultChainId,
-  getInfuraApiKey,
-} from './environment'
+import { getAlchemyApiKey, getDefaultChainId } from './environment'
 
-const defaultChainId = getDefaultChainId()
-const infuraKey = getInfuraApiKey()
 const alchemyKey = getAlchemyApiKey()
-const network = ethers.providers.getNetwork(Number(defaultChainId))
+const initialChainId = Number(getDefaultChainId())
+const chain: Chain =
+  [mainnet, goerli].find((chain) => chain.id === initialChainId) ?? mainnet
+const rpcUrl = chain.rpcUrls?.alchemy?.http[0]
+  ? `${chain.rpcUrls?.alchemy?.http[0]}/${alchemyKey}`
+  : undefined
 
-export const readonlyProvider = ethers.getDefaultProvider(network, {
-  infura: infuraKey,
-  alchemy: alchemyKey,
+export const publicClient = createPublicClient({
+  chain,
+  transport: http(rpcUrl),
 })

@@ -1,7 +1,7 @@
-import { getAddress, isAddress } from 'ethers/lib/utils'
 import { type ValidateResult } from 'react-hook-form'
+import { getAddress, isAddress } from 'viem'
 
-import { readonlyProvider } from './chain'
+import { publicClient } from './chain'
 
 export function validateStringIsUrl(value: string): boolean {
   try {
@@ -18,9 +18,9 @@ export function validateStringIsAddress(value: string): boolean {
 }
 
 export async function validateAddressIsContract(
-  address: string
+  address: `0x${string}`
 ): Promise<boolean> {
-  const code = await readonlyProvider.getCode(address)
+  const code = await publicClient.getBytecode({ address })
   if (code === '0x') return false
   return true
 }
@@ -42,7 +42,7 @@ export function validateCheckSiteUrlData(value: string): ValidateResult {
 }
 
 export async function validateMintIffNftFormInputAddress(
-  value: string,
+  value: `0x${string}`,
   account: string | null | undefined
 ): Promise<ValidateResult> {
   const isAddress = validateStringIsAddress(value)
@@ -60,7 +60,7 @@ export async function validateMintIffNftFormInputAddress(
 }
 
 export async function validateMintIffNftFormUserInfo(
-  value: string
+  value: `0x${string}`
 ): Promise<ValidateResult> {
   const address = validateStringIsAddress(value)
   if (!address)

@@ -1,4 +1,4 @@
-import { getAddress } from 'ethers/lib/utils.js'
+import { getAddress } from 'viem'
 
 import { environment } from '@/env/client'
 
@@ -15,6 +15,11 @@ export function getInfuraApiKey(): string {
 export function getAlchemyApiKey(): string {
   const apiKey = environment.NEXT_PUBLIC_ALCHEMY_API_KEY
   return apiKey
+}
+
+export function getWalletConnectProjectId(): string {
+  const projectId = environment.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID
+  return projectId
 }
 
 export function getDefaultChainId(): string {

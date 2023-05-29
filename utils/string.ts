@@ -1,4 +1,4 @@
-import { isAddress } from 'ethers/lib/utils.js'
+import { isAddress } from 'viem'
 
 export function stringSlice(
   string_: string,

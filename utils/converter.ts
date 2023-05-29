@@ -1,5 +1,4 @@
-import { BigNumber } from 'ethers'
-import { isHexString } from 'ethers/lib/utils'
+import { hexToNumber, isHex } from 'viem'
 
 import type { SelectMenuOption } from '@/components/Forms'
 import type { MyNFTItem, NftProject, OwnedNft } from '@/types'
@@ -7,7 +6,7 @@ import type { MyNFTItem, NftProject, OwnedNft } from '@/types'
 import { parseISODateTime } from './date-time'
 
 export function convertStringToNumber(string_: string): number {
-  if (isHexString(string_)) return BigNumber.from(string_).toNumber()
+  if (isHex(string_)) return hexToNumber(string_)
   if (!Number.isNaN(string_)) return Number(string_)
   return 0
 }

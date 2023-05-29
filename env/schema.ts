@@ -18,6 +18,7 @@ export const clientSchema = z.object({
   NEXT_PUBLIC_API_URL: z.string().url(),
   NEXT_PUBLIC_INFURA_API_KEY: z.string(),
   NEXT_PUBLIC_ALCHEMY_API_KEY: z.string(),
+  NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID: z.string(),
   NEXT_PUBLIC_CHAIN_ID: z.string(),
   NEXT_PUBLIC_IFFNFT_CONTRACT_ADDRESS: z.string(),
 })

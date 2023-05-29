@@ -38,6 +38,8 @@
     "premint",
     "tailwindcss",
     "unoptimized",
-    "wagmi"
+    "viem",
+    "wagmi",
+    "walletconnect"
   ]
 }

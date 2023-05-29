@@ -23,6 +23,7 @@ export function useMintIffNft(
     abi: IFFNFT,
     functionName: 'mintNFT',
     args: [inputAddress, typeId, userInfo],
+    value: BigInt(0),
   })
   const { data, error, isError, writeAsync } = useContractWrite(config)
   const { isLoading, isSuccess } = useWaitForTransaction({ hash: data?.hash })

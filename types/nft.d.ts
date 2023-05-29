@@ -83,5 +83,5 @@ export declare type FetchUserNftsResponse = {
 
 export declare type MintIffNftFormData = {
   inputAddress: `0x${string}`
-  userInfo: string
+  userInfo: `0x${string}`
 }
