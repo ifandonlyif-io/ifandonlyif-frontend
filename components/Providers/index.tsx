@@ -1,7 +1,6 @@
 import { ConnectKitProvider, getDefaultConfig } from 'connectkit'
 import { FormProvider, useForm } from 'react-hook-form'
-import { type Chain, createConfig, WagmiConfig } from 'wagmi'
-import { goerli, mainnet } from 'wagmi/chains'
+import { type Chain, createConfig, mainnet, sepolia, WagmiConfig } from 'wagmi'
 
 import { isDevelopment } from '@/env'
 import type { ReactProvider } from '@/types'
@@ -17,7 +16,7 @@ const walletConnectProjectId = getWalletConnectProjectId()
 const infuraId = getInfuraApiKey()
 
 const initialChainId = Number(getDefaultChainId())
-const availableChains: Chain[] = [mainnet, goerli].filter(
+const availableChains: Chain[] = [mainnet, sepolia].filter(
   (chain) => chain.id === initialChainId
 )
 
