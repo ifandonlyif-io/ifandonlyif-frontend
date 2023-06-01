@@ -9,7 +9,9 @@
     "layout": {
       "overviewLayout": {
         "connect": {
-          "tips": "請先登錄"
+          "tips": {
+            "login": "請先登錄"
+          }
         },
         "main": {
           "heading": "THE BEST WAY TO SOCIALLY SECURE YOUR NFTs"

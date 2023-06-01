@@ -1,3 +1,4 @@
+export * from './use-access'
 export * from './use-account'
 export * from './use-contract'
 export * from './use-private-fetch'

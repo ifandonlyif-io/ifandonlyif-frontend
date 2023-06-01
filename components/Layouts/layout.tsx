@@ -2,7 +2,7 @@ import { useTranslation } from 'next-i18next'
 import React, { Fragment } from 'react'
 
 import { NeonUnderline } from '@/components/Decorate'
-import { useRefreshToken } from '@/hooks'
+import { useAccess } from '@/hooks'
 
 import { Footer } from './footer'
 import { Navbar } from './navbar'
@@ -25,14 +25,14 @@ export function OverviewLayout({ children }: LayoutProperties) {
   const { t } = useTranslation('common', {
     keyPrefix: 'layouts.layout.overviewLayout',
   })
-  const { expired } = useRefreshToken()
+  const { noAccess } = useAccess()
 
-  if (expired) {
+  if (noAccess) {
     return (
       <Fragment>
         <Navbar />
         <div className="flex h-[calc(100vh_-_88px)] w-full flex-row items-center justify-center bg-black/50 backdrop-blur-[18px]">
-          <h4 className="heading-4 text-white">{t('connect.tips')}</h4>
+          <h4 className="heading-4 text-white">{t('connect.tips.login')}</h4>
         </div>
       </Fragment>
     )

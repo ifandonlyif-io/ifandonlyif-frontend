@@ -9,7 +9,9 @@
     "layout": {
       "overviewLayout": {
         "connect": {
-          "tips": "Please login"
+          "tips": {
+            "login": "Please login"
+          }
         },
         "main": {
           "heading": "THE BEST WAY TO SOCIALLY SECURE YOUR NFTs"

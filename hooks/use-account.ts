@@ -1,4 +1,5 @@
 import React from 'react'
+import { getAddress } from 'viem'
 import { useAccount, useSignMessage } from 'wagmi'
 
 import { doWalletLogin, getSignatureCode } from '@/backend'
@@ -6,8 +7,6 @@ import type { UserInfo } from '@/types'
 import { getAccessTokenPayload } from '@/utils'
 
 import { useTokenStorage } from './use-token-storage'
-
-// const defaultChainId = getDefaultChainId()
 
 export function useIffAccount() {
   const { address } = useAccount()
@@ -24,6 +23,13 @@ export function useIffAccount() {
     if (!accessToken) return
     return getAccessTokenPayload(accessToken)
   }, [accessToken])
+
+  const missMatch = React.useMemo<boolean>(() => {
+    if (!account) return true
+    const wallet = getAddress(account.wallet)
+    const current = address ? getAddress(address.toString()) : undefined
+    return wallet !== current
+  }, [account, address])
 
   const getWalletSignCode = React.useCallback(async (address: string) => {
     if (!address) return
@@ -54,16 +60,16 @@ export function useIffAccount() {
   )
 
   const signIn = React.useCallback(async () => {
-    if (!address || account) return
+    if (!address || !missMatch) return
     const { accessToken, refreshToken } = await getLoginToken(address)
     setAccessToken(accessToken)
     setRefreshToken(refreshToken)
-  }, [account, address, getLoginToken, setAccessToken, setRefreshToken])
+  }, [address, getLoginToken, missMatch, setAccessToken, setRefreshToken])
 
   const signOut = React.useCallback(async () => {
     removeAccessToken()
     removeRefreshToken()
   }, [removeAccessToken, removeRefreshToken])
 
-  return { account, signIn, signOut }
+  return { account, missMatch, signIn, signOut }
 }

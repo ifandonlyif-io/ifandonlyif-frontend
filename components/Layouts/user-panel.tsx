@@ -6,7 +6,7 @@ import React, { Fragment } from 'react'
 import { Avatar } from '@/components/Avatar'
 import { Button, type ButtonProperties } from '@/components/Buttons'
 import { EthereumIcon, MetamaskIcon } from '@/components/Icons'
-import { useIffAccount } from '@/hooks'
+import { useAccess, useIffAccount } from '@/hooks'
 import type { BaseComponent } from '@/types'
 import { classNames, shortenAddress } from '@/utils'
 
@@ -110,9 +110,10 @@ function ConnectWalletButton(properties: Omit<ButtonProperties, 'children'>) {
 type UserPanelProperties = BaseComponent
 
 export function UserPanel({ className }: UserPanelProperties) {
+  const { noAccess } = useAccess()
   const { account, signIn } = useIffAccount()
 
-  const username = account?.username || 'Name'
+  const username = React.useMemo(() => account?.username || 'Name', [account])
 
   const handleWalletConnectClick = React.useCallback(async () => {
     await signIn()
@@ -120,10 +121,10 @@ export function UserPanel({ className }: UserPanelProperties) {
 
   return (
     <div className={classNames('box-border', className)}>
-      {account ? (
-        <WalletDropdown username={username} />
-      ) : (
+      {noAccess ? (
         <ConnectWalletButton onClick={handleWalletConnectClick} />
+      ) : (
+        <WalletDropdown username={username} />
       )}
     </div>
   )
