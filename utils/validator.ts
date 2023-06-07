@@ -20,8 +20,9 @@ export function validateStringIsAddress(value: string): boolean {
 export async function validateAddressIsContract(
   address: `0x${string}`
 ): Promise<boolean> {
+  if (!address) return false
   const code = await publicClient.getBytecode({ address })
-  if (code === '0x') return false
+  if (!code) return false
   return true
 }
 
