@@ -141,7 +141,7 @@ export function SectionUserFeedback(properties: SectionUserFeedbackProperties) {
         </h2>
         <Carousel
           cols={2}
-          rows={2}
+          rows={1}
           gap={60}
           dot={CarouselDot}
           containerClassName="feedback-carousel-container"

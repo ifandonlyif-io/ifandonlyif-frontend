@@ -24,10 +24,8 @@ export async function getDemoMyIffNft() {
   )
 }
 
-export async function getDemoFeedbackList() {
-  return await ofetch<FeedbackItem[]>(
-    'http://localhost:3001/api/demo/feedback-list'
-  )
+export async function getFeedbackList() {
+  return await ofetch<FeedbackItem[]>('http://localhost:3001/api/feedback-list')
 }
 
 type GetSignatureCode = {

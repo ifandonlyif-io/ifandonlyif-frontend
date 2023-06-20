@@ -2,7 +2,7 @@ import type { GetServerSideProps, NextPage } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React from 'react'
 
-import { checkSiteUri, getDemoFeedbackList, getNftProjects } from '@/backend'
+import { checkSiteUri, getFeedbackList, getNftProjects } from '@/backend'
 import type { SelectMenuOption } from '@/components/Forms'
 import {
   SectionHeader,
@@ -53,7 +53,7 @@ export const getServerSideProps: GetServerSideProps<IndexProperties> = async ({
   locale = 'en-US',
 }) => {
   const i18n = await serverSideTranslations(locale, ['common', 'home'])
-  const feedbacks = await getDemoFeedbackList()
+  const feedbacks = await getFeedbackList()
   const nftProjects = await getNftProjects()
   const projectOptions = convertNftProjectsToSelectMenuOptions(nftProjects)
   return { props: { ...i18n, feedbacks, projectOptions } }

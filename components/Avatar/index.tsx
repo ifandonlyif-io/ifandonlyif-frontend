@@ -1,5 +1,5 @@
 import type * as CSS from 'csstype'
-import Image from 'next/image'
+import Image, { type StaticImageData } from 'next/image'
 
 import type { BaseComponent } from '@/types'
 import { classNames } from '@/utils'
@@ -9,7 +9,7 @@ type Size = 'small' | 'medium' | 'large'
 type Variant = 'image' | 'text'
 
 type AvatarProperties = BaseComponent & {
-  src: string
+  src: string | StaticImageData
   alt?: string
   size?: Size
   color?: CSS.Property.BorderColor
@@ -91,7 +91,8 @@ function ImageAvatar(properties: AvatarProperties) {
   )
 }
 
-function TextAvatar(properties: AvatarProperties) {
+type TextAvatarProperties = Omit<AvatarProperties, 'src'> & { src: string }
+function TextAvatar(properties: TextAvatarProperties) {
   const {
     className,
     src,
@@ -126,9 +127,10 @@ export function Avatar({
   src,
   ...properties
 }: AvatarProperties) {
-  if (variant === 'text') return <TextAvatar src={src} {...properties} />
-
   if (!src) return <EmptyAvatar {...properties} />
+
+  if (variant === 'text' && typeof src === 'string')
+    return <TextAvatar src={src} {...properties} />
 
   return <ImageAvatar src={src} {...properties} />
 }
