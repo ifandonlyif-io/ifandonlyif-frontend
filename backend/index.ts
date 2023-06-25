@@ -86,12 +86,26 @@ export async function getGasPriceData(): Promise<GasPrice[]> {
   return sorted as GasPrice[]
 }
 
-export async function checkSiteUri(url: string): Promise<boolean> {
-  const response = await publicFetch<string>('/checkUri', {
+export async function checkSiteUriExists(
+  uri: string
+): Promise<boolean | string> {
+  const response = await publicFetch<boolean | string>(
+    '/checkExistBlocklists',
+    {
+      method: 'POST',
+      body: { uri },
+    }
+  )
+  return response
+}
+
+export async function checkBlocklistInfo(uuid: string): Promise<boolean> {
+  const response = await publicFetch<boolean>('/checkBlocklists', {
     method: 'POST',
-    body: { url },
+    body: { uuid },
   })
-  return JSON.parse(response) as boolean
+  console.log('checkBlocklistInfo', response, typeof response)
+  return response
 }
 
 type GetNftProjects = NftProject[]

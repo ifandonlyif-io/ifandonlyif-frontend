@@ -1,11 +1,10 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
-import {
-  type SubmitErrorHandler,
-  type SubmitHandler,
-  useForm,
-} from 'react-hook-form'
+import { type SubmitHandler, useForm } from 'react-hook-form'
+import { z } from 'zod'
 
+import { checkBlocklistInfo, checkSiteUriExists } from '@/backend'
 import { Button } from '@/components/Buttons'
 import { NeonBorder } from '@/components/Decorate'
 import {
@@ -16,7 +15,13 @@ import {
 } from '@/components/Forms'
 import { TabPanel, TabSwitchers } from '@/components/Tabs'
 import type { BaseComponent, CheckSiteUrlFormData } from '@/types'
-import { classNames, validateCheckSiteUrlData } from '@/utils'
+import {
+  classNames,
+  parseUrl,
+  validateStringIsUrl,
+  validateUrlIsHttp,
+  validateUrlNotContainUserInfo,
+} from '@/utils'
 
 function CheckPanel(properties: React.PropsWithChildren<BaseComponent>) {
   const { className, children } = properties
@@ -61,68 +66,98 @@ function HolderCheckPanel(properties: HolderCheckPanelProperties) {
   )
 }
 
-type SiteCheckPanelProperties = {
-  onSiteCheckPanelSubmit: (data: CheckSiteUrlFormData) => Promise<void>
-}
+const schema = z.object({
+  siteUrl: z
+    .string()
+    .url()
+    .refine(validateStringIsUrl, 'invalid_string')
+    // TODO: optimize below validation
+    .refine((value) => {
+      const isUrl = validateStringIsUrl(value)
+      if (!isUrl) return false
+      const url = new URL('/', value)
+      return validateUrlIsHttp(url)
+    }, 'notHttp')
+    .refine((value) => {
+      const isUrl = validateStringIsUrl(value)
+      if (!isUrl) return false
+      const url = new URL('/', value)
+      return validateUrlNotContainUserInfo(url)
+    }, 'containUserinfo'),
+})
 
-function SiteCheckPanel(properties: SiteCheckPanelProperties) {
-  const { onSiteCheckPanelSubmit } = properties
+function SiteCheckPanel() {
   const { t } = useTranslation('home', {
     keyPrefix: 'home.sectionNFTCheck.siteCheckPanel.checkPanel',
   })
-  const { register, handleSubmit } = useForm<CheckSiteUrlFormData>()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<CheckSiteUrlFormData>({
+    resolver: zodResolver(schema),
+  })
+
+  const errorMessage = React.useMemo<string | undefined>(() => {
+    if (!errors.siteUrl) return
+    if (errors.siteUrl.type === 'invalid_string') return 'invalid_string'
+    if (errors.siteUrl.type === 'custom') return errors.siteUrl.message
+    return 'invalid_string'
+  }, [errors.siteUrl])
 
   const handleSiteCheckPanelSubmit = React.useCallback<
     SubmitHandler<CheckSiteUrlFormData>
   >(
     async (data) => {
-      console.debug('handleSiteCheckPanelSubmit', data)
-      await onSiteCheckPanelSubmit(data)
-    },
-    [onSiteCheckPanelSubmit]
-  )
+      if (errors.siteUrl) return
+      const url = parseUrl(data.siteUrl)
+      console.debug('handleSiteCheckPanelSubmit', data.siteUrl, url)
 
-  const handleSiteCheckPanelError = React.useCallback<
-    SubmitErrorHandler<CheckSiteUrlFormData>
-  >(
-    (errors) => {
-      if (errors.siteUrl && errors.siteUrl.message)
-        alert(t(errors.siteUrl.message))
+      const check = await checkSiteUriExists(url)
+      if (typeof check === 'boolean' && !check) {
+        return alert(t('notExists'))
+      }
+
+      if (typeof check === 'string') {
+        const info = await checkBlocklistInfo(check)
+        if (info) return alert(t('isVerified'))
+        return alert(t('isUnsafe'))
+      }
     },
-    [t]
+    [errors.siteUrl, t]
   )
 
   return (
     <CheckPanel>
       <form
         className="flex flex-col gap-5"
-        onSubmit={handleSubmit(
-          handleSiteCheckPanelSubmit,
-          handleSiteCheckPanelError
-        )}
+        onSubmit={handleSubmit(handleSiteCheckPanelSubmit)}
       >
         <label
           className="flex flex-col gap-5"
           htmlFor="check-site-url-textarea"
         >
-          <h3 className="text-sm font-bold text-white">{t('heading')}</h3>
+          <div className="flex flex-nowrap items-center justify-between">
+            <h3 className="text-sm font-bold text-white">{t('heading')}</h3>
+            {errorMessage && (
+              <span className="text-xs text-red-500">{t(errorMessage)}</span>
+            )}
+          </div>
           <Textarea
             id="check-site-url-textarea"
             className="[resize:none]"
-            {...register('siteUrl', {
-              required: true,
-              validate: validateCheckSiteUrlData,
-            })}
+            {...register('siteUrl', { required: true })}
           />
         </label>
-        <Button type="submit">{t('okButton')}</Button>
+        <Button type="submit" disabled={!!errors.siteUrl}>
+          {t('okButton')}
+        </Button>
       </form>
     </CheckPanel>
   )
 }
 
-type SectionNFTCheckProperties = SiteCheckPanelProperties &
-  HolderCheckPanelProperties
+type SectionNFTCheckProperties = HolderCheckPanelProperties
 
 export function SectionNFTCheck(properties: SectionNFTCheckProperties) {
   const { t } = useTranslation('home', {
@@ -141,7 +176,7 @@ export function SectionNFTCheck(properties: SectionNFTCheckProperties) {
             <HolderCheckPanel {...properties} />
           </TabPanel>
           <TabPanel>
-            <SiteCheckPanel {...properties} />
+            <SiteCheckPanel />
           </TabPanel>
         </TabSwitchers>
       </div>

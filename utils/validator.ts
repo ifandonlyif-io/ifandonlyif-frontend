@@ -4,6 +4,7 @@ import { getAddress, isAddress } from 'viem'
 import { publicClient } from './chain'
 
 export function validateStringIsUrl(value: string): boolean {
+  if (typeof value !== 'string') return false
   try {
     const url = new URL('/', value)
     if (url.origin) return true
@@ -11,6 +12,14 @@ export function validateStringIsUrl(value: string): boolean {
   } catch {
     return false
   }
+}
+
+export function validateUrlIsHttp(url: URL): boolean {
+  return url.protocol === 'http:' || url.protocol === 'https:'
+}
+
+export function validateUrlNotContainUserInfo(url: URL): boolean {
+  return !url.username && !url.password
 }
 
 export function validateStringIsAddress(value: string): boolean {
@@ -33,13 +42,6 @@ export function validateToAddressMatch(
   const _a0 = getAddress(address0)
   const _a1 = getAddress(address1)
   return _a0 !== _a1
-}
-
-export function validateCheckSiteUrlData(value: string): ValidateResult {
-  const check = validateStringIsUrl(value)
-  if (!check)
-    return 'home.sectionNFTCheck.siteCheckPanel.textarea.errorMessage.correctUrl'
-  return true
 }
 
 export async function validateMintIffNftFormInputAddress(

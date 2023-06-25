@@ -18,12 +18,13 @@
       "siteCheckPanel": {
         "checkPanel": {
           "heading": "Key in website url -",
-          "okButton": "OK"
-        },
-        "textarea": {
-          "errorMessage": {
-            "correctUrl": "Please enter the correct url."
-          }
+          "okButton": "OK",
+          "invalid_string": "Please enter a valid url",
+          "notHttp": "Url can only start with https:// or http://",
+          "containUserinfo": "Url cannot contain user info",
+          "notExists": "Url is not in the blocklist",
+          "isVerified": "Url is verified as safe",
+          "isUnsafe": "Url is verified as unsafe"
         }
       },
       "tabSwitchers": {

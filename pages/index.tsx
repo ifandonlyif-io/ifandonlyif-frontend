@@ -2,7 +2,7 @@ import type { GetServerSideProps, NextPage } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React from 'react'
 
-import { checkSiteUri, getFeedbackList, getNftProjects } from '@/backend'
+import { getFeedbackList, getNftProjects } from '@/backend'
 import type { SelectMenuOption } from '@/components/Forms'
 import {
   SectionHeader,
@@ -11,7 +11,6 @@ import {
   SectionUserFeedback,
   type SectionUserFeedbackProperties,
 } from '@/components/pages/Home'
-import type { CheckSiteUrlFormData } from '@/types'
 import { convertNftProjectsToSelectMenuOptions } from '@/utils'
 
 type IndexProperties = SectionUserFeedbackProperties & {
@@ -19,15 +18,6 @@ type IndexProperties = SectionUserFeedbackProperties & {
 }
 
 const Index: NextPage<IndexProperties> = (properties: IndexProperties) => {
-  const handleSiteCheckPanelSubmit = React.useCallback(
-    async (data: CheckSiteUrlFormData) => {
-      const url = new URL('/', data.siteUrl)
-      const check = await checkSiteUri(url.origin)
-      alert(`Check site url: ${check}`)
-    },
-    []
-  )
-
   const handleProjectOptionChange = React.useCallback(
     (option: SelectMenuOption) => {
       console.debug('handleProjectOptionChange', option)
@@ -41,7 +31,6 @@ const Index: NextPage<IndexProperties> = (properties: IndexProperties) => {
       <SectionSiteData />
       <SectionNFTCheck
         projectOptions={properties.projectOptions}
-        onSiteCheckPanelSubmit={handleSiteCheckPanelSubmit}
         onProjectOptionChange={handleProjectOptionChange}
       />
       <SectionUserFeedback feedbacks={properties.feedbacks} />
