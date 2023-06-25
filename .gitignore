@@ -51,3 +51,4 @@ storybook-static/
 tsconfig.tsbuildinfo
 
 demo.json
+*.http

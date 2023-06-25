@@ -2,14 +2,18 @@
 
 ## Getting Started
 
-### Install and run
-
-Create `.env.local` file, copy from `.env.local.example` and edit all fields.
-
-Install dependencies.
+### Install
 
 ```bash
 pnpm install
+```
+
+### Install and run
+
+Copy `.env.local.example` to `.env.local` and update the variables.
+
+```bash
+cp .env.local.example .env.local
 ```
 
 Serve with hot reload at http://localhost:3001.
@@ -32,8 +36,16 @@ pnpm run build
 
 ### Test
 
+Copy `.env.local.example` to `.env.test.local` and update the variables.
+
 ```bash
-pnpm run test
+cp .env.local.example .env.test.local
+```
+
+Run tests:
+
+```bash
+pnpm test
 ```
 
 ### Build Docker container

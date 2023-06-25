@@ -26,11 +26,7 @@ module.exports = defineConfig({
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
     'unused-imports/no-unused-imports': 'error',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/no-non-null-assertion': 'off',
-    'tailwindcss/classnames-order': 'warn',
     'tailwindcss/no-custom-classname': 'off',
-    'tailwindcss/no-contradicting-classname': 'error',
   },
   overrides: [
     {
@@ -48,6 +44,9 @@ module.exports = defineConfig({
     'import/resolver': {
       node: true,
       typescript: true,
+    },
+    next: {
+      rootDir: ['./'],
     },
   },
 })
