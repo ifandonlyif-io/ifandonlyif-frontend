@@ -75,6 +75,7 @@ function MintModal(properties: MintModalProperties) {
     isLoading,
     inputAddressError,
     handleInputAddressChange,
+    userInfo,
     userInfoError,
     handleUserInfoChange,
   } = useMintIffNft(nft)
@@ -137,6 +138,7 @@ function MintModal(properties: MintModalProperties) {
             id="userInfo"
             placeholder={t('input.placeholder.userInfo') || undefined}
             required={true}
+            value={userInfo}
             onChange={handleUserInfoChange}
           />
         </div>

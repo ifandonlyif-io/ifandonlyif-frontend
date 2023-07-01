@@ -123,7 +123,7 @@
               "required": "Please input an address",
               "invalidAddress": "Invalid address",
               "invalidWallet": "Address is not a wallet",
-              "notOwnAddress": "No mint to own address"
+              "notOwnAddress": "Can not mint to own address"
             }
           },
           "button": {

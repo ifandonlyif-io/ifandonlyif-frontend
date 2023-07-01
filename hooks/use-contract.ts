@@ -11,7 +11,6 @@ import { IFFNFT } from '@/contracts/abi'
 import type { NFTItem } from '@/types'
 import {
   getIffNftContractAddress,
-  getIffNftTypeId,
   validateMintIffNftFormInputAddress,
   validateMintIffNftFormUserInfo,
 } from '@/utils'
@@ -36,7 +35,7 @@ export function useMintIffNft(nft?: NFTItem) {
     [account]
   )
 
-  const [userInfo, setUserInfo] = React.useState<string>('')
+  const [userInfo, setUserInfo] = React.useState<string>(account ?? '')
   const [userInfoError, setUserInfoError] = React.useState<ValidateResult>()
   const handleUserInfoChange = React.useCallback<
     React.ChangeEventHandler<HTMLInputElement>
@@ -49,11 +48,15 @@ export function useMintIffNft(nft?: NFTItem) {
     setUserInfoError('')
   }, [])
 
-  const address = React.useMemo(() => getIffNftContractAddress(), [])
-  const typeId = React.useMemo(
-    () => getIffNftTypeId(nft?.name || '') ?? -1,
+  const address = React.useMemo<`0x${string}`>(
+    () => getIffNftContractAddress(),
+    []
+  )
+  const nftAddress = React.useMemo<`0x${string}`>(
+    () => (nft?.address as `0x${string}`) || `0x`,
     [nft]
   )
+  const tokenId = React.useMemo<number>(() => nft?.tokenId ?? -1, [nft])
 
   const {
     config,
@@ -63,7 +66,7 @@ export function useMintIffNft(nft?: NFTItem) {
     address,
     abi: IFFNFT,
     functionName: 'mintNFT',
-    args: [inputAddress, typeId, userInfo],
+    args: [inputAddress, nftAddress, tokenId, userInfo],
     value: BigInt(0),
     enabled: Boolean(inputAddress),
   })
@@ -89,8 +92,10 @@ export function useMintIffNft(nft?: NFTItem) {
     prepareError,
     isWriteError,
     writeError,
+    inputAddress,
     inputAddressError,
     handleInputAddressChange,
+    userInfo,
     userInfoError,
     handleUserInfoChange,
   }
