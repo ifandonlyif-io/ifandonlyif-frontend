@@ -47,6 +47,158 @@ export function CrossMarkIcon(properties: SvgIconProperties) {
   )
 }
 
+export function CheckMarkOutlineIcon(properties: SvgIconProperties) {
+  return (
+    <SvgIcons viewBox="0 0 64 64" fill="none" {...properties}>
+      <g id="Group 101">
+        <g id="Vector" filter="url(#filter0_ddi_1201_819)">
+          <path
+            d="M27.3922 42.9073L18.5889 34.047L22.6007 30.0092L27.3922 34.846L41.3982 20.7351L45.4101 24.7729L27.3922 42.9073Z"
+            fill="#A585FF"
+          />
+        </g>
+        <g id="Ellipse 17 (Stroke)" filter="url(#filter1_d_1201_819)">
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M32 56C45.2548 56 56 45.2548 56 32C56 18.7452 45.2548 8 32 8C18.7452 8 8 18.7452 8 32C8 45.2548 18.7452 56 32 56ZM32 59C46.9117 59 59 46.9117 59 32C59 17.0883 46.9117 5 32 5C17.0883 5 5 17.0883 5 32C5 46.9117 17.0883 59 32 59Z"
+            fill="#A585FF"
+          />
+        </g>
+      </g>
+      <defs>
+        <filter
+          id="filter0_ddi_1201_819"
+          x="10.5889"
+          y="12.7351"
+          width="42.8213"
+          height="38.1721"
+          filterUnits="userSpaceOnUse"
+          colorInterpolationFilters="sRGB"
+        >
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
+          <feColorMatrix
+            in="SourceAlpha"
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+            result="hardAlpha"
+          />
+          <feOffset />
+          <feGaussianBlur stdDeviation="4" />
+          <feComposite in2="hardAlpha" operator="out" />
+          <feColorMatrix
+            type="matrix"
+            values="0 0 0 0 0.183333 0 0 0 0 1 0 0 0 0 0.853 0 0 0 1 0"
+          />
+          <feBlend
+            mode="normal"
+            in2="BackgroundImageFix"
+            result="effect1_dropShadow_1201_819"
+          />
+          <feColorMatrix
+            in="SourceAlpha"
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+            result="hardAlpha"
+          />
+          <feOffset dy="4" />
+          <feGaussianBlur stdDeviation="2" />
+          <feComposite in2="hardAlpha" operator="out" />
+          <feColorMatrix
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+          />
+          <feBlend
+            mode="normal"
+            in2="effect1_dropShadow_1201_819"
+            result="effect2_dropShadow_1201_819"
+          />
+          <feBlend
+            mode="normal"
+            in="SourceGraphic"
+            in2="effect2_dropShadow_1201_819"
+            result="shape"
+          />
+          <feColorMatrix
+            in="SourceAlpha"
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+            result="hardAlpha"
+          />
+          <feOffset dy="2" />
+          <feGaussianBlur stdDeviation="0.5" />
+          <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+          <feColorMatrix
+            type="matrix"
+            values="0 0 0 0 0.454167 0 0 0 0 0.869 0 0 0 0 1 0 0 0 1 0"
+          />
+          <feBlend
+            mode="normal"
+            in2="shape"
+            result="effect3_innerShadow_1201_819"
+          />
+        </filter>
+        <filter
+          id="filter1_d_1201_819"
+          x="0"
+          y="0"
+          width="64"
+          height="64"
+          filterUnits="userSpaceOnUse"
+          colorInterpolationFilters="sRGB"
+        >
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
+          <feColorMatrix
+            in="SourceAlpha"
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+            result="hardAlpha"
+          />
+          <feOffset />
+          <feGaussianBlur stdDeviation="2.5" />
+          <feComposite in2="hardAlpha" operator="out" />
+          <feColorMatrix
+            type="matrix"
+            values="0 0 0 0 0.275 0 0 0 0 1 0 0 0 0 0.900571 0 0 0 1 0"
+          />
+          <feBlend
+            mode="normal"
+            in2="BackgroundImageFix"
+            result="effect1_dropShadow_1201_819"
+          />
+          <feBlend
+            mode="normal"
+            in="SourceGraphic"
+            in2="effect1_dropShadow_1201_819"
+            result="shape"
+          />
+        </filter>
+      </defs>
+    </SvgIcons>
+  )
+}
+
+export function CrossMarkOutlineIcon(properties: SvgIconProperties) {
+  return (
+    <SvgIcons viewBox="0 0 54 54" fill="none" {...properties}>
+      <g id="Group 101">
+        <path
+          id="Ellipse 17 (Stroke)"
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M27 51C40.2548 51 51 40.2548 51 27C51 13.7452 40.2548 3 27 3C13.7452 3 3 13.7452 3 27C3 40.2548 13.7452 51 27 51ZM27 54C41.9117 54 54 41.9117 54 27C54 12.0883 41.9117 0 27 0C12.0883 0 0 12.0883 0 27C0 41.9117 12.0883 54 27 54Z"
+          fill="#FCBCBC"
+        />
+        <path
+          id="Vector"
+          d="M31.8074 26.5L38.9797 33.6723L34.6723 37.9797L27.5 30.8074L20.3074 38L16 33.6926L23.1926 26.5L16 19.3074L20.3074 15L27.5 22.1926L34.6926 15.0203L39 19.3277L31.8074 26.5Z"
+          fill="#FF8080"
+        />
+      </g>
+    </SvgIcons>
+  )
+}
+
 export function WarnMarkIcon(properties: SvgIconProperties) {
   return (
     <SvgIcons viewBox="0 0 20 18" {...properties}>

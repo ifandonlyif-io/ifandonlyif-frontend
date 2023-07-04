@@ -13,7 +13,7 @@ import {
   SelectMenus,
   Textarea,
 } from '@/components/Forms'
-import { CheckModal } from '@/components/Modal'
+import { CheckModal, type CheckModalProperties } from '@/components/Modal'
 import { TabPanel, TabSwitchers } from '@/components/Tabs'
 import type { BaseComponent, CheckSiteUrlFormData } from '@/types'
 import {
@@ -93,6 +93,7 @@ function SiteCheckPanel() {
   })
   const {
     register,
+    getValues,
     handleSubmit,
     formState: { errors },
   } = useForm<CheckSiteUrlFormData>({
@@ -106,7 +107,6 @@ function SiteCheckPanel() {
     if (errors.siteUrl.type === 'custom') return errors.siteUrl.message
     return 'invalid_string'
   }, [errors.siteUrl])
-
   const handleSiteCheckPanelSubmit = React.useCallback<
     SubmitHandler<CheckSiteUrlFormData>
   >(
@@ -117,17 +117,35 @@ function SiteCheckPanel() {
 
       const check = await checkSiteUriExists(url)
       if (typeof check === 'boolean' && !check) {
-        return alert(t('notExists'))
+        setModalStatus('error')
+        setModalOpen(true)
+        return
       }
 
       if (typeof check === 'string') {
         const info = await checkBlocklistInfo(check)
-        if (info) return alert(t('isVerified'))
-        return alert(t('isUnsafe'))
+        if (info) {
+          setModalStatus('success')
+          setModalOpen(true)
+          return
+        }
+        setModalStatus('error')
+        setModalOpen(true)
+        return
       }
     },
-    [errors.siteUrl, t]
+    [errors.siteUrl]
   )
+
+  const [modalStatus, setModalStatus] =
+    React.useState<CheckModalProperties['status']>('success')
+  const [modalOpen, setModalOpen] = React.useState(false)
+  const handleModalClose = React.useCallback(() => setModalOpen(false), [])
+  const handleOpenUrl = React.useCallback(() => {
+    const values = getValues()
+    const url = parseUrl(values.siteUrl)
+    window.open(url, '_blank')
+  }, [getValues])
 
   return (
     <CheckPanel>
@@ -152,7 +170,64 @@ function SiteCheckPanel() {
           {t('okButton')}
         </Button>
       </form>
-      <CheckModal status="success" isOpen={true} />
+      <CheckModal
+        status={modalStatus}
+        isOpen={modalOpen}
+        onModalClose={handleModalClose}
+      >
+        <div className="mt-10 text-center text-base font-bold text-iff-text">
+          {modalStatus === 'success' && (
+            <React.Fragment>
+              <p>This website is trusted.</p>
+              <p>Now you can go to open it or check another.</p>
+            </React.Fragment>
+          )}
+          {modalStatus === 'error' && (
+            <React.Fragment>
+              <p>This website is untrusted or unknown.</p>
+              <p>Highly recommended you should NOT open it.</p>
+            </React.Fragment>
+          )}
+        </div>
+        <div
+          className={cn(
+            'mt-10 flex flex-row items-center',
+            modalStatus === 'success' && 'justify-between gap-2.5',
+            modalStatus === 'error' && 'justify-center'
+          )}
+        >
+          {modalStatus === 'success' && (
+            <React.Fragment>
+              <Button
+                className="border-2 !bg-white"
+                size="medium"
+                shadow={false}
+                onClick={handleModalClose}
+              >
+                Check another
+              </Button>
+              <Button
+                className="border-2 border-[#14D6D6]"
+                size="medium"
+                shadow={false}
+                onClick={handleOpenUrl}
+              >
+                Open it
+              </Button>
+            </React.Fragment>
+          )}
+          {modalStatus === 'error' && (
+            <Button
+              className="max-w-[190px] border-2 border-[#14D6D6]"
+              size="medium"
+              shadow={false}
+              onClick={handleModalClose}
+            >
+              Close
+            </Button>
+          )}
+        </div>
+      </CheckModal>
     </CheckPanel>
   )
 }

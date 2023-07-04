@@ -2,7 +2,9 @@ import { Dialog, Transition } from '@headlessui/react'
 import React from 'react'
 
 import type { BaseComponent } from '@/types'
-import { classNames } from '@/utils'
+import { cn } from '@/utils'
+
+import { CheckMarkOutlineIcon, CrossMarkOutlineIcon } from '../Icons'
 
 export type ModalProperties = BaseComponent & {
   title?: string
@@ -49,8 +51,8 @@ export function Modal(properties: React.PropsWithChildren<ModalProperties>) {
             leaveTo="opacity-0 scale-95"
           >
             <Dialog.Panel
-              className={classNames(
-                'bg-white rounded-[10px] shadow-iff-modal',
+              className={cn(
+                'flex flex-col rounded-xl bg-white px-20 py-8 shadow-iff-modal',
                 className
               )}
             >
@@ -68,5 +70,39 @@ export function Modal(properties: React.PropsWithChildren<ModalProperties>) {
         </div>
       </Dialog>
     </Transition>
+  )
+}
+
+export type CheckModalProperties = ModalProperties & {
+  status: 'success' | 'error'
+}
+
+export function CheckModal(
+  properties: React.PropsWithChildren<CheckModalProperties>
+) {
+  const { status, children, ...others } = properties
+
+  return (
+    <Modal {...others}>
+      <div className="flex flex-col items-center justify-center">
+        {status === 'success' && (
+          <React.Fragment>
+            <CheckMarkOutlineIcon className="h-[54px] w-[54px]" />
+            <h3 className="mt-2.5 text-2xl font-bold leading-normal text-iff-neon-purple">
+              Congrats!
+            </h3>
+          </React.Fragment>
+        )}
+        {status === 'error' && (
+          <React.Fragment>
+            <CrossMarkOutlineIcon className="h-[54px] w-[54px]" />
+            <h3 className="mt-2.5 text-2xl font-bold leading-normal text-iff-neon-red">
+              Oops!
+            </h3>
+          </React.Fragment>
+        )}
+      </div>
+      {children}
+    </Modal>
   )
 }

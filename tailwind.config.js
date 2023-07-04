@@ -22,6 +22,7 @@ export default defineTailwindCSSConfig({
         'iff-text': '#4F4F4F',
         'iff-grey-3': '#828282',
         'iff-neon-purple': '#A585FF',
+        'iff-neon-red': '#FF8080',
       },
       boxShadow: {
         'iff-button':
