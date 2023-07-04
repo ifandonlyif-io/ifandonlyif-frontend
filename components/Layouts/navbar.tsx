@@ -3,7 +3,7 @@ import React from 'react'
 
 import { IFFLogo } from '@/components/Logo'
 import type { BaseComponent } from '@/types'
-import { classNames } from '@/utils'
+import { cn } from '@/utils'
 
 import { UserPanel } from './user-panel'
 
@@ -12,8 +12,8 @@ type NavbarProperties = BaseComponent
 export function Navbar({ className }: NavbarProperties) {
   return (
     <nav
-      className={classNames(
-        'sticky flex flex-row justify-between items-center px-[22px] md:px-8 h-[88px] bg-black/20 shadow-iff-base backdrop-blur-2xl z-10',
+      className={cn(
+        'sticky z-10 flex h-[88px] flex-row items-center justify-between bg-black/20 px-[22px] shadow-iff-base backdrop-blur-2xl md:px-8',
         className
       )}
     >

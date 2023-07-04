@@ -1,7 +1,7 @@
 import React from 'react'
 
 import type { BaseComponent } from '@/types'
-import { classNames } from '@/utils'
+import { cn } from '@/utils'
 
 type InputRadioProperties = React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -18,10 +18,7 @@ export function FilterItem(properties: FilterItemProperties) {
   const { className, children, id, name, value, count, ...input } = properties
   return (
     <label
-      className={classNames(
-        'flex flex-row items-center cursor-pointer',
-        className
-      )}
+      className={cn('flex cursor-pointer flex-row items-center', className)}
       htmlFor={id}
     >
       <input
@@ -32,7 +29,7 @@ export function FilterItem(properties: FilterItemProperties) {
         value={value}
         {...input}
       />
-      <span className="box-border rounded-[20px] border-[1px] border-solid border-iff-cyan px-6 py-[6px] text-sm font-bold text-iff-text hover:bg-iff-cyan/40 peer-checked:bg-iff-cyan">
+      <span className="box-border rounded-[20px] border border-solid border-iff-cyan px-6 py-1.5 text-sm font-bold text-iff-text hover:bg-iff-cyan/40 peer-checked:bg-iff-cyan">
         {children}
         {typeof count === 'number' && ` (${count})`}
       </span>
@@ -61,7 +58,7 @@ export function FilterGroup(properties: FilterGroupProperties) {
     [onFilterChange]
   )
   return (
-    <div className={classNames('flex flex-row gap-3', className)}>
+    <div className={cn('flex flex-row gap-3', className)}>
       {React.Children.map(children, (child, index) => {
         if (React.isValidElement<InputRadioProperties>(child)) {
           const { props } = child

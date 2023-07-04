@@ -10,7 +10,7 @@
   &__tab {
     @apply
       flex flex-row items-center justify-center box-border cursor-pointer list-none focus:outline-none
-      w-[90px] md:w-[170px] h-[50px] mx-2 md:mx-4 border-b-[3px] border-solid border-transparent bg-transparent
+      w-[90px] md:w-[170px] h-[50px] mx-2 md:mx-4 border-b-4 border-solid border-transparent bg-transparent
       text-center font-bold text-base text-[#333333] leading-none uppercase shrink-0
     ;
     letter-spacing: 0.05em;
@@ -29,7 +29,7 @@
     }
 
     &--warned:after {
-      @apply content-['_'] inline-block w-1.5 h-1.5 ml-[6px] -mt-2.5 rounded-full bg-[#FF906D];
+      @apply content-['_'] inline-block w-1.5 h-1.5 ml-1.5 -mt-2.5 rounded-full bg-[#FF906D];
     }
   }
 

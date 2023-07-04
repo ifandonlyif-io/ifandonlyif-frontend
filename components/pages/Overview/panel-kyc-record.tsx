@@ -3,7 +3,7 @@ import { useTranslation } from 'next-i18next'
 import { Avatar } from '@/components/Avatar'
 import { Card } from '@/components/Card'
 import type { BaseComponent } from '@/types'
-import { classNames } from '@/utils'
+import { cn } from '@/utils'
 
 import { TabTitle } from './title'
 
@@ -13,7 +13,7 @@ function TextRow(properties: React.PropsWithChildren<BaseComponent>) {
   const { className, children } = properties
   return (
     <div
-      className={classNames(
+      className={cn(
         'flex flex-row items-center text-base text-black',
         className
       )}
@@ -24,7 +24,7 @@ function TextRow(properties: React.PropsWithChildren<BaseComponent>) {
 }
 
 function Text({ className, children }: React.PropsWithChildren<BaseComponent>) {
-  return <p className={classNames('p-0 m-0', className)}>{children}</p>
+  return <p className={cn('m-0 p-0', className)}>{children}</p>
 }
 
 function RecordData(properties: React.PropsWithChildren<RecordDataProperties>) {
@@ -48,7 +48,7 @@ export function PanelKYCRecord() {
       <Card>
         <div className="flex flex-row items-center p-8">
           <Avatar variant="text" size="medium" src="S" />
-          <div className="ml-12 flex flex-1 flex-col gap-[10px]">
+          <div className="ml-12 flex flex-1 flex-col gap-2.5">
             <RecordData name={t('recordData.date')}>2022/5/1</RecordData>
             <RecordData name={t('recordData.holder')}>BEN5566</RecordData>
           </div>

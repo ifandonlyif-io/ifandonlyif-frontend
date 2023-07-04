@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { classNames } from '@/utils'
+import { cn } from '@/utils'
 
 type Size = 'small' | 'medium' | 'large'
 
@@ -31,13 +31,13 @@ export function Button({
 }: ButtonProperties) {
   return (
     <button
-      className={classNames(
-        'flex justify-center items-center rounded w-full box-border',
+      className={cn(
+        'box-border flex w-full items-center justify-center rounded',
         sizes[size],
         primary
-          ? 'bg-iff-purple border-iff-purple shadow-iff-button-2 hover:bg-iff-purple/90'
-          : 'bg-iff-cyan border-iff-cyan shadow-iff-button hover:bg-iff-cyan/90',
-        outline && 'border-[1px] bg-transparent',
+          ? 'border-iff-purple bg-iff-purple shadow-iff-button-2 hover:bg-iff-purple/90'
+          : 'border-iff-cyan bg-iff-cyan shadow-iff-button hover:bg-iff-cyan/90',
+        outline && 'border bg-transparent',
         !shadow && 'shadow-none',
         className
       )}
@@ -67,12 +67,12 @@ export function NFTButton({
 }: NFTButtonProperties) {
   return (
     <button
-      className={classNames(
-        'flex flex-row justify-center items-center py-1 rounded border-[1px] border-solid',
-        'text-sm font-bold text-center uppercase',
+      className={cn(
+        'flex flex-row items-center justify-center rounded border border-solid py-1',
+        'text-center text-sm font-bold uppercase',
         outline
-          ? 'bg-transparent border-iff-cyan text-[#14D6D6]'
-          : 'bg-[#182948] bg-gradient-nft-button border-[#28425D] text-iff-cyan hover:bg-[#35536D]',
+          ? 'border-iff-cyan bg-transparent text-[#14D6D6]'
+          : 'bg-gradient-nft-button border-[#28425D] bg-[#182948] text-iff-cyan hover:bg-[#35536D]',
         nftSizes[size],
         className
       )}

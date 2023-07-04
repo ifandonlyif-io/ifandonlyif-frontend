@@ -5,7 +5,7 @@ import { Card } from '@/components/Card'
 import { MoreVerticalIcon, TwitterIcon } from '@/components/Icons'
 import { Label } from '@/components/Label'
 import type { BaseComponent } from '@/types'
-import { classNames } from '@/utils'
+import { cn } from '@/utils'
 
 type OverviewSocialProperties = BaseComponent
 
@@ -21,7 +21,7 @@ function SocialInfo(properties: SocialInfoProperties) {
   return (
     <div className="flex flex-row items-center">
       <TwitterIcon htmlColor="#4F4F4F" />
-      <div className="ml-3 flex flex-1 flex-row items-center gap-[10px]">
+      <div className="ml-3 flex flex-1 flex-row items-center gap-2.5">
         <p className="mr-3 text-base font-bold text-iff-text">{username}</p>
         {verified && (
           <Label className="bg-[#FFC481]" size="medium">
@@ -45,7 +45,7 @@ export function OverviewSocial({ className }: OverviewSocialProperties) {
   const { t } = useTranslation('overview')
 
   return (
-    <section className={classNames('w-full', className)}>
+    <section className={cn('w-full', className)}>
       <Card title={t('overview.panelOverview.overviewSocial.card.title')}>
         <div className="flex flex-col gap-4 p-4 md:gap-10 md:px-7 md:py-10">
           <SocialInfo username="collect_name_01" verified />

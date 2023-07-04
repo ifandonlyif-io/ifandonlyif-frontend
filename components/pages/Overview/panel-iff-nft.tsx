@@ -7,7 +7,7 @@ import { Modal, type ModalProperties } from '@/components/Modal'
 import { NFTFrame } from '@/components/NFTs'
 import { useSortByTimezone } from '@/hooks'
 import type { BaseComponent, NFTItem } from '@/types'
-import { classNames, sortNFTItems } from '@/utils'
+import { cn, sortNFTItems } from '@/utils'
 
 import { SectionTitleWithSortTimezone, TabTitle } from './title'
 
@@ -20,8 +20,8 @@ function MemoModalTitle(properties: MemoModalTitleProperties) {
   const { className, title, rightElement } = properties
   return (
     <div
-      className={classNames(
-        'flex flex-row flex-nowrap justify-between items-center',
+      className={cn(
+        'flex flex-row flex-nowrap items-center justify-between',
         className
       )}
     >
@@ -115,9 +115,9 @@ function MemoModal(properties: MemoModalProperties) {
             <Radio value="no">{t('radioGroup.no')}</Radio>
           </RadioGroup> */}
 
-          <div className="mt-16 grid grid-cols-2 gap-[10px]">
+          <div className="mt-16 grid grid-cols-2 gap-2.5">
             <Button
-              className="border-[2px] !bg-white"
+              className="border-2 !bg-white"
               size="medium"
               shadow={false}
               onClick={handleCancelClick}
@@ -125,7 +125,7 @@ function MemoModal(properties: MemoModalProperties) {
               {t('button.cancel')}
             </Button>
             <Button
-              className="border-[2px] border-[#14D6D6]"
+              className="border-2 border-[#14D6D6]"
               size="medium"
               shadow={false}
               onClick={handleOkClick}
@@ -152,7 +152,7 @@ function NFTButtons(properties: NFTButtonsProperties) {
   return (
     <div className="flex flex-1 flex-row flex-nowrap items-center justify-between">
       <NFTButton
-        className="!border-[#A585FF] !text-[#A585FF]"
+        className="!border-iff-neon-purple !text-iff-neon-purple"
         size="small"
         outline
       >

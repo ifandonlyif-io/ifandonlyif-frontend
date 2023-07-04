@@ -1,7 +1,7 @@
 import React from 'react'
 
 import type { BaseComponent } from '@/types'
-import { classNames } from '@/utils'
+import { cn } from '@/utils'
 
 type Size = 'medium' | 'large'
 
@@ -14,7 +14,7 @@ type LabelProperties = BaseComponent &
   }
 
 const sizes: Record<Size, string> = {
-  medium: 'rounded-[46px] px-4 py-[6px] text-[10px]',
+  medium: 'rounded-[46px] px-4 py-1.5 text-[10px]',
   large: 'rounded-[20px] px-8 py-2 text-sm',
 }
 
@@ -25,8 +25,8 @@ export function Label({
 }: React.PropsWithChildren<LabelProperties>) {
   return (
     <label
-      className={classNames(
-        'flex flex-row flex-nowrap text-iff-text font-bold justify-center items-center',
+      className={cn(
+        'flex flex-row flex-nowrap items-center justify-center font-bold text-iff-text',
         sizes[size],
         className
       )}

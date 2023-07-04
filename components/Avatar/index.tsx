@@ -2,7 +2,7 @@ import type * as CSS from 'csstype'
 import Image, { type StaticImageData } from 'next/image'
 
 import type { BaseComponent } from '@/types'
-import { classNames } from '@/utils'
+import { cn } from '@/utils'
 
 type Size = 'small' | 'medium' | 'large'
 
@@ -18,9 +18,9 @@ type AvatarProperties = BaseComponent & {
 }
 
 const sizes: Record<Size, string> = {
-  small: 'w-11 h-11 border-[1.5px]',
-  medium: 'w-[62px] h-[62px] border-[3px]',
-  large: 'w-20 h-20 border-[3px]',
+  small: 'w-11 h-11 border-2',
+  medium: 'w-[62px] h-[62px] border-4',
+  large: 'w-20 h-20 border-4',
 }
 
 const imgSizes: Record<Size, number> = {
@@ -45,8 +45,8 @@ function EmptyAvatar(properties: EmptyAvatarProperties) {
   return (
     <span
       data-testid="empty-avatar"
-      className={classNames(
-        'inline-block overflow-hidden bg-gray-100 rounded-full',
+      className={cn(
+        'inline-block overflow-hidden rounded-full bg-gray-100',
         sizes[size],
         className
       )}
@@ -74,8 +74,8 @@ function ImageAvatar(properties: AvatarProperties) {
   } = properties
   return (
     <Image
-      className={classNames(
-        'inline-block box-border rounded-full border-solid',
+      className={cn(
+        'box-border inline-block rounded-full border-solid',
         sizes[size],
         shadow[size],
         onClick && 'cursor-pointer',
@@ -104,9 +104,9 @@ function TextAvatar(properties: TextAvatarProperties) {
   } = properties
   return (
     <div
-      className={classNames(
-        'flex content-center items-center justify-center box-border rounded-full border-solid',
-        'bg-iff-cyan font-bold text-3xl leading-10 text-black uppercase',
+      className={cn(
+        'box-border flex content-center items-center justify-center rounded-full border-solid',
+        'bg-iff-cyan text-3xl font-bold uppercase leading-10 text-black',
         sizes[size],
         shadow[size],
         onClick && 'cursor-pointer',

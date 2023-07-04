@@ -7,7 +7,7 @@ import type {
 import { Tab, TabList, Tabs } from 'react-tabs'
 
 import type { ButtonProperties } from '@/components/Buttons'
-import { classNames } from '@/utils'
+import { cn } from '@/utils'
 
 type TabSwitcherProperties = TabProps & Pick<ButtonProperties, 'onClick'>
 
@@ -18,11 +18,11 @@ const TabSwitcher: ReactTabsFunctionComponent<TabSwitcherProperties> = ({
   ...properties
 }) => (
   <Tab
-    className={classNames(
+    className={cn(
       'react-tabs__tab-switcher',
       selected
-        ? 'text-[#333333] bg-iff-cyan'
-        : 'text-iff-cyan bg-transparent hover:bg-iff-cyan/10',
+        ? 'bg-iff-cyan text-[#333333]'
+        : 'bg-transparent text-iff-cyan hover:bg-iff-cyan/10',
       className
     )}
     selectedClassName="react-tabs__tab-switcher--selected"
@@ -50,7 +50,7 @@ export const TabSwitchers: ReactTabsFunctionComponent<
 
   return (
     <Tabs
-      className={classNames('react-tabs__tab-switchers', className)}
+      className={cn('react-tabs__tab-switchers', className)}
       selectedIndex={tabIndex}
       onSelect={(index) => setTabIndex(index)}
       {...properties}

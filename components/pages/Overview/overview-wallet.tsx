@@ -5,7 +5,7 @@ import { useAccount, useBalance } from 'wagmi'
 import { Card } from '@/components/Card'
 import { EthereumIcon, MoreVerticalIcon } from '@/components/Icons'
 import type { BaseComponent } from '@/types'
-import { classNames } from '@/utils'
+import { cn } from '@/utils'
 
 type WalletInfoProperties = {
   ethPrice?: string
@@ -79,7 +79,7 @@ export function OverviewWallet(properties: OverviewWalletProperties) {
   const { t } = useTranslation('overview')
 
   return (
-    <section className={classNames('w-full', properties.className)}>
+    <section className={cn('w-full', properties.className)}>
       <Card title={t('overview.panelOverview.overviewWallet.card.title')}>
         <div className="flex flex-col gap-4 p-4 md:gap-10 md:px-7 md:py-10">
           <WalletInfo {...properties} />

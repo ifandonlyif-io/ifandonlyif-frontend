@@ -7,7 +7,7 @@ import { Modal, type ModalProperties } from '@/components/Modal'
 import { NFTFrame } from '@/components/NFTs'
 import { useMintIffNft } from '@/hooks'
 import type { BaseComponent, MyNFTItem, NFTItem } from '@/types'
-import { classNames, sortNFTItems } from '@/utils'
+import { cn, sortNFTItems } from '@/utils'
 
 import { SectionTitle } from './title'
 
@@ -22,8 +22,8 @@ function MintModalTitle(
   const { className, children, title, htmlFor } = properties
   return (
     <label
-      className={classNames(
-        'flex flex-row flex-nowrap justify-between items-center mb-4',
+      className={cn(
+        'mb-4 flex flex-row flex-nowrap items-center justify-between',
         className
       )}
       htmlFor={htmlFor}
@@ -50,9 +50,7 @@ function MintModalError(properties: MintModalErrorProperties) {
   return (
     <React.Fragment>
       {msg && (
-        <p
-          className={classNames('text-base font-bold text-red-500', className)}
-        >
+        <p className={cn('text-base font-bold text-red-500', className)}>
           {t(message)}
         </p>
       )}
@@ -106,7 +104,6 @@ function MintModal(properties: MintModalProperties) {
     <Modal
       isOpen={isOpen && typeof nft === 'object'}
       onModalClose={onModalClose}
-      className="flex flex-col px-20 pb-9 pt-7"
       title={t('heading', { nft }) ?? ''}
     >
       <form
@@ -142,9 +139,9 @@ function MintModal(properties: MintModalProperties) {
             onChange={handleUserInfoChange}
           />
         </div>
-        <div className="mt-8 grid grid-cols-2 gap-[10px]">
+        <div className="mt-8 grid grid-cols-2 gap-2.5">
           <Button
-            className="border-[2px] !bg-white"
+            className="border-2 !bg-white"
             size="medium"
             shadow={false}
             onClick={handleCancelClick}
@@ -152,7 +149,7 @@ function MintModal(properties: MintModalProperties) {
             {t('button.cancel')}
           </Button>
           <Button
-            className="border-[2px] border-[#14D6D6]"
+            className="border-2 border-[#14D6D6]"
             size="medium"
             shadow={false}
             type="submit"
@@ -187,7 +184,7 @@ export function MintItMyNFT(properties: MintItMyNFTProperties) {
   const handleModalClose = React.useCallback(() => setIsOpen(false), [])
 
   return (
-    <section className={classNames('flex flex-col', className)}>
+    <section className={cn('flex flex-col', className)}>
       <SectionTitle
         className="mb-8 uppercase"
         size="medium"

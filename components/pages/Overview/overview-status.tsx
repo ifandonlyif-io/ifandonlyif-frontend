@@ -4,7 +4,7 @@ import React from 'react'
 import { Card } from '@/components/Card'
 import { Label } from '@/components/Label'
 import type { BaseComponent } from '@/types'
-import { classNames } from '@/utils'
+import { cn } from '@/utils'
 
 type StatusWithViewProperties = {
   title: string
@@ -35,17 +35,14 @@ function StatusWithView(properties: StatusWithViewProperties) {
         <p className="mr-2 whitespace-nowrap text-base text-iff-text md:mr-6">
           {title}
         </p>
-        <Label
-          className={classNames('hidden md:flex', labelClass)}
-          size="large"
-        >
+        <Label className={cn('hidden md:flex', labelClass)} size="large">
           {viewText}
         </Label>
-        <Label className={classNames('md:hidden', labelClass)} size="medium">
+        <Label className={cn('md:hidden', labelClass)} size="medium">
           {viewText}
         </Label>
       </div>
-      <p className={classNames('text-[48px] md:text-[64px]', valueClass)}>
+      <p className={cn('text-[48px] md:text-[64px]', valueClass)}>
         {String(value).padStart(2, '0')}
       </p>
     </div>
@@ -79,8 +76,8 @@ export function OverviewStatus({ className }: OverviewStatusProperties) {
 
   return (
     <section
-      className={classNames(
-        'flex flex-col xl:grid xl:grid-cols-2 gap-6 md:gap-14 justify-between',
+      className={cn(
+        'flex flex-col justify-between gap-6 md:gap-14 xl:grid xl:grid-cols-2',
         className
       )}
     >
@@ -117,7 +114,7 @@ export function OverviewStatus({ className }: OverviewStatusProperties) {
             title={t('iffNfts.statusWithView.title.recently')}
             value={5}
             labelClass="bg-[#D9CCFF]"
-            valueClass="text-[#A585FF]"
+            valueClass="text-iff-neon-purple"
           />
         </div>
         <div className="grid grid-cols-3 gap-5">

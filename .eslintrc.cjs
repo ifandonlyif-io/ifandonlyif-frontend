@@ -45,6 +45,9 @@ module.exports = defineConfig({
       node: true,
       typescript: true,
     },
+    tailwindcss: {
+      callees: ['cn'],
+    },
     next: {
       rootDir: ['./'],
     },

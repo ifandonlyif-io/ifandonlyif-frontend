@@ -5,7 +5,7 @@ import type {
 } from 'react-tabs'
 import { Tab as RTab, TabPanel as RTabPanel } from 'react-tabs'
 
-import { classNames } from '@/utils'
+import { cn } from '@/utils'
 
 type TabProperties = RTabProperties & {
   warned?: boolean
@@ -18,7 +18,7 @@ export const Tab: ReactTabsFunctionComponent<TabProperties> = ({
   ...properties
 }) => (
   <RTab
-    className={classNames(
+    className={cn(
       'react-tabs__tab',
       warned && 'react-tabs__tab--warned',
       className
@@ -41,7 +41,7 @@ export const TabPanel: ReactTabsFunctionComponent<TabPanelProperties> = ({
 }) => (
   <RTabPanel
     forceRender
-    className={classNames(
+    className={cn(
       'react-tabs__tab-panel',
       selected && 'react-tabs__tab-panel--selected',
       className

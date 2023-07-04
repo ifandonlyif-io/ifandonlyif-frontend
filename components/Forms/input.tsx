@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { classNames } from '@/utils'
+import { cn } from '@/utils'
 
 type InputProperties = React.ComponentPropsWithoutRef<'input'> & {
   forwardedRef: React.ForwardedRef<HTMLInputElement>
@@ -10,10 +10,10 @@ export function StyledInput(properties: InputProperties) {
   const { className, forwardedRef, ...others } = properties
   return (
     <input
-      className={classNames(
-        'flex flex-row items-center box-border',
-        'bg-iff-cyan/10 border-[1px] border-solid border-iff-cyan',
-        'w-full h-11 px-4 font-medium text-base text-iff-cyan',
+      className={cn(
+        'box-border flex flex-row items-center',
+        'border border-solid border-iff-cyan bg-iff-cyan/10',
+        'h-11 w-full px-4 text-base font-medium text-iff-cyan',
         'placeholder:text-base placeholder:text-iff-cyan hover:outline-none focus:outline-none',
         className
       )}

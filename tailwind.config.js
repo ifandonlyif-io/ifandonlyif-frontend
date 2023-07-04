@@ -1,8 +1,8 @@
 // @ts-check
 
 /**
- * @template {import('tailwindcss').Config} T
- * @param {T} config - A generic parameter that flows through to the return type
+ *
+ * @param {import('tailwindcss').Config} config Tailwind CSS Config
  */
 function defineTailwindCSSConfig(config) {
   return config
@@ -21,6 +21,7 @@ export default defineTailwindCSSConfig({
         'iff-purple': '#5A0DFF',
         'iff-text': '#4F4F4F',
         'iff-grey-3': '#828282',
+        'iff-neon-purple': '#A585FF',
       },
       boxShadow: {
         'iff-button':
@@ -40,6 +41,7 @@ export default defineTailwindCSSConfig({
           '0px 0px 7px #999DFF',
           '0px 4px 4px rgba(0, 0, 0, 0.25)',
         ],
+        modal: '0px 0px 5px 0px',
       },
       keyframes: {
         datspintho: {

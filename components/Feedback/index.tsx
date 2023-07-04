@@ -2,7 +2,7 @@ import type { StaticImageData } from 'next/image'
 
 import { Avatar } from '@/components/Avatar'
 import type { BaseComponent } from '@/types'
-import { classNames } from '@/utils'
+import { cn } from '@/utils'
 
 type UserFeedback = BaseComponent & {
   avatarSrc: string | StaticImageData
@@ -17,10 +17,7 @@ export function UserFeedback({
 }: React.PropsWithChildren<UserFeedback>) {
   return (
     <div
-      className={classNames(
-        'flex flex-col md:flex-row md:flex-nowrap p-4',
-        className
-      )}
+      className={cn('flex flex-col p-4 md:flex-row md:flex-nowrap', className)}
     >
       <Avatar
         size="large"

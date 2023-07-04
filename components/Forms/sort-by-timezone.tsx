@@ -4,7 +4,7 @@ import React from 'react'
 import { type SelectMenuOption, SelectMenus } from '@/components/Forms'
 import { TimezoneOptions } from '@/data'
 import type { BaseComponent } from '@/types'
-import { classNames } from '@/utils'
+import { cn } from '@/utils'
 
 export type SortByTimezoneProperties = BaseComponent & {
   defaultValue?: SelectMenuOption
@@ -35,12 +35,7 @@ export function SortByTimezone(properties: SortByTimezoneProperties) {
   }, [defaultValue, t])
 
   return (
-    <label
-      className={classNames(
-        'flex flex-row flex-nowrap items-center',
-        className
-      )}
-    >
+    <label className={cn('flex flex-row flex-nowrap items-center', className)}>
       <div className="mr-4 text-base font-bold text-iff-text">{t('label')}</div>
       <SelectMenus
         className="min-w-[240px] !text-iff-text"

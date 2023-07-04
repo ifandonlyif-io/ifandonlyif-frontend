@@ -2,7 +2,7 @@ import React from 'react'
 
 import { SelectMenuArrowIcon } from '@/components/Icons'
 import type { BaseComponent } from '@/types'
-import { classNames } from '@/utils'
+import { cn } from '@/utils'
 
 export type SelectMenuOption = {
   label: string
@@ -27,10 +27,10 @@ function SelectOption(properties: SelectOptionProperties) {
   const { onOptionClick, ...option } = properties
   return (
     <div
-      className={classNames(
-        'flex flex-row items-center box-border cursor-pointer',
-        'w-full h-11 px-4 font-medium text-base text-[#333333]',
-        'bg-[#61eddc] hover:bg-iff-cyan border-[1px] border-solid',
+      className={cn(
+        'box-border flex cursor-pointer flex-row items-center',
+        'h-11 w-full px-4 text-base font-medium text-[#333333]',
+        'border border-solid bg-[#61eddc] hover:bg-iff-cyan',
         'border-transparent border-b-[#333333] last:border-b-transparent'
       )}
       key={`select-option-${option.value}`}
@@ -66,25 +66,25 @@ export function SelectMenus(properties: SelectMenusProperties) {
 
   return (
     <div
-      className={classNames(
-        'relative flex flex-row items-center box-border cursor-pointer',
-        'bg-iff-cyan/10 border-[1px] border-solid border-iff-cyan text-iff-cyan',
+      className={cn(
+        'relative box-border flex cursor-pointer flex-row items-center',
+        'border border-solid border-iff-cyan bg-iff-cyan/10 text-iff-cyan',
         className
       )}
       onClick={handleToggleOptions}
     >
       <div
-        className={classNames(
-          'flex flex-row justify-between items-center gap-2',
-          'w-full h-11 px-4 font-medium text-base'
+        className={cn(
+          'flex flex-row items-center justify-between gap-2',
+          'h-11 w-full px-4 text-base font-medium'
         )}
       >
         {selectedOption?.label || placeholder}
         <SelectMenuArrowIcon htmlColor="#46FFE6" fontSize="inherit" />
       </div>
       <div
-        className={classNames(
-          'flex-col absolute top-full w-full',
+        className={cn(
+          'absolute top-full w-full flex-col',
           optionsOpen ? 'flex' : 'hidden'
         )}
       >

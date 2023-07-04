@@ -2,7 +2,7 @@ import { useTranslation } from 'next-i18next'
 import React from 'react'
 
 import { FilterGroup, FilterItem } from '@/components/Forms'
-import { classNames } from '@/utils'
+import { cn } from '@/utils'
 
 import { MintItMyNFT, type MintItMyNFTProperties } from './mint-it-my-nft'
 import {
@@ -59,7 +59,7 @@ export function PanelMintIt(properties: PanelMintItProperties) {
           {...props}
         /> */}
         <MintItMyNFT
-          className={classNames(isShowMy ? 'flex' : 'hidden')}
+          className={cn(isShowMy ? 'flex' : 'hidden')}
           {...properties}
         />
       </div>

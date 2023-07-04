@@ -6,7 +6,7 @@ import { ExternalLinkIcon } from '@/components/Icons'
 import { NFTFrame } from '@/components/NFTs'
 import { useSortByTimezone } from '@/hooks'
 import type { BaseComponent, NFTItem } from '@/types'
-import { classNames, filteredNFTItems } from '@/utils'
+import { cn, filteredNFTItems } from '@/utils'
 
 import { SectionTitle, SectionTitleWithSortTimezone } from './title'
 
@@ -20,7 +20,7 @@ function WhitelistContainer(properties: WhitelistContainerProperties) {
   const { name, count, children } = properties
   return (
     <div className="flex flex-col">
-      <SectionTitle className="mb-[10px] uppercase" size="small" count={count}>
+      <SectionTitle className="mb-2.5 uppercase" size="small" count={count}>
         {name}
       </SectionTitle>
       <div className="grid grid-cols-2 gap-[30px] md:flex md:flex-row md:flex-wrap">
@@ -92,7 +92,7 @@ export function MintItWhitelist(properties: MintItWhitelistProperties) {
   const timezone = useSortByTimezone()
 
   return (
-    <section className={classNames('flex flex-col', className)}>
+    <section className={cn('flex flex-col', className)}>
       <SectionTitleWithSortTimezone
         className="mb-5"
         title={t('overview.panelMintIt.mintItWhitelist.sectionTitle.title')}

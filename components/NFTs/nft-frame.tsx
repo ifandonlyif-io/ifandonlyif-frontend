@@ -4,7 +4,7 @@ import React from 'react'
 
 import { NFTButton } from '@/components/Buttons'
 import type { BaseComponent } from '@/types'
-import { classNames, formatDateTime, isHistorical } from '@/utils'
+import { cn, formatDateTime, isHistorical } from '@/utils'
 
 type NFTFrameProperties = BaseComponent & {
   name: string
@@ -30,15 +30,10 @@ export function NFTFrame(
   }
 
   return (
-    <div
-      className={classNames(
-        'flex flex-col group w-full md:w-[150px]',
-        className
-      )}
-    >
+    <div className={cn('group flex w-full flex-col md:w-[150px]', className)}>
       <div
-        className={classNames(
-          'flex flex-col relative mb-[6px] w-full md:w-[150px]',
+        className={cn(
+          'relative mb-1.5 flex w-full flex-col md:w-[150px]',
           expired && 'opacity-50'
         )}
       >
@@ -52,9 +47,9 @@ export function NFTFrame(
         />
         {!hideTime && (
           <p
-            className={classNames(
-              'flex absolute bottom-0 flex-row justify-center items-center',
-              'w-full py-[6px] text-white group-hover:text-[#FAFF00] bg-black/50',
+            className={cn(
+              'absolute bottom-0 flex flex-row items-center justify-center',
+              'w-full bg-black/50 py-1.5 text-white group-hover:text-[#FAFF00]',
               'text-xs font-bold',
               expired && 'group-hover:text-white'
             )}
@@ -64,10 +59,10 @@ export function NFTFrame(
         )}
         {expired && (
           <div
-            className={classNames(
-              'flex flex-row justify-center items-center self-center absolute bottom-[38px]',
-              'w-11 h-4 rounded-[36px] bg-black',
-              'text-[8px] text-white font-bold text-center'
+            className={cn(
+              'absolute bottom-[38px] flex flex-row items-center justify-center self-center',
+              'h-4 w-11 rounded-[36px] bg-black',
+              'text-center text-[8px] font-bold text-white'
             )}
           >
             {t('expired')}
@@ -75,10 +70,7 @@ export function NFTFrame(
         )}
       </div>
       <h5
-        className={classNames(
-          'text-xs font-bold text-black',
-          expired && 'opacity-50'
-        )}
+        className={cn('text-xs font-bold text-black', expired && 'opacity-50')}
       >
         {name}
       </h5>

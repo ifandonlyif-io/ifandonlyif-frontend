@@ -13,10 +13,11 @@ import {
   SelectMenus,
   Textarea,
 } from '@/components/Forms'
+import { CheckModal } from '@/components/Modal'
 import { TabPanel, TabSwitchers } from '@/components/Tabs'
 import type { BaseComponent, CheckSiteUrlFormData } from '@/types'
 import {
-  classNames,
+  cn,
   parseUrl,
   validateStringIsUrl,
   validateUrlIsHttp,
@@ -27,8 +28,8 @@ function CheckPanel(properties: React.PropsWithChildren<BaseComponent>) {
   const { className, children } = properties
   return (
     <div
-      className={classNames(
-        'bg-[#00183C]/50 backdrop-blur-[54px] rounded-b-[10px] px-5 md:px-32 py-10 md:py-12 min-h-[294px] md:min-h-[324px] mx-0.5',
+      className={cn(
+        'mx-0.5 min-h-[294px] rounded-b-xl bg-[#00183C]/50 px-5 py-10 backdrop-blur-[54px] md:min-h-[324px] md:px-32 md:py-12',
         className
       )}
     >
@@ -98,6 +99,7 @@ function SiteCheckPanel() {
     resolver: zodResolver(schema),
   })
 
+  const textAreaId = React.useId()
   const errorMessage = React.useMemo<string | undefined>(() => {
     if (!errors.siteUrl) return
     if (errors.siteUrl.type === 'invalid_string') return 'invalid_string'
@@ -133,10 +135,7 @@ function SiteCheckPanel() {
         className="flex flex-col gap-5"
         onSubmit={handleSubmit(handleSiteCheckPanelSubmit)}
       >
-        <label
-          className="flex flex-col gap-5"
-          htmlFor="check-site-url-textarea"
-        >
+        <label className="flex flex-col gap-5" htmlFor={textAreaId}>
           <div className="flex flex-nowrap items-center justify-between">
             <h3 className="text-sm font-bold text-white">{t('heading')}</h3>
             {errorMessage && (
@@ -144,7 +143,7 @@ function SiteCheckPanel() {
             )}
           </div>
           <Textarea
-            id="check-site-url-textarea"
+            id={textAreaId}
             className="[resize:none]"
             {...register('siteUrl', { required: true })}
           />
@@ -153,6 +152,7 @@ function SiteCheckPanel() {
           {t('okButton')}
         </Button>
       </form>
+      <CheckModal status="success" isOpen={true} />
     </CheckPanel>
   )
 }

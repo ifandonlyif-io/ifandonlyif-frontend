@@ -1,7 +1,7 @@
 import React from 'react'
 
 import type { BaseComponent } from '@/types'
-import { classNames } from '@/utils'
+import { cn } from '@/utils'
 
 type CardProperties = BaseComponent & {
   title?: string | null
@@ -15,13 +15,13 @@ export function Card({
   return (
     <div className="box-border">
       {title && (
-        <h4 className="m-0 mb-[10px] text-base font-bold text-iff-text">
+        <h4 className="m-0 mb-2.5 text-base font-bold text-iff-text">
           {title}
         </h4>
       )}
       <div
-        className={classNames(
-          'box-border bg-white border-[1px] border-solid border-[#BDBDBD] rounded-[10px]',
+        className={cn(
+          'box-border rounded-xl border border-solid border-[#BDBDBD] bg-white',
           className
         )}
       >

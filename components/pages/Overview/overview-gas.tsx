@@ -6,7 +6,7 @@ import React from 'react'
 
 import { Card } from '@/components/Card'
 import type { BaseComponent } from '@/types'
-import { classNames, formatDateTime } from '@/utils'
+import { cn, formatDateTime } from '@/utils'
 
 export type OverviewGasProperties = BaseComponent & {
   priceData: [number, number][]
@@ -17,7 +17,7 @@ type GasTimeSeriesProperties = BaseComponent & {
 }
 
 type GasPriceListItemProperties = BaseComponent & {
-  epotch: number
+  epoch: number
   price: number
 }
 
@@ -76,11 +76,11 @@ function GasTimeSeries(properties: GasTimeSeriesProperties) {
 }
 
 function GasPriceListItem(properties: GasPriceListItemProperties) {
-  const { epotch, price } = properties
-  const date = formatDateTime(epotch / 1000, 'yyyy/L/dd T')
+  const { epoch, price } = properties
+  const date = formatDateTime(epoch / 1000, 'yyyy/L/dd T')
   return (
     <div
-      className={classNames(
+      className={cn(
         'flex flex-row flex-nowrap justify-between',
         'text-base font-normal text-iff-grey-3 first:text-2xl first:font-bold first:text-iff-text'
       )}
@@ -96,8 +96,8 @@ function GasPriceList(properties: GasPriceListProperties) {
   return (
     <div className="flex max-h-[200px] flex-col md:max-h-[400px] md:px-7">
       <div
-        className={classNames(
-          'flex flex-row flex-nowrap justify-between mb-3',
+        className={cn(
+          'mb-3 flex flex-row flex-nowrap justify-between',
           'text-base font-bold text-iff-text'
         )}
       >
@@ -105,8 +105,8 @@ function GasPriceList(properties: GasPriceListProperties) {
         <div>Value</div>
       </div>
       <div className="flex flex-col gap-2 overflow-y-auto">
-        {data.map(([epotch, price]) => (
-          <GasPriceListItem key={epotch} epotch={epotch} price={price} />
+        {data.map(([epoch, price]) => (
+          <GasPriceListItem key={epoch} epoch={epoch} price={price} />
         ))}
       </div>
     </div>
@@ -119,7 +119,7 @@ export function OverviewGas({ className, priceData }: OverviewGasProperties) {
     [priceData]
   )
   return (
-    <section className={classNames('w-full', className)}>
+    <section className={cn('w-full', className)}>
       <Card title="GAS PRICE">
         <div className="grid grid-cols-1 gap-6 p-4 md:grid-cols-3 md:gap-0 md:py-6">
           <GasTimeSeries className="xl:col-span-2" data={priceData} />

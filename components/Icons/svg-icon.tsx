@@ -1,7 +1,7 @@
 import React from 'react'
 
 import type { BaseComponent } from '@/types'
-import { classNames } from '@/utils'
+import { cn } from '@/utils'
 
 export type SvgIconProperties = BaseComponent &
   React.SVGProps<SVGSVGElement> & {
@@ -52,9 +52,9 @@ export function SvgIcons({
 }: SvgIconProperties) {
   return (
     <svg
-      className={classNames(
+      className={cn(
         'inline-block shrink-0 select-none',
-        'w-[1em] h-[1em] fill-current text-2xl leading-none',
+        'h-[1em] w-[1em] fill-current text-2xl leading-none',
         className
       )}
       focusable="false"
@@ -65,6 +65,7 @@ export function SvgIcons({
       viewBox={viewBox}
       aria-hidden={titleAccess ? undefined : true}
       role={titleAccess ? 'img' : undefined}
+      xmlns="http://www.w3.org/2000/svg"
       {...properties}
     >
       {children}

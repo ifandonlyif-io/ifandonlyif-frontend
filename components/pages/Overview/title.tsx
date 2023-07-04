@@ -5,7 +5,7 @@ import { type SelectMenuOption, SortByTimezone } from '@/components/Forms'
 import { SortByTimezoneContext } from '@/context'
 import { DefaultTimezone } from '@/data'
 import { type BaseComponent } from '@/types'
-import { classNames } from '@/utils'
+import { cn } from '@/utils'
 
 const defaultOption: SelectMenuOption = DefaultTimezone
 
@@ -17,8 +17,8 @@ export function TabTitle(
   const { className, children } = properties
   return (
     <div
-      className={classNames(
-        'flex flex-row flex-nowrap items-end text-iff-text text-[32px] font-bold leading-[44px]',
+      className={cn(
+        'flex flex-row flex-nowrap items-end text-[32px] font-bold leading-[44px] text-iff-text',
         className
       )}
     >
@@ -49,8 +49,8 @@ export function SectionTitle(
   const { className, children, count, size = 'medium' } = properties
   return (
     <div
-      className={classNames(
-        'flex flex-row flex-nowrap items-center text-iff-text font-bold',
+      className={cn(
+        'flex flex-row flex-nowrap items-center font-bold text-iff-text',
         sectionTitleSizes[size],
         className
       )}
@@ -94,8 +94,8 @@ export function SectionTitleWithSortTimezone(
   const { className, title } = properties
   return (
     <div
-      className={classNames(
-        'flex flex-col md:flex-row flex-nowrap md:justify-between md:items-center',
+      className={cn(
+        'flex flex-col flex-nowrap md:flex-row md:items-center md:justify-between',
         className
       )}
     >

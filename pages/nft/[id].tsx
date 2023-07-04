@@ -12,7 +12,7 @@ import {
   NFTCard,
   type NFTCardProperties,
 } from '@/components/NFTs'
-import { classNames } from '@/utils'
+import { cn } from '@/utils'
 
 const holderRecords: HolderRecord[] = [
   {
@@ -80,20 +80,20 @@ const NFTView: NextPage<NFTViewProperties> = (
               {t('backButton')}
             </Button>
           </div>
-          <div className="mb-6 flex flex-col items-center rounded-[10px] bg-[#00183C]/50 p-6 backdrop-blur-[54px] md:mb-0">
+          <div className="mb-6 flex flex-col items-center rounded-xl bg-[#00183C]/50 p-6 backdrop-blur-[54px] md:mb-0">
             <NFTCard {...nftData} flipBack={flip} />
             <button
-              className={classNames(
-                'flex z-10 flex-row flex-nowrap justify-center items-cente',
-                'mt-4 -mb-2 text-sm font-bold text-iff-cyan'
+              className={cn(
+                'z-10 flex flex-row flex-nowrap items-center justify-center',
+                '-mb-2 mt-4 text-sm font-bold text-iff-cyan'
               )}
               onClick={handleCardFlip}
             >
               <Rotate360Icon />
-              <span className="ml-[10px] hidden md:inline-block">
+              <span className="ml-2.5 hidden md:inline-block">
                 {t('flipButton.press')}
               </span>
-              <span className="ml-[10px] md:hidden">{t('flipButton.tap')}</span>
+              <span className="ml-2.5 md:hidden">{t('flipButton.tap')}</span>
             </button>
           </div>
           <Button

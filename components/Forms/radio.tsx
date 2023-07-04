@@ -2,7 +2,7 @@ import React from 'react'
 
 import { CheckIcon } from '@/components/Icons'
 import type { BaseComponent } from '@/types'
-import { classNames } from '@/utils'
+import { cn } from '@/utils'
 
 type InputRadioProperties = React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -22,10 +22,7 @@ export function Radio({
   ...input
 }: RadioProperties) {
   return (
-    <label
-      className={classNames('flex flex-row items-center', className)}
-      htmlFor={id}
-    >
+    <label className={cn('flex flex-row items-center', className)} htmlFor={id}>
       <input
         className="peer hidden"
         type="radio"
@@ -60,7 +57,7 @@ export function RadioGroup({
   name,
 }: RadioGroupProperties) {
   return (
-    <div className={classNames('flex flex-row gap-10', className)}>
+    <div className={cn('flex flex-row gap-10', className)}>
       {React.Children.map(children, (child, index) => {
         if (React.isValidElement<HTMLInputElement>(child)) {
           return React.cloneElement(child, {

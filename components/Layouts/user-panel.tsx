@@ -8,7 +8,7 @@ import { Button, type ButtonProperties } from '@/components/Buttons'
 import { EthereumIcon, MetamaskIcon } from '@/components/Icons'
 import { useAccess, useIffAccount } from '@/hooks'
 import type { BaseComponent } from '@/types'
-import { classNames, shortenAddress } from '@/utils'
+import { cn, shortenAddress } from '@/utils'
 
 type WalletDropdownProperties = {
   username: string
@@ -53,8 +53,8 @@ function WalletDropdown(properties: WalletDropdownProperties) {
               {({ active }) => (
                 <button
                   id="disconnect-wallet"
-                  className={classNames(
-                    'flex w-full justify-center items-center rounded-md p-1 text-lg',
+                  className={cn(
+                    'flex w-full items-center justify-center rounded-md p-1 text-lg',
                     active && 'bg-gray-300'
                   )}
                   onClick={handleDisconnectClick}
@@ -120,7 +120,7 @@ export function UserPanel({ className }: UserPanelProperties) {
   }, [signIn])
 
   return (
-    <div className={classNames('box-border', className)}>
+    <div className={cn('box-border', className)}>
       {noAccess ? (
         <ConnectWalletButton onClick={handleWalletConnectClick} />
       ) : (

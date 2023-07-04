@@ -27,7 +27,7 @@ export function PanelPreMint(properties: PanelPreMintProperties) {
       <TabTitle className="mb-4">{t('tabTitle')}</TabTitle>
       <SectionTitleWithSortTimezone className="mb-4" />
       <section className="mb-4 flex flex-col md:mb-8">
-        <SectionTitle className="mb-[10px] uppercase" size="small" count={5}>
+        <SectionTitle className="mb-2.5 uppercase" size="small" count={5}>
           {t('sectionTitle')}
         </SectionTitle>
         <div className="grid grid-cols-2 gap-[30px] md:flex md:flex-row md:flex-wrap">

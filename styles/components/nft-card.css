@@ -9,7 +9,7 @@
     @apply
       flex flex-col absolute box-border w-full h-full
       [backface-visibility:hidden] bg-white shadow-iff-nft-card
-      border-[3px] border-solid border-[#DADADA] rounded-[10px]
+      border-4 border-solid border-[#DADADA] rounded-xl
     ;
   }
   .iff-nft-card__face--front {

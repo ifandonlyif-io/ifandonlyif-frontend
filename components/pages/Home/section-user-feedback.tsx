@@ -5,7 +5,7 @@ import { NeonBorder } from '@/components/Decorate'
 import { UserFeedback } from '@/components/Feedback'
 import { type SvgIconProperties, SvgIcons } from '@/components/Icons'
 import type { BaseComponent, FeedbackItem } from '@/types'
-import { classNames } from '@/utils'
+import { cn } from '@/utils'
 
 type CarouselDotProperties = { isActive: boolean }
 
@@ -13,10 +13,10 @@ function CarouselDot(properties: CarouselDotProperties) {
   const { isActive } = properties
   return (
     <span
-      className={classNames(
-        'inline-block box-content h-[10px] w-[10px] rounded-full',
+      className={cn(
+        'box-content inline-block h-2.5 w-2.5 rounded-full',
         !isActive && 'bg-[#BED0FF]',
-        isActive && 'bg-iff-purple border-[2px] border-solid border-[#B2DAFF]'
+        isActive && 'border-2 border-solid border-[#B2DAFF] bg-iff-purple'
       )}
     />
   )

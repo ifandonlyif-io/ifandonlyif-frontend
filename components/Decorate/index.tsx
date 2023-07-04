@@ -1,5 +1,5 @@
 import type { BaseComponent } from '@/types'
-import { classNames } from '@/utils'
+import { cn } from '@/utils'
 
 type NeonColor = 'cyan' | 'purple'
 
@@ -18,12 +18,10 @@ const neonCornerColor: Record<NeonColor, string> = {
 }
 export function NeonCorner({ className, color = 'cyan' }: NeonComponent) {
   return (
-    <div
-      className={classNames('w-14 h-[47px]', dropShadowNeon[color], className)}
-    >
+    <div className={cn('h-[47px] w-14', dropShadowNeon[color], className)}>
       <div
-        className={classNames(
-          'w-full h-full clip-path-corner bg-gradient-to-r from-[#C4C4C4] to-[#C4C4C4] bg-blend-multiply',
+        className={cn(
+          'clip-path-corner h-full w-full bg-gradient-to-r from-[#C4C4C4] to-[#C4C4C4] bg-blend-multiply',
           neonCornerColor[color]
         )}
       />
@@ -37,12 +35,10 @@ const neonRhombusColor: Record<NeonColor, string> = {
 }
 export function NeonRhombus({ className, color = 'cyan' }: NeonComponent) {
   return (
-    <div
-      className={classNames('w-5 h-[30px]', dropShadowNeon[color], className)}
-    >
+    <div className={cn('h-[30px] w-5', dropShadowNeon[color], className)}>
       <div
-        className={classNames(
-          'w-full h-full clip-path-rhombus',
+        className={cn(
+          'clip-path-rhombus h-full w-full',
           neonRhombusColor[color]
         )}
       />
@@ -57,8 +53,8 @@ const neonLineColor: Record<NeonColor, string> = {
 export function NeonLine({ className, color = 'cyan' }: NeonComponent) {
   return (
     <div
-      className={classNames(
-        'w-0.5 h-[340px]',
+      className={cn(
+        'h-[340px] w-0.5',
         dropShadowNeon[color],
         neonLineColor[color],
         className
@@ -76,13 +72,7 @@ export function NeonBorder({
   flip = false,
 }: NeonBorder) {
   return (
-    <div
-      className={classNames(
-        'flex flex-col w-14',
-        flip && 'rotate-180',
-        className
-      )}
-    >
+    <div className={cn('flex w-14 flex-col', flip && 'rotate-180', className)}>
       <NeonCorner className="mb-[-4px]" color={color} />
       <NeonRhombus className="mb-[-11px]" color={color} />
       <NeonRhombus className="mb-[-11px]" color={color} />
@@ -98,8 +88,8 @@ type NeonUnderline = NeonComponent
 export function NeonUnderline({ className, color = 'cyan' }: NeonUnderline) {
   return (
     <div
-      className={classNames(
-        'flex flex-row flex-nowrap justify-center items-center h-[30px]',
+      className={cn(
+        'flex h-[30px] flex-row flex-nowrap items-center justify-center',
         className
       )}
     >
