@@ -18,21 +18,11 @@ type IndexProperties = SectionUserFeedbackProperties & {
 }
 
 const Index: NextPage<IndexProperties> = (properties: IndexProperties) => {
-  const handleProjectOptionChange = React.useCallback(
-    (option: SelectMenuOption) => {
-      console.debug('handleProjectOptionChange', option)
-    },
-    []
-  )
-
   return (
     <div className="mb-20 mt-7 flex flex-col md:mb-24 md:mt-20">
       <SectionHeader />
       <SectionSiteData />
-      <SectionNFTCheck
-        projectOptions={properties.projectOptions}
-        onProjectOptionChange={handleProjectOptionChange}
-      />
+      <SectionNFTCheck projectOptions={properties.projectOptions} />
       <SectionUserFeedback feedbacks={properties.feedbacks} />
     </div>
   )

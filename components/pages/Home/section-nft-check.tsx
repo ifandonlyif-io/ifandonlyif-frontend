@@ -15,7 +15,7 @@ import {
 } from '@/components/Forms'
 import { CheckModal, type CheckModalProperties } from '@/components/Modal'
 import { TabPanel, TabSwitchers } from '@/components/Tabs'
-import type { BaseComponent, CheckSiteUrlFormData } from '@/types'
+import type { BaseComponent } from '@/types'
 import {
   cn,
   parseUrl,
@@ -38,36 +38,152 @@ function CheckPanel(properties: React.PropsWithChildren<BaseComponent>) {
   )
 }
 
+const holderCheckSchema = z.object({
+  projectId: z.string().nonempty(),
+  tokenId: z.number().int().positive(),
+})
+type HolderCheckFormData = z.infer<typeof holderCheckSchema>
+
 type HolderCheckPanelProperties = {
   projectOptions: SelectMenuOption[]
-  onProjectOptionChange: (option: SelectMenuOption) => void
 }
 
 function HolderCheckPanel(properties: HolderCheckPanelProperties) {
-  const { projectOptions, onProjectOptionChange } = properties
+  const { projectOptions } = properties
   const { t } = useTranslation('home', {
     keyPrefix: 'home.sectionNFTCheck.holderCheckPanel',
   })
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<HolderCheckFormData>({
+    resolver: zodResolver(holderCheckSchema),
+  })
+
+  const tokenIdInputId = React.useId()
+  const errorMessage = React.useMemo<string | undefined>(() => {
+    if (!errors.projectId && !errors.tokenId) return
+    if (errors.projectId) return 'Please select a project.'
+    if (errors.tokenId) return 'Please enter a valid token ID.'
+    return 'Unknown error.'
+  }, [errors.projectId, errors.tokenId])
+  const handleProjectOptionChange = React.useCallback(
+    (option: SelectMenuOption) => {
+      console.debug('handleProjectOptionChange', option)
+      setValue('projectId', option.value)
+    },
+    [setValue]
+  )
+  const handleHolderCheckSubmit = React.useCallback<
+    SubmitHandler<HolderCheckFormData>
+  >(async (data) => {
+    console.debug('handleHolderCheckSubmit', data.projectId, data.tokenId)
+    setModalStatus('success')
+    setModalOpen(true)
+  }, [])
+
+  const [modalStatus, setModalStatus] =
+    React.useState<CheckModalProperties['status']>('success')
+  const [modalOpen, setModalOpen] = React.useState(false)
+  const handleModalClose = React.useCallback(() => setModalOpen(false), [])
 
   return (
     <CheckPanel>
-      <div className="flex flex-col gap-5">
-        <h3 className="text-sm font-bold text-white">
-          {t('checkPanel.heading')}
-        </h3>
+      <form
+        className="flex flex-col gap-5"
+        onSubmit={handleSubmit(handleHolderCheckSubmit)}
+      >
+        <label
+          className="flex flex-nowrap items-center justify-between"
+          htmlFor={tokenIdInputId}
+        >
+          <h3 className="text-sm font-bold text-white">
+            {t('checkPanel.heading')}
+          </h3>
+          {errorMessage && (
+            <span className="text-xs text-red-500">{errorMessage}</span>
+          )}
+        </label>
         <SelectMenus
           placeholder={t('selectMenus.placeholder')}
           options={projectOptions}
-          onOptionChange={onProjectOptionChange}
+          onOptionChange={handleProjectOptionChange}
         />
-        <Input placeholder="#" />
-        <Button>{t('checkPanel.okButton')}</Button>
-      </div>
+        <Input
+          id={tokenIdInputId}
+          placeholder="#"
+          type="number"
+          {...register('tokenId', {
+            required: true,
+            setValueAs: Number,
+          })}
+        />
+        <Button type="submit">{t('checkPanel.okButton')}</Button>
+      </form>
+      <CheckModal
+        status={modalStatus}
+        isOpen={modalOpen}
+        onModalClose={handleModalClose}
+      >
+        <div className="mt-10 text-center text-base font-bold text-iff-text">
+          {modalStatus === 'success' && (
+            <React.Fragment>
+              <p>This NFT is yours.</p>
+              <p>Now you can go to check it or go back.</p>
+            </React.Fragment>
+          )}
+          {modalStatus === 'error' && (
+            <React.Fragment>
+              <p>Sorry! It is NOT belong you yet.</p>
+              <p>Please wait for a moment or contact NFT holder.</p>
+            </React.Fragment>
+          )}
+        </div>
+        <div
+          className={cn(
+            'mt-10 flex flex-row items-center',
+            modalStatus === 'success' && 'justify-between gap-2.5',
+            modalStatus === 'error' && 'justify-center'
+          )}
+        >
+          {modalStatus === 'success' && (
+            <React.Fragment>
+              <Button
+                className="border-2 !bg-white"
+                size="medium"
+                shadow={false}
+                onClick={handleModalClose}
+              >
+                Back
+              </Button>
+              <Button
+                className="border-2 border-[#14D6D6]"
+                size="medium"
+                shadow={false}
+              >
+                Check it
+              </Button>
+            </React.Fragment>
+          )}
+          {modalStatus === 'error' && (
+            <Button
+              className="max-w-[190px] border-2 border-[#14D6D6]"
+              size="medium"
+              shadow={false}
+              onClick={handleModalClose}
+            >
+              Close
+            </Button>
+          )}
+        </div>
+      </CheckModal>
     </CheckPanel>
   )
 }
 
-const schema = z.object({
+const siteCheckSchema = z.object({
   siteUrl: z
     .string()
     .url()
@@ -86,6 +202,7 @@ const schema = z.object({
       return validateUrlNotContainUserInfo(url)
     }, 'containUserinfo'),
 })
+type SiteCheckFormData = z.infer<typeof siteCheckSchema>
 
 function SiteCheckPanel() {
   const { t } = useTranslation('home', {
@@ -96,24 +213,24 @@ function SiteCheckPanel() {
     getValues,
     handleSubmit,
     formState: { errors },
-  } = useForm<CheckSiteUrlFormData>({
-    resolver: zodResolver(schema),
+  } = useForm<SiteCheckFormData>({
+    resolver: zodResolver(siteCheckSchema),
   })
 
-  const textAreaId = React.useId()
+  const siteUrlTextareaId = React.useId()
   const errorMessage = React.useMemo<string | undefined>(() => {
     if (!errors.siteUrl) return
     if (errors.siteUrl.type === 'invalid_string') return 'invalid_string'
     if (errors.siteUrl.type === 'custom') return errors.siteUrl.message
     return 'invalid_string'
   }, [errors.siteUrl])
-  const handleSiteCheckPanelSubmit = React.useCallback<
-    SubmitHandler<CheckSiteUrlFormData>
+  const handleSiteCheckSubmit = React.useCallback<
+    SubmitHandler<SiteCheckFormData>
   >(
     async (data) => {
       if (errors.siteUrl) return
       const url = parseUrl(data.siteUrl)
-      console.debug('handleSiteCheckPanelSubmit', data.siteUrl, url)
+      console.debug('handleSiteCheckSubmit', data.siteUrl, url)
 
       const check = await checkSiteUriExists(url)
       if (typeof check === 'boolean' && !check) {
@@ -151,9 +268,9 @@ function SiteCheckPanel() {
     <CheckPanel>
       <form
         className="flex flex-col gap-5"
-        onSubmit={handleSubmit(handleSiteCheckPanelSubmit)}
+        onSubmit={handleSubmit(handleSiteCheckSubmit)}
       >
-        <label className="flex flex-col gap-5" htmlFor={textAreaId}>
+        <label className="flex flex-col gap-5" htmlFor={siteUrlTextareaId}>
           <div className="flex flex-nowrap items-center justify-between">
             <h3 className="text-sm font-bold text-white">{t('heading')}</h3>
             {errorMessage && (
@@ -161,7 +278,7 @@ function SiteCheckPanel() {
             )}
           </div>
           <Textarea
-            id={textAreaId}
+            id={siteUrlTextareaId}
             className="[resize:none]"
             {...register('siteUrl', { required: true })}
           />
