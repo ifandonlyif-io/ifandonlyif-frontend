@@ -55,14 +55,15 @@ const Overview: NextPageWithLayout<OverviewProperties> = (
   const { overview, mintIt } = properties
   const { t } = useTranslation('overview')
   const router = useRouter()
-  const fetch = usePrivateFetch()
+  const [fetch, onFetchError] = usePrivateFetch()
   const { data: myNfts, isLoading } = useSWR(
     '/auth/fetchUserNft',
     async (key) => {
       const response = await fetch<string>(key, { method: 'POST' })
       const parsedResponse: FetchUserNftsResponse = JSON.parse(response)
       return convertOwnedNftsToMyNfts(parsedResponse.ownedNfts)
-    }
+    },
+    { onError: onFetchError }
   )
 
   const [tabIndex, setTabIndex] = React.useState(0)

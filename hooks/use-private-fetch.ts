@@ -1,4 +1,4 @@
-import { type FetchContext, type FetchResponse, ofetch } from 'ofetch'
+import { type FetchContext, FetchError, ofetch } from 'ofetch'
 import React from 'react'
 
 import { getAPIBaseUrl } from '@/utils'
@@ -9,8 +9,8 @@ import { useTokenStorage } from './use-token-storage'
 const baseURL = getAPIBaseUrl('/')
 
 export function usePrivateFetch() {
-  const { refresh } = useRefreshToken()
   const { accessToken } = useTokenStorage()
+  const { refresh } = useRefreshToken()
 
   const onRequest = React.useCallback(
     async (context: FetchContext<unknown>) => {
@@ -22,30 +22,20 @@ export function usePrivateFetch() {
     [accessToken]
   )
 
-  const onResponse = React.useCallback(
-    async (
-      context: FetchContext<unknown> & {
-        response: FetchResponse<unknown>
-      }
-    ) => {
-      if (context.response.status === 401) {
-        const token = await refresh()
-        if (!token) return
-        context.options.headers = Object.assign({}, context.options.headers, {
-          Authorization: `bearer ${token}`,
-        })
-        const response = await ofetch.raw(context.request, context.options)
-        context.error = undefined
-        context.response = response
+  const privateFetch = React.useMemo(
+    () => ofetch.create({ baseURL, onRequest }),
+    [onRequest]
+  )
+
+  const fetchErrorHandler = React.useCallback(
+    async (error: unknown) => {
+      if (error instanceof FetchError && error.statusCode === 401) {
+        console.debug('usePrivateFetch::fetchErrorHandler', error.statusCode)
+        await refresh()
       }
     },
     [refresh]
   )
 
-  const privateFetch = React.useMemo(
-    () => ofetch.create({ baseURL, onRequest, onResponse }),
-    [onRequest, onResponse]
-  )
-
-  return privateFetch
+  return [privateFetch, fetchErrorHandler] as const
 }

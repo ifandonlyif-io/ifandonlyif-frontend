@@ -54,7 +54,7 @@ export function useIffAccount() {
       if (!code) throw new Error('No signature code')
       const signature = await getWalletSignSignature(code)
       if (!signature) throw new Error('No sign signature')
-      console.debug('address', address, 'signature', signature)
+      console.debug('useIffAccount::getLoginToken address', address)
       return await doWalletLogin(address, signature)
     },
     [getWalletSignCode, getWalletSignSignature]
