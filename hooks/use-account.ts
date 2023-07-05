@@ -24,10 +24,11 @@ export function useIffAccount() {
     return getAccessTokenPayload(accessToken)
   }, [accessToken])
 
-  const missMatch = React.useMemo<boolean>(() => {
+  const isAccountMissMatch = React.useMemo<boolean>(() => {
     if (!account) return true
     const wallet = getAddress(account.wallet)
     const current = address ? getAddress(address.toString()) : undefined
+    console.debug('useIffAccount::isAccountMissMatch', wallet, current)
     return wallet !== current
   }, [account, address])
 
@@ -60,16 +61,16 @@ export function useIffAccount() {
   )
 
   const signIn = React.useCallback(async () => {
-    if (!address || !missMatch) return
+    if (!address) return
     const { accessToken, refreshToken } = await getLoginToken(address)
     setAccessToken(accessToken)
     setRefreshToken(refreshToken)
-  }, [address, getLoginToken, missMatch, setAccessToken, setRefreshToken])
+  }, [address, getLoginToken, setAccessToken, setRefreshToken])
 
   const signOut = React.useCallback(async () => {
     removeAccessToken()
     removeRefreshToken()
   }, [removeAccessToken, removeRefreshToken])
 
-  return { account, missMatch, signIn, signOut }
+  return { account, isAccountMissMatch, signIn, signOut }
 }

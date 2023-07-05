@@ -8,10 +8,12 @@ import { useTokenStorage } from './use-token-storage'
 export function useRefreshToken() {
   const { refreshToken, setAccessToken } = useTokenStorage()
 
-  const expired = React.useMemo<boolean>(() => {
+  const isExpired = React.useMemo<boolean>(() => {
     if (!refreshToken) return true
     const payload = getRefreshTokenPayload(refreshToken)
-    return isTokenExpired(payload)
+    const expired = isTokenExpired(payload)
+    console.debug('useRefreshToken::isExpired', expired, payload.exp)
+    return expired
   }, [refreshToken])
 
   const refresh = React.useCallback(async () => {
@@ -22,5 +24,5 @@ export function useRefreshToken() {
     return accessToken
   }, [refreshToken, setAccessToken])
 
-  return { expired, refresh }
+  return { isExpired, refresh }
 }

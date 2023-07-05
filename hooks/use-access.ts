@@ -4,12 +4,12 @@ import { useIffAccount } from './use-account'
 import { useRefreshToken } from './use-refresh-token'
 
 export function useAccess() {
-  const { expired } = useRefreshToken()
-  const { account, missMatch } = useIffAccount()
+  const { isExpired } = useRefreshToken()
+  const { isAccountMissMatch } = useIffAccount()
 
   const noAccess = React.useMemo<boolean>(
-    () => expired || (!!account && missMatch),
-    [account, expired, missMatch]
+    () => isExpired || isAccountMissMatch,
+    [isExpired, isAccountMissMatch]
   )
 
   return { noAccess }

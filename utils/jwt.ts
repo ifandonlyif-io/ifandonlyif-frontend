@@ -14,7 +14,6 @@ export function getRefreshTokenPayload(token: string): Jose.JWTPayload {
 export function isTokenExpired(payload: Jose.JWTPayload): boolean {
   if (!payload.exp) return true
   const expired = isHistorical(payload.exp)
-  console.debug('Is token expired', expired, payload.exp)
   if (expired) return true
   return false
 }
