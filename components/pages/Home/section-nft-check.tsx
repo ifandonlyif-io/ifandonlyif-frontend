@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { type SubmitHandler, useForm } from 'react-hook-form'
@@ -56,11 +57,13 @@ function HolderCheckPanel(properties: HolderCheckPanelProperties) {
   const {
     register,
     setValue,
+    getValues,
     handleSubmit,
     formState: { errors },
   } = useForm<HolderCheckFormData>({
     resolver: zodResolver(holderCheckSchema),
   })
+  const router = useRouter()
 
   const tokenIdInputId = React.useId()
   const errorMessage = React.useMemo<string | undefined>(() => {
@@ -88,6 +91,10 @@ function HolderCheckPanel(properties: HolderCheckPanelProperties) {
     React.useState<CheckModalProperties['status']>('success')
   const [modalOpen, setModalOpen] = React.useState(false)
   const handleModalClose = React.useCallback(() => setModalOpen(false), [])
+  const handleCheckItClick = React.useCallback(() => {
+    const values = getValues()
+    router.push(`/nft/${values.tokenId}`)
+  }, [getValues, router])
 
   return (
     <CheckPanel>
@@ -162,6 +169,7 @@ function HolderCheckPanel(properties: HolderCheckPanelProperties) {
                 className="border-2 border-[#14D6D6]"
                 size="medium"
                 shadow={false}
+                onClick={handleCheckItClick}
               >
                 Check it
               </Button>

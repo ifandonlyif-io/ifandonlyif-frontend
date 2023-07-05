@@ -19,6 +19,10 @@ export default defineNextConfig({
         protocol: 'https',
         hostname: 'images.unsplash.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
+      },
     ],
   },
   webpack: (config, { isServer }) => {
