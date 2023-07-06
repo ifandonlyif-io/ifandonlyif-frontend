@@ -31,8 +31,8 @@ export async function validateAddressIsContract(
 ): Promise<boolean> {
   if (!address) return false
   const code = await publicClient.getBytecode({ address })
-  if (!code) return false
-  return true
+  if (code) return true
+  return false
 }
 
 export function validateToAddressMatch(
@@ -45,7 +45,7 @@ export function validateToAddressMatch(
 }
 
 export async function validateMintIffNftFormInputAddress(
-  value: `0x${string}`,
+  value: string,
   account: string | null | undefined
 ): Promise<ValidateResult> {
   const isAddress = validateStringIsAddress(value)
@@ -56,7 +56,7 @@ export async function validateMintIffNftFormInputAddress(
   if (!match)
     return 'overview.panelMintIt.mintItMyNFT.mintModal.input.errorMessage.notOwnAddress'
 
-  const contract = await validateAddressIsContract(value)
+  const contract = await validateAddressIsContract(value as `0x${string}`)
   if (contract)
     return 'overview.panelMintIt.mintItMyNFT.mintModal.input.errorMessage.invalidWallet'
   return true
