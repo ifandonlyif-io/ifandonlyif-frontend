@@ -1,5 +1,4 @@
 import type { GetServerSideProps, NextPage } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React from 'react'
 
 import { getFeedbackList, getNftProjects } from '@/backend'
@@ -11,6 +10,7 @@ import {
   SectionUserFeedback,
   type SectionUserFeedbackProperties,
 } from '@/components/pages/Home'
+import { getLocaleProps } from '@/locales'
 import { convertNftProjectsToSelectMenuOptions } from '@/utils'
 
 type IndexProperties = SectionUserFeedbackProperties & {
@@ -28,14 +28,12 @@ const Index: NextPage<IndexProperties> = (properties: IndexProperties) => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps<IndexProperties> = async ({
-  locale = 'en-US',
-}) => {
-  const i18n = await serverSideTranslations(locale, ['common', 'home'])
-  const feedbacks = await getFeedbackList()
-  const nftProjects = await getNftProjects()
-  const projectOptions = convertNftProjectsToSelectMenuOptions(nftProjects)
-  return { props: { ...i18n, feedbacks, projectOptions } }
-}
+export const getServerSideProps: GetServerSideProps<IndexProperties> =
+  getLocaleProps(async () => {
+    const feedbacks = await getFeedbackList()
+    const nftProjects = await getNftProjects()
+    const projectOptions = convertNftProjectsToSelectMenuOptions(nftProjects)
+    return { props: { feedbacks, projectOptions } }
+  })
 
 export default Index

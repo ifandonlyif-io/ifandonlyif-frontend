@@ -1,15 +1,13 @@
-import { useTranslation } from 'next-i18next'
 import React from 'react'
 
+import { useScopedI18n } from '@/locales'
 import type { BaseComponent } from '@/types'
 import { cn } from '@/utils'
 
 type FooterProperties = BaseComponent
 
 export function Footer({ className }: FooterProperties) {
-  const { t } = useTranslation('common', {
-    keyPrefix: 'layouts.footer.paragraph',
-  })
+  const t = useScopedI18n('layouts.footer')
 
   return (
     <footer

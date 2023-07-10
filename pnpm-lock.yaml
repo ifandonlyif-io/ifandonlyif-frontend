@@ -44,6 +44,9 @@ dependencies:
   next-i18next:
     specifier: ^14.0.0
     version: 14.0.0(i18next@23.2.7)(next@13.4.8)(react-i18next@13.0.1)(react@18.2.0)
+  next-international:
+    specifier: ^0.5.3
+    version: 0.5.3(next@13.4.8)(react@18.2.0)
   ofetch:
     specifier: ^1.1.1
     version: 1.1.1
@@ -10818,6 +10821,10 @@ packages:
       has: 1.0.3
       side-channel: 1.0.4
 
+  /international-types@0.5.3:
+    resolution: {integrity: sha512-itSEB3Ohnxd08OTTp8+y8irFJVOy1cKr1J6tfrhXnpDz9/Oa3dDAUrcbxiWM7jvGmF6+gdTwVCBVUoGG4E9vdg==}
+    dev: false
+
   /interpret@1.4.0:
     resolution: {integrity: sha512-agE4QfB2Lkp9uICn7BAqoscw4SZP9kTE2hxiFI3jBPmXJfdqiahTbUuKGsMoN2GtqL9AxhYioAcVvgsb1HvRbA==}
     engines: {node: '>= 0.10'}
@@ -12202,6 +12209,19 @@ packages:
       next: 13.4.8(@babel/core@7.22.6)(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
       react-i18next: 13.0.1(i18next@23.2.7)(react-dom@18.2.0)(react@18.2.0)
+    dev: false
+
+  /next-international@0.5.3(next@13.4.8)(react@18.2.0):
+    resolution: {integrity: sha512-Nvw0b+ZfXowC6zedqg2UsV0c23gQAmr00v4eSp+XMaT1j9FgH3jSovMk2nyQ51Q23iXVOGMP+Tiftbp4FpXuiw==}
+    peerDependencies:
+      next: ^13.0.0 || ^12.0.0 || ^11.0.0
+      react: ^18.0.0 || ^17.0.0
+    dependencies:
+      client-only: 0.0.1
+      international-types: 0.5.3
+      next: 13.4.8(@babel/core@7.22.6)(react-dom@18.2.0)(react@18.2.0)
+      react: 18.2.0
+      server-only: 0.0.1
     dev: false
 
   /next-tick@1.1.0:
@@ -14154,6 +14174,10 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /server-only@0.0.1:
+    resolution: {integrity: sha512-qepMx2JxAa5jjfzxG79yPPq+8BuFToHd1hm7kI+Z4zAq1ftQiP7HcxMhDDItrbtwVeLg/cY2JnKnrcFkmiswNA==}
+    dev: false
 
   /set-blocking@2.0.0:
     resolution: {integrity: sha512-KiKBS8AnWGEyLzofFfmvKwpdPzqiy16LvQfK3yv/fVH7Bj13/wl3JSR1J+rfgRE9q7xUJK4qvgS8raSOeLUehw==}

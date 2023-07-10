@@ -1,7 +1,5 @@
 // @ts-check
 
-import i18next from './next-i18next.config.cjs'
-
 /**
  * @param {import('next').NextConfig} config - Next.js configuration
  */
@@ -12,7 +10,10 @@ function defineNextConfig(config) {
 export default defineNextConfig({
   reactStrictMode: true,
   output: 'standalone',
-  i18n: i18next.i18n,
+  i18n: {
+    defaultLocale: 'en-US',
+    locales: ['en-US'],
+  },
   images: {
     remotePatterns: [
       {

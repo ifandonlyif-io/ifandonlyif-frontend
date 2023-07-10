@@ -1,9 +1,9 @@
 import Carousel from 'better-react-carousel'
-import { useTranslation } from 'next-i18next'
 
 import { NeonBorder } from '@/components/Decorate'
 import { UserFeedback } from '@/components/Feedback'
 import { type SvgIconProperties, SvgIcons } from '@/components/Icons'
+import { useScopedI18n } from '@/locales'
 import type { BaseComponent, FeedbackItem } from '@/types'
 import { cn } from '@/utils'
 
@@ -130,14 +130,14 @@ export declare type SectionUserFeedbackProperties = {
 
 export function SectionUserFeedback(properties: SectionUserFeedbackProperties) {
   const { feedbacks } = properties
-  const { t } = useTranslation('home')
+  const t = useScopedI18n('home.sectionUserFeedback')
 
   return (
     <section className="block flex-row flex-nowrap items-center md:flex">
       <NeonBorder className="hidden md:flex" color="purple" />
       <div className="iff-glass-cyan min-w-0 px-8 pb-7 pt-10 shadow-iff-base md:-mx-8 md:flex-1 md:px-28 md:pt-12">
         <h2 className="heading-4 md:heading-2 text-shadow-heading-4-purple md:text-shadow-heading-2-purple mb-6 text-center uppercase text-white md:mb-10">
-          {t('home.sectionUserFeedback.heading')}
+          {t('heading')}
         </h2>
         <Carousel
           cols={2}

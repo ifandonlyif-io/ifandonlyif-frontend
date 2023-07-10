@@ -7,6 +7,7 @@ import { Fragment } from 'react'
 
 import { DefaultLayout as Layout } from '@/components/Layouts'
 import { AppProviders } from '@/components/Providers'
+import { I18nProvider } from '@/locales'
 import type { NextPageWithLayout } from '@/types'
 
 // @ts-expect-error - next-i18next not yet supporting ESM
@@ -26,7 +27,9 @@ function NextApp({ Component, pageProps }: AppPropertiesWithLayout) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>IF AND ONLY IF - ifandonlyif.io</title>
       </Head>
-      <AppProviders>{getLayout(<Component {...pageProps} />)}</AppProviders>
+      <I18nProvider locale={pageProps.locale}>
+        <AppProviders>{getLayout(<Component {...pageProps} />)}</AppProviders>
+      </I18nProvider>
     </Fragment>
   )
 }

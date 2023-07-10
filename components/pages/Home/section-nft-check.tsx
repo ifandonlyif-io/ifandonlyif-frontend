@@ -1,6 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { type SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -16,6 +15,7 @@ import {
 } from '@/components/Forms'
 import { CheckModal, type CheckModalProperties } from '@/components/Modal'
 import { TabPanel, TabSwitchers } from '@/components/Tabs'
+import { useScopedI18n } from '@/locales'
 import type { BaseComponent } from '@/types'
 import {
   cn,
@@ -51,9 +51,8 @@ type HolderCheckPanelProperties = {
 
 function HolderCheckPanel(properties: HolderCheckPanelProperties) {
   const { projectOptions } = properties
-  const { t } = useTranslation('home', {
-    keyPrefix: 'home.sectionNFTCheck.holderCheckPanel',
-  })
+  const t = useScopedI18n('home.sectionNFTCheck.holderCheckPanel')
+
   const {
     register,
     setValue,
@@ -106,15 +105,13 @@ function HolderCheckPanel(properties: HolderCheckPanelProperties) {
           className="flex flex-nowrap items-center justify-between"
           htmlFor={tokenIdInputId}
         >
-          <h3 className="text-sm font-bold text-white">
-            {t('checkPanel.heading')}
-          </h3>
+          <h3 className="text-sm font-bold text-white">{t('heading')}</h3>
           {errorMessage && (
             <span className="text-xs text-red-500">{errorMessage}</span>
           )}
         </label>
         <SelectMenus
-          placeholder={t('selectMenus.placeholder')}
+          placeholder={t('placeholder')}
           options={projectOptions}
           onOptionChange={handleProjectOptionChange}
         />
@@ -127,7 +124,7 @@ function HolderCheckPanel(properties: HolderCheckPanelProperties) {
             setValueAs: Number,
           })}
         />
-        <Button type="submit">{t('checkPanel.okButton')}</Button>
+        <Button type="submit">{t('okButton')}</Button>
       </form>
       <CheckModal
         status={modalStatus}
@@ -213,9 +210,7 @@ const siteCheckSchema = z.object({
 type SiteCheckFormData = z.infer<typeof siteCheckSchema>
 
 function SiteCheckPanel() {
-  const { t } = useTranslation('home', {
-    keyPrefix: 'home.sectionNFTCheck.siteCheckPanel.checkPanel',
-  })
+  const t = useScopedI18n('home.sectionNFTCheck.siteCheckPanel')
   const {
     register,
     getValues,
@@ -228,10 +223,13 @@ function SiteCheckPanel() {
   const siteUrlTextareaId = React.useId()
   const errorMessage = React.useMemo<string | undefined>(() => {
     if (!errors.siteUrl) return
-    if (errors.siteUrl.type === 'invalid_string') return 'invalid_string'
-    if (errors.siteUrl.type === 'custom') return errors.siteUrl.message
-    return 'invalid_string'
-  }, [errors.siteUrl])
+    const { type, message } = errors.siteUrl
+    const invalidString = t('invalid_string')
+    if (type === 'invalid_string') return invalidString
+    // @ts-expect-error Custom error message
+    if (type === 'custom' && message) return t(message)
+    return invalidString
+  }, [errors.siteUrl, t])
   const handleSiteCheckSubmit = React.useCallback<
     SubmitHandler<SiteCheckFormData>
   >(
@@ -282,7 +280,7 @@ function SiteCheckPanel() {
           <div className="flex flex-nowrap items-center justify-between">
             <h3 className="text-sm font-bold text-white">{t('heading')}</h3>
             {errorMessage && (
-              <span className="text-xs text-red-500">{t(errorMessage)}</span>
+              <span className="text-xs text-red-500">{errorMessage}</span>
             )}
           </div>
           <Textarea
@@ -360,9 +358,7 @@ function SiteCheckPanel() {
 type SectionNFTCheckProperties = HolderCheckPanelProperties
 
 export function SectionNFTCheck(properties: SectionNFTCheckProperties) {
-  const { t } = useTranslation('home', {
-    keyPrefix: 'home.sectionNFTCheck.tabSwitchers',
-  })
+  const t = useScopedI18n('home.sectionNFTCheck')
 
   return (
     <section className="mb-16 block flex-row flex-nowrap items-center md:mb-24 md:flex">

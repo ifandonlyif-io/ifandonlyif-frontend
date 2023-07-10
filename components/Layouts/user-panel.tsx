@@ -1,12 +1,12 @@
 import { Menu, Transition } from '@headlessui/react'
 import { ConnectKitButton } from 'connectkit'
-import { useTranslation } from 'next-i18next'
 import React, { Fragment } from 'react'
 
 import { Avatar } from '@/components/Avatar'
 import { Button, type ButtonProperties } from '@/components/Buttons'
 import { EthereumIcon, MetamaskIcon } from '@/components/Icons'
 import { useAccess, useIffAccount } from '@/hooks'
+import { useScopedI18n } from '@/locales'
 import type { BaseComponent } from '@/types'
 import { cn, shortenAddress } from '@/utils'
 
@@ -17,7 +17,7 @@ type WalletDropdownProperties = {
 function WalletDropdown(properties: WalletDropdownProperties) {
   const { username } = properties
 
-  const { t } = useTranslation('common')
+  const t = useScopedI18n('layouts.userPanel')
   const { account, signOut } = useIffAccount()
   const accountString = account && shortenAddress(account.wallet)
 
@@ -59,7 +59,7 @@ function WalletDropdown(properties: WalletDropdownProperties) {
                   )}
                   onClick={handleDisconnectClick}
                 >
-                  {t('layouts.userPanel.walletInfo.disconnectButton')}
+                  {t('disconnectButton')}
                 </button>
               )}
             </Menu.Item>
@@ -71,7 +71,8 @@ function WalletDropdown(properties: WalletDropdownProperties) {
 }
 
 function ConnectWalletButton(properties: Omit<ButtonProperties, 'children'>) {
-  const { t } = useTranslation('common')
+  const t = useScopedI18n('layouts.userPanel')
+
   return (
     <ConnectKitButton.Custom>
       {({ isConnected, show, address }) => {
@@ -96,7 +97,7 @@ function ConnectWalletButton(properties: Omit<ButtonProperties, 'children'>) {
                 size="small"
                 onClick={show}
               >
-                {t('layouts.userPanel.connectWalletButton.connectButton')}
+                {t('connectButton')}
                 <MetamaskIcon />
               </Button>
             )}
