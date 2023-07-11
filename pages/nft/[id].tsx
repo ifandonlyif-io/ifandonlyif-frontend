@@ -1,7 +1,5 @@
 import type { GetServerSideProps, NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React from 'react'
 
 import { Button } from '@/components/Buttons'
@@ -12,6 +10,7 @@ import {
   NFTCard,
   type NFTCardProperties,
 } from '@/components/NFTs'
+import { useScopedI18n } from '@/locales'
 import { cn } from '@/utils'
 
 const holderRecords: HolderRecord[] = [
@@ -54,7 +53,7 @@ const NFTView: NextPage<NFTViewProperties> = (
   properties: NFTViewProperties
 ) => {
   const { nftData } = properties
-  const { t } = useTranslation('nft', { keyPrefix: 'nftView' })
+  const t = useScopedI18n('nft.nftView')
   const router = useRouter()
   const [flip, setFlip] = React.useState(false)
   const handleCardFlip = React.useCallback(() => setFlip(!flip), [flip])
@@ -91,9 +90,9 @@ const NFTView: NextPage<NFTViewProperties> = (
             >
               <Rotate360Icon />
               <span className="ml-2.5 hidden md:inline-block">
-                {t('flipButton.press')}
+                {t('flipButtonPress')}
               </span>
-              <span className="ml-2.5 md:hidden">{t('flipButton.tap')}</span>
+              <span className="ml-2.5 md:hidden">{t('flipButtonTap')}</span>
             </button>
           </div>
           <Button
@@ -111,10 +110,9 @@ const NFTView: NextPage<NFTViewProperties> = (
 
 export const getServerSideProps: GetServerSideProps<
   NFTViewProperties
-> = async ({ locale = 'en-US' }) => {
-  const i18n = await serverSideTranslations(locale, ['common', 'nft'])
+> = async () => {
   const nftData = demoNFTCard
-  return { props: { ...i18n, nftData } }
+  return { props: { nftData } }
 }
 
 export default NFTView

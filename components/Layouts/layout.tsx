@@ -1,8 +1,8 @@
-import { useTranslation } from 'next-i18next'
 import React, { Fragment } from 'react'
 
 import { NeonUnderline } from '@/components/Decorate'
 import { useAccess } from '@/hooks'
+import { useScopedI18n } from '@/locales'
 
 import { Footer } from './footer'
 import { Navbar } from './navbar'
@@ -22,9 +22,7 @@ export function DefaultLayout({ children }: LayoutProperties) {
 }
 
 export function OverviewLayout({ children }: LayoutProperties) {
-  const { t } = useTranslation('common', {
-    keyPrefix: 'layouts.layout.overviewLayout',
-  })
+  const t = useScopedI18n('layouts.overview')
   const { noAccess } = useAccess()
 
   if (noAccess) {
@@ -32,7 +30,7 @@ export function OverviewLayout({ children }: LayoutProperties) {
       <Fragment>
         <Navbar />
         <div className="flex h-[calc(100vh_-_88px)] w-full flex-row items-center justify-center bg-black/50 backdrop-blur-[18px]">
-          <h4 className="heading-4 text-white">{t('connect.tips.login')}</h4>
+          <h4 className="heading-4 text-white">{t('login')}</h4>
         </div>
       </Fragment>
     )
@@ -43,7 +41,7 @@ export function OverviewLayout({ children }: LayoutProperties) {
       <Navbar />
       <main className="iff-layout">
         <h1 className="heading-4 text-shadow-heading-4 px-4 pt-11 text-center uppercase text-white">
-          {t('main.heading')}
+          {t('heading')}
         </h1>
         <div className="hidden w-full flex-row justify-center md:flex">
           <NeonUnderline className="ml-[180px]" />

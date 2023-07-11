@@ -26,7 +26,7 @@ export function Label({
   return (
     <label
       className={cn(
-        'flex flex-row flex-nowrap items-center justify-center font-bold text-iff-text',
+        'flex flex-row flex-nowrap items-center justify-center font-bold uppercase text-iff-text',
         sizes[size],
         className
       )}

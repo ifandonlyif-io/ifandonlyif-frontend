@@ -1,5 +1,4 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { type SubmitHandler, useForm } from 'react-hook-form'
 import { ContractFunctionExecutionError } from 'viem'
@@ -11,6 +10,7 @@ import { Input } from '@/components/Forms'
 import { Modal, type ModalProperties } from '@/components/Modal'
 import { NFTFrame } from '@/components/NFTs'
 import { useMintIffNft } from '@/hooks'
+import { useScopedI18n } from '@/locales'
 import type { BaseComponent, MyNFTItem, NFTItem } from '@/types'
 import {
   cn,
@@ -21,13 +21,13 @@ import {
 
 import { SectionTitle } from './title'
 
-type MintModalTitleProperties = BaseComponent & {
+type MintModalLabelProperties = BaseComponent & {
   title: string
   htmlFor: string
 }
 
-function MintModalTitle(
-  properties: React.PropsWithChildren<MintModalTitleProperties>
+function MintModalLabel(
+  properties: React.PropsWithChildren<MintModalLabelProperties>
 ) {
   const { className, children, title, htmlFor } = properties
   return (
@@ -44,17 +44,23 @@ function MintModalTitle(
   )
 }
 
+type ErrorMessage =
+  | 'required'
+  | 'invalidAddress'
+  | 'invalidWallet'
+  | 'notOwnAddress'
+  | 'invalidTypeId'
 type MintModalErrorProperties = BaseComponent & {
   msg?: string[] | string | true
 }
 
 function MintModalError(properties: MintModalErrorProperties) {
   const { className, msg } = properties
-  const { t } = useTranslation('overview')
-  const message = React.useMemo<string>(() => {
-    if (typeof msg === 'string') return msg
-    if (Array.isArray(msg)) return msg.join(' ')
-    return ''
+  const t = useScopedI18n('overview.mintItMyNFT.mintModalMessage')
+  const message = React.useMemo<ErrorMessage>(() => {
+    if (typeof msg === 'string') return msg as ErrorMessage
+    if (Array.isArray(msg)) return msg.join(' ') as ErrorMessage
+    return 'required'
   }, [msg])
 
   return (
@@ -89,12 +95,13 @@ type MintModalProperties = ModalProperties & {
 function MintModal(properties: MintModalProperties) {
   const { isOpen, nft, onModalClose } = properties
 
-  const { t } = useTranslation('overview', {
-    keyPrefix: 'overview.panelMintIt.mintItMyNFT.mintModal',
-  })
-  const { t: errorT } = useTranslation('overview', {
-    keyPrefix: 'overview.panelMintIt.mintItMyNFT.mintModal.input.errorMessage',
-  })
+  const t = useScopedI18n('overview.mintItMyNFT')
+  const errorT = useScopedI18n('overview.mintItMyNFT.mintModalMessage')
+
+  const modalTitle = React.useMemo<string>(() => {
+    if (!nft) return ''
+    return t('mintModalTitle', { name: nft.name, tokenId: nft.tokenId })
+  }, [nft, t])
 
   const {
     register,
@@ -126,7 +133,7 @@ function MintModal(properties: MintModalProperties) {
   const errorMessage = React.useMemo<string | undefined>(() => {
     if (errors?.inputAddress?.message) {
       const { message } = errors.inputAddress
-      return errorT(message)
+      return errorT(message as ErrorMessage)
     }
     if (prepareError) {
       if (prepareError.message.includes('is invalid'))
@@ -171,22 +178,22 @@ function MintModal(properties: MintModalProperties) {
     <Modal
       isOpen={isOpen && typeof nft === 'object'}
       onModalClose={onModalClose}
-      title={t('heading', { nft }) ?? ''}
+      title={modalTitle}
     >
       <form
         className="flex min-w-[390px] flex-col gap-4"
         onSubmit={handleSubmit(handleMintModalSubmit)}
       >
         <div className="flex flex-col">
-          <MintModalTitle
+          <MintModalLabel
             htmlFor={inputAddressId}
-            title={t('mintModalTitle.inputAddress')}
+            title={t('mintModalLabel.inputAddress')}
           >
             {errorMessage && <MintModalError msg={errorMessage} />}
-          </MintModalTitle>
+          </MintModalLabel>
           <Input
             id={inputAddressId}
-            placeholder={t('input.placeholder.inputAddress') || undefined}
+            placeholder={t('mintModalInput.inputAddress') || undefined}
             {...register('inputAddress', { required: true })}
           />
         </div>
@@ -197,7 +204,7 @@ function MintModal(properties: MintModalProperties) {
             shadow={false}
             onClick={handleCancelClick}
           >
-            {t('button.cancel')}
+            {t('mintModalButton.cancel')}
           </Button>
           <Button
             className="border-2 border-[#14D6D6]"
@@ -206,7 +213,7 @@ function MintModal(properties: MintModalProperties) {
             type="submit"
             disabled={!writeAsync || isLoading}
           >
-            {t('button.ok')}
+            {t('mintModalButton.ok')}
           </Button>
         </div>
       </form>
@@ -221,9 +228,7 @@ export type MintItMyNFTProperties = BaseComponent & {
 
 export function MintItMyNFT(properties: MintItMyNFTProperties) {
   const { myNFTs, myNftsLoading, className } = properties
-  const { t } = useTranslation('overview', {
-    keyPrefix: 'overview.panelMintIt.mintItMyNFT',
-  })
+  const t = useScopedI18n('overview.mintItMyNFT')
   const sortedNFTs = sortNFTItems(myNFTs).reverse()
 
   const [isOpen, setIsOpen] = React.useState(false)
@@ -241,7 +246,7 @@ export function MintItMyNFT(properties: MintItMyNFTProperties) {
         size="medium"
         count={sortedNFTs.length}
       >
-        {t('sectionTitle')}
+        {t('title')}
       </SectionTitle>
       {myNftsLoading && <div className="flex justify-center">Loading...</div>}
       <div className="grid grid-cols-2 gap-[30px] md:flex md:flex-row md:flex-wrap">

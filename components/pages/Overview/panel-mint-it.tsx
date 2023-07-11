@@ -1,7 +1,7 @@
-import { useTranslation } from 'next-i18next'
 import React from 'react'
 
 import { FilterGroup, FilterItem } from '@/components/Forms'
+import { useScopedI18n } from '@/locales'
 import { cn } from '@/utils'
 
 import { MintItMyNFT, type MintItMyNFTProperties } from './mint-it-my-nft'
@@ -20,7 +20,7 @@ type FilterOption = { value: FilterValues; count: number }
 
 export function PanelMintIt(properties: PanelMintItProperties) {
   const { myNFTs } = properties
-  const { t } = useTranslation('overview')
+  const t = useScopedI18n('overview.panelMintIt')
   // const whitelistCount = myWhitelist.length + preSaleWhitelist.length
   // const allCount = whitelistCount + myNFTs.length
   const allCount = myNFTs.length
@@ -40,7 +40,7 @@ export function PanelMintIt(properties: PanelMintItProperties) {
 
   return (
     <div className="px-4 py-6 md:px-5 md:py-[50px]">
-      <TabTitle className="mb-4">{t('overview.panelMintIt.tabTitle')}</TabTitle>
+      <TabTitle className="mb-4">{t('tabTitle')}</TabTitle>
       <FilterGroup
         className="mb-7"
         name="nftType"
@@ -49,7 +49,7 @@ export function PanelMintIt(properties: PanelMintItProperties) {
       >
         {filterItems.map((item) => (
           <FilterItem value={item.value} count={item.count} key={item.value}>
-            {t(`overview.panelMintIt.filterOption.${item.value}`)}
+            {t(`filterOption.${item.value}`)}
           </FilterItem>
         ))}
       </FilterGroup>

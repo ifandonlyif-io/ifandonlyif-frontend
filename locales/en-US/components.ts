@@ -1,4 +1,4 @@
-export default {
+export const Components = {
   // SortByTimezone Component
   'component.sortByTimezone.label': 'Sort by',
   'component.sortByTimezone.placeholder': 'Please select',
@@ -42,3 +42,7 @@ export default {
   'component.nftFrame.expired': 'Expired',
   'component.nftFrame.hide': 'Hide',
 } as const
+
+export type ComponentsTranslation = Readonly<
+  Record<keyof typeof Components, string>
+>

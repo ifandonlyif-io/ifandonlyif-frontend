@@ -1,4 +1,3 @@
-import { useTranslation } from 'next-i18next'
 import React from 'react'
 
 import { Button, NFTButton } from '@/components/Buttons'
@@ -6,17 +5,18 @@ import { Radio, RadioGroup, Textarea } from '@/components/Forms'
 import { Modal, type ModalProperties } from '@/components/Modal'
 import { NFTFrame } from '@/components/NFTs'
 import { useSortByTimezone } from '@/hooks'
+import { useScopedI18n } from '@/locales'
 import type { BaseComponent, NFTItem } from '@/types'
 import { cn, sortNFTItems } from '@/utils'
 
 import { SectionTitleWithSortTimezone, TabTitle } from './title'
 
-type MemoModalTitleProperties = BaseComponent & {
+type MemoModalLabelProperties = BaseComponent & {
   title: string
   rightElement?: React.ReactNode
 }
 
-function MemoModalTitle(properties: MemoModalTitleProperties) {
+function MemoModalLabel(properties: MemoModalLabelProperties) {
   const { className, title, rightElement } = properties
   return (
     <div
@@ -54,12 +54,10 @@ type MemoModalProperties = ModalProperties
 
 function MemoModal(properties: MemoModalProperties) {
   const { isOpen, onModalClose } = properties
-  const { t } = useTranslation('overview', {
-    keyPrefix: 'overview.panelIFFNFT.memoModal',
-  })
+  const t = useScopedI18n('overview.iffNFTMyNFT')
   // const PoweredBy = () => (
   //   <p className="text-base font-medium text-iff-text">
-  //     {t('poweredBy')}&nbsp;
+  //     {t('memoModalPoweredBy')}&nbsp;
   //     <span className="font-semibold text-[#14D6D6]">Meta.io</span>
   //   </p>
   // )
@@ -88,31 +86,31 @@ function MemoModal(properties: MemoModalProperties) {
     <Modal isOpen={isOpen} onModalClose={onModalClose}>
       <div className="flex flex-col px-20 pb-9 pt-7">
         <h2 className="mb-8 text-center text-2xl font-bold text-iff-text">
-          {t('heading')}
+          {t('memoModalTitle')}
         </h2>
         <form className="flex min-w-[390px] flex-col" action="#">
-          <MemoModalTitle className="mb-4" title={t('memoModalTitle.memo')} />
+          <MemoModalLabel className="mb-4" title={t('memoModalLabel.memo')} />
           <RadioGroup className="mb-3" name="memo">
-            <Radio value="yes">{t('radioGroup.yes')}</Radio>
-            <Radio value="no">{t('radioGroup.no')}</Radio>
+            <Radio value="yes">{t('memoModalRadio.yes')}</Radio>
+            <Radio value="no">{t('memoModalRadio.no')}</Radio>
           </RadioGroup>
           <Textarea className="mb-8 h-[88px] w-full [resize:none]" />
 
-          {/* <MemoModalTitle className="mb-4" title={t('memoModalTitle.info')} />
+          {/* <MemoModalLabel className="mb-4" title={t('memoModalLabel.info')} />
           <RadioGroup className="mb-3" name="info">
-            <Radio value="yes">{t('radioGroup.yes')}</Radio>
-            <Radio value="no">{t('radioGroup.no')}</Radio>
+            <Radio value="yes">{t('memoModalRadio.yes')}</Radio>
+            <Radio value="no">{t('memoModalRadio.no')}</Radio>
           </RadioGroup>
           <MemoModalInfoBar className="mb-8" />
 
-          <MemoModalTitle
+          <MemoModalLabel
             className="mb-4"
-            title={t('memoModalTitle.chain')}
+            title={t('memoModalLabel.chain')}
             rightElement={<PoweredBy />}
           />
           <RadioGroup className="mb-3" name="chain">
-            <Radio value="yes">{t('radioGroup.yes')}</Radio>
-            <Radio value="no">{t('radioGroup.no')}</Radio>
+            <Radio value="yes">{t('memoModalRadio.yes')}</Radio>
+            <Radio value="no">{t('memoModalRadio.no')}</Radio>
           </RadioGroup> */}
 
           <div className="mt-16 grid grid-cols-2 gap-2.5">
@@ -122,7 +120,7 @@ function MemoModal(properties: MemoModalProperties) {
               shadow={false}
               onClick={handleCancelClick}
             >
-              {t('button.cancel')}
+              {t('memoModalButton.cancel')}
             </Button>
             <Button
               className="border-2 border-[#14D6D6]"
@@ -130,7 +128,7 @@ function MemoModal(properties: MemoModalProperties) {
               shadow={false}
               onClick={handleOkClick}
             >
-              {t('button.ok')}
+              {t('memoModalButton.ok')}
             </Button>
           </div>
         </form>
@@ -145,9 +143,7 @@ type NFTButtonsProperties = {
 
 function NFTButtons(properties: NFTButtonsProperties) {
   const { onMemoClick } = properties
-  const { t } = useTranslation('overview', {
-    keyPrefix: 'overview.panelIFFNFT.nftButtons',
-  })
+  const t = useScopedI18n('overview.iffNFTMyNFT.nftButtons')
 
   return (
     <div className="flex flex-1 flex-row flex-nowrap items-center justify-between">
@@ -172,7 +168,7 @@ export type PanelIFFNFTProperties = {
 export function PanelIFFNFT(properties: PanelIFFNFTProperties) {
   const { myIFFNFT } = properties
   const sortedNFTs = sortNFTItems(myIFFNFT).reverse()
-  const { t } = useTranslation('overview')
+  const t = useScopedI18n('overview.panelIFFNFT')
   const timezone = useSortByTimezone()
   const [isOpen, setIsOpen] = React.useState(false)
   const handleModalOpen = React.useCallback(() => setIsOpen(true), [])
@@ -180,7 +176,7 @@ export function PanelIFFNFT(properties: PanelIFFNFTProperties) {
 
   return (
     <div className="min-h-[640px] px-4 py-6 md:px-5 md:py-[50px]">
-      <TabTitle className="mb-4">{t('overview.panelIFFNFT.tabTitle')}</TabTitle>
+      <TabTitle className="mb-4">{t('tabTitle')}</TabTitle>
       <SectionTitleWithSortTimezone className="mb-4" />
       <section className="mb-4 flex flex-col md:mb-8">
         <div className="grid grid-cols-2 gap-[30px] md:flex md:flex-row md:flex-wrap">

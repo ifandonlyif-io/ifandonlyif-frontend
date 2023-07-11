@@ -1,9 +1,9 @@
-import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { useAccount, useBalance } from 'wagmi'
 
 import { Card } from '@/components/Card'
 import { EthereumIcon, MoreVerticalIcon } from '@/components/Icons'
+import { useScopedI18n } from '@/locales'
 import type { BaseComponent } from '@/types'
 import { cn } from '@/utils'
 
@@ -13,9 +13,7 @@ type WalletInfoProperties = {
 
 function WalletInfo(properties: WalletInfoProperties) {
   const { ethPrice = '0' } = properties
-  const { t } = useTranslation('overview', {
-    keyPrefix: 'overview.panelOverview.overviewWallet.walletInfo',
-  })
+  const t = useScopedI18n('overview.overviewWallet')
   const { address } = useAccount()
   const { data: balance } = useBalance({ address, watch: true })
   const [hidden, setHidden] = React.useState(false)
@@ -64,7 +62,7 @@ function WalletInfo(properties: WalletInfoProperties) {
             className="ml-4 rounded-md px-4 py-1 font-bold text-[#F2994A] hover:bg-gray-100"
             onClick={toggleHidden}
           >
-            {hidden ? t('hideButton.show') : t('hideButton.hide')}
+            {hidden ? t('toggleShow') : t('toggleHide')}
           </button>
         </div>
       </div>
@@ -76,11 +74,11 @@ export type OverviewWalletProperties = BaseComponent &
   Required<WalletInfoProperties>
 
 export function OverviewWallet(properties: OverviewWalletProperties) {
-  const { t } = useTranslation('overview')
+  const t = useScopedI18n('overview.overviewWallet')
 
   return (
     <section className={cn('w-full', properties.className)}>
-      <Card title={t('overview.panelOverview.overviewWallet.card.title')}>
+      <Card title={t('title')}>
         <div className="flex flex-col gap-4 p-4 md:gap-10 md:px-7 md:py-10">
           <WalletInfo {...properties} />
         </div>

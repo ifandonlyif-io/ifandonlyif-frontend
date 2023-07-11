@@ -1,8 +1,8 @@
-import { useTranslation } from 'next-i18next'
 import React from 'react'
 
 import { type SelectMenuOption, SelectMenus } from '@/components/Forms'
 import { TimezoneOptions } from '@/data'
+import { useScopedI18n } from '@/locales'
 import type { BaseComponent } from '@/types'
 import { cn } from '@/utils'
 
@@ -15,12 +15,11 @@ const timezoneOptions: SelectMenuOption[] = TimezoneOptions
 
 export function SortByTimezone(properties: SortByTimezoneProperties) {
   const { className, defaultValue, onOptionChange } = properties
-  const { t } = useTranslation(['common', 'overview'], {
-    keyPrefix: 'forms.sortByTimezone',
-  })
+  const t = useScopedI18n('component.sortByTimezone')
   const timezoneOptionsWithTranslate = React.useMemo(
     () =>
       timezoneOptions.map((option) => ({
+        // @ts-expect-error Timezone options type
         label: t(`timezoneOptions.${option.value}`),
         value: option.value,
       })),
@@ -29,6 +28,7 @@ export function SortByTimezone(properties: SortByTimezoneProperties) {
   const defaultValueWithTranslate = React.useMemo(() => {
     if (!defaultValue) return
     return {
+      // @ts-expect-error Timezone options type
       label: t(`timezoneOptions.${defaultValue.value}`),
       value: defaultValue.value,
     }

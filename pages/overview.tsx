@@ -1,7 +1,5 @@
 import type { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React from 'react'
 import useSWR from 'swr'
 
@@ -26,6 +24,7 @@ import {
 } from '@/components/pages/Overview'
 import { Tab, TabList, TabPanel, Tabs } from '@/components/Tabs'
 import { usePrivateFetch } from '@/hooks'
+import { useScopedI18n } from '@/locales'
 import type { FetchUserNftsResponse, NextPageWithLayout } from '@/types'
 import { convertOwnedNftsToMyNfts } from '@/utils'
 
@@ -37,7 +36,7 @@ type OverviewProperties = {
 }
 
 type TabData = {
-  label: string
+  label: 'overview' | 'mintIt' | 'premintNft' | 'iffNft' | 'kycRecord'
   href: string
 }
 
@@ -53,7 +52,7 @@ const Overview: NextPageWithLayout<OverviewProperties> = (
   properties: OverviewProperties
 ) => {
   const { overview, mintIt } = properties
-  const { t } = useTranslation('overview')
+  const t = useScopedI18n('overview.tabData')
   const router = useRouter()
   const [fetch, onFetchError] = usePrivateFetch()
   const { data: myNfts, isLoading } = useSWR(
@@ -83,13 +82,13 @@ const Overview: NextPageWithLayout<OverviewProperties> = (
   }, [router.asPath])
 
   return (
-    <div className="my-10 rounded-b-xl bg-white shadow-iff-overview md:my-16 md:px-[24px] xl:px-[30px]">
+    <div className="my-10 rounded-b-xl bg-white shadow-iff-overview md:my-16 md:px-6 xl:px-8">
       <SectionTitleWithSortTimezoneProvider>
         <Tabs selectedIndex={tabIndex} onSelect={handleTabSelect}>
           <TabList>
             {tabs.map((tab) => (
               <Tab className="uppercase" key={tab.href}>
-                {t(`overview.tabData.label.${tab.label}`)}
+                {t(tab.label)}
               </Tab>
             ))}
           </TabList>
@@ -125,8 +124,7 @@ Overview.getLayout = (page) => {
 
 export const getServerSideProps: GetServerSideProps<
   OverviewProperties
-> = async ({ locale = 'en-US' }) => {
-  const i18n = await serverSideTranslations(locale, ['common', 'overview'])
+> = async () => {
   const priceData = await getGasPriceData()
   const ethPrice = await getEthToUsd()
   const overview = { priceData, ethPrice }
@@ -134,7 +132,7 @@ export const getServerSideProps: GetServerSideProps<
   const myIFFNFT = await getDemoMyIffNft()
   // const preMint: PanelPreMintProps = { preMintWhitelist: mintIt.myWhitelist }
   const iffNFT: PanelIFFNFTProperties = { myIFFNFT }
-  return { props: { ...i18n, overview, mintIt, iffNFT } }
+  return { props: { overview, mintIt, iffNFT } }
 }
 
 export default Overview

@@ -1,8 +1,8 @@
 import Image from 'next/image'
-import { useTranslation } from 'next-i18next'
 import React from 'react'
 
 import { NFTButton } from '@/components/Buttons'
+import { useScopedI18n } from '@/locales'
 import type { BaseComponent } from '@/types'
 import { cn, formatDateTime, isHistorical } from '@/utils'
 
@@ -21,7 +21,7 @@ export function NFTFrame(
 ) {
   let { expired } = properties
   const { children, className, onHideClick } = properties
-  const { t } = useTranslation('common', { keyPrefix: 'nfts.nftFrame' })
+  const t = useScopedI18n('component.nftFrame')
   const { name, imageUri, unixEpoch, zone, hideTime = false } = properties
   const dateTimeString = formatDateTime(unixEpoch, "yyyy,L,dd ha 'UTC'Z", zone)
   if (expired === undefined) {
@@ -82,7 +82,7 @@ export function NFTFrame(
               className="!border-[#FFC8A0] !text-[#FF906D]"
               onClick={onHideClick}
             >
-              {t('nftButton.hide')}
+              {t('hide')}
             </NFTButton>
           ) : (
             <div className="flex flex-row items-center justify-between">

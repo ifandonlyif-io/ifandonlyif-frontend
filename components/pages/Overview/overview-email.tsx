@@ -1,9 +1,9 @@
-import { useTranslation } from 'next-i18next'
 import React from 'react'
 
 import { Card } from '@/components/Card'
 import { EmailIcon, MoreVerticalIcon } from '@/components/Icons'
 import { Label } from '@/components/Label'
+import { useScopedI18n } from '@/locales'
 import type { BaseComponent } from '@/types'
 import { cn } from '@/utils'
 
@@ -17,9 +17,7 @@ type EmailInfoProperties = {
 
 function EmailInfo(properties: EmailInfoProperties) {
   const { email, notification } = properties
-  const { t } = useTranslation('overview', {
-    keyPrefix: 'overview.panelOverview.overviewEmail.emailInfo.label',
-  })
+  const t = useScopedI18n('overview.overviewEmail')
 
   return (
     <div className="flex flex-row items-center">
@@ -31,12 +29,12 @@ function EmailInfo(properties: EmailInfoProperties) {
         <div className="flex flex-row flex-nowrap items-center gap-2.5 self-end md:self-center">
           {properties.default && (
             <Label className="bg-[#BED0FF]" size="medium">
-              {t('default')}
+              {t('labelDefault')}
             </Label>
           )}
           {notification && (
             <Label className="bg-[#FFC481]" size="medium">
-              {t('notification')}
+              {t('labelNotification')}
             </Label>
           )}
         </div>
@@ -52,11 +50,11 @@ function EmailInfo(properties: EmailInfoProperties) {
 }
 
 export function OverviewEmail({ className }: OverviewEmailProperties) {
-  const { t } = useTranslation('overview')
+  const t = useScopedI18n('overview.overviewEmail')
 
   return (
     <section className={cn('w-full', className)}>
-      <Card title={t('overview.panelOverview.overviewEmail.card.title')}>
+      <Card title={t('title')}>
         <div className="flex flex-col gap-4 p-4 md:gap-10 md:px-7 md:py-10">
           <EmailInfo email="collect_name_01@gmail.com" default notification />
           <EmailInfo email="collect_name_02@gmail.com" />

@@ -1,4 +1,4 @@
-export default {
+export const Home = {
   // SectionHeader
   'home.sectionHeader.heading': 'THE BEST WAY TO SOCIALLY SECURE YOUR NFTs',
   'home.sectionHeader.subheading':
@@ -30,3 +30,5 @@ export default {
   // SectionUserFeedback
   'home.sectionUserFeedback.heading': 'USER FEEDBACK',
 } as const
+
+export type HomeTranslation = Readonly<Record<keyof typeof Home, string>>

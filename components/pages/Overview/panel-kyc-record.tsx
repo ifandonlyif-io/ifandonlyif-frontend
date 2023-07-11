@@ -1,7 +1,6 @@
-import { useTranslation } from 'next-i18next'
-
 import { Avatar } from '@/components/Avatar'
 import { Card } from '@/components/Card'
+import { useScopedI18n } from '@/locales'
 import type { BaseComponent } from '@/types'
 import { cn } from '@/utils'
 
@@ -38,9 +37,7 @@ function RecordData(properties: React.PropsWithChildren<RecordDataProperties>) {
 }
 
 export function PanelKYCRecord() {
-  const { t } = useTranslation('overview', {
-    keyPrefix: 'overview.panelKYCRecord',
-  })
+  const t = useScopedI18n('overview.panelKYCRecord')
 
   return (
     <div className="px-5 py-[50px]">
@@ -49,8 +46,8 @@ export function PanelKYCRecord() {
         <div className="flex flex-row items-center p-8">
           <Avatar variant="text" size="medium" src="S" />
           <div className="ml-12 flex flex-1 flex-col gap-2.5">
-            <RecordData name={t('recordData.date')}>2022/5/1</RecordData>
-            <RecordData name={t('recordData.holder')}>BEN5566</RecordData>
+            <RecordData name={t('date')}>2022/5/1</RecordData>
+            <RecordData name={t('holder')}>BEN5566</RecordData>
           </div>
         </div>
       </Card>

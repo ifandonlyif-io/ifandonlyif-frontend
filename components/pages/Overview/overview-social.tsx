@@ -1,9 +1,9 @@
-import { useTranslation } from 'next-i18next'
 import React from 'react'
 
 import { Card } from '@/components/Card'
 import { MoreVerticalIcon, TwitterIcon } from '@/components/Icons'
 import { Label } from '@/components/Label'
+import { useScopedI18n } from '@/locales'
 import type { BaseComponent } from '@/types'
 import { cn } from '@/utils'
 
@@ -16,7 +16,7 @@ type SocialInfoProperties = {
 
 function SocialInfo(properties: SocialInfoProperties) {
   const { username, verified } = properties
-  const { t } = useTranslation('overview')
+  const t = useScopedI18n('overview.overviewSocial')
 
   return (
     <div className="flex flex-row items-center">
@@ -25,9 +25,7 @@ function SocialInfo(properties: SocialInfoProperties) {
         <p className="mr-3 text-base font-bold text-iff-text">{username}</p>
         {verified && (
           <Label className="bg-[#FFC481]" size="medium">
-            {t(
-              'overview.panelOverview.overviewSocial.socialInfo.label.verified'
-            )}
+            {t('labelVerified')}
           </Label>
         )}
       </div>
@@ -42,11 +40,11 @@ function SocialInfo(properties: SocialInfoProperties) {
 }
 
 export function OverviewSocial({ className }: OverviewSocialProperties) {
-  const { t } = useTranslation('overview')
+  const t = useScopedI18n('overview.overviewSocial')
 
   return (
     <section className={cn('w-full', className)}>
-      <Card title={t('overview.panelOverview.overviewSocial.card.title')}>
+      <Card title={t('title')}>
         <div className="flex flex-col gap-4 p-4 md:gap-10 md:px-7 md:py-10">
           <SocialInfo username="collect_name_01" verified />
         </div>

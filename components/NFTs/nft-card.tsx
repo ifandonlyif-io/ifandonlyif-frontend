@@ -1,9 +1,9 @@
 import Image from 'next/image'
-import { useTranslation } from 'next-i18next'
 import React from 'react'
 
 import { Avatar } from '@/components/Avatar'
 import { CheckMarkIcon, CrossMarkIcon } from '@/components/Icons'
+import { useScopedI18n } from '@/locales'
 import type { BaseComponent } from '@/types'
 import { cn, formatDateTime } from '@/utils'
 
@@ -83,10 +83,8 @@ function NFTCardFront(properties: NFTCardProperties) {
 
 function NFTValidity(properties: Pick<NFTCardProperties, 'validity'>) {
   const { validity } = properties
-  const { t } = useTranslation('common', {
-    keyPrefix: 'nfts.nftCard.nftValidity',
-  })
-  const state = validity ? t('yes') : t('no')
+  const t = useScopedI18n('component.nftCard')
+  const state = validity ? t('verified') : t('unverified')
 
   return (
     <div className="flex flex-row items-center">
@@ -133,7 +131,7 @@ function NFTCardBack(properties: NFTCardProperties) {
   const { name, nftId, nftType, imageUri, kycEpoch } = properties
   const { holderRecords = [], validity = false } = properties
   const date = dateString(kycEpoch)
-  const { t } = useTranslation('common', { keyPrefix: 'nfts.nftCard.text' })
+  const t = useScopedI18n('component.nftCard')
 
   return (
     <div className="iff-nft-card__face iff-nft-card__face--back">

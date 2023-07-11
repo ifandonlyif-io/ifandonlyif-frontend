@@ -5,6 +5,7 @@ import { HighchartsReact } from 'highcharts-react-official'
 import React from 'react'
 
 import { Card } from '@/components/Card'
+import { useScopedI18n } from '@/locales'
 import type { BaseComponent } from '@/types'
 import { cn, formatDateTime } from '@/utils'
 
@@ -114,13 +115,15 @@ function GasPriceList(properties: GasPriceListProperties) {
 }
 
 export function OverviewGas({ className, priceData }: OverviewGasProperties) {
+  const t = useScopedI18n('overview.overviewGas')
   const listData = React.useMemo(
     () => priceData.slice(0, 20).reverse(),
     [priceData]
   )
+
   return (
     <section className={cn('w-full', className)}>
-      <Card title="GAS PRICE">
+      <Card title={t('title')}>
         <div className="grid grid-cols-1 gap-6 p-4 md:grid-cols-3 md:gap-0 md:py-6">
           <GasTimeSeries className="xl:col-span-2" data={priceData} />
           <GasPriceList data={listData} />

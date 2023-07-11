@@ -1,10 +1,10 @@
-import { useTranslation } from 'next-i18next'
 import React from 'react'
 
 import { NFTButton } from '@/components/Buttons'
 import { ExternalLinkIcon } from '@/components/Icons'
 import { NFTFrame } from '@/components/NFTs'
 import { useSortByTimezone } from '@/hooks'
+import { useScopedI18n } from '@/locales'
 import type { BaseComponent, NFTItem } from '@/types'
 import { cn, filteredNFTItems } from '@/utils'
 
@@ -37,9 +37,7 @@ type WhitelistProperties = {
 
 function MyWhitelist(properties: WhitelistProperties) {
   const { nftList, zone } = properties
-  const { t } = useTranslation('overview', {
-    keyPrefix: 'overview.panelMintIt.mintItWhitelist.myWhitelist',
-  })
+  const t = useScopedI18n('overview.mintItWhitelist.myWhitelist')
   const { availableNFTs, expiredNFTs } = filteredNFTItems(nftList)
 
   return (
@@ -58,9 +56,7 @@ function MyWhitelist(properties: WhitelistProperties) {
 
 function PreSaleWhitelist(properties: WhitelistProperties) {
   const { nftList, zone } = properties
-  const { t } = useTranslation('overview', {
-    keyPrefix: 'overview.panelMintIt.mintItWhitelist.preSaleWhitelist',
-  })
+  const t = useScopedI18n('overview.mintItWhitelist.preSaleWhitelist')
   const { availableNFTs, expiredNFTs } = filteredNFTItems(nftList)
 
   return (
@@ -88,15 +84,12 @@ export type MintItWhitelistProperties = BaseComponent & {
 
 export function MintItWhitelist(properties: MintItWhitelistProperties) {
   const { myWhitelist, preSaleWhitelist, className } = properties
-  const { t } = useTranslation('overview')
+  const t = useScopedI18n('overview.mintItWhitelist')
   const timezone = useSortByTimezone()
 
   return (
     <section className={cn('flex flex-col', className)}>
-      <SectionTitleWithSortTimezone
-        className="mb-5"
-        title={t('overview.panelMintIt.mintItWhitelist.sectionTitle.title')}
-      />
+      <SectionTitleWithSortTimezone className="mb-5" title={t('title')} />
       <div className="flex flex-col gap-8 md:gap-16">
         <MyWhitelist nftList={myWhitelist} zone={timezone.value} />
         <PreSaleWhitelist nftList={preSaleWhitelist} zone={timezone.value} />
