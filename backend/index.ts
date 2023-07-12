@@ -72,7 +72,7 @@ export async function refreshToken(token: string): Promise<string | undefined> {
 }
 
 type GasInfo = {
-  average: number
+  average: string
   createdAt: string
 }
 type GasPrice = [number, number]
@@ -80,7 +80,7 @@ export async function getGasPriceData(): Promise<GasPrice[]> {
   const infoList = await publicFetch<GasInfo[]>('/gasInfo')
   const prices = infoList.map((info) => [
     parseISODateTime(info.createdAt) * 1000,
-    info.average / 10,
+    Number.parseFloat(info.average),
   ])
   const sorted = prices.sort((a, b) => a[0] - b[0])
   return sorted as GasPrice[]

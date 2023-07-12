@@ -31,47 +31,45 @@ if (typeof Highcharts === 'object') {
   HighchartsAccessibility(Highcharts)
 }
 
-const defaultChartOptions: Highcharts.Options = {
-  chart: { zooming: { type: 'x' } },
-  title: { text: 'Avg gas price last 24 hour' },
-  xAxis: { type: 'datetime' },
-  yAxis: { title: { text: 'Avg Gas Price (Gwei)' } },
-  legend: { enabled: false },
-  plotOptions: {
-    area: {
-      lineColor: '#FFB267',
-      fillColor: {
-        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
-        stops: [
-          [0, '#FBE2A4'],
-          [1, '#FFE5BE00'],
-        ],
-      },
-      marker: { radius: 2 },
-      lineWidth: 1,
-      states: { hover: { lineWidth: 1 } },
-      threshold: undefined,
-    },
-  },
-}
-
 function GasTimeSeries(properties: GasTimeSeriesProperties) {
   const { className, data } = properties
-  const [options, setOptions] =
-    React.useState<Highcharts.Options>(defaultChartOptions)
-
-  React.useEffect(() => {
+  const t = useScopedI18n('overview.overviewGas')
+  const chartOptions = React.useMemo<Highcharts.Options>(() => {
     const seriesOption: Highcharts.SeriesOptionsType = {
       type: 'area',
-      name: 'Gas Price',
+      name: t('areaName'),
       data,
     }
-    setOptions((o) => ({ ...o, series: [seriesOption] }))
-  }, [data])
+
+    return {
+      chart: { zooming: { type: 'x' } },
+      title: { text: t('chartTitle') },
+      xAxis: { type: 'datetime' },
+      yAxis: { title: { text: t('yAxisTitle') } },
+      legend: { enabled: false },
+      plotOptions: {
+        area: {
+          lineColor: '#FFB267',
+          fillColor: {
+            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+            stops: [
+              [0, '#FBE2A4'],
+              [1, '#FFE5BE00'],
+            ],
+          },
+          marker: { radius: 2 },
+          lineWidth: 1,
+          states: { hover: { lineWidth: 1 } },
+          threshold: undefined,
+        },
+      },
+      series: [seriesOption],
+    }
+  }, [data, t])
 
   return (
     <div className={className}>
-      <HighchartsReact highcharts={Highcharts} options={options} />
+      <HighchartsReact highcharts={Highcharts} options={chartOptions} />
     </div>
   )
 }
@@ -79,6 +77,7 @@ function GasTimeSeries(properties: GasTimeSeriesProperties) {
 function GasPriceListItem(properties: GasPriceListItemProperties) {
   const { epoch, price } = properties
   const date = formatDateTime(epoch / 1000, 'yyyy/L/dd T')
+
   return (
     <div
       className={cn(
@@ -94,6 +93,8 @@ function GasPriceListItem(properties: GasPriceListItemProperties) {
 
 function GasPriceList(properties: GasPriceListProperties) {
   const { data } = properties
+  const t = useScopedI18n('overview.overviewGas')
+
   return (
     <div className="flex max-h-[200px] flex-col md:max-h-[400px] md:px-7">
       <div
@@ -102,8 +103,8 @@ function GasPriceList(properties: GasPriceListProperties) {
           'text-base font-bold text-iff-text'
         )}
       >
-        <div className="flex-1">Date</div>
-        <div>Value</div>
+        <div className="flex-1">{t('dateTime')}</div>
+        <div>{t('value')}</div>
       </div>
       <div className="flex flex-col gap-2 overflow-y-auto">
         {data.map(([epoch, price]) => (

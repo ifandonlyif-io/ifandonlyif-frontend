@@ -22,6 +22,11 @@ export const Overview = {
   'overview.overviewStatus.viewLabel': 'View',
   // OverviewGas
   'overview.overviewGas.title': 'GAS PRICE',
+  'overview.overviewGas.chartTitle': 'Average gas',
+  'overview.overviewGas.yAxisTitle': 'Avg Gas (Gwei)',
+  'overview.overviewGas.areaName': 'Gas (Gwei)',
+  'overview.overviewGas.dateTime': 'Date & Time',
+  'overview.overviewGas.value': 'Value',
   // OverviewWallet
   'overview.overviewWallet.title': 'MY WALLETs',
   'overview.overviewWallet.totalBalance': 'Total Balance',
