@@ -52,6 +52,7 @@ export const Overview = {
   'overview.mintItWhitelist.preSaleWhitelist.nftButton': 'View',
   // MintItMyNFT
   'overview.mintItMyNFT.title': 'My NFT',
+  'overview.mintItMyNFT.loading': 'Loading...',
   'overview.mintItMyNFT.nftButton': 'Mint To IFFNFT',
   'overview.mintItMyNFT.mintModalTitle': 'Mint {name}#{tokenId} to IFF NFT',
   'overview.mintItMyNFT.mintModalLabel.inputAddress': 'Mint to address',
@@ -67,6 +68,16 @@ export const Overview = {
   'overview.mintItMyNFT.mintModalMessage.invalidTypeId': 'Invalid nft type id',
   'overview.mintItMyNFT.mintModalButton.cancel': 'CANCEL',
   'overview.mintItMyNFT.mintModalButton.ok': 'OK',
+  'overview.mintItMyNFT.processingModalTitle': 'Processing...',
+  'overview.mintItMyNFT.resultModalSuccess.p1':
+    'You just had minted NFT successfully.',
+  'overview.mintItMyNFT.resultModalSuccess.p2':
+    'Now you can go to check it or mint another one.',
+  'overview.mintItMyNFT.resultModalError.p1': 'Sorry! Something go wrong....',
+  'overview.mintItMyNFT.resultModalError.p2': 'Maybe your can try it again.',
+  'overview.mintItMyNFT.resultModalButton.another': 'Mint another',
+  'overview.mintItMyNFT.resultModalButton.check': 'Check it',
+  'overview.mintItMyNFT.resultModalButton.close': 'Close',
   // PanelPreMint
   'overview.panelPreMint.tabTitle': 'Pre-mint NFT',
   // PreMintWhitelist

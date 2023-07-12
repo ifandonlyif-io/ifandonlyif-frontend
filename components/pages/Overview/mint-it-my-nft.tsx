@@ -96,12 +96,13 @@ type MintNftFormData = z.infer<typeof mintNftSchema>
 
 type MintModalProperties = ModalProperties & {
   nft: NFTItem | undefined
+  onMintSubmit?: (data: MintNftFormData) => void
   onMintSuccess?: (hash?: `0x${string}`) => void
   onMintError?: (error: Error) => void
 }
 
 function MintModal(properties: MintModalProperties) {
-  const { isOpen, nft, onModalClose, onMintSuccess } = properties
+  const { isOpen, nft, onModalClose, onMintSubmit, onMintSuccess } = properties
 
   const t = useScopedI18n('overview.mintItMyNFT')
   const errorT = useScopedI18n('overview.mintItMyNFT.mintModalMessage')
@@ -179,8 +180,9 @@ function MintModal(properties: MintModalProperties) {
       console.debug('handleMintModalSubmit', data)
       await writeAsync()
       onModalClose && onModalClose()
+      onMintSubmit && onMintSubmit(data)
     },
-    [errors.inputAddress, nft, onModalClose, writeAsync]
+    [errors.inputAddress, nft, onMintSubmit, onModalClose, writeAsync]
   )
 
   return (
@@ -230,12 +232,42 @@ function MintModal(properties: MintModalProperties) {
   )
 }
 
+function ProcessingModal(properties: Omit<ModalProperties, 'title'>) {
+  const t = useScopedI18n('overview.mintItMyNFT')
+  const title = t('processingModalTitle')
+
+  return (
+    <Modal title={title} {...properties}>
+      <div className="flex flex-col items-center justify-center">
+        <svg
+          aria-hidden="true"
+          className="mr-2 h-8 w-8 animate-spin fill-iff-purple text-gray-200 dark:text-gray-600"
+          viewBox="0 0 100 101"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+            fill="currentColor"
+          />
+          <path
+            d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+            fill="currentFill"
+          />
+        </svg>
+        <span className="sr-only">{title}</span>
+      </div>
+    </Modal>
+  )
+}
+
 type MintResultModalProperties = CheckModalProperties & {
   hash?: `0x${string}`
 }
 
-function MintResultModal(properties: MintResultModalProperties) {
+function ResultModal(properties: MintResultModalProperties) {
   const { hash, isOpen, status, onModalClose } = properties
+  const t = useScopedI18n('overview.mintItMyNFT')
   const explorerUrl = useChainExplorer(hash)
   const handleOpenUrl = React.useCallback(() => {
     if (!explorerUrl) return
@@ -247,14 +279,14 @@ function MintResultModal(properties: MintResultModalProperties) {
       <div className="mt-10 text-center text-base font-bold text-iff-text">
         {status === 'success' && (
           <React.Fragment>
-            <p>You just had minted NFT successfully.</p>
-            <p>Now you can go to check it or mint another one.</p>
+            <p>{t('resultModalSuccess.p1')}</p>
+            <p>{t('resultModalSuccess.p2')}</p>
           </React.Fragment>
         )}
         {status === 'error' && (
           <React.Fragment>
-            <p>Sorry! Something go wrong....</p>
-            <p>Maybe your can try it again.</p>
+            <p>{t('resultModalError.p1')}</p>
+            <p>{t('resultModalError.p2')}</p>
           </React.Fragment>
         )}
       </div>
@@ -273,7 +305,7 @@ function MintResultModal(properties: MintResultModalProperties) {
               shadow={false}
               onClick={onModalClose}
             >
-              Mint another
+              {t('resultModalButton.another')}
             </Button>
             <Button
               className="border-2 border-[#14D6D6]"
@@ -281,7 +313,7 @@ function MintResultModal(properties: MintResultModalProperties) {
               shadow={false}
               onClick={handleOpenUrl}
             >
-              Check it
+              {t('resultModalButton.check')}
             </Button>
           </React.Fragment>
         )}
@@ -292,7 +324,7 @@ function MintResultModal(properties: MintResultModalProperties) {
             shadow={false}
             onClick={onModalClose}
           >
-            Close
+            {t('resultModalButton.close')}
           </Button>
         )}
       </div>
@@ -310,30 +342,42 @@ export function MintItMyNFT(properties: MintItMyNFTProperties) {
   const t = useScopedI18n('overview.mintItMyNFT')
   const sortedNFTs = sortNFTItems(myNFTs).reverse()
 
-  const [isOpen, setIsOpen] = React.useState(false)
+  const [isMintModalOpen, setIsMintModalOpen] = React.useState(false)
   const [selectedNft, setSelectedNft] = React.useState<NFTItem>()
-  const handleModalOpen = React.useCallback((nft: NFTItem) => {
+  const handleMintModalOpen = React.useCallback((nft: NFTItem) => {
     setSelectedNft(nft)
-    setIsOpen(true)
+    setIsMintModalOpen(true)
   }, [])
-  const handleModalClose = React.useCallback(() => setIsOpen(false), [])
+  const handleMintModalClose = React.useCallback(
+    () => setIsMintModalOpen(false),
+    []
+  )
 
-  const [mintResultModalStatus, setMintResultModalStatus] =
+  const [isProcessingModalOpen, setIsProcessingModalOpen] =
+    React.useState(false)
+  const handleMintSubmit = React.useCallback(
+    () => setIsProcessingModalOpen(true),
+    []
+  )
+
+  const [resultModalStatus, setResultModalStatus] =
     React.useState<CheckModalProperties['status']>('success')
-  const [mintResultModalOpen, setMintResultModalOpen] = React.useState(false)
-  const handleMintResultModalClose = React.useCallback(
-    () => setMintResultModalOpen(false),
+  const [isResultModalOpen, setIsResultModalOpen] = React.useState(false)
+  const handleResultModalClose = React.useCallback(
+    () => setIsResultModalOpen(false),
     []
   )
 
   const [mintHash, setMintHash] = React.useState<`0x${string}`>()
-  const handleMintSuccess = React.useCallback<
-    MintModalProperties['onMintSuccess']
-  >((hash) => {
-    setMintResultModalStatus('success')
-    setMintResultModalOpen(true)
-    setMintHash(hash)
-  }, [])
+  const handleMintSuccess = React.useCallback(
+    (hash?: `0x${string}` | undefined) => {
+      setIsProcessingModalOpen(false)
+      setResultModalStatus('success')
+      setIsResultModalOpen(true)
+      setMintHash(hash)
+    },
+    []
+  )
 
   return (
     <section className={cn('flex flex-col', className)}>
@@ -344,7 +388,9 @@ export function MintItMyNFT(properties: MintItMyNFTProperties) {
       >
         {t('title')}
       </SectionTitle>
-      {myNftsLoading && <div className="flex justify-center">Loading...</div>}
+      {myNftsLoading && (
+        <div className="flex justify-center">{t('loading')}</div>
+      )}
       <div className="grid grid-cols-2 gap-[30px] md:flex md:flex-row md:flex-wrap">
         {sortedNFTs.map((nft, index) => (
           <NFTFrame
@@ -353,23 +399,25 @@ export function MintItMyNFT(properties: MintItMyNFTProperties) {
             hideTime={true}
             {...nft}
           >
-            <NFTButton onClick={() => handleModalOpen(nft)}>
+            <NFTButton onClick={() => handleMintModalOpen(nft)}>
               {t('nftButton')}
             </NFTButton>
           </NFTFrame>
         ))}
       </div>
       <MintModal
-        isOpen={isOpen}
+        isOpen={isMintModalOpen}
         nft={selectedNft}
-        onModalClose={handleModalClose}
+        onModalClose={handleMintModalClose}
+        onMintSubmit={handleMintSubmit}
         onMintSuccess={handleMintSuccess}
       />
-      <MintResultModal
-        isOpen={mintResultModalOpen}
-        status={mintResultModalStatus}
+      <ProcessingModal isOpen={isProcessingModalOpen} />
+      <ResultModal
+        isOpen={isResultModalOpen}
+        status={resultModalStatus}
         hash={mintHash}
-        onModalClose={handleMintResultModalClose}
+        onModalClose={handleResultModalClose}
       />
     </section>
   )
