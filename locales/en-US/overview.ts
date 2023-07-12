@@ -22,7 +22,7 @@ export const Overview = {
   'overview.overviewStatus.viewLabel': 'View',
   // OverviewGas
   'overview.overviewGas.title': 'GAS PRICE',
-  'overview.overviewGas.chartTitle': 'Average gas',
+  'overview.overviewGas.chartTitle': 'Average gas in last 30 minutes',
   'overview.overviewGas.yAxisTitle': 'Avg Gas (Gwei)',
   'overview.overviewGas.areaName': 'Gas (Gwei)',
   'overview.overviewGas.dateTime': 'Date & Time',
