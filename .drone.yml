@@ -64,9 +64,6 @@ steps:
       IFANDONLYIF_FRONTEND_BUILD_ARGS:
         from_secret: IFANDONLYIF_FRONTEND_DEV_BUILD_ARGS
     settings:
-      custom_dns:
-        - 8.8.8.8
-        - 1.1.1.1
       mtu: 1400
       registry:
         from_secret: AWS_REPO_IFFF
