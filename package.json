@@ -18,7 +18,7 @@
     "build": "next build",
     "build:storybook": "storybook build",
     "serve": "next start -p 3001",
-    "start": "PORT=3001 I18NEXT_DEFAULT_CONFIG_PATH=next-i18next.config.cjs node .next/standalone/server.js",
+    "start": "PORT=3001 node .next/standalone/server.js",
     "test": "vitest",
     "lint": "next lint --fix",
     "prepare": "husky install"

@@ -15,8 +15,6 @@ RUN NODE_OPTIONS=--max_old_space_size=1600 corepack pnpm install --frozen-lockfi
 FROM base AS builder
 WORKDIR /app
 
-ENV I18NEXT_DEFAULT_CONFIG_PATH next-i18next.config.cjs
-
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
@@ -33,13 +31,11 @@ WORKDIR /app
 ENV NODE_ENV production
 # Uncomment the following line in case you want to disable telemetry during runtime.
 # ENV NEXT_TELEMETRY_DISABLED 1
-ENV I18NEXT_DEFAULT_CONFIG_PATH next-i18next.config.cjs
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/next-i18next.config.cjs ./
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing

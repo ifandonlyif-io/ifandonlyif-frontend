@@ -6,7 +6,6 @@ import { z, type ZodFormattedError } from 'zod'
  */
 export const serverSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']),
-  I18NEXT_DEFAULT_CONFIG_PATH: z.string().default('next-i18next.config.cjs'),
 })
 
 /**
@@ -24,7 +23,7 @@ export const clientSchema = z.object({
 })
 
 export const formatErrors = (
-  errors: ZodFormattedError<Map<string, string>, string>
+  errors: ZodFormattedError<Map<string, string>, string>,
 ) =>
   Object.entries(errors)
     .map(([name, value]) => {
