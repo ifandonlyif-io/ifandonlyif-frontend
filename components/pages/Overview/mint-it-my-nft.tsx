@@ -193,10 +193,7 @@ function MintModal(properties: MintModalProperties) {
     >
       <form
         className="flex min-w-[390px] flex-col gap-4"
-        onSubmit={(event) => {
-          event.preventDefault()
-          void handleSubmit(handleMintModalSubmit)(event)
-        }}
+        onSubmit={handleSubmit(handleMintModalSubmit)}
       >
         <div className="flex flex-col">
           <MintModalLabel

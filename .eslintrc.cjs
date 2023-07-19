@@ -27,6 +27,14 @@ module.exports = defineConfig({
     'simple-import-sort/exports': 'error',
     'unused-imports/no-unused-imports': 'error',
     'tailwindcss/no-custom-classname': 'off',
+    '@typescript-eslint/no-misused-promises': [
+      'error',
+      {
+        checksVoidReturn: {
+          attributes: false,
+        },
+      },
+    ],
   },
   overrides: [
     {

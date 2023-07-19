@@ -101,10 +101,7 @@ function HolderCheckPanel(properties: HolderCheckPanelProperties) {
     <CheckPanel>
       <form
         className="flex flex-col gap-5"
-        onSubmit={(event) => {
-          event.preventDefault()
-          void handleSubmit(handleHolderCheckSubmit)(event)
-        }}
+        onSubmit={handleSubmit(handleHolderCheckSubmit)}
       >
         <label
           className="flex flex-nowrap items-center justify-between"
@@ -281,10 +278,7 @@ function SiteCheckPanel() {
     <CheckPanel>
       <form
         className="flex flex-col gap-5"
-        onSubmit={(event) => {
-          event.preventDefault()
-          void handleSubmit(handleSiteCheckSubmit)(event)
-        }}
+        onSubmit={handleSubmit(handleSiteCheckSubmit)}
       >
         <label className="flex flex-col gap-5" htmlFor={siteUrlTextareaId}>
           <div className="flex flex-nowrap items-center justify-between">

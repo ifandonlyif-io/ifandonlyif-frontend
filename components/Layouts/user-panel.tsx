@@ -57,7 +57,7 @@ function WalletDropdown(properties: WalletDropdownProperties) {
                     'flex w-full items-center justify-center rounded-md p-1 text-lg',
                     active && 'bg-gray-300',
                   )}
-                  onClick={void handleDisconnectClick}
+                  onClick={handleDisconnectClick}
                 >
                   {t('disconnectButton')}
                 </button>
@@ -123,7 +123,7 @@ export function UserPanel({ className }: UserPanelProperties) {
   return (
     <div className={cn('box-border', className)}>
       {noAccess ? (
-        <ConnectWalletButton onClick={void handleWalletConnectClick} />
+        <ConnectWalletButton onClick={handleWalletConnectClick} />
       ) : (
         <WalletDropdown username={username} />
       )}
