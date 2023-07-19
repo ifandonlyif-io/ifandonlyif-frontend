@@ -109,6 +109,7 @@ function MintModal(properties: MintModalProperties) {
 
   const modalTitle = React.useMemo<string>(() => {
     if (!nft) return ''
+    // @ts-expect-error i18n type error
     return t('mintModalTitle', { name: nft.name, tokenId: nft.tokenId })
   }, [nft, t])
 
