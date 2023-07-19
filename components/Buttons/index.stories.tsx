@@ -8,7 +8,12 @@ const meta: Meta<typeof Button> = {
   tags: ['autodocs'],
   render: (arguments_) => (
     <div className="w-40">
-      <Button {...arguments_} onClick={() => window.alert('Click!')} />
+      <Button
+        {...arguments_}
+        onClick={() => {
+          window.alert('Click!')
+        }}
+      />
     </div>
   ),
 }
@@ -44,7 +49,12 @@ type NFTButtonStory = StoryObj<typeof NFTButton>
 
 const renderNFTButton: NFTButtonStory['render'] = (arguments_) => (
   <div className="w-40">
-    <NFTButton {...arguments_} onClick={() => window.alert('Click!')} />
+    <NFTButton
+      {...arguments_}
+      onClick={() => {
+        window.alert('Click!')
+      }}
+    />
   </div>
 )
 

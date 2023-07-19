@@ -28,7 +28,7 @@ export function Label({
       className={cn(
         'flex flex-row flex-nowrap items-center justify-center font-bold uppercase text-iff-text',
         sizes[size],
-        className
+        className,
       )}
       {...properties}
     />

@@ -22,7 +22,7 @@ export function NeonCorner({ className, color = 'cyan' }: NeonComponent) {
       <div
         className={cn(
           'clip-path-corner h-full w-full bg-gradient-to-r from-[#C4C4C4] to-[#C4C4C4] bg-blend-multiply',
-          neonCornerColor[color]
+          neonCornerColor[color],
         )}
       />
     </div>
@@ -39,7 +39,7 @@ export function NeonRhombus({ className, color = 'cyan' }: NeonComponent) {
       <div
         className={cn(
           'clip-path-rhombus h-full w-full',
-          neonRhombusColor[color]
+          neonRhombusColor[color],
         )}
       />
     </div>
@@ -57,7 +57,7 @@ export function NeonLine({ className, color = 'cyan' }: NeonComponent) {
         'h-[340px] w-0.5',
         dropShadowNeon[color],
         neonLineColor[color],
-        className
+        className,
       )}
     />
   )
@@ -90,7 +90,7 @@ export function NeonUnderline({ className, color = 'cyan' }: NeonUnderline) {
     <div
       className={cn(
         'flex h-[30px] flex-row flex-nowrap items-center justify-center',
-        className
+        className,
       )}
     >
       <NeonLine className="rotate-90" color={color} />

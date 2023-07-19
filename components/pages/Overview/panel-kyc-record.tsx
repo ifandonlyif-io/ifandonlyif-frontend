@@ -6,7 +6,9 @@ import { cn } from '@/utils'
 
 import { TabTitle } from './title'
 
-type RecordDataProperties = { name: string }
+interface RecordDataProperties {
+  name: string
+}
 
 function TextRow(properties: React.PropsWithChildren<BaseComponent>) {
   const { className, children } = properties
@@ -14,7 +16,7 @@ function TextRow(properties: React.PropsWithChildren<BaseComponent>) {
     <div
       className={cn(
         'flex flex-row items-center text-base text-black',
-        className
+        className,
       )}
     >
       {children}

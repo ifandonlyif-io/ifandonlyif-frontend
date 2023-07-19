@@ -22,7 +22,7 @@ function MemoModalLabel(properties: MemoModalLabelProperties) {
     <div
       className={cn(
         'flex flex-row flex-nowrap items-center justify-between',
-        className
+        className,
       )}
     >
       <h3 className="text-base font-bold text-iff-text">{title}&nbsp;-</h3>
@@ -69,7 +69,7 @@ function MemoModal(properties: MemoModalProperties) {
       event.stopPropagation()
       onModalClose && onModalClose()
     },
-    [onModalClose]
+    [onModalClose],
   )
   const handleOkClick = React.useCallback<
     React.MouseEventHandler<HTMLButtonElement>
@@ -79,7 +79,7 @@ function MemoModal(properties: MemoModalProperties) {
       event.stopPropagation()
       onModalClose && onModalClose()
     },
-    [onModalClose]
+    [onModalClose],
   )
 
   return (
@@ -137,7 +137,7 @@ function MemoModal(properties: MemoModalProperties) {
   )
 }
 
-type NFTButtonsProperties = {
+interface NFTButtonsProperties {
   onMemoClick: () => void
 }
 
@@ -161,7 +161,7 @@ function NFTButtons(properties: NFTButtonsProperties) {
   )
 }
 
-export type PanelIFFNFTProperties = {
+export interface PanelIFFNFTProperties {
   myIFFNFT: NFTItem[]
 }
 
@@ -171,8 +171,12 @@ export function PanelIFFNFT(properties: PanelIFFNFTProperties) {
   const t = useScopedI18n('overview.panelIFFNFT')
   const timezone = useSortByTimezone()
   const [isOpen, setIsOpen] = React.useState(false)
-  const handleModalOpen = React.useCallback(() => setIsOpen(true), [])
-  const handleModalClose = React.useCallback(() => setIsOpen(false), [])
+  const handleModalOpen = React.useCallback(() => {
+    setIsOpen(true)
+  }, [])
+  const handleModalClose = React.useCallback(() => {
+    setIsOpen(false)
+  }, [])
 
   return (
     <div className="min-h-[640px] px-4 py-6 md:px-5 md:py-[50px]">

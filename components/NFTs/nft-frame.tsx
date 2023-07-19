@@ -17,7 +17,7 @@ type NFTFrameProperties = BaseComponent & {
 }
 
 export function NFTFrame(
-  properties: React.PropsWithChildren<NFTFrameProperties>
+  properties: React.PropsWithChildren<NFTFrameProperties>,
 ) {
   let { expired } = properties
   const { children, className, onHideClick } = properties
@@ -34,7 +34,7 @@ export function NFTFrame(
       <div
         className={cn(
           'relative mb-1.5 flex w-full flex-col md:w-[150px]',
-          expired && 'opacity-50'
+          expired && 'opacity-50',
         )}
       >
         <Image
@@ -51,7 +51,7 @@ export function NFTFrame(
               'absolute bottom-0 flex flex-row items-center justify-center',
               'w-full bg-black/50 py-1.5 text-white group-hover:text-[#FAFF00]',
               'text-xs font-bold',
-              expired && 'group-hover:text-white'
+              expired && 'group-hover:text-white',
             )}
           >
             {dateTimeString}
@@ -62,7 +62,7 @@ export function NFTFrame(
             className={cn(
               'absolute bottom-[38px] flex flex-row items-center justify-center self-center',
               'h-4 w-11 rounded-[36px] bg-black',
-              'text-center text-[8px] font-bold text-white'
+              'text-center text-[8px] font-bold text-white',
             )}
           >
             {t('expired')}

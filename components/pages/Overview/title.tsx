@@ -12,14 +12,14 @@ const defaultOption: SelectMenuOption = DefaultTimezone
 type TabTitleProperties = BaseComponent
 
 export function TabTitle(
-  properties: React.PropsWithChildren<TabTitleProperties>
+  properties: React.PropsWithChildren<TabTitleProperties>,
 ) {
   const { className, children } = properties
   return (
     <div
       className={cn(
         'flex flex-row flex-nowrap items-end text-[32px] font-bold leading-[44px] text-iff-text',
-        className
+        className,
       )}
     >
       <h2 className="mr-2">{children}</h2>
@@ -44,7 +44,7 @@ const sectionTitleSizes: Record<SectionTitleSize, string> = {
 }
 
 export function SectionTitle(
-  properties: React.PropsWithChildren<SectionTitleProperties>
+  properties: React.PropsWithChildren<SectionTitleProperties>,
 ) {
   const { className, children, count, size = 'medium' } = properties
   return (
@@ -52,7 +52,7 @@ export function SectionTitle(
       className={cn(
         'flex flex-row flex-nowrap items-center font-bold text-iff-text',
         sectionTitleSizes[size],
-        className
+        className,
       )}
     >
       <h3>{children}</h3>
@@ -61,20 +61,19 @@ export function SectionTitle(
   )
 }
 
-type SectionTitleWithSortTimezoneProviderProperties = {
+interface SectionTitleWithSortTimezoneProviderProperties {
   children: React.ReactNode
 }
 
 export function SectionTitleWithSortTimezoneProvider(
-  properties: SectionTitleWithSortTimezoneProviderProperties
+  properties: SectionTitleWithSortTimezoneProviderProperties,
 ) {
   const { children } = properties
   const [timezone, setTimezone] =
     React.useState<SelectMenuOption>(defaultOption)
-  const handleTimezoneChange = React.useCallback(
-    (option: SelectMenuOption) => setTimezone(option),
-    []
-  )
+  const handleTimezoneChange = React.useCallback((option: SelectMenuOption) => {
+    setTimezone(option)
+  }, [])
   return (
     <SortByTimezoneContext.Provider
       value={{ zone: timezone, onTimezoneChange: handleTimezoneChange }}
@@ -89,14 +88,14 @@ type SectionTitleWithSortTimezoneProperties = BaseComponent & {
 }
 
 export function SectionTitleWithSortTimezone(
-  properties: SectionTitleWithSortTimezoneProperties
+  properties: SectionTitleWithSortTimezoneProperties,
 ) {
   const { className, title } = properties
   return (
     <div
       className={cn(
         'flex flex-col flex-nowrap md:flex-row md:items-center md:justify-between',
-        className
+        className,
       )}
     >
       <SectionTitle className="flex-1 uppercase" size="medium">

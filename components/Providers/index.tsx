@@ -17,7 +17,7 @@ const infuraId = getInfuraApiKey()
 
 const initialChainId = Number(getDefaultChainId())
 const availableChains: Chain[] = [mainnet, sepolia].filter(
-  (chain) => chain.id === initialChainId
+  (chain) => chain.id === initialChainId,
 )
 
 const config = createConfig(
@@ -27,7 +27,7 @@ const config = createConfig(
     walletConnectProjectId,
     alchemyId,
     infuraId,
-  })
+  }),
 )
 
 export function AppProviders({ children }: ReactProvider) {

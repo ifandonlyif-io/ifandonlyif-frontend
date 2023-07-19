@@ -9,7 +9,7 @@ import { cn } from '@/utils'
 
 type OverviewEmailProperties = BaseComponent
 
-type EmailInfoProperties = {
+interface EmailInfoProperties {
   email: string
   default?: boolean
   notification?: boolean

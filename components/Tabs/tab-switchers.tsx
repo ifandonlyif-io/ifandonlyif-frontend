@@ -23,7 +23,7 @@ const TabSwitcher: ReactTabsFunctionComponent<TabSwitcherProperties> = ({
       selected
         ? 'bg-iff-cyan text-[#333333]'
         : 'bg-transparent text-iff-cyan hover:bg-iff-cyan/10',
-      className
+      className,
     )}
     selectedClassName="react-tabs__tab-switcher--selected"
     {...properties}
@@ -34,7 +34,7 @@ const TabSwitcher: ReactTabsFunctionComponent<TabSwitcherProperties> = ({
 
 TabSwitcher.tabsRole = 'Tab'
 
-type TabSwitcherText = {
+interface TabSwitcherText {
   left: string
   right: string
 }
@@ -52,7 +52,9 @@ export const TabSwitchers: ReactTabsFunctionComponent<
     <Tabs
       className={cn('react-tabs__tab-switchers', className)}
       selectedIndex={tabIndex}
-      onSelect={(index) => setTabIndex(index)}
+      onSelect={(index) => {
+        setTabIndex(index)
+      }}
       {...properties}
     >
       <TabList className="react-tabs__tab-switcher-list">

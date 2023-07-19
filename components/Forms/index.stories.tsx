@@ -28,7 +28,9 @@ export const SelectMenusComponent: StoryObj<typeof SelectMenus> = {
   args: {
     placeholder: 'Please select',
     options: defaultSelectOptions,
-    onOptionChange: (option) => window.alert(option.value),
+    onOptionChange: (option) => {
+      window.alert(option.value)
+    },
   },
   render: (arguments_) => (
     <div className="w-80">
@@ -56,7 +58,7 @@ const TextareaWithHooks = () => {
       const trimWhitespaceValue = value.replaceAll(/\s/g, '')
       setValue(trimWhitespaceValue)
     },
-    []
+    [],
   )
 
   return (

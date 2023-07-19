@@ -55,11 +55,11 @@ export function SvgIcons({
       className={cn(
         'inline-block shrink-0 select-none',
         'h-[1em] w-[1em] fill-current text-2xl leading-none',
-        className
+        className,
       )}
       focusable="false"
       style={{
-        color: htmlColor || 'inherit',
+        color: htmlColor ?? 'inherit',
         fontSize: fontSize === 'inherit' ? 'inherit' : `${fontSize}px`,
       }}
       viewBox={viewBox}

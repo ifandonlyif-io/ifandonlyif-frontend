@@ -28,14 +28,14 @@ import { useScopedI18n } from '@/locales'
 import type { FetchUserNftsResponse, NextPageWithLayout } from '@/types'
 import { convertOwnedNftsToMyNfts } from '@/utils'
 
-type OverviewProperties = {
+interface OverviewProperties {
   overview: PanelOverviewProperties
   mintIt: Omit<PanelMintItProperties, 'myNFTs' | 'onMintIffNftClick'>
   // preMint: PanelPreMintProps
   iffNFT: PanelIFFNFTProperties
 }
 
-type TabData = {
+interface TabData {
   label: 'overview' | 'mintIt' | 'premintNft' | 'iffNft' | 'kycRecord'
   href: string
 }
@@ -49,7 +49,7 @@ const tabs: TabData[] = [
 ]
 
 const Overview: NextPageWithLayout<OverviewProperties> = (
-  properties: OverviewProperties
+  properties: OverviewProperties,
 ) => {
   const { overview, mintIt } = properties
   const t = useScopedI18n('overview.tabData')
@@ -59,19 +59,19 @@ const Overview: NextPageWithLayout<OverviewProperties> = (
     '/auth/fetchUserNft',
     async (key) => {
       const response = await fetch<string>(key, { method: 'POST' })
-      const parsedResponse: FetchUserNftsResponse = JSON.parse(response)
+      const parsedResponse = JSON.parse(response) as FetchUserNftsResponse
       return convertOwnedNftsToMyNfts(parsedResponse.ownedNfts)
     },
-    { onError: onFetchError }
+    { onError: onFetchError },
   )
 
   const [tabIndex, setTabIndex] = React.useState(0)
   const handleTabSelect = React.useCallback(
     (index: number) => {
       setTabIndex(index)
-      router.push(tabs[index].href)
+      void router.push(tabs[index].href)
     },
-    [router]
+    [router],
   )
 
   React.useEffect(() => {
@@ -99,7 +99,7 @@ const Overview: NextPageWithLayout<OverviewProperties> = (
             <PanelMintIt
               myWhitelist={mintIt.myWhitelist}
               preSaleWhitelist={mintIt.preSaleWhitelist}
-              myNFTs={myNfts || []}
+              myNFTs={myNfts ?? []}
               myNftsLoading={isLoading}
             />
           </TabPanel>

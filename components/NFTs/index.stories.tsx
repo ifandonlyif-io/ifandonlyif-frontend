@@ -12,7 +12,12 @@ const meta: Meta<typeof NFTFrame> = {
   tags: ['autodocs'],
   render: (arguments_) => (
     <div className="bg-white p-5">
-      <NFTFrame {...arguments_} onHideClick={() => window.alert('Hide!')} />
+      <NFTFrame
+        {...arguments_}
+        onHideClick={() => {
+          window.alert('Hide!')
+        }}
+      />
     </div>
   ),
 }
@@ -27,7 +32,13 @@ export const Default: Story = {
     imageUri: 'https://avatars.githubusercontent.com/u/11311364',
     unixEpoch: 1_657_864_800,
     children: (
-      <NFTButton onClick={() => window.alert('Click!')}>Pre-Mint</NFTButton>
+      <NFTButton
+        onClick={() => {
+          window.alert('Click!')
+        }}
+      >
+        Pre-Mint
+      </NFTButton>
     ),
   },
 }
@@ -51,14 +62,18 @@ export const TwoButtons: Story = {
           outline
           size="small"
           className="!border-[#A585FF] !text-[#A585FF]"
-          onClick={() => window.alert('Click!')}
+          onClick={() => {
+            window.alert('Click!')
+          }}
         >
           View
         </NFTButton>
         <NFTButton
           size="small"
           className="!text-[#CBB9FF]"
-          onClick={() => window.alert('Click!')}
+          onClick={() => {
+            window.alert('Click!')
+          }}
         >
           Memo
         </NFTButton>

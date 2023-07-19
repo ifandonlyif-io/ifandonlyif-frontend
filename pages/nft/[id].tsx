@@ -45,19 +45,23 @@ const demoNFTCard: NFTCardProperties = {
   validity: true,
 }
 
-type NFTViewProperties = {
+interface NFTViewProperties {
   nftData: NFTCardProperties
 }
 
 const NFTView: NextPage<NFTViewProperties> = (
-  properties: NFTViewProperties
+  properties: NFTViewProperties,
 ) => {
   const { nftData } = properties
   const t = useScopedI18n('nft.nftView')
   const router = useRouter()
   const [flip, setFlip] = React.useState(false)
-  const handleCardFlip = React.useCallback(() => setFlip(!flip), [flip])
-  const handleBackClick = React.useCallback(() => router.back(), [router])
+  const handleCardFlip = React.useCallback(() => {
+    setFlip(!flip)
+  }, [flip])
+  const handleBackClick = React.useCallback(() => {
+    router.back()
+  }, [router])
 
   return (
     <div className="block flex-row flex-nowrap items-center py-16 md:flex md:py-24">
@@ -84,7 +88,7 @@ const NFTView: NextPage<NFTViewProperties> = (
             <button
               className={cn(
                 'z-10 flex flex-row flex-nowrap items-center justify-center',
-                '-mb-2 mt-4 text-sm font-bold text-iff-cyan'
+                '-mb-2 mt-4 text-sm font-bold text-iff-cyan',
               )}
               onClick={handleCardFlip}
             >
@@ -112,7 +116,7 @@ export const getServerSideProps: GetServerSideProps<
   NFTViewProperties
 > = async () => {
   const nftData = demoNFTCard
-  return { props: { nftData } }
+  return await Promise.resolve({ props: { nftData } })
 }
 
 export default NFTView

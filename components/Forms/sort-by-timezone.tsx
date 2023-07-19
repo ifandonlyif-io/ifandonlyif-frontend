@@ -23,7 +23,7 @@ export function SortByTimezone(properties: SortByTimezoneProperties) {
         label: t(`timezoneOptions.${option.value}`),
         value: option.value,
       })),
-    [t]
+    [t],
   )
   const defaultValueWithTranslate = React.useMemo(() => {
     if (!defaultValue) return

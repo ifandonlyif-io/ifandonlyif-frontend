@@ -10,7 +10,7 @@ export function SectionHeader() {
   const router = useRouter()
 
   const handleJoinButtonClick = React.useCallback(() => {
-    router.push('/overview')
+    void router.push('/overview')
   }, [router])
 
   return (

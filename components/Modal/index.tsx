@@ -20,10 +20,9 @@ export function Modal(properties: React.PropsWithChildren<ModalProperties>) {
     isOpen = false,
     onModalClose,
   } = properties
-  const handleModalClose = React.useCallback(
-    () => onModalClose && onModalClose(),
-    [onModalClose]
-  )
+  const handleModalClose = React.useCallback(() => {
+    onModalClose && onModalClose()
+  }, [onModalClose])
 
   return (
     <Transition appear show={isOpen} as={React.Fragment}>
@@ -53,7 +52,7 @@ export function Modal(properties: React.PropsWithChildren<ModalProperties>) {
             <Dialog.Panel
               className={cn(
                 'flex flex-col rounded-xl bg-white px-20 py-8 shadow-iff-modal',
-                className
+                className,
               )}
             >
               {title && (
@@ -78,7 +77,7 @@ export type CheckModalProperties = ModalProperties & {
 }
 
 export function CheckModal(
-  properties: React.PropsWithChildren<CheckModalProperties>
+  properties: React.PropsWithChildren<CheckModalProperties>,
 ) {
   const { status, children, ...others } = properties
 

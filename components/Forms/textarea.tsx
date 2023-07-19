@@ -15,7 +15,7 @@ export function StyledTextarea(properties: TextareaProperties) {
         'border border-solid border-iff-cyan bg-iff-cyan/10',
         'h-[88px] w-full p-4 text-base font-medium text-iff-cyan',
         'placeholder:text-base placeholder:text-iff-cyan hover:outline-none focus:outline-none',
-        className
+        className,
       )}
       {...others}
       ref={forwardedRef}

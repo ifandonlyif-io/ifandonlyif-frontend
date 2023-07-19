@@ -110,7 +110,7 @@ const demoNFTList: GetDemoNFTListResponse = {
 
 function handler(
   _: NextApiRequest,
-  response: NextApiResponse<GetDemoNFTListResponse>
+  response: NextApiResponse<GetDemoNFTListResponse>,
 ) {
   response.status(200).json(demoNFTList)
 }

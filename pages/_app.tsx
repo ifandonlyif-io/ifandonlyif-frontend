@@ -18,6 +18,7 @@ export default function NextApp({
   pageProps,
 }: AppPropertiesWithLayout) {
   // Use the layout defined at the page level, if available
+  // eslint-disable-next-line @typescript-eslint/unbound-method
   const getLayout = Component.getLayout ?? ((page) => <Layout>{page}</Layout>)
 
   return (
@@ -26,6 +27,7 @@ export default function NextApp({
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>IF AND ONLY IF - ifandonlyif.io</title>
       </Head>
+      {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */}
       <I18nProvider locale={pageProps.locale}>
         <AppProviders>{getLayout(<Component {...pageProps} />)}</AppProviders>
       </I18nProvider>

@@ -43,7 +43,7 @@ export function SectionSiteData() {
         // 'grid grid-cols-3 items-center',
         'flex items-center justify-center',
         'mb-11 w-full bg-black/50 pb-3 pt-3.5',
-        'md:mb-16 md:rounded-xl md:pb-9 md:pt-12'
+        'md:mb-16 md:rounded-xl md:pb-9 md:pt-12',
       )}
     >
       {/* <SiteData title={t('kycHolder')} value={1356} />

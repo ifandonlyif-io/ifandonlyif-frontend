@@ -29,21 +29,21 @@ export function IFFCube(properties: BaseComponent) {
         'iff-cube',
         'text-shadow-iff-cube relative mt-[var(--iff-cube-size)] h-full w-full text-justify text-5xl font-bold text-iff-cyan',
         '[perspective:calc(var(--iff-cube-size)*2)]',
-        className
+        className,
       )}
     >
       <div
         className={cn(
           'iff-cube-container',
           'absolute inset-0 m-auto h-[var(--iff-cube-size)] w-[var(--iff-cube-size)] animate-datspintho',
-          '[transform-style:preserve-3d] [transform:rotateY(45deg)_rotateX(0)]'
+          '[transform-style:preserve-3d] [transform:rotateY(45deg)_rotateX(0)]',
         )}
       >
         {/** IFF cube face top */}
         <div
           className={cn(
             'iff-cube-face iff-cube-face-top',
-            'h-full [transform:rotateX(90deg)_translateZ(calc(var(--iff-cube-size)/2))]'
+            'h-full [transform:rotateX(90deg)_translateZ(calc(var(--iff-cube-size)/2))]',
           )}
         >
           IF
@@ -51,7 +51,7 @@ export function IFFCube(properties: BaseComponent) {
         <div
           className={cn(
             'iff-cube-face iff-cube-face-top-left',
-            '[transform:translateY(calc(var(--iff-cube-size)/-3))_rotateY(-85deg)_translateZ(calc(var(--iff-cube-size)/2))]'
+            '[transform:translateY(calc(var(--iff-cube-size)/-3))_rotateY(-85deg)_translateZ(calc(var(--iff-cube-size)/2))]',
           )}
         >
           IF
@@ -59,7 +59,7 @@ export function IFFCube(properties: BaseComponent) {
         <div
           className={cn(
             'iff-cube-face iff-cube-face-top-front',
-            '[transform:rotateY(5deg)_translateY(calc(var(--iff-cube-size)/-3))_translateZ(calc(var(--iff-cube-size)/2))]'
+            '[transform:rotateY(5deg)_translateY(calc(var(--iff-cube-size)/-3))_translateZ(calc(var(--iff-cube-size)/2))]',
           )}
         >
           AND&nbsp;
@@ -67,7 +67,7 @@ export function IFFCube(properties: BaseComponent) {
         <div
           className={cn(
             'iff-cube-face iff-cube-face-top-right',
-            'text-right [transform:translateY(calc(var(--iff-cube-size)/-3))_rotateY(90deg)_translateZ(calc(var(--iff-cube-size)/2))]'
+            'text-right [transform:translateY(calc(var(--iff-cube-size)/-3))_rotateY(90deg)_translateZ(calc(var(--iff-cube-size)/2))]',
           )}
         >
           ONLY
@@ -75,7 +75,7 @@ export function IFFCube(properties: BaseComponent) {
         <div
           className={cn(
             'iff-cube-face iff-cube-face-top-bottom',
-            '[transform:translateY(calc(var(--iff-cube-size)/-3))_translateZ(calc(var(--iff-cube-size)/-2))_rotateY(180deg)]'
+            '[transform:translateY(calc(var(--iff-cube-size)/-3))_translateZ(calc(var(--iff-cube-size)/-2))_rotateY(180deg)]',
           )}
         >
           IF
@@ -84,7 +84,7 @@ export function IFFCube(properties: BaseComponent) {
         <div
           className={cn(
             'iff-cube-face iff-cube-face-middle-left',
-            '[transform:rotateY(-90deg)_translateZ(calc(var(--iff-cube-size)/2))]'
+            '[transform:rotateY(-90deg)_translateZ(calc(var(--iff-cube-size)/2))]',
           )}
         >
           AND&nbsp;
@@ -92,7 +92,7 @@ export function IFFCube(properties: BaseComponent) {
         <div
           className={cn(
             'iff-cube-face iff-cube-face-middle-front',
-            '[transform:rotateY(0deg)_translateZ(calc(var(--iff-cube-size)/2))]'
+            '[transform:rotateY(0deg)_translateZ(calc(var(--iff-cube-size)/2))]',
           )}
         >
           &nbsp;ONLY
@@ -100,7 +100,7 @@ export function IFFCube(properties: BaseComponent) {
         <div
           className={cn(
             'iff-cube-face iff-cube-face-middle-right',
-            '[transform:rotateY(90deg)_translateZ(calc(var(--iff-cube-size)/2))]'
+            '[transform:rotateY(90deg)_translateZ(calc(var(--iff-cube-size)/2))]',
           )}
         >
           AND
@@ -108,7 +108,7 @@ export function IFFCube(properties: BaseComponent) {
         <div
           className={cn(
             'iff-cube-face iff-cube-face-middle-bottom',
-            '[transform:translateZ(calc(var(--iff-cube-size)/-2))_rotateY(190deg)]'
+            '[transform:translateZ(calc(var(--iff-cube-size)/-2))_rotateY(190deg)]',
           )}
         >
           IF
@@ -117,7 +117,7 @@ export function IFFCube(properties: BaseComponent) {
         <div
           className={cn(
             'iff-cube-face iff-cube-face-bottom-left',
-            'text-left [transform:rotateY(-10deg)_translateY(calc(var(--iff-cube-size)/3))_rotateY(-90deg)_translateZ(calc(var(--iff-cube-size)/2))]'
+            'text-left [transform:rotateY(-10deg)_translateY(calc(var(--iff-cube-size)/3))_rotateY(-90deg)_translateZ(calc(var(--iff-cube-size)/2))]',
           )}
         >
           ONLY
@@ -125,7 +125,7 @@ export function IFFCube(properties: BaseComponent) {
         <div
           className={cn(
             'iff-cube-face iff-cube-face-bottom-front',
-            '[transform:rotateY(-10deg)_translateY(calc(var(--iff-cube-size)/3))_translateZ(calc(var(--iff-cube-size)/2))]'
+            '[transform:rotateY(-10deg)_translateY(calc(var(--iff-cube-size)/3))_translateZ(calc(var(--iff-cube-size)/2))]',
           )}
         >
           IF
@@ -133,7 +133,7 @@ export function IFFCube(properties: BaseComponent) {
         <div
           className={cn(
             'iff-cube-face iff-cube-face-bottom-right',
-            '[transform:rotateY(-10deg)_translateY(calc(var(--iff-cube-size)/3))_rotateY(90deg)_translateZ(calc(var(--iff-cube-size)/2))]'
+            '[transform:rotateY(-10deg)_translateY(calc(var(--iff-cube-size)/3))_rotateY(90deg)_translateZ(calc(var(--iff-cube-size)/2))]',
           )}
         >
           IF
@@ -141,7 +141,7 @@ export function IFFCube(properties: BaseComponent) {
         <div
           className={cn(
             'iff-cube-face iff-cube-face-bottom-bottom',
-            '[transform:rotateY(-10deg)_translateY(calc(var(--iff-cube-size)/3))_translateZ(calc(var(--iff-cube-size)/-2))_rotateY(180deg)]'
+            '[transform:rotateY(-10deg)_translateY(calc(var(--iff-cube-size)/3))_translateZ(calc(var(--iff-cube-size)/-2))_rotateY(180deg)]',
           )}
         >
           AND
@@ -149,7 +149,7 @@ export function IFFCube(properties: BaseComponent) {
         <div
           className={cn(
             'iff-cube-face iff-cube-face-bottom',
-            'h-full [transform:rotateY(-10deg)_rotateX(-90deg)_translateZ(calc(var(--iff-cube-size)/2))]'
+            'h-full [transform:rotateY(-10deg)_rotateX(-90deg)_translateZ(calc(var(--iff-cube-size)/2))]',
           )}
         >
           AND&nbsp;

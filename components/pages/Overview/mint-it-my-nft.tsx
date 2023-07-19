@@ -33,14 +33,14 @@ type MintModalLabelProperties = BaseComponent & {
 }
 
 function MintModalLabel(
-  properties: React.PropsWithChildren<MintModalLabelProperties>
+  properties: React.PropsWithChildren<MintModalLabelProperties>,
 ) {
   const { className, children, title, htmlFor } = properties
   return (
     <label
       className={cn(
         'mb-4 flex flex-row flex-nowrap items-center justify-between',
-        className
+        className,
       )}
       htmlFor={htmlFor}
     >
@@ -88,7 +88,7 @@ const mintNftSchema = z.object({
     .refine(
       async (value) =>
         !(await validateAddressIsContract(value as `0x${string}`)),
-      'invalidWallet'
+      'invalidWallet',
     ),
 })
 
@@ -124,24 +124,24 @@ function MintModal(properties: MintModalProperties) {
 
   const { data, writeAsync, isLoading, prepareError } = useMintIffNft(
     nft,
-    inputAddress
+    inputAddress,
   )
   useWaitForTransaction({
     hash: data?.hash,
-    onSuccess: async (data) => {
-      console.debug(`Minted NFT with hash: ${data?.transactionHash}`)
-      onMintSuccess && onMintSuccess(data?.transactionHash)
+    onSuccess: (data) => {
+      console.debug(`Minted NFT with hash: ${data.transactionHash}`)
+      onMintSuccess && onMintSuccess(data.transactionHash)
     },
   })
 
   const inputId = React.useId()
   const inputAddressId = React.useMemo(
     () => `inputAddress-${inputId}`,
-    [inputId]
+    [inputId],
   )
 
   const errorMessage = React.useMemo<string | undefined>(() => {
-    if (errors?.inputAddress?.message) {
+    if (errors.inputAddress?.message) {
       const { message } = errors.inputAddress
       return errorT(message as ErrorMessage)
     }
@@ -155,7 +155,7 @@ function MintModal(properties: MintModalProperties) {
         'reason' in prepareError.cause &&
         typeof prepareError.cause.reason === 'string'
       ) {
-        return prepareError.cause?.reason
+        return prepareError.cause.reason
       }
       return prepareError.message
     }
@@ -169,20 +169,20 @@ function MintModal(properties: MintModalProperties) {
       event.preventDefault()
       onModalClose && onModalClose()
     },
-    [onModalClose]
+    [onModalClose],
   )
 
   const handleMintModalSubmit = React.useCallback<
     SubmitHandler<MintNftFormData>
   >(
     async (data) => {
-      if (!nft || errors.inputAddress || !writeAsync) return
+      if (!nft || !!errors.inputAddress || !writeAsync) return
       console.debug('handleMintModalSubmit', data)
       await writeAsync()
       onModalClose && onModalClose()
       onMintSubmit && onMintSubmit(data)
     },
-    [errors.inputAddress, nft, onMintSubmit, onModalClose, writeAsync]
+    [errors.inputAddress, nft, onMintSubmit, onModalClose, writeAsync],
   )
 
   return (
@@ -193,7 +193,10 @@ function MintModal(properties: MintModalProperties) {
     >
       <form
         className="flex min-w-[390px] flex-col gap-4"
-        onSubmit={handleSubmit(handleMintModalSubmit)}
+        onSubmit={(event) => {
+          event.preventDefault()
+          void handleSubmit(handleMintModalSubmit)(event)
+        }}
       >
         <div className="flex flex-col">
           <MintModalLabel
@@ -294,7 +297,7 @@ function ResultModal(properties: MintResultModalProperties) {
         className={cn(
           'mt-10 flex flex-row items-center',
           status === 'success' && 'justify-between gap-2.5',
-          status === 'error' && 'justify-center'
+          status === 'error' && 'justify-center',
         )}
       >
         {status === 'success' && (
@@ -348,25 +351,22 @@ export function MintItMyNFT(properties: MintItMyNFTProperties) {
     setSelectedNft(nft)
     setIsMintModalOpen(true)
   }, [])
-  const handleMintModalClose = React.useCallback(
-    () => setIsMintModalOpen(false),
-    []
-  )
+  const handleMintModalClose = React.useCallback(() => {
+    setIsMintModalOpen(false)
+  }, [])
 
   const [isProcessingModalOpen, setIsProcessingModalOpen] =
     React.useState(false)
-  const handleMintSubmit = React.useCallback(
-    () => setIsProcessingModalOpen(true),
-    []
-  )
+  const handleMintSubmit = React.useCallback(() => {
+    setIsProcessingModalOpen(true)
+  }, [])
 
   const [resultModalStatus, setResultModalStatus] =
     React.useState<CheckModalProperties['status']>('success')
   const [isResultModalOpen, setIsResultModalOpen] = React.useState(false)
-  const handleResultModalClose = React.useCallback(
-    () => setIsResultModalOpen(false),
-    []
-  )
+  const handleResultModalClose = React.useCallback(() => {
+    setIsResultModalOpen(false)
+  }, [])
 
   const [mintHash, setMintHash] = React.useState<`0x${string}`>()
   const handleMintSuccess = React.useCallback(
@@ -376,7 +376,7 @@ export function MintItMyNFT(properties: MintItMyNFTProperties) {
       setIsResultModalOpen(true)
       setMintHash(hash)
     },
-    []
+    [],
   )
 
   return (
@@ -399,7 +399,11 @@ export function MintItMyNFT(properties: MintItMyNFTProperties) {
             hideTime={true}
             {...nft}
           >
-            <NFTButton onClick={() => handleMintModalOpen(nft)}>
+            <NFTButton
+              onClick={() => {
+                handleMintModalOpen(nft)
+              }}
+            >
               {t('nftButton')}
             </NFTButton>
           </NFTFrame>

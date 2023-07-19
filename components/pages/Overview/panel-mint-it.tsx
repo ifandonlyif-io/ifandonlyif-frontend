@@ -16,7 +16,10 @@ export type PanelMintItProperties = MintItWhitelistProperties &
 
 type FilterValues = 'all' | 'whitelist' | 'nft'
 
-type FilterOption = { value: FilterValues; count: number }
+interface FilterOption {
+  value: FilterValues
+  count: number
+}
 
 export function PanelMintIt(properties: PanelMintItProperties) {
   const { myNFTs } = properties
@@ -30,10 +33,9 @@ export function PanelMintIt(properties: PanelMintItProperties) {
     { value: 'nft', count: myNFTs.length },
   ]
   const [mintFilter, setMintFilter] = React.useState<string>('all')
-  const handleFilterChange = React.useCallback(
-    (value: string) => setMintFilter(value),
-    []
-  )
+  const handleFilterChange = React.useCallback((value: string) => {
+    setMintFilter(value)
+  }, [])
   const isShowAll = mintFilter === 'all'
   // const isShowWhitelist = isShowAll || mintFilter === 'whitelist'
   const isShowMy = isShowAll || mintFilter === 'nft'

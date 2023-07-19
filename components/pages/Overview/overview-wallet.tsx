@@ -7,7 +7,7 @@ import { useScopedI18n } from '@/locales'
 import type { BaseComponent } from '@/types'
 import { cn } from '@/utils'
 
-type WalletInfoProperties = {
+interface WalletInfoProperties {
   ethPrice?: string
 }
 
@@ -18,19 +18,18 @@ function WalletInfo(properties: WalletInfoProperties) {
   const { data: balance } = useBalance({ address, watch: true })
   const [hidden, setHidden] = React.useState(false)
 
-  const balanceString = Number.parseFloat(balance?.formatted || '0').toFixed(4)
+  const balanceString = Number.parseFloat(balance?.formatted ?? '0').toFixed(4)
   const ethUsdPrice =
-    Number.parseFloat(ethPrice) * Number.parseFloat(balance?.formatted || '0')
+    Number.parseFloat(ethPrice) * Number.parseFloat(balance?.formatted ?? '0')
   const ethUsdPriceString = ethUsdPrice.toFixed(2)
 
   const hiddenString = React.useCallback(
     (value: string) => (hidden ? '******' : value),
-    [hidden]
+    [hidden],
   )
-  const toggleHidden = React.useCallback(
-    () => setHidden((previous) => !previous),
-    []
-  )
+  const toggleHidden = React.useCallback(() => {
+    setHidden((previous) => !previous)
+  }, [])
 
   return (
     <div className="flex flex-col text-base">

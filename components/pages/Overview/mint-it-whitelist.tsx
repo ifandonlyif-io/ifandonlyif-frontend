@@ -10,7 +10,7 @@ import { cn, filteredNFTItems } from '@/utils'
 
 import { SectionTitle, SectionTitleWithSortTimezone } from './title'
 
-type WhitelistContainerProperties = {
+interface WhitelistContainerProperties {
   name: string
   count: number
   children: React.ReactNode
@@ -30,7 +30,7 @@ function WhitelistContainer(properties: WhitelistContainerProperties) {
   )
 }
 
-type WhitelistProperties = {
+interface WhitelistProperties {
   nftList: NFTItem[]
   zone: string
 }

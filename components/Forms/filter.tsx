@@ -55,7 +55,7 @@ export function FilterGroup(properties: FilterGroupProperties) {
       setFilterValue(value)
       onFilterChange(value)
     },
-    [onFilterChange]
+    [onFilterChange],
   )
   return (
     <div className={cn('flex flex-row gap-3', className)}>

@@ -10,7 +10,7 @@ import { filteredNFTItems } from '@/utils'
 
 import { SectionTitle, SectionTitleWithSortTimezone, TabTitle } from './title'
 
-type PreMintWhitelistProperties = {
+interface PreMintWhitelistProperties {
   nfts: NFTItem[]
 }
 
@@ -46,7 +46,7 @@ function PreMintWhitelist(properties: PreMintWhitelistProperties) {
   )
 }
 
-export type PanelPreMintProperties = {
+export interface PanelPreMintProperties {
   preMintWhitelist: PreMintWhitelistProperties['nfts']
 }
 

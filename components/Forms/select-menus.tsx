@@ -4,7 +4,7 @@ import { SelectMenuArrowIcon } from '@/components/Icons'
 import type { BaseComponent } from '@/types'
 import { cn } from '@/utils'
 
-export type SelectMenuOption = {
+export interface SelectMenuOption {
   label: string
   value: string
 }
@@ -18,8 +18,8 @@ type SelectMenusProperties = BaseComponent & {
 
 type SelectOptionProperties = SelectMenuOption & {
   onOptionClick: (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    option: SelectMenuOption
+    event: React.MouseEvent<HTMLDivElement>,
+    option: SelectMenuOption,
   ) => void
 }
 
@@ -31,10 +31,12 @@ function SelectOption(properties: SelectOptionProperties) {
         'box-border flex cursor-pointer flex-row items-center',
         'h-11 w-full px-4 text-base font-medium text-[#333333]',
         'border border-solid bg-[#61eddc] hover:bg-iff-cyan',
-        'border-transparent border-b-[#333333] last:border-b-transparent'
+        'border-transparent border-b-[#333333] last:border-b-transparent',
       )}
       key={`select-option-${option.value}`}
-      onClick={(event) => onOptionClick(event, option)}
+      onClick={(event) => {
+        onOptionClick(event, option)
+      }}
     >
       {option.label}
     </div>
@@ -52,16 +54,13 @@ export function SelectMenus(properties: SelectMenusProperties) {
     setOptionsOpen((open) => !open)
   }, [])
   const handleOptionClick = React.useCallback(
-    (
-      event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-      option: SelectMenuOption
-    ) => {
+    (event: React.MouseEvent<HTMLDivElement>, option: SelectMenuOption) => {
       event.stopPropagation()
       setSelectedOption(option)
       setOptionsOpen(false)
       onOptionChange(option)
     },
-    [onOptionChange]
+    [onOptionChange],
   )
 
   return (
@@ -69,23 +68,23 @@ export function SelectMenus(properties: SelectMenusProperties) {
       className={cn(
         'relative box-border flex cursor-pointer flex-row items-center',
         'border border-solid border-iff-cyan bg-iff-cyan/10 text-iff-cyan',
-        className
+        className,
       )}
       onClick={handleToggleOptions}
     >
       <div
         className={cn(
           'flex flex-row items-center justify-between gap-2',
-          'h-11 w-full px-4 text-base font-medium'
+          'h-11 w-full px-4 text-base font-medium',
         )}
       >
-        {selectedOption?.label || placeholder}
+        {selectedOption?.label ?? placeholder}
         <SelectMenuArrowIcon htmlColor="#46FFE6" fontSize="inherit" />
       </div>
       <div
         className={cn(
           'absolute top-full w-full flex-col',
-          optionsOpen ? 'flex' : 'hidden'
+          optionsOpen ? 'flex' : 'hidden',
         )}
       >
         <div className="z-10 max-h-64 w-full overflow-y-auto">

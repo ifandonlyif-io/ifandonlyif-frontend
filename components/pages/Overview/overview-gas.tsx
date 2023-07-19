@@ -82,7 +82,7 @@ function GasPriceListItem(properties: GasPriceListItemProperties) {
     <div
       className={cn(
         'flex flex-row flex-nowrap justify-between',
-        'text-base font-normal text-iff-grey-3 first:text-2xl first:font-bold first:text-iff-text'
+        'text-base font-normal text-iff-grey-3 first:text-2xl first:font-bold first:text-iff-text',
       )}
     >
       <div className="flex-1">{date}</div>
@@ -100,7 +100,7 @@ function GasPriceList(properties: GasPriceListProperties) {
       <div
         className={cn(
           'mb-3 flex flex-row flex-nowrap justify-between',
-          'text-base font-bold text-iff-text'
+          'text-base font-bold text-iff-text',
         )}
       >
         <div className="flex-1">{t('dateTime')}</div>
@@ -119,7 +119,7 @@ export function OverviewGas({ className, priceData }: OverviewGasProperties) {
   const t = useScopedI18n('overview.overviewGas')
   const listData = React.useMemo(
     () => priceData.slice(0, 20).reverse(),
-    [priceData]
+    [priceData],
   )
 
   return (

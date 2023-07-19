@@ -14,7 +14,7 @@ export function Navbar({ className }: NavbarProperties) {
     <nav
       className={cn(
         'sticky z-10 flex h-[88px] flex-row items-center justify-between bg-black/20 px-[22px] shadow-iff-base backdrop-blur-2xl md:px-8',
-        className
+        className,
       )}
     >
       <Link href="/" title="Home" aria-label="Home">

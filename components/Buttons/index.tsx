@@ -39,7 +39,7 @@ export function Button({
           : 'border-iff-cyan bg-iff-cyan shadow-iff-button hover:bg-iff-cyan/90',
         outline && 'border bg-transparent',
         !shadow && 'shadow-none',
-        className
+        className,
       )}
       type="button"
       {...properties}
@@ -74,7 +74,7 @@ export function NFTButton({
           ? 'border-iff-cyan bg-transparent text-[#14D6D6]'
           : 'bg-gradient-nft-button border-[#28425D] bg-[#182948] text-iff-cyan hover:bg-[#35536D]',
         nftSizes[size],
-        className
+        className,
       )}
       {...properties}
     >

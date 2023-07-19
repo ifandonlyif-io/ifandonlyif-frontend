@@ -7,7 +7,9 @@ import { useScopedI18n } from '@/locales'
 import type { BaseComponent, FeedbackItem } from '@/types'
 import { cn } from '@/utils'
 
-type CarouselDotProperties = { isActive: boolean }
+interface CarouselDotProperties {
+  isActive: boolean
+}
 
 function CarouselDot(properties: CarouselDotProperties) {
   const { isActive } = properties
@@ -16,7 +18,7 @@ function CarouselDot(properties: CarouselDotProperties) {
       className={cn(
         'box-content inline-block h-2.5 w-2.5 rounded-full',
         !isActive && 'bg-[#BED0FF]',
-        isActive && 'border-2 border-solid border-[#B2DAFF] bg-iff-purple'
+        isActive && 'border-2 border-solid border-[#B2DAFF] bg-iff-purple',
       )}
     />
   )
@@ -124,7 +126,7 @@ function ArrowRight() {
   )
 }
 
-export declare type SectionUserFeedbackProperties = {
+export declare interface SectionUserFeedbackProperties {
   feedbacks: FeedbackItem[]
 }
 

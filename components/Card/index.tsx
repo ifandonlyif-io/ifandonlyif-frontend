@@ -22,7 +22,7 @@ export function Card({
       <div
         className={cn(
           'box-border rounded-xl border border-solid border-[#BDBDBD] bg-white',
-          className
+          className,
         )}
       >
         {children}

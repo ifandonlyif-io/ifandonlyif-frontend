@@ -8,8 +8,8 @@ module.exports = defineConfig({
   ignorePatterns: readGitignoreFiles(),
   extends: [
     'next/core-web-vitals',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended-type-checked',
+    'plugin:@typescript-eslint/stylistic-type-checked',
     'plugin:import/recommended',
     'plugin:import/typescript',
     'plugin:prettier/recommended',
@@ -39,6 +39,8 @@ module.exports = defineConfig({
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',
+    project: ['./tsconfig.json', './tsconfig.eslint.json'],
+    tsconfigRootDir: __dirname,
   },
   settings: {
     'import/resolver': {

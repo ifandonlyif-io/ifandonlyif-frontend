@@ -7,7 +7,7 @@ import { useScopedI18n } from '@/locales'
 import type { BaseComponent } from '@/types'
 import { cn, formatDateTime } from '@/utils'
 
-export type HolderRecord = {
+export interface HolderRecord {
   unixEpoch: number
   message: string
 }
@@ -37,7 +37,7 @@ function TextRow({
     <div
       className={cn(
         'flex flex-row items-center justify-between text-black',
-        className
+        className,
       )}
     >
       {children}
@@ -108,7 +108,7 @@ function HolderRecord(properties: HolderRecordProperties) {
         'first-of-type:text-sm first-of-type:font-semibold',
         'after:absolute after:bottom-0 after:left-1.5 after:top-1.5 after:box-content',
         'after:h-full after:w-px after:bg-iff-cyan after:[content:"_"]',
-        className
+        className,
       )}
     >
       <Text
@@ -117,7 +117,7 @@ function HolderRecord(properties: HolderRecordProperties) {
           'after:absolute after:left-[3px] after:top-[5px] after:z-10 after:box-content after:[content:"_"]',
           'after:h-[7px] after:w-[7px] after:rounded-full after:bg-iff-cyan',
           'group-first-of-type:after:left-0.5 group-first-of-type:after:top-1 group-first-of-type:after:h-[5px] group-first-of-type:after:w-[5px]',
-          'group-first-of-type:after:border-2 group-first-of-type:after:border-solid group-first-of-type:after:border-[#2F80ED]'
+          'group-first-of-type:after:border-2 group-first-of-type:after:border-solid group-first-of-type:after:border-[#2F80ED]',
         )}
       >
         {date}
@@ -138,7 +138,7 @@ function NFTCardBack(properties: NFTCardProperties) {
       <TextRow
         className={cn(
           'rounded-t-xl px-5 py-4',
-          validity ? '!bg-iff-cyan' : '!bg-[#FF7246]'
+          validity ? '!bg-iff-cyan' : '!bg-[#FF7246]',
         )}
       >
         <Avatar size="medium" src={imageUri} />
@@ -183,7 +183,7 @@ export function NFTCard(properties: NFTCardProperties) {
       <div
         className={cn(
           'iff-nft-card',
-          flipBack && '[transform:rotateY(180deg)]'
+          flipBack && '[transform:rotateY(180deg)]',
         )}
       >
         <NFTCardFront {...properties} />

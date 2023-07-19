@@ -16,8 +16,12 @@ type Story = StoryObj<typeof Modal>
 
 const ModalWithHooks = () => {
   const [isOpen, setIsOpen] = React.useState(false)
-  const handleOpen = React.useCallback(() => setIsOpen(true), [])
-  const handleClose = React.useCallback(() => setIsOpen(false), [])
+  const handleOpen = React.useCallback(() => {
+    setIsOpen(true)
+  }, [])
+  const handleClose = React.useCallback(() => {
+    setIsOpen(false)
+  }, [])
 
   return (
     <div className="flex flex-col gap-5 p-5">

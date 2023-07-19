@@ -10,7 +10,7 @@ import { useScopedI18n } from '@/locales'
 import type { BaseComponent } from '@/types'
 import { cn, shortenAddress } from '@/utils'
 
-type WalletDropdownProperties = {
+interface WalletDropdownProperties {
   username: string
 }
 
@@ -55,9 +55,9 @@ function WalletDropdown(properties: WalletDropdownProperties) {
                   id="disconnect-wallet"
                   className={cn(
                     'flex w-full items-center justify-center rounded-md p-1 text-lg',
-                    active && 'bg-gray-300'
+                    active && 'bg-gray-300',
                   )}
-                  onClick={handleDisconnectClick}
+                  onClick={void handleDisconnectClick}
                 >
                   {t('disconnectButton')}
                 </button>
@@ -114,7 +114,7 @@ export function UserPanel({ className }: UserPanelProperties) {
   const { noAccess } = useAccess()
   const { account, signIn } = useIffAccount()
 
-  const username = React.useMemo(() => account?.username || 'Name', [account])
+  const username = React.useMemo(() => account?.username ?? 'Name', [account])
 
   const handleWalletConnectClick = React.useCallback(async () => {
     await signIn()
@@ -123,7 +123,7 @@ export function UserPanel({ className }: UserPanelProperties) {
   return (
     <div className={cn('box-border', className)}>
       {noAccess ? (
-        <ConnectWalletButton onClick={handleWalletConnectClick} />
+        <ConnectWalletButton onClick={void handleWalletConnectClick} />
       ) : (
         <WalletDropdown username={username} />
       )}

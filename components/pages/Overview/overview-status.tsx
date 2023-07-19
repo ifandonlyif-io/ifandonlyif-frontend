@@ -6,19 +6,21 @@ import { useScopedI18n } from '@/locales'
 import type { BaseComponent } from '@/types'
 import { cn } from '@/utils'
 
-type StatusWithViewProperties = {
+interface StatusWithViewProperties {
   title: string
   value: number
   labelClass: string
   valueClass: string
 }
 
-type StatusProperties = {
+interface StatusProperties {
   title: string
   value: number
 }
 
-type StatusCardProperties = { title: string }
+interface StatusCardProperties {
+  title: string
+}
 
 type OverviewStatusProperties = BaseComponent
 
@@ -74,7 +76,7 @@ export function OverviewStatus({ className }: OverviewStatusProperties) {
     <section
       className={cn(
         'flex flex-col justify-between gap-6 md:gap-14 xl:grid xl:grid-cols-2',
-        className
+        className,
       )}
     >
       {/* <StatusCard title={t('whitelist.title')}>

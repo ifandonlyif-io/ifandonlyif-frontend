@@ -9,7 +9,7 @@ import { cn } from '@/utils'
 
 type OverviewSocialProperties = BaseComponent
 
-type SocialInfoProperties = {
+interface SocialInfoProperties {
   username: string
   verified?: boolean
 }

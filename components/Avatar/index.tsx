@@ -48,7 +48,7 @@ function EmptyAvatar(properties: EmptyAvatarProperties) {
       className={cn(
         'inline-block overflow-hidden rounded-full bg-gray-100',
         sizes[size],
-        className
+        className,
       )}
       aria-label={alt}
     >
@@ -79,7 +79,7 @@ function ImageAvatar(properties: AvatarProperties) {
         sizes[size],
         shadow[size],
         onClick && 'cursor-pointer',
-        className
+        className,
       )}
       style={{ borderColor: color }}
       alt={alt}
@@ -110,7 +110,7 @@ function TextAvatar(properties: TextAvatarProperties) {
         sizes[size],
         shadow[size],
         onClick && 'cursor-pointer',
-        className
+        className,
       )}
       style={{ borderColor: color }}
       onClick={onClick}

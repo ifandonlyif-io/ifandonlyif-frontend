@@ -21,7 +21,7 @@ export const Tab: ReactTabsFunctionComponent<TabProperties> = ({
     className={cn(
       'react-tabs__tab',
       warned && 'react-tabs__tab--warned',
-      className
+      className,
     )}
     {...properties}
   >
@@ -44,7 +44,7 @@ export const TabPanel: ReactTabsFunctionComponent<TabPanelProperties> = ({
     className={cn(
       'react-tabs__tab-panel',
       selected && 'react-tabs__tab-panel--selected',
-      className
+      className,
     )}
     {...properties}
   >

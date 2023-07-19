@@ -7,7 +7,7 @@ import { useScopedI18n } from '@/locales'
 import { Footer } from './footer'
 import { Navbar } from './navbar'
 
-type LayoutProperties = {
+interface LayoutProperties {
   children: React.ReactNode
 }
 

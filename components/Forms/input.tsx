@@ -15,7 +15,7 @@ export function StyledInput(properties: InputProperties) {
         'border border-solid border-iff-cyan bg-iff-cyan/10',
         'h-11 w-full px-4 text-base font-medium text-iff-cyan',
         'placeholder:text-base placeholder:text-iff-cyan hover:outline-none focus:outline-none',
-        className
+        className,
       )}
       {...others}
       ref={forwardedRef}

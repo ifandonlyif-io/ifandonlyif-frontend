@@ -31,7 +31,7 @@ function CheckPanel(properties: React.PropsWithChildren<BaseComponent>) {
     <div
       className={cn(
         'mx-0.5 min-h-[294px] rounded-b-xl bg-[#00183C]/50 px-5 py-10 backdrop-blur-[54px] md:min-h-[324px] md:px-32 md:py-12',
-        className
+        className,
       )}
     >
       {children}
@@ -45,7 +45,7 @@ const holderCheckSchema = z.object({
 })
 type HolderCheckFormData = z.infer<typeof holderCheckSchema>
 
-type HolderCheckPanelProperties = {
+interface HolderCheckPanelProperties {
   projectOptions: SelectMenuOption[]
 }
 
@@ -76,11 +76,11 @@ function HolderCheckPanel(properties: HolderCheckPanelProperties) {
       console.debug('handleProjectOptionChange', option)
       setValue('projectId', option.value)
     },
-    [setValue]
+    [setValue],
   )
   const handleHolderCheckSubmit = React.useCallback<
     SubmitHandler<HolderCheckFormData>
-  >(async (data) => {
+  >((data) => {
     console.debug('handleHolderCheckSubmit', data.projectId, data.tokenId)
     setModalStatus('success')
     setModalOpen(true)
@@ -89,17 +89,22 @@ function HolderCheckPanel(properties: HolderCheckPanelProperties) {
   const [modalStatus, setModalStatus] =
     React.useState<CheckModalProperties['status']>('success')
   const [modalOpen, setModalOpen] = React.useState(false)
-  const handleModalClose = React.useCallback(() => setModalOpen(false), [])
+  const handleModalClose = React.useCallback(() => {
+    setModalOpen(false)
+  }, [])
   const handleCheckItClick = React.useCallback(() => {
     const values = getValues()
-    router.push(`/nft/${values.tokenId}`)
+    void router.push(`/nft/${values.tokenId}`)
   }, [getValues, router])
 
   return (
     <CheckPanel>
       <form
         className="flex flex-col gap-5"
-        onSubmit={handleSubmit(handleHolderCheckSubmit)}
+        onSubmit={(event) => {
+          event.preventDefault()
+          void handleSubmit(handleHolderCheckSubmit)(event)
+        }}
       >
         <label
           className="flex flex-nowrap items-center justify-between"
@@ -149,7 +154,7 @@ function HolderCheckPanel(properties: HolderCheckPanelProperties) {
           className={cn(
             'mt-10 flex flex-row items-center',
             modalStatus === 'success' && 'justify-between gap-2.5',
-            modalStatus === 'error' && 'justify-center'
+            modalStatus === 'error' && 'justify-center',
           )}
         >
           {modalStatus === 'success' && (
@@ -257,13 +262,15 @@ function SiteCheckPanel() {
         return
       }
     },
-    [errors.siteUrl]
+    [errors.siteUrl],
   )
 
   const [modalStatus, setModalStatus] =
     React.useState<CheckModalProperties['status']>('success')
   const [modalOpen, setModalOpen] = React.useState(false)
-  const handleModalClose = React.useCallback(() => setModalOpen(false), [])
+  const handleModalClose = React.useCallback(() => {
+    setModalOpen(false)
+  }, [])
   const handleOpenUrl = React.useCallback(() => {
     const values = getValues()
     const url = parseUrl(values.siteUrl)
@@ -274,7 +281,10 @@ function SiteCheckPanel() {
     <CheckPanel>
       <form
         className="flex flex-col gap-5"
-        onSubmit={handleSubmit(handleSiteCheckSubmit)}
+        onSubmit={(event) => {
+          event.preventDefault()
+          void handleSubmit(handleSiteCheckSubmit)(event)
+        }}
       >
         <label className="flex flex-col gap-5" htmlFor={siteUrlTextareaId}>
           <div className="flex flex-nowrap items-center justify-between">
@@ -316,7 +326,7 @@ function SiteCheckPanel() {
           className={cn(
             'mt-10 flex flex-row items-center',
             modalStatus === 'success' && 'justify-between gap-2.5',
-            modalStatus === 'error' && 'justify-center'
+            modalStatus === 'error' && 'justify-center',
           )}
         >
           {modalStatus === 'success' && (
