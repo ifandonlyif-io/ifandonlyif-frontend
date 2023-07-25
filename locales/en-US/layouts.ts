@@ -13,6 +13,8 @@ export const layouts = {
   userPanel: {
     connectButton: 'Connect Metamask',
     disconnectButton: 'Sign Out',
+    signInButton: 'Sign In',
+    signInWithButton: 'Sign In with {address}',
   },
 } as const
 

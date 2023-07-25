@@ -37,7 +37,7 @@ export function Button({
         primary
           ? 'border-iff-purple bg-iff-purple shadow-iff-button-2 hover:bg-iff-purple/90'
           : 'border-iff-cyan bg-iff-cyan shadow-iff-button hover:bg-iff-cyan/90',
-        outline && 'border bg-transparent',
+        outline && 'border bg-transparent text-iff-cyan hover:text-black',
         !shadow && 'shadow-none',
         className,
       )}

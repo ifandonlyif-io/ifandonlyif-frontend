@@ -86,8 +86,10 @@ function ConnectWalletButton(properties: Omit<ButtonProperties, 'children'>) {
                 size="small"
                 {...properties}
               >
-                Sign In
-                {address && ` with ${shortenAddress(address)}`}
+                {address
+                  ? // @ts-expect-error Type issue
+                    t('signInWithButton', { address: shortenAddress(address) })
+                  : t('signInButton')}
               </Button>
             ) : (
               <Button
