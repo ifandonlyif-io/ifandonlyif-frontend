@@ -1,61 +1,68 @@
 import React from 'react'
 
 import { Card } from '@/components/Card'
-import { Label } from '@/components/Label'
+// import { Label } from '@/components/Label'
 import { useScopedI18n } from '@/locales'
 import type { BaseComponent } from '@/types'
 import { cn } from '@/utils'
 
-interface StatusWithViewProperties {
+// interface StatusWithViewProperties {
+//   title: string
+//   value: number
+//   labelClass: string
+//   valueClass: string
+//   onViewClick?: React.MouseEventHandler<HTMLLabelElement>
+// }
+
+// function StatusWithView(properties: StatusWithViewProperties) {
+//   const { title, value, labelClass, valueClass, onViewClick } = properties
+//   const t = useScopedI18n('overview.overviewStatus')
+//   const viewText = t('viewLabel')
+
+//   return (
+//     <div className="flex flex-col font-bold">
+//       <div className="flex flex-row items-center">
+//         <p className="mr-2 whitespace-nowrap text-base text-iff-text md:mr-6">
+//           {title}
+//         </p>
+//         <Label
+//           className={cn('hidden md:flex', labelClass)}
+//           size="large"
+//           onClick={onViewClick}
+//         >
+//           {viewText}
+//         </Label>
+//         <Label
+//           className={cn('md:hidden', labelClass)}
+//           size="medium"
+//           onClick={onViewClick}
+//         >
+//           {viewText}
+//         </Label>
+//       </div>
+//       <p className={cn('text-[48px] md:text-[64px]', valueClass)}>
+//         {String(value).padStart(2, '0')}
+//       </p>
+//     </div>
+//   )
+// }
+
+interface StatusInfoProperties {
   title: string
   value: number
-  labelClass: string
-  valueClass: string
 }
 
-interface StatusProperties {
-  title: string
-  value: number
-}
-
-interface StatusCardProperties {
-  title: string
-}
-
-type OverviewStatusProperties = BaseComponent
-
-function StatusWithView(properties: StatusWithViewProperties) {
-  const { title, value, labelClass, valueClass } = properties
-  const t = useScopedI18n('overview.overviewStatus')
-  const viewText = t('viewLabel')
-
-  return (
-    <div className="flex flex-col font-bold">
-      <div className="flex flex-row items-center">
-        <p className="mr-2 whitespace-nowrap text-base text-iff-text md:mr-6">
-          {title}
-        </p>
-        <Label className={cn('hidden md:flex', labelClass)} size="large">
-          {viewText}
-        </Label>
-        <Label className={cn('md:hidden', labelClass)} size="medium">
-          {viewText}
-        </Label>
-      </div>
-      <p className={cn('text-[48px] md:text-[64px]', valueClass)}>
-        {String(value).padStart(2, '0')}
-      </p>
-    </div>
-  )
-}
-
-function StatusInfo({ title, value }: StatusProperties) {
+function StatusInfo({ title, value }: StatusInfoProperties) {
   return (
     <div className="flex flex-col font-bold text-iff-text">
       <p className="mr-6 whitespace-nowrap text-base">{title}</p>
       <p className="text-[32px]">{value}</p>
     </div>
   )
+}
+
+interface StatusCardProperties {
+  title: string
 }
 
 function StatusCard(properties: React.PropsWithChildren<StatusCardProperties>) {
@@ -68,6 +75,8 @@ function StatusCard(properties: React.PropsWithChildren<StatusCardProperties>) {
     </Card>
   )
 }
+
+type OverviewStatusProperties = BaseComponent
 
 export function OverviewStatus({ className }: OverviewStatusProperties) {
   const t = useScopedI18n('overview.overviewStatus')
@@ -100,19 +109,24 @@ export function OverviewStatus({ className }: OverviewStatusProperties) {
           <StatusInfo title={t('whitelist.expired')} value={4} />
         </div>
       </StatusCard> */}
+      <StatusCard title={t('myNfts.title')}>
+        <div className="grid grid-cols-3 gap-5">
+          <StatusInfo title={t('myNfts.all')} value={2} />
+        </div>
+      </StatusCard>
       <StatusCard title={t('iffNfts.title')}>
-        <div className="grid grid-cols-2">
+        {/* <div className="grid grid-cols-2">
           <StatusWithView
             title={t('iffNfts.recently')}
             value={5}
             labelClass="bg-[#D9CCFF]"
             valueClass="text-iff-neon-purple"
           />
-        </div>
+        </div> */}
         <div className="grid grid-cols-3 gap-5">
           <StatusInfo title={t('iffNfts.all')} value={100} />
-          <StatusInfo title={t('iffNfts.memoed')} value={5} />
-          <StatusInfo title={t('iffNfts.fully')} value={1} />
+          {/* <StatusInfo title={t('iffNfts.memoed')} value={5} />
+          <StatusInfo title={t('iffNfts.fully')} value={1} /> */}
         </div>
       </StatusCard>
     </section>

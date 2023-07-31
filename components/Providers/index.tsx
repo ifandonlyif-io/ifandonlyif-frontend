@@ -1,32 +1,52 @@
 import { ConnectKitProvider, getDefaultConfig } from 'connectkit'
 import { FormProvider, useForm } from 'react-hook-form'
-import { type Chain, createConfig, mainnet, sepolia, WagmiConfig } from 'wagmi'
+import {
+  type Chain,
+  configureChains,
+  createConfig,
+  mainnet,
+  sepolia,
+  WagmiConfig,
+} from 'wagmi'
+import { alchemyProvider } from 'wagmi/providers/alchemy'
+// import { infuraProvider } from 'wagmi/providers/infura'
+import { publicProvider } from 'wagmi/providers/public'
 
 import { isDevelopment } from '@/env'
 import type { ReactProvider } from '@/types'
 import {
   getAlchemyApiKey,
   getDefaultChainId,
-  getInfuraApiKey,
+  // getInfuraApiKey,
   getWalletConnectProjectId,
 } from '@/utils'
 
-const alchemyId = getAlchemyApiKey()
 const walletConnectProjectId = getWalletConnectProjectId()
-const infuraId = getInfuraApiKey()
+const alchemyKey = getAlchemyApiKey()
+// const infuraKey = getInfuraApiKey()
 
 const initialChainId = Number(getDefaultChainId())
-const availableChains: Chain[] = [mainnet, sepolia].filter(
-  (chain) => chain.id === initialChainId,
+const availableChains: Chain[] = [mainnet, sepolia]
+const chain: Chain =
+  availableChains.find((chain) => chain.id === initialChainId) ??
+  availableChains[0]
+
+const { chains, publicClient } = configureChains(
+  [chain],
+  [
+    alchemyProvider({ apiKey: alchemyKey }),
+    // infuraProvider({ apiKey: infuraKey }),
+    publicProvider(),
+  ],
+  { pollingInterval: 10_000 },
 )
 
 const config = createConfig(
   getDefaultConfig({
     appName: 'If and only if',
-    chains: availableChains.length > 0 ? availableChains : [mainnet],
+    chains,
+    publicClient,
     walletConnectProjectId,
-    alchemyId,
-    infuraId,
   }),
 )
 

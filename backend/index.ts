@@ -14,13 +14,13 @@ const publicFetch = ofetch.create({ baseURL })
 
 export async function getDemoNftList() {
   return await ofetch<GetDemoNFTListResponse>(
-    'http://localhost:3001/api/demo/nft-list'
+    'http://localhost:3001/api/demo/nft-list',
   )
 }
 
 export async function getDemoMyIffNft() {
   return await ofetch<NFTItem[]>(
-    'http://localhost:3001/api/demo/fetch-my-iff-nft'
+    'http://localhost:3001/api/demo/fetch-my-iff-nft',
   )
 }
 
@@ -28,11 +28,11 @@ export async function getFeedbackList() {
   return await ofetch<FeedbackItem[]>('http://localhost:3001/api/feedback-list')
 }
 
-type GetSignatureCode = {
+interface GetSignatureCode {
   code: string
 }
 export async function getSignatureCode(
-  wallet: string
+  wallet: string,
 ): Promise<GetSignatureCode> {
   return await publicFetch<GetSignatureCode>('/code', {
     method: 'POST',
@@ -40,13 +40,13 @@ export async function getSignatureCode(
   })
 }
 
-type DoWalletLogin = {
+interface DoWalletLogin {
   accessToken: string
   refreshToken: string
 }
 export async function doWalletLogin(
   wallet: string,
-  signature: string
+  signature: string,
 ): Promise<DoWalletLogin> {
   return await publicFetch<DoWalletLogin>('/login', {
     method: 'POST',
@@ -54,7 +54,7 @@ export async function doWalletLogin(
   })
 }
 
-type RefreshTokenResponse = {
+interface RefreshTokenResponse {
   accessToken: string
   accessTokenExpiresAt: number
 }
@@ -66,12 +66,12 @@ export async function refreshToken(token: string): Promise<string | undefined> {
       baseURL,
       method: 'POST',
       body: { refreshToken: token },
-    }
+    },
   )
   return accessToken
 }
 
-type GasInfo = {
+interface GasInfo {
   average: string
   createdAt: string
 }
@@ -87,14 +87,14 @@ export async function getGasPriceData(): Promise<GasPrice[]> {
 }
 
 export async function checkSiteUriExists(
-  uri: string
+  uri: string,
 ): Promise<boolean | string> {
   const response = await publicFetch<boolean | string>(
     '/checkExistBlocklists',
     {
       method: 'POST',
       body: { uri },
-    }
+    },
   )
   return response
 }
