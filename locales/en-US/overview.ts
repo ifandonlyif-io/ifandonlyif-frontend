@@ -28,6 +28,10 @@ export const overview = {
       memoed: 'Memoed',
       fully: 'Fully On chain',
     },
+    myNfts: {
+      title: 'MY NFTs STATUS',
+      all: 'All',
+    },
   },
   overviewGas: {
     title: 'GAS PRICE',
