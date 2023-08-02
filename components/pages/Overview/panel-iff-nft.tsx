@@ -163,10 +163,11 @@ function NFTButtons(properties: NFTButtonsProperties) {
 
 export interface PanelIFFNFTProperties {
   myIFFNFT: NFTItem[]
+  isLoading?: boolean
 }
 
 export function PanelIFFNFT(properties: PanelIFFNFTProperties) {
-  const { myIFFNFT } = properties
+  const { myIFFNFT, isLoading } = properties
   const sortedNFTs = sortNFTItems(myIFFNFT).reverse()
   const t = useScopedI18n('overview.panelIFFNFT')
   const timezone = useSortByTimezone()
@@ -183,18 +184,22 @@ export function PanelIFFNFT(properties: PanelIFFNFTProperties) {
       <TabTitle className="mb-4">{t('tabTitle')}</TabTitle>
       <SectionTitleWithSortTimezone className="mb-4" />
       <section className="mb-4 flex flex-col md:mb-8">
-        <div className="grid grid-cols-2 gap-[30px] md:flex md:flex-row md:flex-wrap">
-          {sortedNFTs.map((nft, index) => (
-            <NFTFrame
-              key={`${nft.name}-${index}`}
-              expired={false}
-              zone={timezone.value}
-              {...nft}
-            >
-              <NFTButtons onMemoClick={handleModalOpen} />
-            </NFTFrame>
-          ))}
-        </div>
+        {isLoading ? (
+          <div className="flex justify-center">{t('loading')}</div>
+        ) : (
+          <div className="grid grid-cols-2 gap-[30px] md:flex md:flex-row md:flex-wrap">
+            {sortedNFTs.map((nft, index) => (
+              <NFTFrame
+                key={`${nft.name}-${index}`}
+                expired={false}
+                zone={timezone.value}
+                {...nft}
+              >
+                <NFTButtons onMemoClick={handleModalOpen} />
+              </NFTFrame>
+            ))}
+          </div>
+        )}
       </section>
       <MemoModal isOpen={isOpen} onModalClose={handleModalClose} />
     </div>

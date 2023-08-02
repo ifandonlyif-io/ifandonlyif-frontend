@@ -3,16 +3,10 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import useSWR from 'swr'
 
-import {
-  getDemoMyIffNft,
-  getDemoNftList,
-  getEthToUsd,
-  getGasPriceData,
-} from '@/backend'
+import { getDemoNftList, getEthToUsd, getGasPriceData } from '@/backend'
 import { OverviewLayout } from '@/components/Layouts'
 import {
-  // PanelIFFNFT,
-  type PanelIFFNFTProperties,
+  PanelIFFNFT,
   // PanelKYCRecord,
   PanelMintIt,
   type PanelMintItProperties,
@@ -25,14 +19,16 @@ import {
 import { Tab, TabList, TabPanel, Tabs } from '@/components/Tabs'
 import { usePrivateFetch } from '@/hooks'
 import { useScopedI18n } from '@/locales'
-import type { FetchUserNftsResponse, NextPageWithLayout } from '@/types'
-import { convertOwnedNftsToMyNfts } from '@/utils'
+import type {
+  FetchUserIffNftsResponse,
+  FetchUserNftsResponse,
+  NextPageWithLayout,
+} from '@/types'
+import { convertOwnedNftsToNftItems } from '@/utils'
 
 interface OverviewProperties {
   overview: PanelOverviewProperties
   mintIt: Omit<PanelMintItProperties, 'myNFTs' | 'onMintIffNftClick'>
-  // preMint: PanelPreMintProps
-  iffNFT: PanelIFFNFTProperties
 }
 
 interface TabData {
@@ -43,8 +39,8 @@ interface TabData {
 const tabs: TabData[] = [
   { label: 'overview', href: '#overview' },
   { label: 'mintIt', href: '#mint-it' },
+  { label: 'iffNft', href: '#iffnft' },
   // { label: 'premintNft', href: '#premint-nft' },
-  // { label: 'iffNft', href: '#iffnft' },
   // { label: 'kycRecord', href: '#kyc-record' },
 ]
 
@@ -55,12 +51,21 @@ const Overview: NextPageWithLayout<OverviewProperties> = (
   const t = useScopedI18n('overview.tabData')
   const router = useRouter()
   const [fetch, onFetchError] = usePrivateFetch()
-  const { data: myNfts, isLoading } = useSWR(
+  const { data: myNfts, isLoading: myNftsLoading } = useSWR(
     '/auth/fetchUserNft',
     async (key) => {
       const response = await fetch<string>(key, { method: 'POST' })
       const parsedResponse = JSON.parse(response) as FetchUserNftsResponse
-      return convertOwnedNftsToMyNfts(parsedResponse.ownedNfts)
+      return convertOwnedNftsToNftItems(parsedResponse.ownedNfts)
+    },
+    { onError: onFetchError },
+  )
+  const { data: myIffNfts, isLoading: myIffNftsLoading } = useSWR(
+    '/auth/fetchUserIffNft',
+    async (key) => {
+      const response = await fetch<string>(key, { method: 'POST' })
+      const parsedResponse = JSON.parse(response) as FetchUserIffNftsResponse
+      return convertOwnedNftsToNftItems(parsedResponse.ownedNfts)
     },
     { onError: onFetchError },
   )
@@ -100,13 +105,16 @@ const Overview: NextPageWithLayout<OverviewProperties> = (
               myWhitelist={mintIt.myWhitelist}
               preSaleWhitelist={mintIt.preSaleWhitelist}
               myNFTs={myNfts ?? []}
-              myNftsLoading={isLoading}
+              myNFTsLoading={myNftsLoading}
+            />
+          </TabPanel>
+          <TabPanel>
+            <PanelIFFNFT
+              myIFFNFT={myIffNfts ?? []}
+              isLoading={myIffNftsLoading}
             />
           </TabPanel>
           {/* <TabPanel>
-            <PanelIFFNFT {...iffNFT} />
-          </TabPanel>
-          <TabPanel>
             <PanelPreMint {...preMint} />
           </TabPanel>
           <TabPanel>
@@ -129,10 +137,7 @@ export const getServerSideProps: GetServerSideProps<
   const ethPrice = await getEthToUsd()
   const overview = { priceData, ethPrice }
   const mintIt = await getDemoNftList()
-  const myIFFNFT = await getDemoMyIffNft()
-  // const preMint: PanelPreMintProps = { preMintWhitelist: mintIt.myWhitelist }
-  const iffNFT: PanelIFFNFTProperties = { myIFFNFT }
-  return { props: { overview, mintIt, iffNFT } }
+  return { props: { overview, mintIt } }
 }
 
 export default Overview

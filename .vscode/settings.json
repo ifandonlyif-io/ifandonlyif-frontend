@@ -40,5 +40,6 @@
     "viem",
     "wagmi",
     "walletconnect"
-  ]
+  ],
+  "deepscan.enable": true
 }

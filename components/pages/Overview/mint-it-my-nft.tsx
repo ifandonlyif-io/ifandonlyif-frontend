@@ -335,11 +335,11 @@ function ResultModal(properties: MintResultModalProperties) {
 
 export type MintItMyNFTProperties = BaseComponent & {
   myNFTs: MyNFTItem[]
-  myNftsLoading?: boolean
+  myNFTsLoading?: boolean
 }
 
 export function MintItMyNFT(properties: MintItMyNFTProperties) {
-  const { myNFTs, myNftsLoading, className } = properties
+  const { myNFTs, myNFTsLoading, className } = properties
   const t = useScopedI18n('overview.mintItMyNFT')
   const sortedNFTs = sortNFTItems(myNFTs).reverse()
 
@@ -386,7 +386,7 @@ export function MintItMyNFT(properties: MintItMyNFTProperties) {
       >
         {t('title')}
       </SectionTitle>
-      {myNftsLoading && (
+      {myNFTsLoading && (
         <div className="flex justify-center">{t('loading')}</div>
       )}
       <div className="grid grid-cols-2 gap-[30px] md:flex md:flex-row md:flex-wrap">

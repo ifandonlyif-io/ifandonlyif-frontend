@@ -123,6 +123,7 @@ export const overview = {
   },
   panelIFFNFT: {
     tabTitle: 'My IFFNFT',
+    loading: 'Loading...',
   },
   iffNFTMyNFT: {
     nftButtons: {
