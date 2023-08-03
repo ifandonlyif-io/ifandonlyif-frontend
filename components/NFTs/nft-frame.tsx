@@ -30,10 +30,10 @@ export function NFTFrame(
   }
 
   return (
-    <div className={cn('group flex w-full flex-col md:w-[150px]', className)}>
+    <div className={cn('flex w-full flex-col md:w-[150px]', className)}>
       <div
         className={cn(
-          'relative mb-1.5 flex w-full flex-col md:w-[150px]',
+          'group relative mb-1.5 flex w-full flex-col md:w-[150px]',
           expired && 'opacity-50',
         )}
       >
@@ -79,7 +79,7 @@ export function NFTFrame(
           {expired ? (
             <NFTButton
               outline
-              className="!border-[#FFC8A0] !text-[#FF906D]"
+              className="border-iff-orange text-iff-orange"
               onClick={onHideClick}
             >
               {t('hide')}

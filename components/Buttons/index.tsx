@@ -71,8 +71,8 @@ export function NFTButton({
         'flex flex-row items-center justify-center rounded border border-solid py-1',
         'text-center text-sm font-bold uppercase',
         outline
-          ? 'border-iff-cyan bg-transparent text-[#14D6D6]'
-          : 'bg-gradient-nft-button border-[#28425D] bg-[#182948] text-iff-cyan hover:bg-[#35536D]',
+          ? 'bg-transparent hover:brightness-95'
+          : 'bg-gradient-nft-button border-iff-purple-dark bg-iff-purple-darken hover:brightness-110',
         nftSizes[size],
         className,
       )}

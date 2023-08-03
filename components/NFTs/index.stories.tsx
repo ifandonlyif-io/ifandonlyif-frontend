@@ -61,7 +61,7 @@ export const TwoButtons: Story = {
         <NFTButton
           outline
           size="small"
-          className="!border-[#A585FF] !text-[#A585FF]"
+          className="!border-iff-purple-light !text-iff-purple-light"
           onClick={() => {
             window.alert('Click!')
           }}
@@ -70,7 +70,7 @@ export const TwoButtons: Story = {
         </NFTButton>
         <NFTButton
           size="small"
-          className="!text-[#CBB9FF]"
+          className="text-iff-purple-lighter"
           onClick={() => {
             window.alert('Click!')
           }}

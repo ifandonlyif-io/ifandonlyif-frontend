@@ -76,7 +76,7 @@ export const NFTOutline: NFTButtonStory = {
 export const NFTHide: NFTButtonStory = {
   args: {
     children: 'Hide',
-    className: '!text-[#FF906D] !border-[#FFC8A0]',
+    className: '!text-iff-orange !border-iff-orange',
     outline: true,
   },
   render: renderNFTButton,
@@ -85,7 +85,7 @@ export const NFTHide: NFTButtonStory = {
 export const NFTSmall: NFTButtonStory = {
   args: {
     children: 'Memo',
-    className: '!text-[#CBB9FF]',
+    className: '!text-iff-purple-light',
     size: 'small',
   },
   render: renderNFTButton,
@@ -94,7 +94,7 @@ export const NFTSmall: NFTButtonStory = {
 export const NFTSmallOutline: NFTButtonStory = {
   args: {
     children: 'View',
-    className: '!text-[#A585FF] !border-[#A585FF]',
+    className: '!text-iff-purple-light !border-iff-purple-light',
     outline: true,
     size: 'small',
   },

@@ -58,7 +58,7 @@ function MemoModal(properties: MemoModalProperties) {
   // const PoweredBy = () => (
   //   <p className="text-base font-medium text-iff-text">
   //     {t('memoModalPoweredBy')}&nbsp;
-  //     <span className="font-semibold text-[#14D6D6]">Meta.io</span>
+  //     <span className="font-semibold text-iff-cyan-dark">Meta.io</span>
   //   </p>
   // )
   const handleCancelClick = React.useCallback<
@@ -123,7 +123,7 @@ function MemoModal(properties: MemoModalProperties) {
               {t('memoModalButton.cancel')}
             </Button>
             <Button
-              className="border-2 border-[#14D6D6]"
+              className="border-2 border-iff-cyan-dark"
               size="medium"
               shadow={false}
               onClick={handleOkClick}
@@ -148,13 +148,17 @@ function NFTButtons(properties: NFTButtonsProperties) {
   return (
     <div className="flex flex-1 flex-row flex-nowrap items-center justify-between">
       <NFTButton
-        className="!border-iff-neon-purple !text-iff-neon-purple"
+        className="border-iff-orange text-iff-orange"
         size="small"
         outline
       >
-        {t('view')}
+        {t('burn')}
       </NFTButton>
-      <NFTButton className="!text-[#CBB9FF]" size="small" onClick={onMemoClick}>
+      <NFTButton
+        className="text-iff-purple-lighter"
+        size="small"
+        onClick={onMemoClick}
+      >
         {t('memo')}
       </NFTButton>
     </div>

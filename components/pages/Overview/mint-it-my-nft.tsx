@@ -219,7 +219,7 @@ function MintModal(properties: MintModalProperties) {
             {t('mintModalButton.cancel')}
           </Button>
           <Button
-            className="border-2 border-[#14D6D6]"
+            className="border-2 border-iff-cyan-dark"
             size="medium"
             shadow={false}
             type="submit"
@@ -309,7 +309,7 @@ function ResultModal(properties: MintResultModalProperties) {
               {t('resultModalButton.another')}
             </Button>
             <Button
-              className="border-2 border-[#14D6D6]"
+              className="border-2 border-iff-cyan-dark"
               size="medium"
               shadow={false}
               onClick={handleOpenUrl}
@@ -320,7 +320,7 @@ function ResultModal(properties: MintResultModalProperties) {
         )}
         {status === 'error' && (
           <Button
-            className="max-w-[190px] border-2 border-[#14D6D6]"
+            className="max-w-[190px] border-2 border-iff-cyan-dark"
             size="medium"
             shadow={false}
             onClick={onModalClose}
@@ -398,6 +398,7 @@ export function MintItMyNFT(properties: MintItMyNFTProperties) {
             {...nft}
           >
             <NFTButton
+              className="text-iff-cyan"
               onClick={() => {
                 handleMintModalOpen(nft)
               }}

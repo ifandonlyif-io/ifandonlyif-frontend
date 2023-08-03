@@ -29,7 +29,7 @@
     }
 
     &--warned:after {
-      @apply content-['_'] inline-block w-1.5 h-1.5 ml-1.5 -mt-2.5 rounded-full bg-[#FF906D];
+      @apply content-['_'] inline-block w-1.5 h-1.5 ml-1.5 -mt-2.5 rounded-full bg-iff-orange;
     }
   }
 

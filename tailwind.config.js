@@ -18,11 +18,18 @@ export default defineTailwindCSSConfig({
     extend: {
       colors: {
         'iff-cyan': '#46FFE6',
+        'iff-cyan-dark': '#14D6D6',
         'iff-purple': '#5A0DFF',
+        'iff-purple-lighter': '#CBB9FF',
+        'iff-purple-light': '#A585FF',
+        'iff-purple-dark': '#28425D',
+        'iff-purple-darken': '#182948',
         'iff-text': '#4F4F4F',
         'iff-grey-3': '#828282',
         'iff-neon-purple': '#A585FF',
         'iff-neon-red': '#FF8080',
+        'iff-orange': '#FF906D',
+        'iff-orange-light': '#FFC8A0',
       },
       boxShadow: {
         'iff-button':

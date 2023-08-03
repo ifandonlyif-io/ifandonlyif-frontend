@@ -165,7 +165,7 @@ function HolderCheckPanel(properties: HolderCheckPanelProperties) {
                 Back
               </Button>
               <Button
-                className="border-2 border-[#14D6D6]"
+                className="border-2 border-iff-cyan-dark"
                 size="medium"
                 shadow={false}
                 onClick={handleCheckItClick}
@@ -176,7 +176,7 @@ function HolderCheckPanel(properties: HolderCheckPanelProperties) {
           )}
           {modalStatus === 'error' && (
             <Button
-              className="max-w-[190px] border-2 border-[#14D6D6]"
+              className="max-w-[190px] border-2 border-iff-cyan-dark"
               size="medium"
               shadow={false}
               onClick={handleModalClose}
@@ -334,7 +334,7 @@ function SiteCheckPanel() {
                 Check another
               </Button>
               <Button
-                className="border-2 border-[#14D6D6]"
+                className="border-2 border-iff-cyan-dark"
                 size="medium"
                 shadow={false}
                 onClick={handleOpenUrl}
@@ -345,7 +345,7 @@ function SiteCheckPanel() {
           )}
           {modalStatus === 'error' && (
             <Button
-              className="max-w-[190px] border-2 border-[#14D6D6]"
+              className="max-w-[190px] border-2 border-iff-cyan-dark"
               size="medium"
               shadow={false}
               onClick={handleModalClose}

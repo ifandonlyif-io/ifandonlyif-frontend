@@ -39,7 +39,7 @@ export function Radio({
         <CheckIcon htmlColor="#46FFE6" fontSize={14} />
       </div>
       <div className="input-checkbox flex bg-transparent peer-checked:hidden" />
-      <span className="text-sm font-bold text-[#14D6D6] peer-checked:text-black">
+      <span className="text-sm font-bold text-iff-cyan-dark peer-checked:text-black">
         {children}
       </span>
     </label>

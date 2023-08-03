@@ -127,6 +127,7 @@ export const overview = {
   },
   iffNFTMyNFT: {
     nftButtons: {
+      burn: 'Burn',
       view: 'View',
       memo: 'Memo',
     },

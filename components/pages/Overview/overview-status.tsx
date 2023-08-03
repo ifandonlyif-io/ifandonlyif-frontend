@@ -100,7 +100,7 @@ export function OverviewStatus({ className }: OverviewStatusProperties) {
             title={t('whitelist.preMint')}
             value={3}
             labelClass="bg-iff-cyan"
-            valueClass="text-[#14D6D6]"
+            valueClass="text-iff-cyan-dark"
           />
         </div>
         <div className="grid grid-cols-3 gap-5">
