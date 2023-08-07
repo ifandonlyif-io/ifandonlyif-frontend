@@ -3,7 +3,7 @@ import { ofetch } from 'ofetch'
 import type {
   FeedbackItem,
   GetDemoNFTListResponse,
-  NFTItem,
+  IffNftMeta,
   NftProject,
 } from '@/types'
 import { getAPIBaseUrl, parseISODateTime } from '@/utils'
@@ -15,12 +15,6 @@ const publicFetch = ofetch.create({ baseURL })
 export async function getDemoNftList() {
   return await ofetch<GetDemoNFTListResponse>(
     'http://localhost:3001/api/demo/nft-list',
-  )
-}
-
-export async function getDemoMyIffNft() {
-  return await ofetch<NFTItem[]>(
-    'http://localhost:3001/api/demo/fetch-my-iff-nft',
   )
 }
 
@@ -115,4 +109,9 @@ export async function getNftProjects(): Promise<GetNftProjects> {
 
 export async function getEthToUsd(): Promise<string> {
   return await publicFetch<string>('/ethToUsd')
+}
+
+export async function getIffNftMeta(): Promise<IffNftMeta> {
+  const data = await publicFetch<string>('/getIffNftMeta')
+  return JSON.parse(data) as IffNftMeta
 }

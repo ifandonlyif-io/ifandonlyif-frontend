@@ -2,7 +2,7 @@ import React from 'react'
 import { useCountUp } from 'react-countup'
 
 import { useScopedI18n } from '@/locales'
-import type { BaseComponent } from '@/types'
+import type { BaseComponent, IffNftMeta } from '@/types'
 import { cn } from '@/utils'
 
 type SiteDataProperties = BaseComponent & {
@@ -34,8 +34,18 @@ function SiteData(properties: SiteDataProperties) {
   )
 }
 
-export function SectionSiteData() {
+export interface SectionSiteDataProperties {
+  iffNftMeta: IffNftMeta
+}
+
+export function SectionSiteData(properties: SectionSiteDataProperties) {
+  const { iffNftMeta } = properties
   const t = useScopedI18n('home.sectionSiteData')
+  const totalSupply = React.useMemo<number>(() => {
+    const total = iffNftMeta?.contractMetadata?.totalSupply
+    const totalNumber = Number.parseInt(total, 10)
+    return Number.isNaN(totalNumber) ? 0 : totalNumber
+  }, [])
 
   return (
     <section
@@ -48,7 +58,7 @@ export function SectionSiteData() {
     >
       {/* <SiteData title={t('kycHolder')} value={1356} />
       <SiteData title={t('whitelist')} value={1_432_566} /> */}
-      <SiteData title={t('iffNft')} value={5_645_243} />
+      <SiteData title={t('iffNft')} value={totalSupply} />
     </section>
   )
 }
