@@ -3,15 +3,13 @@ import { useAccount, useContractWrite, usePrepareContractWrite } from 'wagmi'
 
 import { IFFNFT } from '@/contracts/abi'
 import type { NFTItem } from '@/types'
-import { getIffNftContractAddress } from '@/utils'
+
+import { useIffNftAddress } from './use-iff-nft-address'
 
 export function useMintIffNft(nft?: NFTItem, inputAddress?: `0x${string}`) {
+  const address = useIffNftAddress()
   const { address: account } = useAccount()
 
-  const address = React.useMemo<`0x${string}`>(
-    () => getIffNftContractAddress(),
-    []
-  )
   const mintArguments = React.useMemo<
     [`0x${string}`, `0x${string}`, number, string] | undefined
   >(() => {
