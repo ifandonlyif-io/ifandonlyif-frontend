@@ -45,7 +45,7 @@ export function SectionSiteData(properties: SectionSiteDataProperties) {
     const total = iffNftMeta?.contractMetadata?.totalSupply
     const totalNumber = Number.parseInt(total, 10)
     return Number.isNaN(totalNumber) ? 0 : totalNumber
-  }, [])
+  }, [iffNftMeta?.contractMetadata?.totalSupply])
 
   return (
     <section
