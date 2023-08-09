@@ -8,6 +8,7 @@ import { cn, formatDateTime, isHistorical } from '@/utils'
 
 type NFTFrameProperties = BaseComponent & {
   name: string
+  tokenId: number
   unixEpoch: number
   imageUri: string
   zone?: string
@@ -19,22 +20,28 @@ type NFTFrameProperties = BaseComponent & {
 export function NFTFrame(
   properties: React.PropsWithChildren<NFTFrameProperties>,
 ) {
-  let { expired } = properties
+  const { expired } = properties
   const { children, className, onHideClick } = properties
+  const { name, tokenId, imageUri } = properties
+  const { unixEpoch, zone, hideTime = false } = properties
+
   const t = useScopedI18n('component.nftFrame')
-  const { name, imageUri, unixEpoch, zone, hideTime = false } = properties
-  const dateTimeString = formatDateTime(unixEpoch, "yyyy,L,dd ha 'UTC'Z", zone)
-  if (expired === undefined) {
-    expired = isHistorical(unixEpoch)
-    if (hideTime) expired = false
-  }
+  const isExpired = React.useMemo<boolean>(() => {
+    if (hideTime) return false
+    if (expired === undefined) return isHistorical(unixEpoch)
+    return expired
+  }, [expired, hideTime, unixEpoch])
+  const dateTimeString = React.useMemo<string>(
+    () => formatDateTime(unixEpoch, "yyyy,L,dd ha 'UTC'Z", zone),
+    [unixEpoch, zone],
+  )
 
   return (
     <div className={cn('flex w-full flex-col md:w-[150px]', className)}>
       <div
         className={cn(
           'group relative mb-1.5 flex w-full flex-col md:w-[150px]',
-          expired && 'opacity-50',
+          isExpired && 'opacity-50',
         )}
       >
         <Image
@@ -51,13 +58,13 @@ export function NFTFrame(
               'absolute bottom-0 flex flex-row items-center justify-center',
               'w-full bg-black/50 py-1.5 text-white group-hover:text-[#FAFF00]',
               'text-xs font-bold',
-              expired && 'group-hover:text-white',
+              isExpired && 'group-hover:text-white',
             )}
           >
             {dateTimeString}
           </p>
         )}
-        {expired && (
+        {isExpired && (
           <div
             className={cn(
               'absolute bottom-[38px] flex flex-row items-center justify-center self-center',
@@ -70,13 +77,16 @@ export function NFTFrame(
         )}
       </div>
       <h5
-        className={cn('text-xs font-bold text-black', expired && 'opacity-50')}
+        className={cn(
+          'text-xs font-bold text-black',
+          isExpired && 'opacity-50',
+        )}
       >
-        {name}
+        {name}#{tokenId}
       </h5>
-      {(expired || children) && (
+      {(isExpired || children) && (
         <div className="mt-5">
-          {expired ? (
+          {isExpired ? (
             <NFTButton
               outline
               className="border-iff-orange text-iff-orange"
