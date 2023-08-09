@@ -146,6 +146,15 @@ export const overview = {
       ok: 'OK',
     },
     memoModalPoweredBy: 'Powered by',
+    burnModalTitle: 'Burn it',
+    burnModalInfo: {
+      p1: 'Are you sure to burn NFT {name}?',
+      p2: 'Once you burn this NFT you would never recover it.',
+    },
+    burnModalButton: {
+      cancel: 'CANCEL',
+      burn: 'BURN',
+    },
   },
   panelKYCRecord: {
     tabTitle: 'My KYC Record',
