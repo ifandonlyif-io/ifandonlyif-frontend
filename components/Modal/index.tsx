@@ -51,14 +51,14 @@ export function Modal(properties: React.PropsWithChildren<ModalProperties>) {
           >
             <Dialog.Panel
               className={cn(
-                'flex flex-col rounded-xl bg-white px-20 py-8 shadow-iff-modal',
+                'flex flex-col gap-8 rounded-xl bg-white px-20 py-8 shadow-iff-modal',
                 className,
               )}
             >
               {title && (
                 <Dialog.Title
                   as="h2"
-                  className="mb-8 text-center text-2xl font-bold text-iff-text"
+                  className="text-center text-2xl font-bold text-iff-text"
                 >
                   {title}
                 </Dialog.Title>
