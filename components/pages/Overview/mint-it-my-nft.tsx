@@ -277,7 +277,7 @@ function ResultModal(properties: MintResultModalProperties) {
 
   return (
     <CheckModal isOpen={isOpen} status={status} onModalClose={onModalClose}>
-      <div className="mt-10 text-center text-base font-bold text-iff-text">
+      <div className="text-center text-base font-bold text-iff-text">
         {status === 'success' && (
           <React.Fragment>
             <p>{t('resultModalSuccess.p1')}</p>
@@ -293,7 +293,7 @@ function ResultModal(properties: MintResultModalProperties) {
       </div>
       <div
         className={cn(
-          'mt-10 flex flex-row items-center',
+          'flex flex-row items-center',
           status === 'success' && 'justify-between gap-2.5',
           status === 'error' && 'justify-center',
         )}

@@ -79,10 +79,10 @@ export type CheckModalProperties = ModalProperties & {
 export function CheckModal(
   properties: React.PropsWithChildren<CheckModalProperties>,
 ) {
-  const { status, children, ...others } = properties
+  const { status, children, className, ...others } = properties
 
   return (
-    <Modal {...others}>
+    <Modal className={cn(className, 'min-w-[550px]')} {...others}>
       <div className="flex flex-col items-center justify-center">
         {status === 'success' && (
           <React.Fragment>

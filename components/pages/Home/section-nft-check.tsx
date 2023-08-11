@@ -133,7 +133,7 @@ function HolderCheckPanel(properties: HolderCheckPanelProperties) {
         isOpen={modalOpen}
         onModalClose={handleModalClose}
       >
-        <div className="mt-10 text-center text-base font-bold text-iff-text">
+        <div className="text-center text-base font-bold text-iff-text">
           {modalStatus === 'success' && (
             <React.Fragment>
               <p>This NFT is yours.</p>
@@ -149,7 +149,7 @@ function HolderCheckPanel(properties: HolderCheckPanelProperties) {
         </div>
         <div
           className={cn(
-            'mt-10 flex flex-row items-center',
+            'flex flex-row items-center',
             modalStatus === 'success' && 'justify-between gap-2.5',
             modalStatus === 'error' && 'justify-center',
           )}
@@ -302,7 +302,7 @@ function SiteCheckPanel() {
         isOpen={modalOpen}
         onModalClose={handleModalClose}
       >
-        <div className="mt-10 text-center text-base font-bold text-iff-text">
+        <div className="text-center text-base font-bold text-iff-text">
           {modalStatus === 'success' && (
             <React.Fragment>
               <p>This website is trusted.</p>
@@ -318,7 +318,7 @@ function SiteCheckPanel() {
         </div>
         <div
           className={cn(
-            'mt-10 flex flex-row items-center',
+            'flex flex-row items-center',
             modalStatus === 'success' && 'justify-between gap-2.5',
             modalStatus === 'error' && 'justify-center',
           )}
