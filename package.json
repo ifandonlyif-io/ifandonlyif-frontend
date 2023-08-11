@@ -11,7 +11,7 @@
     "url": "https://github.com/ifandonlyif-io/ifandonlyif-frontend/issues"
   },
   "type": "module",
-  "packageManager": "pnpm@8.6.4",
+  "packageManager": "pnpm@8.6.12",
   "scripts": {
     "dev": "next dev -p 3001",
     "dev:storybook": "storybook dev -p 6006",
