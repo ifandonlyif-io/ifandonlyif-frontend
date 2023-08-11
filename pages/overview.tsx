@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import useSWR from 'swr'
 
-import { getDemoNftList, getEthToUsd, getGasPriceData } from '@/backend'
+import { getEthToUsd, getGasPriceData } from '@/backend'
 import { OverviewLayout } from '@/components/Layouts'
 import {
   PanelIFFNFT,
@@ -136,7 +136,7 @@ export const getServerSideProps: GetServerSideProps<
   const priceData = await getGasPriceData()
   const ethPrice = await getEthToUsd()
   const overview = { priceData, ethPrice }
-  const mintIt = await getDemoNftList()
+  const mintIt = { myWhitelist: [], preSaleWhitelist: [] }
   return { props: { overview, mintIt } }
 }
 

@@ -1,26 +1,11 @@
 import { ofetch } from 'ofetch'
 
-import type {
-  FeedbackItem,
-  GetDemoNFTListResponse,
-  IffNftMeta,
-  NftProject,
-} from '@/types'
+import type { IffNftMeta, NftProject } from '@/types'
 import { getAPIBaseUrl, parseISODateTime } from '@/utils'
 
 const baseURL = getAPIBaseUrl('/')
 
 const publicFetch = ofetch.create({ baseURL })
-
-export async function getDemoNftList() {
-  return await ofetch<GetDemoNFTListResponse>(
-    'http://localhost:3001/api/demo/nft-list',
-  )
-}
-
-export async function getFeedbackList() {
-  return await ofetch<FeedbackItem[]>('http://localhost:3001/api/feedback-list')
-}
 
 interface GetSignatureCode {
   code: string

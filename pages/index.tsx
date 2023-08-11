@@ -1,7 +1,7 @@
 import type { GetServerSideProps, NextPage } from 'next'
 import React from 'react'
 
-import { getFeedbackList, getIffNftMeta, getNftProjects } from '@/backend'
+import { getIffNftMeta, getNftProjects } from '@/backend'
 import type { SelectMenuOption } from '@/components/Forms'
 import {
   SectionHeader,
@@ -11,6 +11,7 @@ import {
   SectionUserFeedback,
   type SectionUserFeedbackProperties,
 } from '@/components/pages/Home'
+import { feedbackList } from '@/data'
 import { getLocaleProps } from '@/locales'
 import { convertNftProjectsToSelectMenuOptions } from '@/utils'
 
@@ -34,7 +35,7 @@ const Index: NextPage<IndexProperties> = (properties: IndexProperties) => {
 
 export const getServerSideProps: GetServerSideProps<IndexProperties> =
   getLocaleProps(async () => {
-    const feedbacks = await getFeedbackList()
+    const feedbacks = feedbackList
     const nftProjects = await getNftProjects()
     const projectOptions = convertNftProjectsToSelectMenuOptions(nftProjects)
     const iffNftMeta = await getIffNftMeta()

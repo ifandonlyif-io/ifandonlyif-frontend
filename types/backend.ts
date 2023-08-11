@@ -1,10 +1,3 @@
-import type { NFTItem } from './nft'
-
-export declare interface GetDemoNFTListResponse {
-  myWhitelist: NFTItem[]
-  preSaleWhitelist: NFTItem[]
-}
-
 export declare interface CheckSiteUrlFormData {
   siteUrl: string
 }
