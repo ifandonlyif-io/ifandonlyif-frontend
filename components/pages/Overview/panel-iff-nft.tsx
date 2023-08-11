@@ -1,9 +1,15 @@
 import React from 'react'
+import { useWaitForTransaction } from 'wagmi'
 
 import { Button, NFTButton } from '@/components/Buttons'
-import { Modal, type ModalProperties } from '@/components/Modal'
+import {
+  CheckModal,
+  type CheckModalProperties,
+  Modal,
+  type ModalProperties,
+} from '@/components/Modal'
 import { NFTFrame } from '@/components/NFTs'
-import { useSortByTimezone } from '@/hooks'
+import { useBurnIffNft, useSortByTimezone } from '@/hooks'
 import { useScopedI18n } from '@/locales'
 import type { NFTItem } from '@/types'
 import { sortNFTItems } from '@/utils'
@@ -136,12 +142,49 @@ import { SectionTitleWithSortTimezone, TabTitle } from './title'
 //   )
 // }
 
+type BurnResultModalProperties = CheckModalProperties
+
+function ResultModal(properties: BurnResultModalProperties) {
+  const { isOpen, status, onModalClose } = properties
+  const t = useScopedI18n('overview.iffNFTMyNFT')
+
+  return (
+    <CheckModal isOpen={isOpen} status={status} onModalClose={onModalClose}>
+      <div className="text-center text-base font-bold text-iff-text">
+        {status === 'success' && (
+          <React.Fragment>
+            <p>{t('resultModalSuccess.p1')}</p>
+          </React.Fragment>
+        )}
+        {status === 'error' && (
+          <React.Fragment>
+            <p>{t('resultModalError.p1')}</p>
+            <p>{t('resultModalError.p2')}</p>
+          </React.Fragment>
+        )}
+      </div>
+      <div className="flex flex-row items-center justify-center">
+        <Button
+          className="max-w-[190px] border-2 border-iff-cyan-dark"
+          size="medium"
+          shadow={false}
+          onClick={onModalClose}
+        >
+          {status === 'success' && t('resultModalButton.close')}
+          {status === 'error' && t('resultModalButton.close')}
+        </Button>
+      </div>
+    </CheckModal>
+  )
+}
+
 interface BurnModalProperties extends ModalProperties {
   name: string
+  onBurnClick?: () => void
 }
 
 function BurnModal(properties: BurnModalProperties) {
-  const { name, isOpen, onModalClose } = properties
+  const { name, isOpen, onModalClose, onBurnClick } = properties
   const t = useScopedI18n('overview.iffNFTMyNFT')
   const handleCancelClick = React.useCallback<
     React.MouseEventHandler<HTMLButtonElement>
@@ -151,6 +194,15 @@ function BurnModal(properties: BurnModalProperties) {
       onModalClose && onModalClose()
     },
     [onModalClose],
+  )
+  const handleBurnClick = React.useCallback<
+    React.MouseEventHandler<HTMLButtonElement>
+  >(
+    (event) => {
+      event.preventDefault()
+      onBurnClick && onBurnClick()
+    },
+    [onBurnClick],
   )
 
   return (
@@ -177,6 +229,7 @@ function BurnModal(properties: BurnModalProperties) {
           className="border-2 border-iff-cyan-dark"
           size="medium"
           shadow={false}
+          onClick={handleBurnClick}
         >
           {t('burnModalButton.burn')}
         </Button>
@@ -242,15 +295,49 @@ export function PanelIFFNFT(properties: PanelIFFNFTProperties) {
     return nft ? `${nft.name} #${nft.tokenId}` : ''
   }, [selectedNftId, sortedNFTs])
 
-  const [isOpen, setIsOpen] = React.useState(false)
-  const handleModalOpen = React.useCallback((tokenId: number) => {
+  const [isBurnModalOpen, setIsBurnModalOpen] = React.useState(false)
+  const handleBurnModalOpen = React.useCallback((tokenId: number) => {
     console.debug('handleModalOpen', tokenId)
-    setIsOpen(true)
+    setIsBurnModalOpen(true)
     setSelectedNftId(tokenId)
   }, [])
-  const handleModalClose = React.useCallback(() => {
-    setIsOpen(false)
+  const handleBurnModalClose = React.useCallback(() => {
+    setIsBurnModalOpen(false)
   }, [])
+
+  const { data, writeAsync, prepareError } = useBurnIffNft(selectedNftId)
+  const handleBurnClick = React.useCallback(async () => {
+    if (!selectedNftId) return
+    setIsBurnModalOpen(false)
+
+    if (prepareError) {
+      console.error(prepareError)
+      setResultModalStatus('error')
+      setIsResultModalOpen(true)
+      return
+    }
+
+    if (!writeAsync) return
+    await writeAsync()
+  }, [prepareError, selectedNftId, writeAsync])
+
+  const [resultModalStatus, setResultModalStatus] =
+    React.useState<CheckModalProperties['status']>('success')
+  const [isResultModalOpen, setIsResultModalOpen] = React.useState(false)
+  const handleResultModalClose = React.useCallback(() => {
+    // eslint-disable-next-line unicorn/no-useless-undefined
+    setSelectedNftId(undefined)
+    setIsResultModalOpen(false)
+  }, [])
+
+  useWaitForTransaction({
+    hash: data?.hash,
+    onSuccess: (data) => {
+      console.debug(`Burned NFT with hash: ${data.transactionHash}`)
+      setResultModalStatus('success')
+      setIsResultModalOpen(true)
+    },
+  })
 
   return (
     <div className="min-h-[640px] px-4 py-6 md:px-5 md:py-[50px]">
@@ -268,7 +355,7 @@ export function PanelIFFNFT(properties: PanelIFFNFTProperties) {
                 zone={timezone.value}
                 {...nft}
               >
-                <NFTButtons nft={nft} onBurnClick={handleModalOpen} />
+                <NFTButtons nft={nft} onBurnClick={handleBurnModalOpen} />
               </NFTFrame>
             ))}
           </div>
@@ -276,8 +363,14 @@ export function PanelIFFNFT(properties: PanelIFFNFTProperties) {
       </section>
       <BurnModal
         name={selectedNftName}
-        isOpen={isOpen}
-        onModalClose={handleModalClose}
+        isOpen={isBurnModalOpen}
+        onModalClose={handleBurnModalClose}
+        onBurnClick={handleBurnClick}
+      />
+      <ResultModal
+        isOpen={isResultModalOpen}
+        status={resultModalStatus}
+        onModalClose={handleResultModalClose}
       />
     </div>
   )

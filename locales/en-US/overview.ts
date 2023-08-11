@@ -155,6 +155,17 @@ export const overview = {
       cancel: 'CANCEL',
       burn: 'BURN',
     },
+    resultModalSuccess: {
+      p1: 'You just had burn NFT successfully.',
+    },
+    resultModalError: {
+      p1: 'Sorry! Something go wrong....',
+      p2: 'Maybe your can try it again.',
+    },
+    resultModalButton: {
+      ok: 'OK',
+      close: 'Close',
+    },
   },
   panelKYCRecord: {
     tabTitle: 'My KYC Record',

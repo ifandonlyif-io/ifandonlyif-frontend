@@ -4,7 +4,7 @@ import { IFFNFT } from '@/contracts/abi'
 
 import { useIffNftAddress } from './use-iff-nft-address'
 
-export function useBurnIffNft(tokenId: bigint) {
+export function useBurnIffNft(tokenId?: number | string) {
   const address = useIffNftAddress()
 
   const {
@@ -15,7 +15,8 @@ export function useBurnIffNft(tokenId: bigint) {
     address,
     abi: IFFNFT,
     functionName: 'BurnNFT',
-    args: [tokenId],
+    args: tokenId ? [BigInt(tokenId)] : undefined,
+    enabled: !!tokenId,
   })
 
   const {
