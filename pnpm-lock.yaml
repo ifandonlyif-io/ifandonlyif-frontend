@@ -69,8 +69,8 @@ dependencies:
     specifier: ^1.14.0
     version: 1.14.0
   use-local-storage-state:
-    specifier: 19.0.1
-    version: 19.0.1(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^19.0.4
+    version: 19.0.4(react-dom@18.2.0)(react@18.2.0)
   viem:
     specifier: ^1.6.0
     version: 1.6.0(typescript@5.1.6)(zod@3.22.1)
@@ -15425,8 +15425,8 @@ packages:
       tslib: 2.6.1
     dev: true
 
-  /use-local-storage-state@19.0.1(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-QVHK8wy0T1RmVSqjFegEH3SbwrRUgNV9hxHWAsEw/zoFlQblv9aNjn3YL/IfML1e2HWgBgPJAfmo+/lz8+1oYw==}
+  /use-local-storage-state@19.0.4(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-NfJmA/VOFTmYHSCO8AzMBoGl70ZFFwBNw0sYM05N7TPHL7e7AZn8kjAk9KiUlNl01vKJldOCB4Fv42dTXJa4Fg==}
     engines: {node: '>=14'}
     peerDependencies:
       react: '>=18'
