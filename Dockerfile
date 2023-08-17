@@ -6,7 +6,7 @@ WORKDIR /app
 
 COPY package.json pnpm-lock.yaml* ./
 
-RUN bun install
+RUN bun --smol install
 
 FROM node:18-alpine AS builder
 WORKDIR /app
