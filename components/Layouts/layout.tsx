@@ -4,6 +4,7 @@ import { NeonUnderline } from '@/components/Decorate'
 import { useAccess } from '@/hooks'
 import { useScopedI18n } from '@/locales'
 
+import { Disclaimer } from './disclaimer'
 import { Footer } from './footer'
 import { Navbar } from './navbar'
 
@@ -16,6 +17,7 @@ export function DefaultLayout({ children }: LayoutProperties) {
     <Fragment>
       <Navbar />
       <main className="iff-layout">{children}</main>
+      <Disclaimer />
       <Footer />
     </Fragment>
   )
@@ -25,29 +27,25 @@ export function OverviewLayout({ children }: LayoutProperties) {
   const t = useScopedI18n('layouts.overview')
   const { noAccess } = useAccess()
 
-  if (noAccess) {
-    return (
-      <Fragment>
-        <Navbar />
-        <div className="flex h-[calc(100vh_-_88px)] w-full flex-row items-center justify-center bg-black/50 backdrop-blur-[18px]">
-          <h4 className="heading-4 text-white">{t('login')}</h4>
-        </div>
-      </Fragment>
-    )
-  }
-
   return (
     <Fragment>
       <Navbar />
-      <main className="iff-layout">
-        <h1 className="heading-4 text-shadow-heading-4 px-4 pt-11 text-center uppercase text-white">
-          {t('heading')}
-        </h1>
-        <div className="hidden w-full flex-row justify-center md:flex">
-          <NeonUnderline className="ml-[180px]" />
+      {noAccess ? (
+        <div className="flex h-[calc(100vh_-_88px)] w-full flex-row items-center justify-center bg-black/50 backdrop-blur-[18px]">
+          <h4 className="heading-4 text-white">{t('login')}</h4>
         </div>
-        {children}
-      </main>
+      ) : (
+        <main className="iff-layout">
+          <h1 className="heading-4 text-shadow-heading-4 px-4 pt-11 text-center uppercase text-white">
+            {t('heading')}
+          </h1>
+          <div className="hidden w-full flex-row justify-center md:flex">
+            <NeonUnderline className="ml-[180px]" />
+          </div>
+          {children}
+        </main>
+      )}
+      <Footer />
     </Fragment>
   )
 }

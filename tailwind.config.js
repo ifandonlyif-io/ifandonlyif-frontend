@@ -25,6 +25,7 @@ export default defineTailwindCSSConfig({
         'iff-purple-dark': '#28425D',
         'iff-purple-darken': '#182948',
         'iff-text': '#4F4F4F',
+        'iff-grey-2': '#C4C4C4',
         'iff-grey-3': '#828282',
         'iff-neon-purple': '#A585FF',
         'iff-neon-red': '#FF8080',
