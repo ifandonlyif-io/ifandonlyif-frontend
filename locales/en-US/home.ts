@@ -13,13 +13,13 @@ export const home = {
   },
   sectionNFTCheck: {
     left: 'NFTs HOLDER CHECK',
-    right: 'FAKE SITES CHECK',
+    right: 'FAKE NFTs CHECK',
     holderCheckPanel: {
       heading: 'Fill in the form then click OK -',
       okButton: 'OK',
       placeholder: 'NFT Project',
     },
-    siteCheckPanel: {
+    fakeSiteCheckForm: {
       heading: 'Key in website url -',
       okButton: 'OK',
       invalid_string: 'Please enter a valid url',

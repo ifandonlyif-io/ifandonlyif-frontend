@@ -190,7 +190,72 @@ function HolderCheckPanel(properties: HolderCheckPanelProperties) {
   )
 }
 
-const siteCheckSchema = z.object({
+interface FakeCheckResultModalProperties
+  extends Omit<CheckModalProperties, 'title'> {
+  onOpenUrl?: () => void
+}
+
+function FakeCheckResultModal(properties: FakeCheckResultModalProperties) {
+  const { status, isOpen, onModalClose, onOpenUrl } = properties
+  return (
+    <CheckModal status={status} isOpen={isOpen} onModalClose={onModalClose}>
+      <div className="text-center text-base font-bold text-iff-text">
+        {status === 'success' && (
+          <React.Fragment>
+            <p>This website is trusted.</p>
+            <p>Now you can go to open it or check another.</p>
+          </React.Fragment>
+        )}
+        {status === 'error' && (
+          <React.Fragment>
+            <p>This website is untrusted or unknown.</p>
+            <p>Highly recommended you should NOT open it.</p>
+          </React.Fragment>
+        )}
+      </div>
+      <div
+        className={cn(
+          'flex flex-row items-center',
+          status === 'success' && 'justify-between gap-2.5',
+          status === 'error' && 'justify-center',
+        )}
+      >
+        {status === 'success' && (
+          <React.Fragment>
+            <Button
+              className="border-2 !bg-white"
+              size="medium"
+              shadow={false}
+              onClick={onModalClose}
+            >
+              Check another
+            </Button>
+            <Button
+              className="border-2 border-iff-cyan-dark"
+              size="medium"
+              shadow={false}
+              onClick={onOpenUrl}
+            >
+              Open it
+            </Button>
+          </React.Fragment>
+        )}
+        {status === 'error' && (
+          <Button
+            className="max-w-[190px] border-2 border-iff-cyan-dark"
+            size="medium"
+            shadow={false}
+            onClick={onModalClose}
+          >
+            Close
+          </Button>
+        )}
+      </div>
+    </CheckModal>
+  )
+}
+
+const fakeSiteCheckSchema = z.object({
   siteUrl: z
     .string()
     .url()
@@ -209,19 +274,19 @@ const siteCheckSchema = z.object({
       return validateUrlNotContainUserInfo(url)
     }, 'containUserinfo'),
 })
-type SiteCheckFormData = z.infer<typeof siteCheckSchema>
-
-function SiteCheckPanel() {
-  const t = useScopedI18n('home.sectionNFTCheck.siteCheckPanel')
+type FakeSiteCheckFormData = z.infer<typeof fakeSiteCheckSchema>
+interface FakeSiteCheckFormProperties {
+  onSiteCheckSubmit?: (data: FakeSiteCheckFormData) => Promise<void>
+}
+function FakeSiteCheckForm({ onSiteCheckSubmit }: FakeSiteCheckFormProperties) {
+  const t = useScopedI18n('home.sectionNFTCheck.fakeSiteCheckForm')
   const {
     register,
-    getValues,
     handleSubmit,
     formState: { errors },
-  } = useForm<SiteCheckFormData>({
-    resolver: zodResolver(siteCheckSchema),
+  } = useForm<FakeSiteCheckFormData>({
+    resolver: zodResolver(fakeSiteCheckSchema),
   })
-
   const siteUrlTextareaId = React.useId()
   const errorMessage = React.useMemo<string | undefined>(() => {
     if (!errors.siteUrl) return
@@ -232,11 +297,44 @@ function SiteCheckPanel() {
     if (type === 'custom' && message) return t(message)
     return invalidString
   }, [errors.siteUrl, t])
-  const handleSiteCheckSubmit = React.useCallback<
-    SubmitHandler<SiteCheckFormData>
-  >(
-    async (data) => {
-      if (errors.siteUrl) return
+  const handleSiteCheckSubmit = React.useCallback(
+    async (data: FakeSiteCheckFormData) => {
+      if (!!errors.siteUrl || !onSiteCheckSubmit) return
+      await onSiteCheckSubmit(data)
+    },
+    [errors.siteUrl, onSiteCheckSubmit],
+  )
+
+  return (
+    <form
+      className="flex flex-col gap-5"
+      onSubmit={handleSubmit(handleSiteCheckSubmit)}
+    >
+      <label className="flex flex-col gap-5" htmlFor={siteUrlTextareaId}>
+        <div className="flex flex-nowrap items-center justify-between">
+          <h3 className="text-sm font-bold text-white">{t('heading')}</h3>
+          {errorMessage && (
+            <span className="text-xs text-red-500">{errorMessage}</span>
+          )}
+        </div>
+        <Textarea
+          id={siteUrlTextareaId}
+          className="[resize:none]"
+          {...register('siteUrl', { required: true })}
+        />
+      </label>
+      <Button type="submit" disabled={!!errors.siteUrl}>
+        {t('okButton')}
+      </Button>
+    </form>
+  )
+}
+
+function FakeNFTCheckPanel() {
+  const [siteUrl, setSiteUrl] = React.useState<string>()
+
+  const handleSiteCheckSubmit = React.useCallback(
+    async (data: FakeSiteCheckFormData) => {
       const url = parseUrl(data.siteUrl)
       console.debug('handleSiteCheckSubmit', data.siteUrl, url)
 
@@ -249,17 +347,18 @@ function SiteCheckPanel() {
 
       if (typeof check === 'string') {
         const info = await checkBlocklistInfo(check)
-        if (info) {
-          setModalStatus('success')
+        if (!info) {
+          setModalStatus('error')
           setModalOpen(true)
           return
         }
-        setModalStatus('error')
+        setSiteUrl(url)
+        setModalStatus('success')
         setModalOpen(true)
         return
       }
     },
-    [errors.siteUrl],
+    [],
   )
 
   const [modalStatus, setModalStatus] =
@@ -269,92 +368,19 @@ function SiteCheckPanel() {
     setModalOpen(false)
   }, [])
   const handleOpenUrl = React.useCallback(() => {
-    const values = getValues()
-    const url = parseUrl(values.siteUrl)
-    window.open(url, '_blank')
-  }, [getValues])
+    if (!siteUrl) return
+    window.open(siteUrl, '_blank')
+  }, [siteUrl])
 
   return (
     <CheckPanel>
-      <form
-        className="flex flex-col gap-5"
-        onSubmit={handleSubmit(handleSiteCheckSubmit)}
-      >
-        <label className="flex flex-col gap-5" htmlFor={siteUrlTextareaId}>
-          <div className="flex flex-nowrap items-center justify-between">
-            <h3 className="text-sm font-bold text-white">{t('heading')}</h3>
-            {errorMessage && (
-              <span className="text-xs text-red-500">{errorMessage}</span>
-            )}
-          </div>
-          <Textarea
-            id={siteUrlTextareaId}
-            className="[resize:none]"
-            {...register('siteUrl', { required: true })}
-          />
-        </label>
-        <Button type="submit" disabled={!!errors.siteUrl}>
-          {t('okButton')}
-        </Button>
-      </form>
-      <CheckModal
+      <FakeSiteCheckForm onSiteCheckSubmit={handleSiteCheckSubmit} />
+      <FakeCheckResultModal
         status={modalStatus}
         isOpen={modalOpen}
         onModalClose={handleModalClose}
-      >
-        <div className="text-center text-base font-bold text-iff-text">
-          {modalStatus === 'success' && (
-            <React.Fragment>
-              <p>This website is trusted.</p>
-              <p>Now you can go to open it or check another.</p>
-            </React.Fragment>
-          )}
-          {modalStatus === 'error' && (
-            <React.Fragment>
-              <p>This website is untrusted or unknown.</p>
-              <p>Highly recommended you should NOT open it.</p>
-            </React.Fragment>
-          )}
-        </div>
-        <div
-          className={cn(
-            'flex flex-row items-center',
-            modalStatus === 'success' && 'justify-between gap-2.5',
-            modalStatus === 'error' && 'justify-center',
-          )}
-        >
-          {modalStatus === 'success' && (
-            <React.Fragment>
-              <Button
-                className="border-2 !bg-white"
-                size="medium"
-                shadow={false}
-                onClick={handleModalClose}
-              >
-                Check another
-              </Button>
-              <Button
-                className="border-2 border-iff-cyan-dark"
-                size="medium"
-                shadow={false}
-                onClick={handleOpenUrl}
-              >
-                Open it
-              </Button>
-            </React.Fragment>
-          )}
-          {modalStatus === 'error' && (
-            <Button
-              className="max-w-[190px] border-2 border-iff-cyan-dark"
-              size="medium"
-              shadow={false}
-              onClick={handleModalClose}
-            >
-              Close
-            </Button>
-          )}
-        </div>
-      </CheckModal>
+        onOpenUrl={handleOpenUrl}
+      />
     </CheckPanel>
   )
 }
@@ -376,7 +402,7 @@ export function SectionNFTCheck(properties: SectionNFTCheckProperties) {
             <HolderCheckPanel {...properties} />
           </TabPanel>
           <TabPanel>
-            <SiteCheckPanel />
+            <FakeNFTCheckPanel />
           </TabPanel>
         </TabSwitchers>
       </div>

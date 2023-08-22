@@ -100,3 +100,11 @@ export async function getIffNftMeta(): Promise<IffNftMeta> {
   const data = await publicFetch<string>('/getIffNftMeta')
   return JSON.parse(data) as IffNftMeta
 }
+
+export async function checkSpamContract(address: string): Promise<boolean> {
+  const data = await publicFetch<boolean>('/checkSpamContract', {
+    method: 'POST',
+    body: { address },
+  })
+  return data
+}
