@@ -4,7 +4,11 @@ import React from 'react'
 import { type SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { checkBlocklistInfo, checkSiteUriExists } from '@/backend'
+import {
+  checkBlocklistInfo,
+  checkSiteUriExists,
+  checkSpamContract,
+} from '@/backend'
 import { Button } from '@/components/Buttons'
 import { NeonBorder } from '@/components/Decorate'
 import {
@@ -15,11 +19,13 @@ import {
 } from '@/components/Forms'
 import { CheckModal, type CheckModalProperties } from '@/components/Modal'
 import { TabPanel, TabSwitchers } from '@/components/Tabs'
+import { useFakeNFTCheckOptions } from '@/hooks'
 import { useScopedI18n } from '@/locales'
 import type { BaseComponent } from '@/types'
 import {
   cn,
   parseUrl,
+  validateStringIsAddress,
   validateStringIsUrl,
   validateUrlIsHttp,
   validateUrlNotContainUserInfo,
@@ -30,7 +36,7 @@ function CheckPanel(properties: React.PropsWithChildren<BaseComponent>) {
   return (
     <div
       className={cn(
-        'mx-0.5 min-h-[294px] rounded-b-xl bg-[#00183C]/50 px-5 py-10 backdrop-blur-[54px] md:min-h-[324px] md:px-32 md:py-12',
+        'mx-0.5 max-h-[330px] min-h-[294px] rounded-b-xl bg-[#00183C]/50 px-5 py-10 backdrop-blur-[54px] md:px-32 md:py-12',
         className,
       )}
     >
@@ -319,7 +325,7 @@ function FakeSiteCheckForm({ onSiteCheckSubmit }: FakeSiteCheckFormProperties) {
         </div>
         <Textarea
           id={siteUrlTextareaId}
-          className="[resize:none]"
+          className="h-16 [resize:none]"
           {...register('siteUrl', { required: true })}
         />
       </label>
@@ -330,9 +336,72 @@ function FakeSiteCheckForm({ onSiteCheckSubmit }: FakeSiteCheckFormProperties) {
   )
 }
 
-function FakeNFTCheckPanel() {
-  const [siteUrl, setSiteUrl] = React.useState<string>()
+const fakeContractCheckSchema = z.object({
+  address: z
+    .string()
+    .nonempty()
+    .refine(validateStringIsAddress, 'invalidAddress'),
+})
+type FakeContractCheckFormData = z.infer<typeof fakeContractCheckSchema>
+interface FakeContractCheckFormProperties {
+  onContractCheckSubmit?: (data: FakeContractCheckFormData) => Promise<void>
+}
+function FakeContractCheckForm({
+  onContractCheckSubmit,
+}: FakeContractCheckFormProperties) {
+  const t = useScopedI18n('home.sectionNFTCheck.fakeContractCheckForm')
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FakeContractCheckFormData>({
+    resolver: zodResolver(fakeContractCheckSchema),
+  })
+  const addressInputId = React.useId()
+  const errorMessage = React.useMemo<string | undefined>(() => {
+    if (!errors.address) return
+    const { message } = errors.address
+    return t(message as 'required' | 'invalidAddress')
+  }, [errors.address, t])
+  const handleContractCheckSubmit = React.useCallback(
+    async (data: FakeContractCheckFormData) => {
+      if (!!errors.address || !onContractCheckSubmit) return
+      await onContractCheckSubmit(data)
+    },
+    [errors.address, onContractCheckSubmit],
+  )
 
+  return (
+    <form
+      className="flex flex-col gap-5"
+      onSubmit={handleSubmit(handleContractCheckSubmit)}
+    >
+      <label className="flex flex-col gap-5" htmlFor={addressInputId}>
+        <div className="flex flex-nowrap items-center justify-between">
+          <h3 className="text-sm font-bold text-white">{t('heading')}</h3>
+          {errorMessage && (
+            <span className="text-xs text-red-500">{errorMessage}</span>
+          )}
+        </div>
+        <Input
+          id={addressInputId}
+          placeholder={t('placeholder')}
+          {...register('address', { required: true })}
+        />
+      </label>
+      <Button type="submit" disabled={!!errors.address}>
+        {t('okButton')}
+      </Button>
+    </form>
+  )
+}
+
+function FakeNFTCheckPanel() {
+  const t = useScopedI18n('home.sectionNFTCheck.fakeNFTCheckPanel')
+  const [checkOptions, selectedCheckOption, handleCheckOptionChange] =
+    useFakeNFTCheckOptions()
+
+  const [siteUrl, setSiteUrl] = React.useState<string>()
   const handleSiteCheckSubmit = React.useCallback(
     async (data: FakeSiteCheckFormData) => {
       const url = parseUrl(data.siteUrl)
@@ -360,6 +429,23 @@ function FakeNFTCheckPanel() {
     },
     [],
   )
+  const handleContractCheckSubmit = React.useCallback(
+    async (data: FakeContractCheckFormData) => {
+      console.debug('handleContractCheckSubmit', data.address)
+      const check = await checkSpamContract(data.address)
+      if (!check) {
+        setModalStatus('error')
+        setModalOpen(true)
+        return
+      }
+      const url = `https://etherscan.io/address/${data.address}#code`
+      setSiteUrl(url)
+      setModalStatus('success')
+      setModalOpen(true)
+      return
+    },
+    [],
+  )
 
   const [modalStatus, setModalStatus] =
     React.useState<CheckModalProperties['status']>('success')
@@ -374,7 +460,21 @@ function FakeNFTCheckPanel() {
 
   return (
     <CheckPanel>
-      <FakeSiteCheckForm onSiteCheckSubmit={handleSiteCheckSubmit} />
+      <SelectMenus
+        className="mb-5"
+        placeholder={t('checkOptions.placeholder')}
+        options={checkOptions}
+        defaultValue={selectedCheckOption}
+        onOptionChange={handleCheckOptionChange}
+      />
+      {selectedCheckOption?.value === 'site' && (
+        <FakeSiteCheckForm onSiteCheckSubmit={handleSiteCheckSubmit} />
+      )}
+      {selectedCheckOption?.value === 'contract' && (
+        <FakeContractCheckForm
+          onContractCheckSubmit={handleContractCheckSubmit}
+        />
+      )}
       <FakeCheckResultModal
         status={modalStatus}
         isOpen={modalOpen}

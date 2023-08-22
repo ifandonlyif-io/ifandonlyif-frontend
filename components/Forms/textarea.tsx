@@ -13,7 +13,7 @@ export function StyledTextarea(properties: TextareaProperties) {
       className={cn(
         'box-border flex flex-row',
         'border border-solid border-iff-cyan bg-iff-cyan/10',
-        'h-[88px] w-full p-4 text-base font-medium text-iff-cyan',
+        'w-full p-4 text-base font-medium text-iff-cyan',
         'placeholder:text-base placeholder:text-iff-cyan hover:outline-none focus:outline-none',
         className,
       )}

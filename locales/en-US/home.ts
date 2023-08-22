@@ -19,6 +19,13 @@ export const home = {
       okButton: 'OK',
       placeholder: 'NFT Project',
     },
+    fakeNFTCheckPanel: {
+      checkOptions: {
+        placeholder: 'Select Check Option',
+        contract: 'Contract Address',
+        site: 'NFT Website URL',
+      },
+    },
     fakeSiteCheckForm: {
       heading: 'Key in website url -',
       okButton: 'OK',
@@ -28,6 +35,13 @@ export const home = {
       notExists: 'Url is not in the blocklist',
       isVerified: 'Url is verified as safe',
       isUnsafe: 'Url is verified as unsafe',
+    },
+    fakeContractCheckForm: {
+      heading: 'Key in contract address -',
+      placeholder: 'Please input an address',
+      okButton: 'OK',
+      required: 'Please input an address',
+      invalidAddress: 'Invalid address',
     },
   },
   sectionUserFeedback: {
