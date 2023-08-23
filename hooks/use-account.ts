@@ -42,10 +42,11 @@ export function useIffAccount() {
   const getWalletSignSignature = React.useCallback(
     async (code: string) => {
       if (!code) return
-      const signature = await signMessageAsync({ message: code })
+      const message = `Welcome to IfAndOnlyIf.io!! We will enhance your WEB3/NFT experience. Security Nonce: ${code}`
+      const signature = await signMessageAsync({ message })
       return signature
     },
-    [signMessageAsync]
+    [signMessageAsync],
   )
 
   const getLoginToken = React.useCallback(
@@ -57,7 +58,7 @@ export function useIffAccount() {
       console.debug('useIffAccount::getLoginToken address', address)
       return await doWalletLogin(address, signature)
     },
-    [getWalletSignCode, getWalletSignSignature]
+    [getWalletSignCode, getWalletSignSignature],
   )
 
   const signIn = React.useCallback(async () => {
@@ -67,7 +68,7 @@ export function useIffAccount() {
     setRefreshToken(refreshToken)
   }, [address, getLoginToken, setAccessToken, setRefreshToken])
 
-  const signOut = React.useCallback(async () => {
+  const signOut = React.useCallback(() => {
     removeAccessToken()
     removeRefreshToken()
   }, [removeAccessToken, removeRefreshToken])
