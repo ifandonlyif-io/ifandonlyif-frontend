@@ -4,7 +4,7 @@ import React from 'react'
 import { Avatar } from '@/components/Avatar'
 import { CheckMarkIcon, CrossMarkIcon } from '@/components/Icons'
 import { useScopedI18n } from '@/locales'
-import type { BaseComponent } from '@/types'
+import type { BaseComponent, NFTItem } from '@/types'
 import { cn, formatDateTime } from '@/utils'
 
 export interface HolderRecord {
@@ -12,15 +12,14 @@ export interface HolderRecord {
   message: string
 }
 
-export type NFTCardProperties = BaseComponent & {
-  name: string
-  nftId: number
-  nftType: string
-  imageUri: string
+export interface NFTCardInfo extends NFTItem {
   kycEpoch: number
   holderRecords?: HolderRecord[]
-  flipBack?: boolean
   validity?: boolean
+}
+
+export interface NFTCardProperties extends BaseComponent, NFTCardInfo {
+  flipBack?: boolean
 }
 
 type HolderRecordProperties = BaseComponent & HolderRecord
@@ -50,21 +49,21 @@ function Text({ className, children }: React.PropsWithChildren<BaseComponent>) {
 }
 
 function NFTCardFront(properties: NFTCardProperties) {
-  const { name, nftId, nftType, imageUri } = properties
+  const { name, tokenId, tokenType, imageUri } = properties
   return (
     <div className="iff-nft-card__face iff-nft-card__face--front">
       <div className="flex flex-1 flex-col rounded-t-xl bg-[#F5F5F5] px-5">
         <TextRow className="pt-3 text-sm font-semibold uppercase">
           <Text>{name}</Text>
-          <Text>#{nftId}</Text>
+          <Text>#{tokenId}</Text>
         </TextRow>
         <TextRow className="text-xs uppercase">
-          <Text className="font-semibold">{nftType}</Text>
-          <Text className="font-normal">{nftType}</Text>
+          <Text className="font-semibold">{tokenType}</Text>
+          <Text className="font-normal">{tokenType}</Text>
         </TextRow>
         <TextRow className="text-xs uppercase">
           <Text className="font-semibold"></Text>
-          <Text className="font-normal">{nftType}</Text>
+          <Text className="font-normal">{tokenType}</Text>
         </TextRow>
       </div>
       <div className="flex flex-col items-center p-5">
@@ -128,7 +127,7 @@ function HolderRecord(properties: HolderRecordProperties) {
 }
 
 function NFTCardBack(properties: NFTCardProperties) {
-  const { name, nftId, nftType, imageUri, kycEpoch } = properties
+  const { name, tokenId, tokenType, imageUri, kycEpoch } = properties
   const { holderRecords = [], validity = false } = properties
   const date = dateString(kycEpoch)
   const t = useScopedI18n('component.nftCard')
@@ -144,8 +143,8 @@ function NFTCardBack(properties: NFTCardProperties) {
         <Avatar size="medium" src={imageUri} />
         <div className="flex flex-col items-end justify-end text-right text-xs uppercase">
           <Text className="font-semibold">{name}</Text>
-          <Text className="font-semibold">#{nftId}</Text>
-          <Text className="font-normal">{nftType}</Text>
+          <Text className="font-semibold">#{tokenId}</Text>
+          <Text className="font-normal">{tokenType}</Text>
         </div>
       </TextRow>
       <div className="flex flex-1 flex-col px-5 py-4 text-black">

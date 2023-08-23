@@ -1,49 +1,16 @@
+import type { ParsedUrlQuery } from 'node:querystring'
+
 import type { GetServerSideProps, NextPage } from 'next'
 import { useRouter } from 'next/router'
 import React from 'react'
 
+import { getIffNftInfoById } from '@/backend'
 import { Button } from '@/components/Buttons'
 import { NeonBorder } from '@/components/Decorate'
 import { Rotate360Icon } from '@/components/Icons'
-import {
-  type HolderRecord,
-  NFTCard,
-  type NFTCardProperties,
-} from '@/components/NFTs'
+import { NFTCard, type NFTCardProperties } from '@/components/NFTs'
 import { useScopedI18n } from '@/locales'
-import { cn } from '@/utils'
-
-const holderRecords: HolderRecord[] = [
-  {
-    unixEpoch: 1_657_864_800,
-    message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  },
-  {
-    unixEpoch: 1_657_864_800,
-    message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  },
-  {
-    unixEpoch: 1_657_864_800,
-    message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  },
-  {
-    unixEpoch: 1_657_864_800,
-    message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  },
-  {
-    unixEpoch: 1_657_864_800,
-    message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  },
-]
-const demoNFTCard: NFTCardProperties = {
-  name: 'BORED APE YACHT CLUB',
-  nftId: 797,
-  nftType: 'ERC-721',
-  imageUri: 'https://avatars.githubusercontent.com/u/11311364',
-  kycEpoch: 1_657_864_800,
-  holderRecords,
-  validity: true,
-}
+import { cn, convertIffNftToNFTCardInfo } from '@/utils'
 
 interface NFTViewProperties {
   nftData: NFTCardProperties
@@ -74,7 +41,7 @@ const NFTView: NextPage<NFTViewProperties> = (
             </h1>
             <div className="text-md mb-5 flex flex-row font-bold text-white md:mb-6 md:flex-col md:text-xl">
               <h3 className="mr-5 md:mb-5">{nftData.name}</h3>
-              <p>#{nftData.nftId}</p>
+              <p>#{nftData.tokenId}</p>
             </div>
             <Button
               className="hidden !w-[116px] md:flex"
@@ -112,10 +79,18 @@ const NFTView: NextPage<NFTViewProperties> = (
   )
 }
 
+interface NFTViewParameters extends ParsedUrlQuery {
+  id: string
+}
+
 export const getServerSideProps: GetServerSideProps<
-  NFTViewProperties
-> = async () => {
-  const nftData = demoNFTCard
+  NFTViewProperties,
+  NFTViewParameters
+> = async (context) => {
+  if (!context.params) return await Promise.resolve({ notFound: true })
+  const { id } = context.params
+  const nftInfo = await getIffNftInfoById(id)
+  const nftData = convertIffNftToNFTCardInfo(nftInfo)
   return await Promise.resolve({ props: { nftData } })
 }
 

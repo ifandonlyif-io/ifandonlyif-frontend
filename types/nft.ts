@@ -1,4 +1,11 @@
-import type { Media, NftMetadata, SpamInfo, TokenUri } from 'alchemy-sdk'
+import type {
+  AcquiredAt,
+  Media,
+  NftContract,
+  NftMetadata,
+  SpamInfo,
+  TokenUri,
+} from 'alchemy-sdk'
 
 export declare interface NFTItem {
   address: string
@@ -12,7 +19,7 @@ export declare interface NFTItem {
 
 export declare type MyNFTItem = NFTItem
 
-declare interface NftContract {
+declare interface BaseNftContract {
   /** The address of the contract. */
   address: string
 }
@@ -27,23 +34,10 @@ declare interface NftId {
   }
 }
 
-declare interface NftContractMetadata {
-  /** The name of the contract. */
-  name?: string
-  /** The symbol of the contract. */
-  symbol?: string
-  /** The number of NFTs in the contract as an integer string. */
-  totalSupply?: string
-  /** The type of the token in the contract. */
-  tokenType: NftTokenType
-}
-
-export declare interface OwnedNft {
+declare interface BaseNft {
   /** The NFT's underlying contract and relevant contract metadata. */
-  contract: NftContract
+  contract: BaseNftContract
   id: NftId
-  /** The token balance of the NFT. */
-  balance: string
   /** Name of the NFT asset. */
   title: string | undefined
   /** Brief human-readable description */
@@ -59,17 +53,27 @@ export declare interface OwnedNft {
   metadata: NftMetadata
   /** When the NFT was last updated in the blockchain. Represented in ISO-8601 format. */
   timeLastUpdated: string
-  /** Holds an error message if there was an issue fetching metadata. */
-  error: string | undefined
   /** The NFT's relevant contract metadata. */
-  contractMetadata: NftContractMetadata
+  contractMetadata: NftContract
+}
+
+export declare interface Nft extends BaseNft {
+  /** The token balance of the NFT. */
+  balance?: string
+  /** Holds an error message if there was an issue fetching metadata. */
+  error?: string | undefined
   /** Detailed information on whether and why an NFT contract was classified as spam. */
-  spamInfo: SpamInfo | undefined
+  spamInfo?: SpamInfo | undefined
+  /**
+   * Time at which the NFT was most recently acquired by the user.
+   * Only available when specifying `orderBy: NftOrdering.TRANSFERTIME` in the request.
+   */
+  acquiredAt?: AcquiredAt | undefined
 }
 
 export declare interface FetchUserNftsResponse {
   /** The NFTs owned by the provided address. */
-  ownedNfts: OwnedNft[]
+  ownedNfts: Nft[]
   /**
    * Pagination token that can be passed into another request to fetch the next NFTs.
    * If there is no page key, then there are no more NFTs to fetch.
@@ -83,7 +87,7 @@ export declare interface FetchUserNftsResponse {
 
 export declare interface FetchUserIffNftsResponse {
   /** The NFTs owned by the provided address. */
-  ownedNfts: OwnedNft[]
+  ownedNfts: Nft[]
   /**
    * Pagination token that can be passed into another request to fetch the next NFTs.
    * If there is no page key, then there are no more NFTs to fetch.
@@ -94,6 +98,8 @@ export declare interface FetchUserIffNftsResponse {
   /** The block hash to get transaction receipts for. */
   blockHash: string
 }
+
+export declare type FetchIffNftByIdResponse = Nft
 
 export declare interface MintIffNftFormData {
   inputAddress: `0x${string}`

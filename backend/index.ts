@@ -1,6 +1,6 @@
 import { ofetch } from 'ofetch'
 
-import type { IffNftMeta, NftProject } from '@/types'
+import type { IffNftMeta, Nft, NftProject } from '@/types'
 import { getAPIBaseUrl, parseISODateTime } from '@/utils'
 
 const baseURL = getAPIBaseUrl('/')
@@ -83,7 +83,6 @@ export async function checkBlocklistInfo(uuid: string): Promise<boolean> {
     method: 'POST',
     body: { uuid },
   })
-  console.log('checkBlocklistInfo', response, typeof response)
   return response
 }
 
@@ -107,4 +106,12 @@ export async function checkSpamContract(address: string): Promise<boolean> {
     body: { address },
   })
   return data
+}
+
+export async function getIffNftInfoById(id: number | string): Promise<Nft> {
+  const data = await publicFetch<string>('/fetchIffNftById', {
+    body: { iffid: String(id) },
+    method: 'POST',
+  })
+  return JSON.parse(data) as Nft
 }

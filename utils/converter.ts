@@ -1,7 +1,8 @@
 import { hexToNumber, isHex } from 'viem'
 
 import type { SelectMenuOption } from '@/components/Forms'
-import type { NFTItem, NftProject, OwnedNft } from '@/types'
+import type { NFTCardInfo } from '@/components/NFTs'
+import type { Nft, NFTItem, NftProject } from '@/types'
 
 import { parseISODateTime } from './date-time'
 
@@ -12,13 +13,13 @@ export function convertStringToNumber(string_: string): number {
   return 0
 }
 
-function sortOwnedNft(left: OwnedNft, right: OwnedNft): number {
+function sortOwnedNft(left: Nft, right: Nft): number {
   const leftSec = parseISODateTime(left.timeLastUpdated)
   const rightSec = parseISODateTime(right.timeLastUpdated)
   return leftSec - rightSec
 }
 
-export function convertOwnedNftsToNftItems(ownedNfts: OwnedNft[]): NFTItem[] {
+export function convertOwnedNftsToNftItems(ownedNfts: Nft[]): NFTItem[] {
   const result = ownedNfts.sort(sortOwnedNft).map((owned) => {
     const address = owned.contract.address
     const name = owned.contractMetadata.name ?? 'NFT Project'
@@ -44,4 +45,28 @@ export function convertNftProjectsToSelectMenuOptions(
     value: project.id,
   }))
   return options
+}
+
+export function convertIffNftToNFTCardInfo(iffNft: Nft): NFTCardInfo {
+  const address = iffNft.contract.address
+  const name = iffNft.contractMetadata.name ?? 'NFT Project'
+  const symbol = iffNft.contractMetadata.symbol ?? 'NFT'
+  const tokenId = convertStringToNumber(iffNft.id.tokenId)
+  const tokenType =
+    iffNft.id?.tokenMetadata?.tokenType || iffNft.contractMetadata.tokenType
+  const imageUri =
+    Array.isArray(iffNft.media) && iffNft.media.length > 0
+      ? iffNft.media[0].thumbnail ?? iffNft.media[0].gateway
+      : ''
+  const unixEpoch = parseISODateTime(iffNft.timeLastUpdated)
+  return {
+    address,
+    name,
+    symbol,
+    tokenId,
+    tokenType,
+    imageUri,
+    unixEpoch,
+    kycEpoch: unixEpoch,
+  }
 }
