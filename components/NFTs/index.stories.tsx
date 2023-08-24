@@ -108,8 +108,8 @@ const holderRecords: HolderRecord[] = [
 export const NFTCardComponent: StoryObj<typeof NFTCard> = {
   args: {
     name: 'BORED APE YACHT CLUB',
-    nftId: 797,
-    nftType: 'ERC-721',
+    tokenId: 797,
+    tokenType: 'ERC-721',
     imageUri: 'https://avatars.githubusercontent.com/u/11311364',
     kycEpoch: 1_657_864_800,
     holderRecords,
