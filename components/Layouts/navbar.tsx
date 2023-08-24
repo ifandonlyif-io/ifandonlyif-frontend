@@ -1,11 +1,46 @@
-import Link from 'next/link'
 import React from 'react'
 
-import { IFFLogo } from '@/components/Logo'
+import { navLinks } from '@/data'
 import type { BaseComponent } from '@/types'
 import { cn } from '@/utils'
 
+import { ExternalLink } from '../Link'
 import { UserPanel } from './user-panel'
+
+type NavLinkItemProperties = BaseComponent &
+  Pick<React.ComponentProps<typeof ExternalLink>, 'to' | 'title'>
+
+function NavLinkItem(properties: NavLinkItemProperties) {
+  const { className, to, title } = properties
+  return (
+    <li className="flex">
+      <ExternalLink
+        className={`text-shadow-heading-1 ${cn(
+          'w-full md:w-auto md:min-w-[100px]',
+          'text-center text-sm font-bold text-white',
+          className,
+        )}`}
+        blank
+        to={to}
+        title={title}
+      >
+        {title}
+      </ExternalLink>
+    </li>
+  )
+}
+
+type NavLinksProperties = BaseComponent
+
+function NavLinks({ className }: NavLinksProperties) {
+  return (
+    <ul className={cn('flex flex-col items-center md:flex-row', className)}>
+      {navLinks.map((link) => (
+        <NavLinkItem key={link.name} to={link.href} title={link.name} />
+      ))}
+    </ul>
+  )
+}
 
 type NavbarProperties = BaseComponent
 
@@ -13,14 +48,12 @@ export function Navbar({ className }: NavbarProperties) {
   return (
     <nav
       className={cn(
-        'sticky z-10 flex h-[88px] flex-row items-center justify-between bg-black/20 px-[22px] shadow-iff-base backdrop-blur-2xl md:px-8',
+        'flex flex-row items-center gap-3 md:flex-row-reverse md:gap-5',
         className,
       )}
     >
-      <Link href="/" title="Home" aria-label="Home">
-        <IFFLogo className="w-16 md:w-[106px]" />
-      </Link>
       <UserPanel />
+      <NavLinks />
     </nav>
   )
 }

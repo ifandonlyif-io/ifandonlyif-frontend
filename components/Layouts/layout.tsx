@@ -6,7 +6,7 @@ import { useScopedI18n } from '@/locales'
 
 import { Disclaimer } from './disclaimer'
 import { Footer } from './footer'
-import { Navbar } from './navbar'
+import { Header } from './header'
 
 interface LayoutProperties {
   children: React.ReactNode
@@ -15,7 +15,7 @@ interface LayoutProperties {
 export function DefaultLayout({ children }: LayoutProperties) {
   return (
     <Fragment>
-      <Navbar />
+      <Header />
       <main className="iff-layout">{children}</main>
       <Disclaimer />
       <Footer />
@@ -29,7 +29,7 @@ export function OverviewLayout({ children }: LayoutProperties) {
 
   return (
     <Fragment>
-      <Navbar />
+      <Header />
       {noAccess ? (
         <div className="flex h-[calc(100vh_-_88px)] w-full flex-row items-center justify-center bg-black/50 backdrop-blur-[18px]">
           <h4 className="heading-4 text-white">{t('login')}</h4>
