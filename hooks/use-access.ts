@@ -9,7 +9,7 @@ export function useAccess() {
 
   const noAccess = React.useMemo<boolean>(
     () => isExpired || isAccountMissMatch,
-    [isExpired, isAccountMissMatch]
+    [isExpired, isAccountMissMatch],
   )
 
   return { noAccess }

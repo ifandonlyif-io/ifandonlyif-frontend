@@ -13,18 +13,18 @@ export function usePrivateFetch() {
   const { refresh } = useRefreshToken()
 
   const onRequest = React.useCallback(
-    async (context: FetchContext<unknown>) => {
+    (context: FetchContext<unknown>) => {
       if (!accessToken) return
       context.options.headers = Object.assign({}, context.options.headers, {
         Authorization: `bearer ${accessToken}`,
       })
     },
-    [accessToken]
+    [accessToken],
   )
 
   const privateFetch = React.useMemo(
     () => ofetch.create({ baseURL, onRequest }),
-    [onRequest]
+    [onRequest],
   )
 
   const fetchErrorHandler = React.useCallback(
@@ -34,7 +34,7 @@ export function usePrivateFetch() {
         await refresh()
       }
     },
-    [refresh]
+    [refresh],
   )
 
   return [privateFetch, fetchErrorHandler] as const

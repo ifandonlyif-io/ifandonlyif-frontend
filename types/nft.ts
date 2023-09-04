@@ -70,38 +70,3 @@ export declare interface Nft extends BaseNft {
    */
   acquiredAt?: AcquiredAt | undefined
 }
-
-export declare interface FetchUserNftsResponse {
-  /** The NFTs owned by the provided address. */
-  ownedNfts: Nft[]
-  /**
-   * Pagination token that can be passed into another request to fetch the next NFTs.
-   * If there is no page key, then there are no more NFTs to fetch.
-   */
-  pageKey: string | undefined
-  /** The total count of NFTs owned by the provided address. */
-  totalCount: number
-  /** The block hash to get transaction receipts for. */
-  blockHash: string
-}
-
-export declare interface FetchUserIffNftsResponse {
-  /** The NFTs owned by the provided address. */
-  ownedNfts: Nft[]
-  /**
-   * Pagination token that can be passed into another request to fetch the next NFTs.
-   * If there is no page key, then there are no more NFTs to fetch.
-   */
-  pageKey: string | undefined
-  /** The total count of NFTs owned by the provided address. */
-  totalCount: number
-  /** The block hash to get transaction receipts for. */
-  blockHash: string
-}
-
-export declare type FetchIffNftByIdResponse = Nft
-
-export declare interface MintIffNftFormData {
-  inputAddress: `0x${string}`
-  userInfo: `0x${string}`
-}

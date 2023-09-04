@@ -1,7 +1,5 @@
 import type { GetServerSideProps } from 'next'
-import { useRouter } from 'next/router'
 import React from 'react'
-import useSWR from 'swr'
 
 import { getEthToUsd, getGasPriceData } from '@/backend'
 import { OverviewLayout } from '@/components/Layouts'
@@ -17,74 +15,23 @@ import {
   SectionTitleWithSortTimezoneProvider,
 } from '@/components/pages/Overview'
 import { Tab, TabList, TabPanel, Tabs } from '@/components/Tabs'
-import { usePrivateFetch } from '@/hooks'
+import { useOverviewTab, useUserIFFNFTs, useUserNFTs } from '@/hooks'
 import { useScopedI18n } from '@/locales'
-import type {
-  FetchUserIffNftsResponse,
-  FetchUserNftsResponse,
-  NextPageWithLayout,
-} from '@/types'
-import { convertOwnedNftsToNftItems } from '@/utils'
+import type { NextPageWithLayout } from '@/types'
 
 interface OverviewProperties {
   overview: PanelOverviewProperties
   mintIt: Omit<PanelMintItProperties, 'myNFTs' | 'onMintIffNftClick'>
 }
 
-interface TabData {
-  label: 'overview' | 'mintIt' | 'premintNft' | 'iffNft' | 'kycRecord'
-  href: string
-}
-
-const tabs: TabData[] = [
-  { label: 'overview', href: '#overview' },
-  { label: 'mintIt', href: '#mint-it' },
-  { label: 'iffNft', href: '#iffnft' },
-  // { label: 'premintNft', href: '#premint-nft' },
-  // { label: 'kycRecord', href: '#kyc-record' },
-]
-
 const Overview: NextPageWithLayout<OverviewProperties> = (
   properties: OverviewProperties,
 ) => {
   const { overview, mintIt } = properties
   const t = useScopedI18n('overview.tabData')
-  const router = useRouter()
-  const [fetch, onFetchError] = usePrivateFetch()
-  const { data: myNfts, isLoading: myNftsLoading } = useSWR(
-    '/auth/fetchUserNft',
-    async (key) => {
-      const response = await fetch<string>(key, { method: 'POST' })
-      const parsedResponse = JSON.parse(response) as FetchUserNftsResponse
-      return convertOwnedNftsToNftItems(parsedResponse.ownedNfts)
-    },
-    { onError: onFetchError },
-  )
-  const { data: myIffNfts, isLoading: myIffNftsLoading } = useSWR(
-    '/auth/fetchUserIffNft',
-    async (key) => {
-      const response = await fetch<string>(key, { method: 'POST' })
-      const parsedResponse = JSON.parse(response) as FetchUserIffNftsResponse
-      return convertOwnedNftsToNftItems(parsedResponse.ownedNfts)
-    },
-    { onError: onFetchError },
-  )
-
-  const [tabIndex, setTabIndex] = React.useState(0)
-  const handleTabSelect = React.useCallback(
-    (index: number) => {
-      setTabIndex(index)
-      void router.push(tabs[index].href)
-    },
-    [router],
-  )
-
-  React.useEffect(() => {
-    const hash = router.asPath.split('#')[1]
-    if (!hash) return
-    const tabIndex = tabs.findIndex((tab) => tab.href === `#${hash}`)
-    setTabIndex(tabIndex)
-  }, [router.asPath])
+  const [tabs, tabIndex, handleTabSelect] = useOverviewTab()
+  const [myNfts, myNftsLoading] = useUserNFTs()
+  const [myIffNfts, myIffNftsLoading] = useUserIFFNFTs()
 
   return (
     <div className="my-10 rounded-b-xl bg-white shadow-iff-overview md:my-16 md:px-6 xl:px-8">
