@@ -108,7 +108,11 @@ function GasPriceList(properties: GasPriceListProperties) {
       </div>
       <div className="flex flex-col gap-2 overflow-y-auto">
         {data.map(([epoch, price]) => (
-          <GasPriceListItem key={epoch} epoch={epoch} price={price} />
+          <GasPriceListItem
+            key={`${epoch}-${price}`}
+            epoch={epoch}
+            price={price}
+          />
         ))}
       </div>
     </div>
