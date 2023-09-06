@@ -21,8 +21,8 @@ function WalletDropdown(properties: WalletDropdownProperties) {
   const { account, signOut } = useIffAccount()
   const accountString = account && shortenAddress(account.wallet)
 
-  const handleDisconnectClick = React.useCallback(() => {
-    signOut()
+  const handleDisconnectClick = React.useCallback(async () => {
+    await signOut()
   }, [signOut])
 
   return (

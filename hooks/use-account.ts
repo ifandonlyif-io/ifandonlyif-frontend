@@ -1,4 +1,5 @@
 import React from 'react'
+import { mutate } from 'swr'
 import { getAddress } from 'viem'
 import { useAccount, useSignMessage } from 'wagmi'
 
@@ -61,17 +62,24 @@ export function useIffAccount() {
     [getWalletSignCode, getWalletSignSignature],
   )
 
+  const clearSWRCache = React.useCallback(
+    () => mutate(() => true, undefined, { revalidate: false }),
+    [],
+  )
+
   const signIn = React.useCallback(async () => {
     if (!address) return
+    await clearSWRCache()
     const { accessToken, refreshToken } = await getLoginToken(address)
     setAccessToken(accessToken)
     setRefreshToken(refreshToken)
-  }, [address, getLoginToken, setAccessToken, setRefreshToken])
+  }, [address, clearSWRCache, getLoginToken, setAccessToken, setRefreshToken])
 
-  const signOut = React.useCallback(() => {
+  const signOut = React.useCallback(async () => {
     removeAccessToken()
     removeRefreshToken()
-  }, [removeAccessToken, removeRefreshToken])
+    await clearSWRCache()
+  }, [clearSWRCache, removeAccessToken, removeRefreshToken])
 
   return { account, isAccountMissMatch, signIn, signOut }
 }
