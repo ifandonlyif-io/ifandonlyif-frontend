@@ -279,21 +279,30 @@ function NFTButtons(properties: NFTButtonsProperties) {
 }
 
 export interface PanelIFFNFTProperties {
-  myIFFNFT: NFTItem[]
+  myIFFNFTs?: NFTItem[]
+  minterIFFNFTs?: NFTItem[]
   isLoading?: boolean
 }
 
 export function PanelIFFNFT(properties: PanelIFFNFTProperties) {
-  const { myIFFNFT, isLoading } = properties
-  const sortedNFTs = sortNFTItems(myIFFNFT).reverse()
+  const { myIFFNFTs, minterIFFNFTs, isLoading } = properties
   const t = useScopedI18n('overview.panelIFFNFT')
   const timezone = useSortByTimezone()
 
+  const sortedMyNFTs = React.useMemo(
+    () => (myIFFNFTs ? sortNFTItems(myIFFNFTs) : undefined),
+    [myIFFNFTs],
+  )
+
   const [selectedNftId, setSelectedNftId] = React.useState<number>()
+  const sortedMinterNFTs = React.useMemo(
+    () => (minterIFFNFTs ? sortNFTItems(minterIFFNFTs) : undefined),
+    [minterIFFNFTs],
+  )
   const selectedNftName = React.useMemo(() => {
-    const nft = sortedNFTs.find((nft) => nft.tokenId === selectedNftId)
+    const nft = sortedMinterNFTs?.find((nft) => nft.tokenId === selectedNftId)
     return nft ? `${nft.name} #${nft.tokenId}` : ''
-  }, [selectedNftId, sortedNFTs])
+  }, [selectedNftId, sortedMinterNFTs])
 
   const [isBurnModalOpen, setIsBurnModalOpen] = React.useState(false)
   const handleBurnModalOpen = React.useCallback((tokenId: number) => {
@@ -348,7 +357,7 @@ export function PanelIFFNFT(properties: PanelIFFNFTProperties) {
           <div className="flex justify-center">{t('loading')}</div>
         ) : (
           <div className="grid grid-cols-2 gap-[30px] md:flex md:flex-row md:flex-wrap">
-            {sortedNFTs.map((nft, index) => (
+            {sortedMinterNFTs?.map((nft, index) => (
               <NFTFrame
                 key={`${nft.name}-${index}`}
                 expired={false}
@@ -357,6 +366,14 @@ export function PanelIFFNFT(properties: PanelIFFNFTProperties) {
               >
                 <NFTButtons nft={nft} onBurnClick={handleBurnModalOpen} />
               </NFTFrame>
+            ))}
+            {sortedMyNFTs?.map((nft, index) => (
+              <NFTFrame
+                key={`${nft.name}-${index}`}
+                expired={false}
+                zone={timezone.value}
+                {...nft}
+              />
             ))}
           </div>
         )}

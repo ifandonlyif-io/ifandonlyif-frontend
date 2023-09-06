@@ -26,7 +26,7 @@ export function convertOwnedNftsToNftItems(ownedNfts: Nft[]): NFTItem[] {
     const symbol = owned.contractMetadata.symbol ?? 'NFT'
     const tokenId = convertStringToNumber(owned.id.tokenId)
     const tokenType =
-      owned.id?.tokenMetadata?.tokenType || owned.contractMetadata.tokenType
+      owned.id.tokenMetadata?.tokenType || owned.contractMetadata.tokenType
     const imageUri =
       Array.isArray(owned.media) && owned.media.length > 0
         ? owned.media[0].thumbnail ?? owned.media[0].gateway
@@ -53,7 +53,7 @@ export function convertIffNftToNFTCardInfo(iffNft: Nft): NFTCardInfo {
   const symbol = iffNft.contractMetadata.symbol ?? 'NFT'
   const tokenId = convertStringToNumber(iffNft.id.tokenId)
   const tokenType =
-    iffNft.id?.tokenMetadata?.tokenType || iffNft.contractMetadata.tokenType
+    iffNft.id.tokenMetadata?.tokenType || iffNft.contractMetadata.tokenType
   const imageUri =
     Array.isArray(iffNft.media) && iffNft.media.length > 0
       ? iffNft.media[0].thumbnail ?? iffNft.media[0].gateway
