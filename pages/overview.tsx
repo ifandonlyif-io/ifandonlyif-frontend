@@ -15,12 +15,7 @@ import {
   SectionTitleWithSortTimezoneProvider,
 } from '@/components/pages/Overview'
 import { Tab, TabList, TabPanel, Tabs } from '@/components/Tabs'
-import {
-  useMinterIFFNFTs,
-  useOverviewTab,
-  useUserIFFNFTs,
-  useUserNFTs,
-} from '@/hooks'
+import { useOverviewTab, useUserNFTs } from '@/hooks'
 import { useScopedI18n } from '@/locales'
 import type { NextPageWithLayout } from '@/types'
 
@@ -36,8 +31,6 @@ const Overview: NextPageWithLayout<OverviewProperties> = (
   const t = useScopedI18n('overview.tabData')
   const [tabs, tabIndex, handleTabSelect] = useOverviewTab()
   const [myNfts, myNftsLoading] = useUserNFTs()
-  const [myIffNfts, myIffNftsLoading] = useUserIFFNFTs()
-  const [minterIffNfts, minterIffNftsLoading] = useMinterIFFNFTs()
 
   return (
     <div className="my-10 rounded-b-xl bg-white shadow-iff-overview md:my-16 md:px-6 xl:px-8">
@@ -62,11 +55,7 @@ const Overview: NextPageWithLayout<OverviewProperties> = (
             />
           </TabPanel>
           <TabPanel>
-            <PanelIFFNFT
-              myIFFNFTs={myIffNfts}
-              minterIFFNFTs={minterIffNfts}
-              isLoading={myIffNftsLoading || minterIffNftsLoading}
-            />
+            <PanelIFFNFT />
           </TabPanel>
           {/* <TabPanel>
             <PanelPreMint {...preMint} />

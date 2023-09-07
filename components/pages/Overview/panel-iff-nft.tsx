@@ -2,6 +2,7 @@ import React from 'react'
 import { useWaitForTransaction } from 'wagmi'
 
 import { Button, NFTButton } from '@/components/Buttons'
+import { SpinLoading } from '@/components/Loading'
 import {
   CheckModal,
   type CheckModalProperties,
@@ -9,7 +10,12 @@ import {
   type ModalProperties,
 } from '@/components/Modal'
 import { NFTFrame } from '@/components/NFTs'
-import { useBurnIffNft, useSortByTimezone } from '@/hooks'
+import {
+  useBurnIffNft,
+  useMinterIFFNFTs,
+  useSortByTimezone,
+  useUserIFFNFTs,
+} from '@/hooks'
 import { useScopedI18n } from '@/locales'
 import type { NFTItem } from '@/types'
 import { sortNFTItems } from '@/utils'
@@ -278,26 +284,26 @@ function NFTButtons(properties: NFTButtonsProperties) {
   )
 }
 
-export interface PanelIFFNFTProperties {
-  myIFFNFTs?: NFTItem[]
-  minterIFFNFTs?: NFTItem[]
-  isLoading?: boolean
-}
-
-export function PanelIFFNFT(properties: PanelIFFNFTProperties) {
-  const { myIFFNFTs, minterIFFNFTs, isLoading } = properties
+export function PanelIFFNFT() {
   const t = useScopedI18n('overview.panelIFFNFT')
   const timezone = useSortByTimezone()
 
+  const [myIffNfts, myIffNftsLoading] = useUserIFFNFTs()
+  const [minterIffNfts, minterIffNftsLoading, minterMutate] = useMinterIFFNFTs()
+  const isLoading = React.useMemo<boolean>(
+    () => myIffNftsLoading || minterIffNftsLoading,
+    [minterIffNftsLoading, myIffNftsLoading],
+  )
+
   const sortedMyNFTs = React.useMemo(
-    () => (myIFFNFTs ? sortNFTItems(myIFFNFTs) : undefined),
-    [myIFFNFTs],
+    () => (myIffNfts ? sortNFTItems(myIffNfts) : undefined),
+    [myIffNfts],
   )
 
   const [selectedNftId, setSelectedNftId] = React.useState<number>()
   const sortedMinterNFTs = React.useMemo(
-    () => (minterIFFNFTs ? sortNFTItems(minterIFFNFTs) : undefined),
-    [minterIFFNFTs],
+    () => (minterIffNfts ? sortNFTItems(minterIffNfts) : undefined),
+    [minterIffNfts],
   )
   const selectedNftName = React.useMemo(() => {
     const nft = sortedMinterNFTs?.find((nft) => nft.tokenId === selectedNftId)
@@ -343,6 +349,7 @@ export function PanelIFFNFT(properties: PanelIFFNFTProperties) {
     hash: data?.hash,
     onSuccess: (data) => {
       console.debug(`Burned NFT with hash: ${data.transactionHash}`)
+      void minterMutate()
       setResultModalStatus('success')
       setIsResultModalOpen(true)
     },
@@ -350,33 +357,34 @@ export function PanelIFFNFT(properties: PanelIFFNFTProperties) {
 
   return (
     <div className="min-h-[640px] px-4 py-6 md:px-5 md:py-[50px]">
-      <TabTitle className="mb-4">{t('tabTitle')}</TabTitle>
+      <div className="mb-4 flex flex-row items-center gap-4">
+        <TabTitle>{t('tabTitle')}</TabTitle>
+        {!!isLoading && (
+          <SpinLoading className="h-6 w-6 fill-iff-purple text-gray-200 dark:text-gray-600" />
+        )}
+      </div>
       <SectionTitleWithSortTimezone className="mb-4" />
       <section className="mb-4 flex flex-col md:mb-8">
-        {isLoading ? (
-          <div className="flex justify-center">{t('loading')}</div>
-        ) : (
-          <div className="grid grid-cols-2 gap-[30px] md:flex md:flex-row md:flex-wrap">
-            {sortedMinterNFTs?.map((nft, index) => (
-              <NFTFrame
-                key={`${nft.name}-${index}`}
-                expired={false}
-                zone={timezone.value}
-                {...nft}
-              >
-                <NFTButtons nft={nft} onBurnClick={handleBurnModalOpen} />
-              </NFTFrame>
-            ))}
-            {sortedMyNFTs?.map((nft, index) => (
-              <NFTFrame
-                key={`${nft.name}-${index}`}
-                expired={false}
-                zone={timezone.value}
-                {...nft}
-              />
-            ))}
-          </div>
-        )}
+        <div className="grid grid-cols-2 gap-[30px] md:flex md:flex-row md:flex-wrap">
+          {sortedMinterNFTs?.map((nft, index) => (
+            <NFTFrame
+              key={`${nft.name}-${index}`}
+              expired={false}
+              zone={timezone.value}
+              {...nft}
+            >
+              <NFTButtons nft={nft} onBurnClick={handleBurnModalOpen} />
+            </NFTFrame>
+          ))}
+          {sortedMyNFTs?.map((nft, index) => (
+            <NFTFrame
+              key={`${nft.name}-${index}`}
+              expired={false}
+              zone={timezone.value}
+              {...nft}
+            />
+          ))}
+        </div>
       </section>
       <BurnModal
         name={selectedNftName}
