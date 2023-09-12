@@ -12,12 +12,7 @@ const meta: Meta<typeof NFTFrame> = {
   tags: ['autodocs'],
   render: (arguments_) => (
     <div className="bg-white p-5">
-      <NFTFrame
-        {...arguments_}
-        onHideClick={() => {
-          window.alert('Hide!')
-        }}
-      />
+      <NFTFrame {...arguments_} />
     </div>
   ),
 }
