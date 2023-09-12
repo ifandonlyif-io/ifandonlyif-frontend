@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { Card } from '@/components/Card'
+import { useMinterIFFNFTs, useUserIFFNFTs, useUserNFTs } from '@/hooks'
 // import { Label } from '@/components/Label'
 import { useScopedI18n } from '@/locales'
 import type { BaseComponent } from '@/types'
@@ -80,6 +81,15 @@ type OverviewStatusProperties = BaseComponent
 
 export function OverviewStatus({ className }: OverviewStatusProperties) {
   const t = useScopedI18n('overview.overviewStatus')
+  const [myNfts] = useUserNFTs()
+  const [myIffNfts] = useUserIFFNFTs()
+  const [minterIffNfts] = useMinterIFFNFTs()
+  const myNftsCount = React.useMemo<number>(() => myNfts?.length ?? 0, [myNfts])
+  const myIffNftsCount = React.useMemo<number>(() => {
+    const _myIffNftsCount = myIffNfts?.length ?? 0
+    const _minterIffNftsCount = minterIffNfts?.length ?? 0
+    return _myIffNftsCount + _minterIffNftsCount
+  }, [myIffNfts, minterIffNfts])
 
   return (
     <section
@@ -111,7 +121,7 @@ export function OverviewStatus({ className }: OverviewStatusProperties) {
       </StatusCard> */}
       <StatusCard title={t('myNfts.title')}>
         <div className="grid grid-cols-3 gap-5">
-          <StatusInfo title={t('myNfts.all')} value={2} />
+          <StatusInfo title={t('myNfts.all')} value={myNftsCount} />
         </div>
       </StatusCard>
       <StatusCard title={t('iffNfts.title')}>
@@ -124,7 +134,7 @@ export function OverviewStatus({ className }: OverviewStatusProperties) {
           />
         </div> */}
         <div className="grid grid-cols-3 gap-5">
-          <StatusInfo title={t('iffNfts.all')} value={100} />
+          <StatusInfo title={t('iffNfts.all')} value={myIffNftsCount} />
           {/* <StatusInfo title={t('iffNfts.memoed')} value={5} />
           <StatusInfo title={t('iffNfts.fully')} value={1} /> */}
         </div>
