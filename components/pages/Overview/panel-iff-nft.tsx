@@ -148,6 +148,20 @@ import { SectionTitleWithSortTimezone, TabTitle } from './title'
 //   )
 // }
 
+function ProcessingModal(properties: Omit<ModalProperties, 'title'>) {
+  const t = useScopedI18n('overview.mintItMyNFT')
+  const title = t('processingModalTitle')
+
+  return (
+    <Modal title={title} {...properties}>
+      <div className="flex flex-col items-center justify-center">
+        <SpinLoading className="mr-2 h-8 w-8 fill-iff-purple text-gray-200 dark:text-gray-600" />
+        <span className="sr-only">{title}</span>
+      </div>
+    </Modal>
+  )
+}
+
 type BurnResultModalProperties = CheckModalProperties
 
 function ResultModal(properties: BurnResultModalProperties) {
@@ -320,6 +334,9 @@ export function PanelIFFNFT() {
     setIsBurnModalOpen(false)
   }, [])
 
+  const [isProcessingModalOpen, setIsProcessingModalOpen] =
+    React.useState(false)
+
   const { data, writeAsync, prepareError } = useBurnIffNft(selectedNftId)
   const handleBurnClick = React.useCallback(async () => {
     if (!selectedNftId) return
@@ -333,6 +350,7 @@ export function PanelIFFNFT() {
     }
 
     if (!writeAsync) return
+    setIsProcessingModalOpen(true)
     await writeAsync()
   }, [prepareError, selectedNftId, writeAsync])
 
@@ -350,6 +368,7 @@ export function PanelIFFNFT() {
     onSuccess: (data) => {
       console.debug(`Burned NFT with hash: ${data.transactionHash}`)
       void minterMutate()
+      setIsProcessingModalOpen(false)
       setResultModalStatus('success')
       setIsResultModalOpen(true)
     },
@@ -392,6 +411,7 @@ export function PanelIFFNFT() {
         onModalClose={handleBurnModalClose}
         onBurnClick={handleBurnClick}
       />
+      <ProcessingModal isOpen={isProcessingModalOpen} />
       <ResultModal
         isOpen={isResultModalOpen}
         status={resultModalStatus}
