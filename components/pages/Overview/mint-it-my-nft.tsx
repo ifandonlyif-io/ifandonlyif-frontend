@@ -257,7 +257,7 @@ function ResultModal(properties: MintResultModalProperties) {
   const handleOpenUrl = React.useCallback(async () => {
     await router.push('/overview#iffnft')
     onModalClose && onModalClose()
-  }, [router])
+  }, [onModalClose, router])
 
   return (
     <CheckModal isOpen={isOpen} status={status} onModalClose={onModalClose}>
@@ -370,21 +370,15 @@ export function MintItMyNFT(properties: MintItMyNFTProperties) {
       )}
       <div className="grid grid-cols-2 gap-[30px] md:flex md:flex-row md:flex-wrap">
         {sortedNFTs.map((nft, index) => (
-          <NFTFrame
-            key={`${nft.name}-${index}`}
-            expired={false}
-            hideTime={true}
-            {...nft}
-          >
+          <div className="flex flex-col gap-5" key={`${nft.name}-${index}`}>
+            <NFTFrame hideTime={true} {...nft} />
             <NFTButton
               className="text-iff-cyan"
-              onClick={() => {
-                handleMintModalOpen(nft)
-              }}
+              onClick={() => handleMintModalOpen(nft)}
             >
               {t('nftButton')}
             </NFTButton>
-          </NFTFrame>
+          </div>
         ))}
       </div>
       <MintModal

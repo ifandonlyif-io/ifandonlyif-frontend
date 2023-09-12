@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 import { useWaitForTransaction } from 'wagmi'
 
@@ -258,6 +259,18 @@ function BurnModal(properties: BurnModalProperties) {
   )
 }
 
+interface NavigableNFTFrameProperties extends NFTItem {
+  zone?: string
+}
+
+function NavigableNFTFrame(properties: NavigableNFTFrameProperties) {
+  return (
+    <Link href={`/nft/${properties.tokenId}`}>
+      <NFTFrame zone={properties.zone} {...properties} />
+    </Link>
+  )
+}
+
 interface NFTButtonsProperties {
   nft: NFTItem
   onBurnClick: (tokenId: number) => void
@@ -386,19 +399,14 @@ export function PanelIFFNFT() {
       <section className="mb-4 flex flex-col md:mb-8">
         <div className="grid grid-cols-2 gap-[30px] md:flex md:flex-row md:flex-wrap">
           {sortedMinterNFTs?.map((nft, index) => (
-            <NFTFrame
-              key={`${nft.name}-${index}`}
-              expired={false}
-              zone={timezone.value}
-              {...nft}
-            >
+            <div className="flex flex-col gap-5" key={`${nft.name}-${index}`}>
+              <NavigableNFTFrame zone={timezone.value} {...nft} />
               <NFTButtons nft={nft} onBurnClick={handleBurnModalOpen} />
-            </NFTFrame>
+            </div>
           ))}
           {sortedMyNFTs?.map((nft, index) => (
-            <NFTFrame
+            <NavigableNFTFrame
               key={`${nft.name}-${index}`}
-              expired={false}
               zone={timezone.value}
               {...nft}
             />
