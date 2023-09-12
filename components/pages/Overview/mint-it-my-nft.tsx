@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/router'
 import React from 'react'
 import { type SubmitHandler, useForm } from 'react-hook-form'
 import { ContractFunctionExecutionError } from 'viem'
@@ -16,7 +17,6 @@ import {
 } from '@/components/Modal'
 import { NFTFrame } from '@/components/NFTs'
 import { useMintIffNft } from '@/hooks'
-import { useChainExplorer } from '@/hooks/use-chain-explorer'
 import { useScopedI18n } from '@/locales'
 import type { BaseComponent, MyNFTItem, NFTItem } from '@/types'
 import {
@@ -28,7 +28,7 @@ import {
 
 import { SectionTitle } from './title'
 
-type MintModalLabelProperties = BaseComponent & {
+interface MintModalLabelProperties extends BaseComponent {
   title: string
   htmlFor: string
 }
@@ -57,7 +57,7 @@ type ErrorMessage =
   | 'invalidWallet'
   | 'notOwnAddress'
   | 'invalidTypeId'
-type MintModalErrorProperties = BaseComponent & {
+interface MintModalErrorProperties extends BaseComponent {
   msg?: string[] | string | true
 }
 
@@ -95,7 +95,7 @@ const mintNftSchema = z.object({
 
 type MintNftFormData = z.infer<typeof mintNftSchema>
 
-type MintModalProperties = ModalProperties & {
+interface MintModalProperties extends ModalProperties {
   nft: NFTItem | undefined
   onMintSubmit?: (data: MintNftFormData) => void
   onMintSuccess?: (hash?: `0x${string}`) => void
@@ -248,18 +248,16 @@ function ProcessingModal(properties: Omit<ModalProperties, 'title'>) {
   )
 }
 
-type MintResultModalProperties = CheckModalProperties & {
-  hash?: `0x${string}`
-}
+type MintResultModalProperties = CheckModalProperties
 
 function ResultModal(properties: MintResultModalProperties) {
-  const { hash, isOpen, status, onModalClose } = properties
+  const { isOpen, status, onModalClose } = properties
   const t = useScopedI18n('overview.mintItMyNFT')
-  const explorerUrl = useChainExplorer(hash)
-  const handleOpenUrl = React.useCallback(() => {
-    if (!explorerUrl) return
-    window.open(explorerUrl, '_blank')
-  }, [explorerUrl])
+  const router = useRouter()
+  const handleOpenUrl = React.useCallback(async () => {
+    await router.push('/overview#iffnft')
+    onModalClose && onModalClose()
+  }, [router])
 
   return (
     <CheckModal isOpen={isOpen} status={status} onModalClose={onModalClose}>
@@ -352,16 +350,11 @@ export function MintItMyNFT(properties: MintItMyNFTProperties) {
     setIsResultModalOpen(false)
   }, [])
 
-  const [mintHash, setMintHash] = React.useState<`0x${string}`>()
-  const handleMintSuccess = React.useCallback(
-    (hash?: `0x${string}` | undefined) => {
-      setIsProcessingModalOpen(false)
-      setResultModalStatus('success')
-      setIsResultModalOpen(true)
-      setMintHash(hash)
-    },
-    [],
-  )
+  const handleMintSuccess = React.useCallback(() => {
+    setIsProcessingModalOpen(false)
+    setResultModalStatus('success')
+    setIsResultModalOpen(true)
+  }, [])
 
   return (
     <section className={cn('flex flex-col', className)}>
@@ -405,7 +398,6 @@ export function MintItMyNFT(properties: MintItMyNFTProperties) {
       <ResultModal
         isOpen={isResultModalOpen}
         status={resultModalStatus}
-        hash={mintHash}
         onModalClose={handleResultModalClose}
       />
     </section>

@@ -6,15 +6,17 @@ export declare type BaseComponent<T = unknown> = Pick<
   'className'
 >
 
-export declare type ReactProvider = { children: React.ReactNode }
+export declare interface ReactProvider {
+  children: React.ReactNode
+}
 
-export declare type PerPageLayout = {
+export declare interface PerPageLayout {
   getLayout(page: React.ReactElement): React.ReactNode
 }
 
 export declare type NextPageWithLayout<
   P = Record<string, unknown>,
-  IP = P
+  IP = P,
 > = NextPage<P, IP> & PerPageLayout
 
 export declare type RemoveIndex<Q> = {

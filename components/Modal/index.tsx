@@ -6,7 +6,7 @@ import { cn } from '@/utils'
 
 import { CheckMarkOutlineIcon, CrossMarkOutlineIcon } from '../Icons'
 
-export type ModalProperties = BaseComponent & {
+export interface ModalProperties extends BaseComponent {
   title?: string
   isOpen?: boolean
   onModalClose?: () => void
@@ -72,7 +72,7 @@ export function Modal(properties: React.PropsWithChildren<ModalProperties>) {
   )
 }
 
-export type CheckModalProperties = ModalProperties & {
+export interface CheckModalProperties extends ModalProperties {
   status: 'success' | 'error'
 }
 
