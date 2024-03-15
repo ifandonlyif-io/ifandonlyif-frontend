@@ -32,7 +32,7 @@
     "connectkit": "^1.5.3",
     "highcharts": "^11.1.0",
     "highcharts-react-official": "^3.2.1",
-    "jose": "^4.14.6",
+    "jose": "^4.15.5",
     "luxon": "^3.4.3",
     "next": "^13.5.2",
     "next-international": "^0.9.5",
