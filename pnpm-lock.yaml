@@ -4228,11 +4228,11 @@ packages:
       dequal: 2.0.3
     dev: true
 
-  /@nolyfill/define-properties@1.0.29:
-    resolution: {integrity: sha512-oowfUnNgrcAFRVF4aynDsaWn0OJxh9TUwmf8Aae9Q59XBp48GAY6as1A1oF9xdYdFeub9ezF+9DV+DojLkLVXQ==}
+  /@nolyfill/define-properties@1.0.39:
+    resolution: {integrity: sha512-N86fIyEhBbyfnrPNVMm4qnVjxd/UusrpEL7PG1h6cu64hGzotxiXgeixzF3xzjCfh6NepwFxxXyJ6XT5dOwnUg==}
     engines: {node: '>=12.4.0'}
     dependencies:
-      '@nolyfill/shared': 1.0.29
+      '@nolyfill/shared': 1.0.39
     dev: true
 
   /@nolyfill/es-iterator-helpers@1.0.21:
@@ -4333,6 +4333,10 @@ packages:
 
   /@nolyfill/shared@1.0.29:
     resolution: {integrity: sha512-Z8TABKv9kk8LrOtrfShpjeg9BhPI3AKZ78eVsVduSEhti8D59Fk+UmgO7iRJHLd1aMB7A1aIb+bQtcCjVmWJoA==}
+
+  /@nolyfill/shared@1.0.39:
+    resolution: {integrity: sha512-snXRL0PLsjxaDKZVlFA8Z3kjGZKRDLNmqrWr1vmyHtZAomk9f/pzpFoKtyy8YNEm3qJe0O/DPZliRxfcWA4yQg==}
+    dev: true
 
   /@nolyfill/side-channel@1.0.29:
     resolution: {integrity: sha512-nqk0vlqUL0wmmoPrm2HqDi0KXGy+jTNHlH/oSx7jsrh2rEApSy1mactsSUGWnhuz2ZsngJSrVHWZIaJKi3WUNA==}
@@ -11706,7 +11710,7 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.2
-      define-properties: /@nolyfill/define-properties@1.0.29
+      define-properties: /@nolyfill/define-properties@1.0.39
     dev: true
 
   /is-number@7.0.0:
@@ -14503,8 +14507,8 @@ packages:
       inherits: 2.0.4
     dev: true
 
-  /rollup@3.29.1:
-    resolution: {integrity: sha512-c+ebvQz0VIH4KhhCpDsI+Bik0eT8ZFEVZEYw0cGMVqIP8zc+gnwl7iXCamTw7vzv2MeuZFZfdx5JJIq+ehzDlg==}
+  /rollup@3.29.5:
+    resolution: {integrity: sha512-GVsDdsbJzzy4S/v3dqWPJ7EfvZJfCHiDqe80IyrF59LYuP+e6U1LJoUqeuqRbwAWoMNoXivMNeNAOf5E22VA1w==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
@@ -16155,7 +16159,7 @@ packages:
       esbuild: 0.18.20
       less: 4.2.0
       postcss: 8.4.31
-      rollup: 3.29.1
+      rollup: 3.29.5
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
