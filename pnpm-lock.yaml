@@ -4228,11 +4228,11 @@ packages:
       dequal: 2.0.3
     dev: true
 
-  /@nolyfill/define-properties@1.0.29:
-    resolution: {integrity: sha512-oowfUnNgrcAFRVF4aynDsaWn0OJxh9TUwmf8Aae9Q59XBp48GAY6as1A1oF9xdYdFeub9ezF+9DV+DojLkLVXQ==}
+  /@nolyfill/define-properties@1.0.39:
+    resolution: {integrity: sha512-N86fIyEhBbyfnrPNVMm4qnVjxd/UusrpEL7PG1h6cu64hGzotxiXgeixzF3xzjCfh6NepwFxxXyJ6XT5dOwnUg==}
     engines: {node: '>=12.4.0'}
     dependencies:
-      '@nolyfill/shared': 1.0.29
+      '@nolyfill/shared': 1.0.39
     dev: true
 
   /@nolyfill/es-iterator-helpers@1.0.21:
@@ -4333,6 +4333,10 @@ packages:
 
   /@nolyfill/shared@1.0.29:
     resolution: {integrity: sha512-Z8TABKv9kk8LrOtrfShpjeg9BhPI3AKZ78eVsVduSEhti8D59Fk+UmgO7iRJHLd1aMB7A1aIb+bQtcCjVmWJoA==}
+
+  /@nolyfill/shared@1.0.39:
+    resolution: {integrity: sha512-snXRL0PLsjxaDKZVlFA8Z3kjGZKRDLNmqrWr1vmyHtZAomk9f/pzpFoKtyy8YNEm3qJe0O/DPZliRxfcWA4yQg==}
+    dev: true
 
   /@nolyfill/side-channel@1.0.29:
     resolution: {integrity: sha512-nqk0vlqUL0wmmoPrm2HqDi0KXGy+jTNHlH/oSx7jsrh2rEApSy1mactsSUGWnhuz2ZsngJSrVHWZIaJKi3WUNA==}
@@ -5647,7 +5651,7 @@ packages:
       color-convert: 2.0.1
       dequal: 2.0.3
       lodash: 4.17.21
-      markdown-to-jsx: 7.3.2(react@18.2.0)
+      markdown-to-jsx: 7.5.0(react@18.2.0)
       memoizerific: 1.11.3
       polished: 4.2.2
       react: 18.2.0
@@ -10432,6 +10436,7 @@ packages:
   /eslint@8.49.0:
     resolution: {integrity: sha512-jw03ENfm6VJI0jA9U+8H5zfl5b+FvuU3YYvZRdZHOlU2ggJkxrlkJH4HcDrZpj6YwD8kuYqvQM8LyesoazrSOQ==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+    deprecated: This version is no longer supported. Please see https://eslint.org/version-support for other options.
     hasBin: true
     dependencies:
       '@eslint-community/eslint-utils': 4.4.0(eslint@8.49.0)
@@ -11706,7 +11711,7 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.2
-      define-properties: /@nolyfill/define-properties@1.0.29
+      define-properties: /@nolyfill/define-properties@1.0.39
     dev: true
 
   /is-number@7.0.0:
@@ -12543,8 +12548,8 @@ packages:
     resolution: {integrity: sha512-0aF7ZmVon1igznGI4VS30yugpduQW3y3GkcgGJOp7d8x8QrizhigUxjI/m2UojsXXto+jLAH3KSz+xOJTiORjg==}
     dev: true
 
-  /markdown-to-jsx@7.3.2(react@18.2.0):
-    resolution: {integrity: sha512-B+28F5ucp83aQm+OxNrPkS8z0tMKaeHiy0lHJs3LqCyDQFtWuenaIrkaVTgAm1pf1AU85LXltva86hlaT17i8Q==}
+  /markdown-to-jsx@7.5.0(react@18.2.0):
+    resolution: {integrity: sha512-RrBNcMHiFPcz/iqIj0n3wclzHXjwS7mzjBNWecKKVhNTIxQepIix6Il/wZCn2Cg5Y1ow2Qi84+eJrryFRWBEWw==}
     engines: {node: '>= 10'}
     peerDependencies:
       react: '>= 0.14.0'
