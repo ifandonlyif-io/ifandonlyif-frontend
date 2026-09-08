@@ -1,4 +1,9 @@
-# IF AND ONLY IF
+# IF AND ONLY IF — Deprecated
+
+> [!WARNING]
+> This repository is deprecated and no longer maintained. It is retained for
+> historical reference only. Do not use it for new development or production
+> deployments; dependencies and security fixes are no longer actively updated.
 
 ## Getting Started
 
